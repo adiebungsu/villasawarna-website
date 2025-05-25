@@ -1,0 +1,82 @@
+import { useState, useMemo, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { MapPin, Users, Wifi, Utensils, Car, Bath, BedDouble, Star, Heart, Share2, ArrowLeft, Home, Phone, Waves, Footprints, Bike, Tv, CheckCircle, Mail, Clock } from "lucide-react";
+import PropertyCard from "@/components/PropertyCard";
+import { Tabs, TabsContent, TabsList, TabsTrigger, RoomTabsList, RoomTabsTrigger, SimpleRoomTabsList, SimpleRoomTabsTrigger } from "@/components/ui/tabs";
+import { getAllProperties, getPropertiesByLocation, extractMainLocation } from "@/data/properties";
+import { format } from "date-fns";
+import { toast } from "@/components/ui/use-toast";
+import { propertyRoomTypes, RoomType } from "@/data/roomTypes";
+import { motion, AnimatePresence } from "framer-motion";
+import CardRatingSummary from "@/components/CardRatingSummary";
+import { propertyReviews } from "@/data/reviews";
+import OptimizedImage from '@/components/OptimizedImage';
+import SEO from '@/components/SEO';
+
+// ... existing interfaces and constants ...
+
+const PropertyDetail = () => {
+  // ... existing state and hooks ...
+
+  return (
+    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
+      <SEO 
+        title={metaTitle}
+        description={metaDescription}
+        keywords={`${property?.type} sawarna, ${property?.location}, pantai sawarna, sewa ${property?.type}, ${property?.name?.toLowerCase()}, penginapan sawarna, wisata sawarna`}
+        url={`https://villasawarna.com/property/${id}`}
+        image={property?.image}
+        type="website"
+        structuredData={structuredData}
+        openGraph={{
+          type: 'website',
+          article: {
+            section: property?.type || 'property',
+            tags: [property?.type, 'sawarna', 'wisata sawarna']
+          }
+        }}
+      />
+      
+      {/* Content */}
+      <div className="container-custom py-6">
+        {/* ... existing content ... */}
+      </div>
+
+      {/* Floating Home Button (Mobile) */}
+      <div className="fixed bottom-[72px] left-4 z-[101] block sm:hidden">
+        <Link to="/">
+          <Button
+            variant="default"
+            size="icon"
+            className="rounded-full shadow-lg bg-ocean hover:bg-ocean-dark dark:bg-ocean-dark dark:hover:bg-ocean w-14 h-14 transition-colors duration-300"
+            aria-label="Beranda"
+          >
+            <Home size={24} className="text-white" />
+          </Button>
+        </Link>
+      </div>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default PropertyDetail; 

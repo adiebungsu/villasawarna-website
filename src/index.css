@@ -1,0 +1,379 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply w-full px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl overflow-x-hidden;
+  }
+  
+  .btn-primary {
+    @apply bg-ocean hover:bg-ocean-dark text-white font-medium py-2 px-4 rounded transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply bg-sand hover:bg-sand-dark text-foreground font-medium py-2 px-4 rounded transition-colors;
+  }
+
+  /* Theme Toggle Button Ripple Effect */
+  .theme-toggle-button {
+    @apply relative overflow-hidden;
+  }
+
+  .theme-toggle-button.ripple::after {
+    content: '';
+    @apply absolute w-full h-full top-0 left-0 pointer-events-none;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 10.01%);
+    @apply bg-no-repeat bg-center;
+    transform: scale(10, 10);
+    @apply opacity-0 transition-all duration-500;
+    animation: ripple 0.6s ease-out;
+  }
+
+  @keyframes ripple {
+    0% {
+      transform: scale(0, 0);
+      @apply opacity-50;
+    }
+    100% {
+      transform: scale(10, 10);
+      @apply opacity-0;
+    }
+  }
+
+  .dark .theme-toggle-button.ripple::after {
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.3) 10%, transparent 10.01%);
+  }
+}
+
+/* ===== Custom Styling untuk Artikel ===== */
+.prose {
+  @apply text-base leading-relaxed max-w-full overflow-x-hidden;
+}
+
+.prose img {
+  @apply w-full h-auto object-cover rounded-lg shadow-md my-4;
+  max-width: 100%;
+}
+
+.prose h2 {
+  @apply mt-10 mb-4 text-2xl font-bold text-gray-800;
+}
+
+.prose h3 {
+  @apply mt-8 mb-3 text-xl font-bold text-gray-800;
+}
+
+.prose h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.prose p {
+  margin-bottom: 1.25rem;
+  color: #334155;
+  line-height: 1.75;
+}
+
+.prose ul, .prose ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.25rem;
+}
+
+.prose ul {
+  list-style-type: disc;
+}
+
+.prose ol {
+  list-style-type: decimal;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+  color: #334155;
+}
+
+.prose strong {
+  color: #0e7490;
+  font-weight: 600;
+}
+
+.prose a {
+  color: #0e7490;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.prose a:hover {
+  color: #ea580c;
+}
+
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid #0e7490;
+  background-color: #f8fafc;
+  color: #475569;
+}
+
+/* ===== Layout Villa Dua Kolom ===== */
+.villa-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  padding: 1.25rem 1rem;
+  transition: box-shadow 0.2s;
+}
+.villa-row:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+}
+.villa-img {
+  max-width: 90px;
+  min-width: 70px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.10);
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  background: #f3f4f6;
+  object-fit: cover;
+  display: block;
+}
+.villa-info {
+  flex: 1;
+  width: 100%;
+  text-align: left;
+}
+@media (max-width: 640px) {
+  .villa-row {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
+  }
+  .villa-img {
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+.villa-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #0e7490;
+  font-weight: 500;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.villa-link:hover {
+  color: #ea580c;
+}
+
+/* Responsive Typography */
+@media (max-width: 640px) {
+  .prose {
+    @apply text-sm;
+  }
+  
+  .prose h2 {
+    @apply text-xl;
+  }
+  
+  .prose h3 {
+    @apply text-lg;
+  }
+}
+
+/* Fix for mobile overflow */
+html, body {
+  @apply overflow-x-hidden;
+  width: 100%;
+  position: relative;
+}
+
+html {
+  scroll-padding-top: 96px; /* Adjusted value to account for sticky Navbar */
+}
+
+/* ===== Compatibility Overrides ===== */
+
+/* Override user-select for Leaflet map (if applicable) */
+.leaflet-overlay-pane svg {
+  -webkit-user-select: none !important; /* Chrome, Safari, Opera */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* Internet Explorer/Edge */
+  user-select: none !important; /* Standard syntax */
+}
+
+/* Override text-size-adjust for mobile browsers */
+html,
+:host {
+  -webkit-text-size-adjust: 100% !important;
+  text-size-adjust: 100% !important;
+}
+
+/* Jika ada class .QJTHM di kode Anda yang menggunakan text-size-adjust, tambahkan override di sini */
+/*
+.QJTHM {
+  -webkit-text-size-adjust: 100% !important;
+  text-size-adjust: 100% !important;
+}
+*/
+
+/* Rich Text Editor Styles */
+.ProseMirror {
+  @apply min-h-[200px] outline-none;
+}
+
+.ProseMirror p {
+  @apply my-2;
+}
+
+.ProseMirror h1 {
+  @apply text-4xl font-bold my-4;
+}
+
+.ProseMirror h2 {
+  @apply text-3xl font-bold my-3;
+}
+
+.ProseMirror h3 {
+  @apply text-2xl font-bold my-2;
+}
+
+.ProseMirror ul {
+  @apply list-disc list-inside my-2;
+}
+
+.ProseMirror ol {
+  @apply list-decimal list-inside my-2;
+}
+
+.ProseMirror blockquote {
+  @apply border-l-4 border-gray-300 pl-4 italic my-2;
+}
+
+.ProseMirror code {
+  @apply bg-gray-100 rounded px-1 py-0.5 font-mono text-sm;
+}
+
+.ProseMirror pre {
+  @apply bg-gray-100 rounded p-4 my-2 overflow-x-auto;
+}
+
+.ProseMirror pre code {
+  @apply bg-transparent p-0;
+}
+
+.ProseMirror a {
+  @apply text-primary hover:underline;
+}
+
+.ProseMirror img {
+  @apply max-w-full h-auto my-4 rounded;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  @apply text-gray-400;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}

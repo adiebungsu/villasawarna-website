@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://villasawarna.com/sitemap.xml
+
+# Disallow admin routes
+Disallow: /admin/
+Disallow: /api/
+
+# Crawl-delay
+Crawl-delay: 10

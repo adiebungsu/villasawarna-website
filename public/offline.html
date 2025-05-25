@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - Villa Sawarna</title>
+  <style>
+    :root {
+      --background: #f8fafc;
+      --foreground: #1e293b;
+      --card-bg: #ffffff;
+      --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --primary: #0ea5e9;
+      --primary-hover: #0284c7;
+      --text-muted: #64748b;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #0f172a;
+        --foreground: #e2e8f0;
+        --card-bg: #1e293b;
+        --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+        --primary: #38bdf8;
+        --primary-hover: #0ea5e9;
+        --text-muted: #94a3b8;
+      }
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: var(--background);
+      color: var(--foreground);
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      padding: 2rem;
+      background: var(--card-bg);
+      border-radius: 1rem;
+      box-shadow: var(--card-shadow);
+    }
+
+    .logo {
+      width: 150px;
+      height: auto;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: var(--foreground);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+
+    .button:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .icon {
+      font-size: 4rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="/images/logo-villasawarna2.png" alt="Villa Sawarna Logo" class="logo">
+    <div class="icon">📡</div>
+    <h1>Anda Sedang Offline</h1>
+    <p>
+      Maaf, sepertinya Anda sedang tidak terhubung ke internet. 
+      Beberapa fitur mungkin tidak tersedia saat ini.
+    </p>
+    <p>
+      Silakan periksa koneksi internet Anda dan coba lagi.
+    </p>
+    <a href="/" class="button">Coba Lagi</a>
+  </div>
+
+  <script>
+    // Cek koneksi internet
+    window.addEventListener('online', () => {
+      window.location.reload();
+    });
+  </script>
+</body>
+</html> 
