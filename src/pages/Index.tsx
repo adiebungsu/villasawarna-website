@@ -117,6 +117,18 @@ const Index = () => {
   }, []);
 
   const [activeCategory, setActiveCategory] = useState('semua');
+  const [quickViewOpen, setQuickViewOpen] = useState(false);
+  const [quickViewImages, setQuickViewImages] = useState<string[]>([]);
+  const [quickViewTitle, setQuickViewTitle] = useState<string>('');
+  const [quickViewIdx, setQuickViewIdx] = useState(0);
+  const [quickViewSlide, setQuickViewSlide] = useState(0);
+  const [quickViewEmblaRef, quickViewEmblaApi] = useEmblaCarousel({ align: 'start' });
+
+  useEffect(() => {
+    if (quickViewEmblaApi) {
+      quickViewEmblaApi.scrollTo(quickViewSlide);
+    }
+  }, [quickViewOpen, quickViewEmblaApi, quickViewSlide]);
 
   return (
     <>
@@ -203,81 +215,90 @@ const Index = () => {
 
         <div className={cn("pt-2", isMobile && "pb-16")}>
           <FeaturedProperties />
-        </div>
-
-        {/* Penginapan Murah Section */}
-        <section className="py-8 bg-gradient-to-br from-coral/5 via-white to-coral/5">
-          <div className="container-custom">
-            <div className="text-center mb-6">
-              <span className="inline-block px-3 py-1 mb-2 text-xs font-semibold bg-coral/10 text-coral rounded-full shadow-sm">
-                Pilihan Terbaik
-              </span>
-              <h2 className="text-2xl md:text-3xl font-bold mb-3">Penginapan Murah di Sawarna</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto text-sm">
-                Temukan villa dan homestay dengan harga terjangkau di Sawarna tanpa mengorbankan kenyamanan dan fasilitas penting untuk liburan Anda.
-              </p>
-            </div>
-
-            {/* Properties Carousel */}
-            <div className="relative">
-              <div className="overflow-hidden" ref={emblaRef}>
-                <div className="flex gap-2">
-                  {villasData
-                    .filter(villa => villa.price <= 1000000)
-                    .map((villa) => (
-                      <div key={villa.id} className="flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.33%] lg:flex-[0_0_25%] min-w-0">
-                        <PropertyCard
-                          id={villa.id}
-                          name={villa.name}
-                          type={villa.type}
-                          image={villa.mainImages?.[0] || villa.image}
-                          price={villa.price}
-                          rating={villa.rating}
-                          location={villa.location}
-                          capacity={villa.capacity}
-                          reviews={villa.reviews}
-                          bedrooms={villa.bedrooms}
-                          bathrooms={villa.bathrooms}
-                          amenities={villa.amenities}
-                          description={villa.description}
-                          tags={villa.tags || []}
-                          mainImages={villa.mainImages || []}
-                          roomTypes={villa.roomTypes || []}
-                          nearbyAttractions={villa.nearbyAttractions || []}
-                          ratingSummary={villa.ratingSummary}
-                          propertyReviews={villa.propertyReviews || []}
-                        />
-                      </div>
-                    ))}
+          {/* Custom Villa Promo Cards */}
+          <div className="flex flex-col gap-4 mt-8 md:flex-row md:gap-4">
+            {[0,1,2].map((idx) => {
+              const villa = villasData[idx];
+              if (!villa) return null;
+              return (
+                <div key={villa.id} className={cn(
+                  "bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden relative flex flex-col hover:shadow-xl transition-shadow duration-300",
+                  "w-full",
+                  "md:w-1/3",
+                  "max-w-xs mx-auto md:max-w-none"
+                )}>
+                  {/* Badge Rekomendasi hanya di card pertama */}
+                  {idx === 0 && (
+                    <div className="absolute left-0 top-0 z-10 px-3 py-0.5 sm:px-4 sm:py-1 rounded-tl-2xl rounded-br-2xl bg-red-600 text-white text-xs font-semibold flex items-center gap-1 sm:gap-2">
+                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" className="sm:w-4 sm:h-4"><path fill="currentColor" d="M12 2c.41 0 .8.25.95.64l2.36 5.7 6.2.54c.41.04.75.36.8.77.05.41-.19.8-.57.95l-4.8 2.1 1.5 6.1c.1.4-.1.82-.48 1-.38.18-.82.07-1.08-.27L12 17.27l-4.88 3.21c-.36.24-.85.15-1.1-.21a.82.82 0 01-.1-.79l1.5-6.1-4.8-2.1a.8.8 0 01-.57-.95c.05-.41.39-.73.8-.77l6.2-.54 2.36-5.7A1 1 0 0112 2z"/></svg>
+                      Rekomendasi spesial
+                    </div>
+                  )}
+                  {/* Gambar utama */}
+                  <div className="h-48 sm:h-56 md:h-64 lg:h-72 w-full relative">
+                    <img 
+                      src={villa.image} 
+                      alt={villa.name} 
+                      className="h-full w-full object-cover rounded-t-2xl cursor-pointer"
+                      onClick={() => {
+                        setQuickViewImages([villa.image, ...(villa.mainImages?.slice(1,3) || [])]);
+                        setQuickViewTitle(villa.name);
+                        setQuickViewIdx(idx);
+                        setQuickViewSlide(0);
+                        setQuickViewOpen(true);
+                      }}
+                    />
+                    <button
+                      className="absolute bottom-2 right-2 bg-white/80 dark:bg-gray-800/80 text-blue-600 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-semibold shadow hover:bg-blue-50 dark:hover:bg-blue-900/40 transition-colors"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setQuickViewImages([villa.image, ...(villa.mainImages?.slice(1,3) || [])]);
+                        setQuickViewTitle(villa.name);
+                        setQuickViewIdx(idx);
+                        setQuickViewSlide(0);
+                        setQuickViewOpen(true);
+                      }}
+                      type="button"
+                    >
+                      Lihat Galeri
+                    </button>
+                  </div>
+                  {/* Konten */}
+                  <div className="flex-1 flex flex-col p-2 sm:p-4 pt-2">
+                    <div className="flex items-center gap-1 sm:gap-2 mb-1 flex-wrap">
+                      <span className="text-yellow-500 text-xs sm:text-base font-bold">★</span>
+                      <span className="font-semibold text-xs sm:text-base text-gray-900 dark:text-white">{villa.rating.toFixed(1)}</span>
+                      <span className="text-blue-600 dark:text-blue-400 font-semibold text-[10px] sm:text-sm">Luar biasa</span>
+                      <span className="text-gray-500 dark:text-gray-300 text-[10px]">({villa.reviews} ulasan)</span>
+                    </div>
+                    <div className="font-bold text-sm sm:text-lg leading-tight mb-1 line-clamp-2 text-gray-900 dark:text-white">{villa.name}</div>
+                    <hr className="my-1 border-gray-200 dark:border-gray-700" />
+                    <div className="flex items-center gap-1 text-gray-600 dark:text-gray-300 text-[10px] sm:text-sm mb-2">
+                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" className="sm:w-4 sm:h-4"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 119.5 9 2.5 2.5 0 0112 11.5z"/></svg>
+                      <span className="line-clamp-1">{villa.location}</span>
+                    </div>
+                    <div className="flex items-center gap-1 sm:gap-2 mb-2 flex-wrap">
+                      <span className="bg-red-600 text-white text-[10px] font-bold px-1 py-0.5 sm:px-2 sm:py-1 rounded">
+                        Promo Spesial Hari Ini
+                      </span>
+                      <span className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200 text-[10px] font-semibold px-1 py-0.5 sm:px-2 sm:py-1 rounded flex items-center gap-1">
+                        <span className="bg-green-600 dark:bg-green-700 text-white rounded-full w-3 h-3 sm:w-4 sm:h-4 flex items-center justify-center text-[9px] sm:text-xs font-bold">1</span>
+                        {idx === 0 && 'Rp 38.943 digunakan'}
+                        {idx === 1 && 'Rp 21.570 digunakan'}
+                        {idx === 2 && 'Rp 15.200 digunakan'}
+                      </span>
+                    </div>
+                    <div className="flex items-end gap-1 sm:gap-2 mb-1">
+                      <span className="line-through text-gray-400 dark:text-gray-500 text-[10px] sm:text-sm">Rp {(villa.price*2).toLocaleString('id-ID')}</span>
+                      <span className="text-red-600 dark:text-red-400 text-base sm:text-xl md:text-2xl font-bold">Rp {villa.price.toLocaleString('id-ID')}</span>
+                    </div>
+                    <div className="text-[9px] sm:text-xs text-gray-500 dark:text-gray-300">Per malam sudah pajak dan biaya lainnya</div>
+                  </div>
                 </div>
-              </div>
-              <button
-                onClick={scrollPrev}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 bg-white dark:bg-gray-800 p-2 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                aria-label="Previous property"
-              >
-                <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-              </button>
-              <button
-                onClick={scrollNext}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 bg-white dark:bg-gray-800 p-2 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                aria-label="Next property"
-              >
-                <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-              </button>
-            </div>
-
-            <div className="text-center mt-6">
-              <Link to="/villas">
-                <Button 
-                  className="bg-coral hover:bg-coral/90 text-white px-5 py-3 text-sm rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
-                >
-                  Lihat Semua Penginapan Murah
-                </Button>
-              </Link>
-            </div>
+              );
+            })}
           </div>
-        </section>
+        </div>
 
         {/* Stats Section */}
         <section className="py-8 bg-gradient-to-br from-ocean/10 via-white to-coral/10 dark:from-ocean-dark/20 dark:via-gray-900 dark:to-coral-dark/20">
@@ -294,21 +315,21 @@ const Index = () => {
                 <div className="flex-1 min-w-[120px] bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-3 text-center border border-gray-100 dark:border-gray-700">
                   <div className="bg-gradient-to-br from-coral/10 to-coral/20 dark:from-coral-dark/20 dark:to-coral-dark/30 p-2 rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-1">
                     <User className="w-4 h-4 text-coral dark:text-coral-light" />
-              </div>
+                  </div>
                   <div className="text-xl font-bold text-coral dark:text-coral-light mb-0.5">500+</div>
                   <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Pengalaman Liburan</div>
                 </div>
                 <div className="flex-1 min-w-[120px] bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-3 text-center border border-gray-100 dark:border-gray-700">
                   <div className="bg-gradient-to-br from-purple-500/10 to-purple-500/20 dark:from-purple-500/20 dark:to-purple-500/30 p-2 rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-1">
                     <MapPin className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-              </div>
+                  </div>
                   <div className="text-xl font-bold text-purple-600 dark:text-purple-400 mb-0.5">10+</div>
                   <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Destinasi Wisata</div>
                 </div>
                 <div className="flex-1 min-w-[120px] bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-3 text-center border border-gray-100 dark:border-gray-700">
                   <div className="bg-gradient-to-br from-green-500/10 to-green-500/20 dark:from-green-500/20 dark:to-green-500/30 p-2 rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-1">
                     <Clock className="w-4 h-4 text-green-600 dark:text-green-400" />
-              </div>
+                  </div>
                   <div className="text-xl font-bold text-green-600 dark:text-green-400 mb-0.5">24/7</div>
                   <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Layanan Pelanggan</div>
                 </div>
@@ -530,6 +551,112 @@ const Index = () => {
         <GoFoodSawarna />
         <AboutSawarna />
       </div>
+      {/* QuickView Modal */}
+      {quickViewOpen && (
+        <div className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4" onClick={() => setQuickViewOpen(false)}>
+          <div className="relative w-full max-w-3xl h-auto md:h-[420px] overflow-hidden rounded-2xl flex flex-col md:flex-row bg-white dark:bg-gray-900 shadow-xl" onClick={e => e.stopPropagation()}>
+            {/* Tombol Tutup */}
+            <button 
+              className="absolute top-3 right-3 z-10 bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-white rounded-full p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              onClick={() => setQuickViewOpen(false)}
+              aria-label="Tutup"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            {/* Bagian Gambar */}
+            <div className="md:w-1/2 w-full h-56 md:h-auto relative flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+              {/* Badge kategori */}
+              <span className="absolute top-3 left-3 bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">Villa</span>
+              <div className="w-full h-full flex items-center justify-center">
+                <img src={quickViewImages[quickViewSlide] || quickViewImages[0]} alt={quickViewTitle+`-quickview`} className="object-cover w-full h-full rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none" />
+              </div>
+              {/* Navigasi gambar jika lebih dari 1 */}
+              {quickViewImages.length > 1 && (
+                <>
+                  <button
+                    onClick={() => quickViewEmblaApi && quickViewEmblaApi.scrollPrev()}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-white rounded-full p-1.5 shadow hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    aria-label="Sebelumnya"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                  </button>
+                  <button
+                    onClick={() => quickViewEmblaApi && quickViewEmblaApi.scrollNext()}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-white rounded-full p-1.5 shadow hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    aria-label="Berikutnya"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                  </button>
+                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/60 text-white px-2 py-0.5 rounded-full text-xs">
+                    {quickViewEmblaApi ? `${quickViewEmblaApi.selectedScrollSnap() + 1} / ${quickViewImages.length}` : ''}
+                  </div>
+                </>
+              )}
+            </div>
+            {/* Bagian Detail */}
+            <div className="md:w-1/2 w-full flex flex-col justify-between p-5 md:p-7">
+              {(() => {
+                const villa = villasData[quickViewIdx];
+                if (!villa) return null;
+                return (
+                  <>
+                    {/* Badge Promo Spesial */}
+                    <div className="mb-2">
+                      <span className="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">Promo Spesial Hari Ini</span>
+                    </div>
+                    <div>
+                      <div className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">{villa.name}</div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-yellow-500 font-bold">★</span>
+                        <span className="font-semibold text-sm text-gray-900 dark:text-white">{villa.rating?.toFixed(1) ?? '-'}</span>
+                        <span className="text-gray-500 dark:text-gray-300 text-xs">{villa.reviews ?? '-'} ulasan</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 text-sm mb-3">
+                        <MapPin className="w-4 h-4" />
+                        <span>{villa.location ?? '-'}</span>
+                      </div>
+                      <hr className="my-2 border-gray-200 dark:border-gray-700" />
+                      <div className="flex gap-4 mb-3">
+                        <div className="flex flex-col items-center text-xs text-gray-700 dark:text-gray-200">
+                          <User className="w-5 h-5 mb-1" />
+                          <span className="font-semibold">{villa.capacity ?? '-' } tamu</span>
+                          <span>Kapasitas</span>
+                        </div>
+                        <div className="flex flex-col items-center text-xs text-gray-700 dark:text-gray-200">
+                          <Home className="w-5 h-5 mb-1" />
+                          <span className="font-semibold">{villa.bedrooms ?? '-'} kamar</span>
+                          <span>Kamar Tidur</span>
+                        </div>
+                        <div className="flex flex-col items-center text-xs text-gray-700 dark:text-gray-200">
+                          <Shield className="w-5 h-5 mb-1" />
+                          <span className="font-semibold">{villa.bathrooms ?? '-'} kamar</span>
+                          <span>Kamar Mandi</span>
+                        </div>
+                      </div>
+                      <div className="mb-3">
+                        <div className="font-semibold text-sm mb-1">Fasilitas Utama</div>
+                        <div className="flex flex-wrap gap-2">
+                          {(villa.facilities && villa.facilities.length > 0 ? villa.facilities : ['-']).map((fasilitas: string, i: number) => (
+                            <span key={i} className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-2 py-1 rounded text-xs font-medium">{fasilitas}</span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="text-lg md:text-xl font-bold text-red-600 dark:text-red-400 mb-1">Rp {villa.price?.toLocaleString('id-ID') ?? '-'}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-300 mb-2">per malam</div>
+                    </div>
+                    <div className="flex gap-2 mt-4">
+                      <a href={`/villas/${villa.id}`} className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-center py-2 rounded-lg font-semibold transition-colors">Lihat Detail</a>
+                      <button onClick={() => setQuickViewOpen(false)} className="flex-1 border border-blue-500 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 py-2 rounded-lg font-semibold transition-colors">Tutup</button>
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
