@@ -554,7 +554,7 @@ export const propertyReviews: Record<string, Review[]> = {
       date: "2024-02-20"
     }
   ],
-  "v2": [
+  "villa-little-hula-hula": [
     {
       id: "r1",
       author: "Pandu Ananda",

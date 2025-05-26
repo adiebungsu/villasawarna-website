@@ -13,147 +13,74 @@ export interface RoomType {
 
 // Data room types untuk setiap properti
 export const propertyRoomTypes: Record<string, RoomType[]> = {
-  "v2": [
+  "villa-little-hula-hula": [
     {
       id: "laguna",
       name: "Laguna",
-      description: "Kamar Laguna bernuansa biru laut dengan dekorasi modern dan nyaman.",
-      capacity: 3,
-      beds: "1 King Bed + 1 Single Bed",
+      description: "Kamar dengan view kolam renang dan akses langsung ke area outdoor, cocok untuk keluarga.",
+      price: 400000,
+      capacity: 4,
+      beds: "2 Queen Bed",
       bathrooms: 1,
-      amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "Parkir Luas"],
+      amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "Akses Kolam Renang"],
       images: [
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/ca450ae7_z.jpg",
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/b5ee7db5_z.jpg",
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/4d94180e_z.jpg",
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/0646121a_z.jpg",
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/64fd4bca_z.jpg"
-      ],
-      price: 435000
+      ]
     },
     {
       id: "rimba",
       name: "Rimba",
-      description: "Kamar Rimba menawarkan suasana alami dengan pemandangan taman dan pepohonan rindang.",
-      capacity: 2,
-      beds: "1 Queen Bed",
+      description: "Kamar dengan nuansa alam tropis, cocok untuk keluarga kecil yang ingin suasana asri dan sejuk.",
+      price: 350000,
+      capacity: 3,
+      beds: "1 Queen Bed + 1 Single Bed",
       bathrooms: 1,
-      amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "Pemandangan Taman", "Parkir Luas"],
+      amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "Pemandangan Taman"],
       images: [
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/b13b101f_z.jpg",
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/8b6de0ed_z.jpg",
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/30d27d81_z.jpg",
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/7ca3d3a5_z.jpg",
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/7495a41b_z.jpg"
-      ],
-      price: 400000
-    },
-    {
-      id: "paradiso",
-      name: "Paradiso",
-      description: "Kamar Paradiso dengan dekorasi modern dan nyaman untuk istirahat Anda.",
-      capacity: 2,
-      beds: "1 King Bed",
-      bathrooms: 1,
-      amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "Parkir Luas"],
-      images: [
-        "https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20036564-17620bb91ad4386e52d8e4ca140bf6b2.jpeg",
-        "https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20036564-c1cd6b0ca8a09d208dfd43e395505f89.jpeg",
-        "https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20036564-25b560e2523f813406448b9c3670da2c.jpeg",
-        "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/30d27d81_z.jpg",
-        "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/8b6de0ed_z.jpg"
-      ],
-      price: 420000
+      ]
     },
     {
       id: "zamrud",
       name: "Zamrud",
-      description: "Kamar Zamrud adalah pilihan premium dengan sentuhan mewah dan fasilitas superior.",
-      capacity: 4,
-      beds: "2 Queen Beds",
-      bathrooms: 2,
-      amenities: ["AC", "WiFi", "2 Kamar Mandi Dalam", "Ruang Keluarga", "Teras Pribadi", "Parkir Luas"],
+      description: "Kamar dengan sentuhan warna hijau zamrud, memberikan ketenangan dan kenyamanan maksimal.",
+      price: 350000,
+      capacity: 3,
+      beds: "1 Queen Bed + 1 Single Bed",
+      bathrooms: 1,
+      amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "Pemandangan Taman"],
       images: [
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/d7110f07_z.jpg",
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/e36c1b2d_z.jpg",
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/42a43b5c_z.jpg",
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/c0665c79_z.jpg",
         "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/w647h440x0y0-faed2c0b_z.jpg"
-      ],
-      price: 450000
-    }
-  ],
-  "v1": [
-    {
-      id: "standard-room-v1",
-      name: "Standard Room",
-      description: "Kamar nyaman dengan fasilitas dasar untuk istirahat yang tenang.",
-      price: 300000,
-      capacity: 2,
-      beds: "1 Queen Bed",
-      bathrooms: 1,
-      amenities: ["AC", "WiFi", "Kamar Mandi Dalam"],
-      images: [
-        "https://i.imgur.com/iAmVH4D.jpeg",
-        "https://i.imgur.com/ZWM1vUu.jpeg",
-        "https://i.imgur.com/UYjw1CE.jpeg",
-        "https://i.imgur.com/R0HR9FM.jpeg",
-        "https://i.imgur.com/qKALLdC.jpeg"
       ]
     },
     {
-      id: "extrabed-room-v1",
-      name: "Extrabed Room",
-      description: "Kamar dengan tambahan extra bed, cocok untuk keluarga kecil.",
-      price: 350000,
-      capacity: 3,
-      beds: "1 Queen Bed + 1 Single Bed",
-      bathrooms: 1,
-      amenities: ["AC", "WiFi", "Extra Bed", "Kamar Mandi Dalam"],
+      id: "paradiso",
+      name: "Paradiso",
+      description: "Kamar terbesar dengan fasilitas lengkap, cocok untuk rombongan atau keluarga besar.",
+      price: 500000,
+      capacity: 6,
+      beds: "3 Queen Bed",
+      bathrooms: 2,
+      amenities: ["AC", "WiFi", "2 Kamar Mandi Dalam", "Ruang Keluarga", "Akses Kolam Renang"],
       images: [
-        "https://i.imgur.com/iAmVH4D.jpeg",
-        "https://i.imgur.com/ZWM1vUu.jpeg",
-        "https://i.imgur.com/UYjw1CE.jpeg",
-        "https://i.imgur.com/R0HR9FM.jpeg",
-        "https://i.imgur.com/qKALLdC.jpeg",
-        "https://i.imgur.com/A4khdow.jpeg"
+        "https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20036564-17620bb91ad4386e52d8e4ca140bf6b2.jpeg",
+        "https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20036564-c1cd6b0ca8a09d208dfd43e395505f89.jpeg",
+        "https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20036564-25b560e2523f813406448b9c3670da2c.jpeg",
+        "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/30d27d81_z.jpg",
+        "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/8b6de0ed_z.jpg"
       ]
-    }
-  ],
-  "v3": [
-    {
-      id: "standard",
-      name: "Standard Room",
-      description: "Kamar standar Villa Arizky menawarkan kenyamanan dengan harga terjangkau. Dilengkapi dengan tempat tidur queen size dan kamar mandi bersih yang nyaman, cocok untuk keluarga kecil.",
-      capacity: 4,
-      beds: "1 Queen Bed",
-      bathrooms: 1,
-      amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "TV"],
-      images: [
-        "https://i.imgur.com/DGHi30T.jpeg",
-        "https://i.imgur.com/MbbD0cR.jpeg",
-        "https://i.imgur.com/xEM5lSJ.jpeg",
-        "https://i.imgur.com/xEM5lSJ.jpeg",
-        "https://i.imgur.com/c4tdv00.jpeg"
-      ],
-      price: 300000
-    },
-    {
-      id: "deluxe",
-      name: "Deluxe Room",
-      description: "Kamar deluxe Villa Arizky menawarkan ruang lebih luas dan fasilitas premium. Pilihan tepat untuk tamu yang menginginkan kenyamanan ekstra di Legon Pari.",
-      capacity: 8,
-      beds: "1 King Bed",
-      bathrooms: 1,
-      amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "TV"],
-      images: [
-        "https://i.imgur.com/XQKMbFZ.jpeg",
-        "https://i.imgur.com/DabvprB.jpeg",
-        "https://i.imgur.com/TASDEI8.jpeg",
-        "https://i.imgur.com/zgtnDbS.jpeg",
-        "https://i.imgur.com/acr10CW.jpeg"
-      ],
-      price: 350000
     }
   ],
   "v4": [

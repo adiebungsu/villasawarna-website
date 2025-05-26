@@ -82,12 +82,11 @@ interface Property {
 
 // Define main property images for specific properties
 const propertyMainImages: Record<string, { url: string; description: string }[]> = {
-  "v1": [
+  "villa-little-hula-hula": [
     {
-      url: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&auto=format&fit=crop&q=80",
+      url: "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-aea2b07141382e5e96f88bfe59f5efe0.jpeg",
       description: "Tampilan Depan Villa - Arsitektur modern dengan taman yang rindang"
-    },
-    // ... rest of the images ...
+    }
   ]
 };
 
@@ -420,7 +419,7 @@ const PropertyDetail: React.FC = () => {
   const property = useMemo(() => allProperties.find((p) => p.id === id), [allProperties, id]);
   const roomTypes = useMemo(() => propertyRoomTypes[id || ''] || [], [id]);
   const activeRoomType = useMemo(() => roomTypes.find(room => room.id === selectedRoomType) || roomTypes[0], [roomTypes, selectedRoomType]);
-  const mainLocation = useMemo(() => property ? extractMainLocation(property.id === 'v2' ? 'Goa Langir, Sawarna' : property.location) : "", [property]);
+  const mainLocation = useMemo(() => property ? extractMainLocation(property.id === 'villa-little-hula-hula' ? 'Goa Langir, Sawarna' : property.location) : "", [property]);
   const recommendedProperties = useMemo(() => {
     if (!property || !mainLocation) return [];
     return getPropertiesByLocation(mainLocation)
@@ -506,23 +505,18 @@ const PropertyDetail: React.FC = () => {
       return property.mainImages;
     } else if (property?.image) {
       return [property.image];
-    } else if (property?.id === "v1") { // Villa Cempaka
+    } else if (property?.id === "villa-little-hula-hula") { // Villa Little Hula Hula
       return [
-        "https://i.imgur.com/3yR0ery.jpeg",
-        ...propertyMainImages["v1"].slice(1).map(img => img.url)
+        "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-aea2b07141382e5e96f88bfe59f5efe0.jpeg",
+        // ... rest of the images ...
       ];
-    } else if (property?.id === "v12") { // Villa Deka Sawarna
+    } else if (property?.id === "villa-deka-sawarna") { // Villa Deka Sawarna
       return [
         property.image,
         "/lovable-uploads/e50f994d-274e-445b-9055-77f8e64b6e97.png",
         "/lovable-uploads/4087feae-fbfe-4434-83b7-c97aa8312d50.png",
         "/lovable-uploads/7fda71e9-087f-408f-9635-f37e3c00b55b.png",
         "/lovable-uploads/4ea6aa45-8255-4e97-8618-69f08293e6b5.png"
-      ];
-    } else if (property?.id === "v2") { // Villa Little Hula Hula
-      return [
-        "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-aea2b07141382e5e96f88bfe59f5efe0.jpeg",
-        // ... rest of the images ...
       ];
     } else {
       return property ? [
@@ -946,6 +940,38 @@ const PropertyDetail: React.FC = () => {
                 </div>
               </div>
 
+              {/* Rekomendasi Lainnya */}
+              <div className="mt-8">
+                <h2 className="text-xl font-bold mb-4 dark:text-white">Rekomendasi Lainnya di {mainLocation}</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {recommendedProperties.map((property) => (
+                    <div key={property.id} className="flex-[0_0_50%] md:flex-[0_0_33.33%] lg:flex-[0_0_25%] min-w-0">
+                      <PropertyCard
+                        id={property.id}
+                        name={property.name}
+                        type={property.type}
+                        image={property.mainImages?.[0] || property.image}
+                        price={property.price}
+                        rating={property.rating}
+                        location={property.location}
+                        capacity={property.capacity}
+                        reviews={property.reviews}
+                        bedrooms={property.bedrooms}
+                        bathrooms={property.bathrooms}
+                        amenities={property.amenities}
+                        description={property.description}
+                        tags={property.tags || []}
+                        mainImages={property.mainImages || []}
+                        roomTypes={property.roomTypes || []}
+                        nearbyAttractions={property.nearbyAttractions || []}
+                        ratingSummary={property.ratingSummary}
+                        propertyReviews={property.propertyReviews || []}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* Ulasan Tamu */}
               <div id="review" className="mb-8">
                 <h2 className="text-xl font-bold mb-4 dark:text-white">Ulasan Tamu</h2>
@@ -993,38 +1019,6 @@ const PropertyDetail: React.FC = () => {
                   </motion.div>
                 </AnimatePresence>
               </div>
-
-              {/* Rekomendasi Lainnya */}
-              <div className="mb-8">
-                <h2 className="text-xl font-bold mb-4 dark:text-white">Rekomendasi Lainnya di {mainLocation}</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {recommendedProperties.map((property) => (
-                    <div key={property.id} className="flex-[0_0_50%] md:flex-[0_0_33.33%] lg:flex-[0_0_25%] min-w-0">
-                      <PropertyCard
-                        id={property.id}
-                        name={property.name}
-                        type={property.type}
-                        image={property.mainImages?.[0] || property.image}
-                        price={property.price}
-                        rating={property.rating}
-                        location={property.location}
-                        capacity={property.capacity}
-                        reviews={property.reviews}
-                        bedrooms={property.bedrooms}
-                        bathrooms={property.bathrooms}
-                        amenities={property.amenities}
-                        description={property.description}
-                        tags={property.tags || []}
-                        mainImages={property.mainImages || []}
-                        roomTypes={property.roomTypes || []}
-                        nearbyAttractions={property.nearbyAttractions || []}
-                        ratingSummary={property.ratingSummary}
-                        propertyReviews={property.propertyReviews || []}
-                      />
-                          </div>
-                  ))}
-                            </div>
-                            </div>
 
               {/* Lokasi */}
               <div id="lokasi" className="mb-8">

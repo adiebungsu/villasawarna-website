@@ -1,4 +1,4 @@
-const CACHE_NAME = 'villasawarna-v1';
+const CACHE_NAME = 'villasawarna-v2';
 const urlsToCache = [
   '/',
   '/index.html',
