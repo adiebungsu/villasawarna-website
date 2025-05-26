@@ -62,4 +62,24 @@ export type DestinationStructuredData = [
   TouristAttractionSchema,
   BreadcrumbListSchema,
   FAQPageSchema
-] & Record<string, unknown>[]; 
+] & Record<string, unknown>[];
+
+export interface Destination {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  images: string[];
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  openingHours?: string;
+  price?: string;
+  rating: number;
+  reviews: number;
+  facilities: string[];
+  address: string;
+  createdAt: string;
+  updatedAt: string;
+} 

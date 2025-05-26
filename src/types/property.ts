@@ -3,7 +3,11 @@ export interface Property {
   name: string;
   slug: string;
   description: string;
-  price: number;
+  priceRange: {
+    min: number;
+    max: number;
+  };
+  address: string;
   location: string;
   category: 'villa' | 'hotel' | 'homestay';
   images: string[];
@@ -14,6 +18,7 @@ export interface Property {
     lat: number;
     lng: number;
   };
+  availability?: string;
   featured?: boolean;
   createdAt: string;
   updatedAt: string;
