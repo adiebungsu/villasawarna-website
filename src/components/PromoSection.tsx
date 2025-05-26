@@ -88,9 +88,9 @@ export function PromoSection() {
         </div>
 
         {/* Promo List Tanpa Carousel */}
-        <div className="flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:overflow-x-visible">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {promos.map((promo) => (
-            <div key={promo.id} className="min-w-[320px] md:min-w-0">
+            <div key={promo.id} className="w-full">
               <PromoCard {...promo} />
             </div>
           ))}
