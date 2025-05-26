@@ -8,9 +8,9 @@ const promos = [
     id: "villa-little-hula-hula",
     title: "Villa Little Hula Hula",
     description: "Villa mewah premium dengan 10 kamar tidur, pemandangan sawah yang menenangkan, dan area outdoor yang luas. Dilengkapi dapur modern dan area BBQ.",
-    price: 314500,
+    price: 320000,
     originalPrice: 370000,
-    discount: 15,
+    discount: 13,
     image: "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-aea2b07141382e5e96f88bfe59f5efe0.jpeg",
     location: "Goa Langir, Sawarna",
     rating: 4.8,
@@ -24,9 +24,9 @@ const promos = [
     id: "villa-sinar-pelangi",
     title: "Villa Sinar Pelangi",
     description: "Villa yang sangat nyaman dengan lokasi strategis di semua lokasi wisata, 10 kamar tidur mewah, dan area outdoor yang luas. Cocok untuk acara keluarga besar.",
-    price: 170000,
+    price: 194000,
     originalPrice: 200000,
-    discount: 15,
+    discount: 3,
     image: "https://i.imgur.com/lNcydX5.jpeg",
     location: "Pantai Sawarna",
     rating: 4.7,
@@ -40,9 +40,9 @@ const promos = [
     id: "villa-arizky-sawarna",
     title: "Villa Arizky Sawarna",
     description: "Villa modern dengan 8 kamar tidur, pemandangan sawah yang menenangkan, dan area outdoor yang luas. Dilengkapi dapur modern dan area BBQ.",
-    price: 297500,
+    price: 315000,
     originalPrice: 350000,
-    discount: 15,
+    discount: 10,
     image: "https://i.imgur.com/wBoC7ZA.jpeg",
     location: "Legon Pari",
     rating: 4.8,
@@ -72,9 +72,6 @@ const promos = [
 
 export function PromoSection() {
   const navigate = useNavigate();
-  const [emblaRef, emblaApi] = useEmblaCarousel({ align: 'start' });
-  const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
-  const scrollNext = () => emblaApi && emblaApi.scrollNext();
 
   return (
     <section className="py-16 bg-gradient-to-br from-coral/5 via-white to-coral/5 dark:from-coral/10 dark:via-gray-900 dark:to-coral/10">
@@ -90,40 +87,13 @@ export function PromoSection() {
           </p>
         </div>
 
-        <div className="relative">
-          {/* Embla Carousel container */}
-          <div className="overflow-hidden" ref={emblaRef}>
-            {/* Embla Carousel wrapper */}
-            <div className="flex gap-6">
-              {promos.map((promo) => (
-                <div key={promo.id} className="flex-[0_0_50%] md:flex-[0_0_33.33%] lg:flex-[0_0_25%] min-w-0">
-                  <div className="group transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                    <PromoCard {...promo} />
-                  </div>
-                </div>
-              ))}
+        {/* Promo List Tanpa Carousel */}
+        <div className="flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:overflow-x-visible">
+          {promos.map((promo) => (
+            <div key={promo.id} className="min-w-[320px] md:min-w-0">
+              <PromoCard {...promo} />
             </div>
-          </div>
-
-          {/* Navigation Buttons */}
-          <button
-            onClick={scrollPrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 z-10 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-100 dark:border-gray-700"
-            title="Previous"
-            aria-label="Previous slide"
-            disabled={!emblaApi}
-          >
-            <ChevronLeft className="h-6 w-6 text-coral dark:text-coral-light" />
-          </button>
-          <button
-            onClick={scrollNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 z-10 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-100 dark:border-gray-700"
-            title="Next"
-            aria-label="Next slide"
-            disabled={!emblaApi}
-          >
-            <ChevronRight className="h-6 w-6 text-coral dark:text-coral-light" />
-          </button>
+          ))}
         </div>
       </div>
     </section>

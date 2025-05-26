@@ -1,8 +1,9 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin, Star, Users, Bed } from "lucide-react";
+import { MapPin, Star, Users, Bed, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
 interface PromoCardProps {
   id: string;
@@ -34,9 +35,11 @@ export function PromoCard({
   reviews,
   capacity,
   bedrooms,
-  amenities
+  amenities,
+  validUntil
 }: PromoCardProps) {
   const navigate = useNavigate();
+  const [showQuickView, setShowQuickView] = useState(false);
 
   const handleBookNow = () => {
     navigate(`/villas/${id}`);
@@ -51,75 +54,140 @@ export function PromoCard({
   };
 
   return (
-    <Card className="overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col bg-white dark:bg-gray-800">
-      <div className="relative">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-48 object-cover transform transition-transform duration-300 hover:scale-105"
-        />
-        <Badge className="absolute top-4 right-4 bg-red-600 dark:bg-red-500 text-white px-3 py-1 text-sm font-semibold">
-          {discount}% OFF
-        </Badge>
-      </div>
-
-      <div className="p-4 flex-grow flex flex-col">
-        <div className="flex items-center gap-2 mb-2">
-          <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-          <span className="text-sm font-medium dark:text-gray-200">{rating}</span>
-          <span className="text-sm text-gray-500 dark:text-gray-400">({reviews} ulasan)</span>
-        </div>
-
-        {/* Separator line */}
-        <div className="border-b border-gray-200 dark:border-gray-700 mb-2"></div>
-
-        <h3 className="text-lg font-semibold mb-2 line-clamp-1 dark:text-white">{title}</h3>
-
-        {/* Separator line after title */}
-        <div className="border-b border-gray-200 dark:border-gray-700 mb-3"></div>
-        
-        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 mb-3">
-          <MapPin className="h-4 w-4" />
-          <span className="text-sm">{location}</span>
-        </div>
-
-        {/* Kapasitas dan Kamar */}
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-3 text-sm text-gray-600 dark:text-gray-300">
-          <div className="flex items-center gap-1">
-            <Users className="h-4 w-4 text-ocean dark:text-ocean-light" />
-            <span>{capacity} tamu</span>
+    <>
+      <div className="flex bg-white rounded-lg shadow border border-gray-200 dark:bg-gray-800 dark:border-gray-700 overflow-hidden w-full max-w-2xl mx-auto min-h-[110px] relative">
+        {/* Kiri: Gambar utama dan thumbnail */}
+        <div className="relative w-28 min-w-[100px] flex flex-col items-center p-1">
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-20 object-cover rounded mb-1 cursor-pointer"
+            onClick={() => setShowQuickView(true)}
+          />
+          {/* Tombol favorit */}
+          <button className="absolute top-1 right-1 bg-white/80 rounded-full p-0.5 shadow hover:bg-white" title="Tambah ke favorit">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 text-gray-400">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 21.364l-7.682-7.682a4.5 4.5 0 010-6.364z" />
+            </svg>
+          </button>
+          {/* Tombol Quick View */}
+          <button
+            className="absolute top-1 left-1 bg-white/80 rounded-full p-0.5 shadow hover:bg-white"
+            onClick={() => setShowQuickView(true)}
+            title="Quick View"
+          >
+            <Eye className="w-4 h-4 text-gray-400" />
+          </button>
+          {/* Thumbnail gambar kecil (dummy) */}
+          <div className="flex gap-0.5 mt-0.5">
+            <img src={image} alt="thumb" className="w-4 h-4 object-cover rounded" />
+            <img src={image} alt="thumb" className="w-4 h-4 object-cover rounded" />
+            <div className="w-4 h-4 bg-gray-200 flex items-center justify-center text-[7px] rounded text-gray-600">Lihat<br />semua</div>
           </div>
-          {bedrooms !== undefined && (
-            <div className="flex items-center gap-1">
-              <Bed className="h-4 w-4 text-ocean dark:text-ocean-light" />
-              <span>{bedrooms} kamar</span>
+        </div>
+        {/* Kanan: Info properti */}
+        <div className="flex-1 flex flex-col justify-between p-2">
+          <div>
+            <div className="flex items-center gap-1 mb-0.5">
+              <span className="text-[15px] font-semibold text-gray-900 dark:text-white leading-tight line-clamp-1">{title}</span>
+              <span className="flex flex-col items-end ml-auto">
+                <span className="flex items-center gap-0.5 text-blue-700 font-bold text-xs">
+                  {rating}
+                  <span className="font-normal text-[10px] text-blue-700">Spektakuler</span>
+                </span>
+                <span className="text-[10px] text-gray-400">{reviews} Ulasan</span>
+              </span>
             </div>
-          )}
+            <div className="flex items-center gap-0.5 text-[11px] text-gray-500 mb-0.5">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 12.414a4 4 0 10-1.414 1.414l4.243 4.243a1 1 0 001.414-1.414z" /></svg>
+              <span className="truncate max-w-[80px]">{location}</span>
+            </div>
+            <div className="flex gap-0.5 mb-0.5">
+              <span className="bg-gray-100 border border-gray-300 text-[10px] px-1.5 py-0.5 rounded">Sarapan</span>
+              <span className="bg-gray-100 border border-gray-300 text-[10px] px-1.5 py-0.5 rounded">Parkir</span>
+              <span className="bg-gray-100 border border-gray-300 text-[10px] px-1.5 py-0.5 rounded">WiFi Gratis</span>
+            </div>
+          </div>
+          <div className="flex flex-col items-end justify-end gap-0.5 mt-1">
+            {/* Badge diskon di atas harga */}
+            <span className="inline-block bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded mb-0.5">Diskon {discount}%</span>
+            <div className="flex items-center gap-1">
+              <span className="text-gray-400 text-[13px] line-through">{formatPrice(originalPrice)}</span>
+              <span className="text-red-600 font-bold text-[15px]">Rp {formatPrice(price).replace('Rp', '').trim()}</span>
+            </div>
+          </div>
         </div>
-
-        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">{description}</p>
-
-        <div className="flex flex-wrap gap-2 mb-4">
-          {amenities.slice(0, 3).map((amenity, index) => (
-            <Badge key={index} variant="secondary" className="text-xs dark:bg-gray-700 dark:text-gray-200">
-              {amenity}
-            </Badge>
-          ))}
-        </div>
-
-        {/* Price Section */}
-        <div className="mt-auto">
-          <span className="text-sm text-gray-500 dark:text-gray-400 line-through">{formatPrice(originalPrice)}</span>
-          <span className="text-xl font-bold text-coral dark:text-coral-light block">{formatPrice(price)}</span>
-        </div>
-
-        <Button 
-          onClick={handleBookNow}
-          className="w-full bg-coral hover:bg-coral/90 dark:bg-coral-dark dark:hover:bg-coral text-white mt-4"
-        >
-          Pesan Sekarang
-        </Button>
       </div>
-    </Card>
+      {/* Modal Quick View */}
+      {showQuickView && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-sm w-full p-0 relative animate-fadeIn overflow-hidden">
+            {/* Header Gambar & Label */}
+            <div className="relative">
+              <img src={image} alt={title} className="w-full h-40 object-cover" />
+              <span className="absolute top-2 left-2 bg-cyan-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">Villa</span>
+              {/* Badge Diskon */}
+              <span className="absolute top-2 right-12 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded shadow">Diskon {discount}%</span>
+              <button
+                className="absolute top-2 right-2 bg-white/80 rounded-full p-1 shadow hover:bg-white text-xl"
+                onClick={() => setShowQuickView(false)}
+                aria-label="Tutup Quick View"
+              >
+                ×
+              </button>
+            </div>
+            {/* Info Utama */}
+            <div className="p-4 pb-2">
+              <div className="font-bold text-lg text-gray-900 dark:text-white mb-1">{title}</div>
+              <div className="flex items-center gap-1 text-sm mb-1">
+                <Star className="w-4 h-4 text-yellow-400" fill="#facc15" />
+                <span className="font-semibold text-gray-700 dark:text-gray-200">{rating}</span>
+                <span className="text-gray-500">{reviews} ulasan</span>
+              </div>
+              <div className="flex items-center gap-1 text-xs text-gray-500 mb-2">
+                <MapPin className="w-4 h-4 text-cyan-500" />
+                <span>{location}</span>
+              </div>
+              {/* Fasilitas utama 3 kolom */}
+              <div className="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2 mb-2">
+                <div className="flex flex-col items-center flex-1">
+                  <Users className="w-5 h-5 text-cyan-500 mb-0.5" />
+                  <span className="text-xs text-gray-700 dark:text-gray-200 font-semibold">{capacity} tamu</span>
+                  <span className="text-[10px] text-gray-500">Kapasitas</span>
+                </div>
+                <div className="flex flex-col items-center flex-1">
+                  <Bed className="w-5 h-5 text-cyan-500 mb-0.5" />
+                  <span className="text-xs text-gray-700 dark:text-gray-200 font-semibold">{bedrooms} kamar</span>
+                  <span className="text-[10px] text-gray-500">Kamar Tidur</span>
+                </div>
+                <div className="flex flex-col items-center flex-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-cyan-500 mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-3-3v6m9 2a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h3.586a1 1 0 01.707.293l1.414 1.414a1 1 0 00.707.293h6.172a1 1 0 00.707-.293l1.414-1.414A1 1 0 0120.414 5H21a2 2 0 012 2v11z" /></svg>
+                  <span className="text-xs text-gray-700 dark:text-gray-200 font-semibold">8 kamar</span>
+                  <span className="text-[10px] text-gray-500">Kamar Mandi</span>
+                </div>
+              </div>
+              {/* Chips Fasilitas Utama */}
+              <div className="mb-2">
+                <div className="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Fasilitas Utama</div>
+                <div className="flex flex-wrap gap-1">
+                  {amenities.slice(0, 5).map((item, idx) => (
+                    <span key={idx} className="bg-gray-100 border border-gray-300 text-[11px] px-2 py-0.5 rounded text-gray-700 dark:bg-gray-800 dark:text-gray-200">{item}</span>
+                  ))}
+                </div>
+              </div>
+              {/* Harga & Tombol */}
+              <div className="mt-2 mb-1">
+                <span className="text-lg font-bold text-red-600">{formatPrice(price)}</span>
+                <span className="text-xs text-gray-500 ml-1">per malam</span>
+              </div>
+              <div className="flex flex-col gap-2 mt-2">
+                <Button size="sm" className="w-full bg-cyan-500 hover:bg-cyan-600 text-white" onClick={() => navigate(`/villas/${id}`)}>Lihat Detail</Button>
+                <Button size="sm" variant="outline" className="w-full" onClick={() => setShowQuickView(false)}>Tutup</Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 } 

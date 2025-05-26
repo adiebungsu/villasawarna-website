@@ -22,6 +22,7 @@ import { initSentry } from './lib/sentry';
 import { Layout } from '@/components/Layout';
 import LoadingScreen from './components/LoadingScreen';
 import AuthGuard from './components/AuthGuard';
+import { ThemeProvider } from '@/context/ThemeContext';
 
 // Lazy load pages dengan chunk naming
 const Index = lazy(() => import(/* webpackChunkName: "home" */ "./pages/Index"));
@@ -149,51 +150,53 @@ const App = () => {
             <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
               <HelmetProvider>
                 <TooltipProvider>
-                  <Router>
-                    <FontLoader 
-                      fonts={[
-                        { family: 'Inter', weight: [400, 500, 600, 700] },
-                        { family: 'Poppins', weight: [400, 500, 600, 700] }
-                      ]} 
-                    />
-                    <Toaster />
-                    <Sonner />
-                    <ScrollToTop />
-                    <ErrorBoundary>
-                      <Suspense fallback={<PageLoader />}>
-                        <AnimatePresence mode="wait">
-                          <Layout>
-                            <Routes>
-                              <Route path="/" element={<Index />} />
-                              <Route path="/villas" element={<Villas />} />
-                              <Route path="/homestays" element={<Homestays />} />
-                              <Route path="/villas/:id" element={<PropertyDetail />} />
-                              <Route path="/homestays/:id" element={<PropertyDetail />} />
-                              <Route path="/articles" element={<Articles />} />
-                              <Route path="/article/:id" element={<ArticleDetail />} />
-                              <Route path="/about" element={<About />} />
-                              <Route path="/contact" element={<Contact />} />
-                              <Route path="/search" element={<Search />} />
-                              <Route path="/admin/articles" element={<ArticleList />} />
-                              <Route path="/admin/articles/new" element={<ArticleEditor />} />
-                              <Route path="/admin/articles/edit/:id" element={<ArticleEditor />} />
-                              <Route path="/destinations" element={<Destinations />} />
-                              <Route path="/destination/:id" element={<DestinationDetail />} />
-                              <Route path="/terms" element={<TermsAndConditions />} />
-                              <Route path="/admin" element={<AuthGuard><Dashboard /></AuthGuard>} />
-                              <Route path="/admin/properties" element={<AuthGuard><PropertyList /></AuthGuard>} />
-                              <Route path="/admin/properties/new" element={<AuthGuard><PropertyEditor /></AuthGuard>} />
-                              <Route path="/admin/properties/edit/:id" element={<AuthGuard><PropertyEditor /></AuthGuard>} />
-                              <Route path="/admin/destinations" element={<AuthGuard><DestinationList /></AuthGuard>} />
-                              <Route path="/admin/bookings" element={<AuthGuard><BookingList /></AuthGuard>} />
-                              <Route path="*" element={<NotFound />} />
-                            </Routes>
-                          </Layout>
-                        </AnimatePresence>
-                      </Suspense>
-                    </ErrorBoundary>
-                    {updateAvailable && <UpdateNotification onUpdate={update} />}
-                  </Router>
+                  <ThemeProvider>
+                    <Router>
+                      <FontLoader 
+                        fonts={[
+                          { family: 'Inter', weight: [400, 500, 600, 700] },
+                          { family: 'Poppins', weight: [400, 500, 600, 700] }
+                        ]} 
+                      />
+                      <Toaster />
+                      <Sonner />
+                      <ScrollToTop />
+                      <ErrorBoundary>
+                        <Suspense fallback={<PageLoader />}>
+                          <AnimatePresence mode="wait">
+                            <Layout>
+                              <Routes>
+                                <Route path="/" element={<Index />} />
+                                <Route path="/villas" element={<Villas />} />
+                                <Route path="/homestays" element={<Homestays />} />
+                                <Route path="/villas/:id" element={<PropertyDetail />} />
+                                <Route path="/homestays/:id" element={<PropertyDetail />} />
+                                <Route path="/articles" element={<Articles />} />
+                                <Route path="/article/:id" element={<ArticleDetail />} />
+                                <Route path="/about" element={<About />} />
+                                <Route path="/contact" element={<Contact />} />
+                                <Route path="/search" element={<Search />} />
+                                <Route path="/admin/articles" element={<ArticleList />} />
+                                <Route path="/admin/articles/new" element={<ArticleEditor />} />
+                                <Route path="/admin/articles/edit/:id" element={<ArticleEditor />} />
+                                <Route path="/destinations" element={<Destinations />} />
+                                <Route path="/destination/:id" element={<DestinationDetail />} />
+                                <Route path="/terms" element={<TermsAndConditions />} />
+                                <Route path="/admin" element={<AuthGuard><Dashboard /></AuthGuard>} />
+                                <Route path="/admin/properties" element={<AuthGuard><PropertyList /></AuthGuard>} />
+                                <Route path="/admin/properties/new" element={<AuthGuard><PropertyEditor /></AuthGuard>} />
+                                <Route path="/admin/properties/edit/:id" element={<AuthGuard><PropertyEditor /></AuthGuard>} />
+                                <Route path="/admin/destinations" element={<AuthGuard><DestinationList /></AuthGuard>} />
+                                <Route path="/admin/bookings" element={<AuthGuard><BookingList /></AuthGuard>} />
+                                <Route path="*" element={<NotFound />} />
+                              </Routes>
+                            </Layout>
+                          </AnimatePresence>
+                        </Suspense>
+                      </ErrorBoundary>
+                      {updateAvailable && <UpdateNotification onUpdate={update} />}
+                    </Router>
+                  </ThemeProvider>
                 </TooltipProvider>
               </HelmetProvider>
             </GoogleOAuthProvider>
