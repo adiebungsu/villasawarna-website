@@ -158,10 +158,13 @@ const Home = () => {
                 <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                   Temukan villa dan homestay dengan harga terjangkau di Sawarna tanpa mengorbankan kenyamanan dan fasilitas penting untuk liburan Anda.
                 </p>
+                <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">
+                  Filter berdasarkan lokasi untuk menemukan penginapan yang sesuai dengan kebutuhan Anda
+                </p>
               </div>
 
               {/* Location Filter Buttons */}
-              <div className="flex flex-wrap justify-center gap-2 mb-8">
+              <div className="flex flex-wrap justify-center gap-3 mb-10">
                 <Button
                   variant={filter === 'all' ? 'default' : 'outline'}
                   className={filter === 'all' ? 'bg-coral dark:bg-coral-light dark:text-gray-900' : 'border-coral text-coral hover:bg-coral hover:text-white dark:border-coral dark:text-coral-light dark:hover:bg-coral-light dark:hover:text-gray-900'}
@@ -192,17 +195,19 @@ const Home = () => {
                 </Button>
               </div>
 
-              {/* Properties Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {/* Property Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
                 {villasData
                   .filter(villa => {
                     const priceFilter = villa.price <= 500000;
                     const locationFilter = filter === 'all' || villa.location.toLowerCase().includes(filter.toLowerCase());
                     return priceFilter && locationFilter;
                   })
-                  .slice(0, 8) // Ambil 8 villa termurah
+                  .slice(0, 6) // Ambil 6 villa termurah
                   .map((villa) => (
-                    <PropertyCard key={villa.id} {...villa} />
+                    <div key={villa.id} className="w-full h-full">
+                      <PropertyCard {...villa} />
+                    </div>
                   ))}
               </div>
 
@@ -210,6 +215,7 @@ const Home = () => {
               <div className="text-center mt-12">
                 <Button
                   variant="outline"
+                  size="lg"
                   className="border-coral text-coral hover:bg-coral hover:text-white dark:border-coral dark:text-coral-light dark:hover:bg-coral-light dark:hover:text-gray-900"
                   onClick={() => navigate('/villas')}
                 >
@@ -220,6 +226,21 @@ const Home = () => {
           </section>
 
           <FeaturedDestinations />
+
+          {/* Akomodasi Pilihan */}
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Akomodasi Pilihan</h2>
+              <Link to="/villas" className="text-ocean hover:text-ocean-dark text-sm font-medium">
+                Lihat Semua
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {villasData.slice(0, 6).map((villa) => (
+                <PropertyCard key={villa.id} {...villa} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>

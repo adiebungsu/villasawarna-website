@@ -55,6 +55,14 @@ export interface Property {
   nearbyAttractions: { name: string; distance: string; }[];
   ratingSummary: RatingSummary;
   propertyReviews?: Review[];
+  contact?: { phone: string };
+  coordinates?: { lat: number; lng: number };
+  reviewDetails?: Review[];
+  distanceToBeach?: number;
+  bookedDates?: {
+    start: string;
+    end: string;
+  }[];
 }
 
 export type PropertyCardProps = Omit<Property, 'propertyReviews'> & {

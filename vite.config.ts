@@ -17,7 +17,41 @@ export default defineConfig({
       overlay: false
     }
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      manifest: {
+        name: 'Villa Sawarna',
+        short_name: 'Villa Sawarna',
+        description: 'Sewa Villa & Homestay di Pantai Sawarna',
+        theme_color: '#0ea5e9',
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          }
+        ]
+      }
+    }),
+    compression({
+      algorithm: 'gzip',
+      exclude: [/\.(br)$/, /\.(gz)$/],
+    }),
+    visualizer({
+      filename: 'dist/stats.html',
+      open: true,
+      gzipSize: true,
+      brotliSize: true,
+    })
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -36,10 +70,13 @@ export default defineConfig({
         manualChunks: {
           vendor: ['react', 'react-dom'],
           ui: ['@radix-ui/react-dialog', '@radix-ui/react-navigation-menu'],
+          maps: ['leaflet', 'react-leaflet'],
+          forms: ['react-hook-form', 'zod', '@hookform/resolvers'],
+          editor: ['@tiptap/react', '@tiptap/starter-kit'],
         }
       }
     },
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 500,
     minify: 'terser',
     terserOptions: {
       compress: {

@@ -1,15 +1,18 @@
 import { useLocation } from "react-router-dom";
 import PropertyCard from "@/components/PropertyCard";
 import { getVillasData, getHomestaysData } from "@/data/properties";
-import type { ExtendedPropertyCardProps } from "@/data/properties";
+import type { PropertyCardProps } from "@/components/PropertyCard";
 import { articleData } from "@/data/articles";
 import { destinationsData } from "@/data/destinations";
 import type { Destination } from "@/data/destinations";
 import SEO from '@/components/SEO';
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Hotel, Home, Newspaper, Landmark } from "lucide-react";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+
+// Import FILTERS dari SearchBar
+import { FILTERS } from "@/components/SearchBar";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -20,20 +23,23 @@ type Article = typeof articleData[number];
 
 const Search = () => {
   const query = useQuery();
-  const searchQuery = query.get("query") || "";
-  const type = query.get("type") || "all";
-  const accommodationFilter = query.get("accommodation") || "all";
+  const searchQuery = query.get('query') || '';
+  const searchType = query.get('type') || 'accommodation';
+  const filters = query.get('filters')?.split(',') || [];
+  const accommodationType = query.get('accommodation') || 'villa';
+  const checkIn = query.get('checkIn');
+  const checkOut = query.get('checkOut');
 
   const searchLower = searchQuery.toLowerCase();
 
   const navigate = useNavigate();
 
   // Fungsi untuk menghitung skor relevansi
-  const calculateScore = useCallback((item: ExtendedPropertyCardProps | Article | Destination): number => {
+  const calculateScore = useCallback((item: PropertyCardProps | Article | Destination): number => {
     let score = 0;
     if (!searchLower) return 1; // Beri skor minimal jika query kosong
 
-    // Penilaian untuk Properti (Villa/Homestay) - menggunakan ExtendedPropertyCardProps
+    // Penilaian untuk Properti (Villa/Homestay) - menggunakan PropertyCardProps
     if ('name' in item && typeof item.name === 'string' && item.name.toLowerCase().includes(searchLower)) score += 10;
     if ('location' in item && typeof item.location === 'string' && item.location.toLowerCase().includes(searchLower)) score += 8;
     // Memeriksa tags hanya jika property tersebut ada dan array string
@@ -53,12 +59,98 @@ const Search = () => {
     return score;
   }, [searchLower]);
 
-  // Filter dan beri skor data
-  const scoredVillas = getVillasData()
-    .map(villa => ({ ...villa, score: calculateScore(villa) }));
+  // Fungsi untuk memeriksa apakah properti memenuhi kriteria filter
+  const matchesFilters = (property: PropertyCardProps) => {
+    // Filter berdasarkan tipe akomodasi
+    if (accommodationType !== 'all' && property.type !== accommodationType) {
+      return false;
+    }
 
-  const scoredHomestays = getHomestaysData()
-    .map(homestay => ({ ...homestay, score: calculateScore(homestay) }));
+    // Filter berdasarkan kapasitas
+    const capacityFilter = filters.find(f => FILTERS.kapasitas.includes(f));
+    if (capacityFilter) {
+      const [min, max] = capacityFilter.split('-').map(n => parseInt(n));
+      if (max) {
+        if (property.capacity < min || property.capacity > max) return false;
+      } else {
+        if (property.capacity < min) return false;
+      }
+    }
+
+    // Filter berdasarkan jarak
+    const distanceFilter = filters.find(f => FILTERS.jarak.includes(f));
+    if (distanceFilter && property.distanceToBeach) {
+      const distance = parseFloat(distanceFilter.match(/\d+/)?.[0] || '0');
+      if (property.distanceToBeach > distance) return false;
+    }
+
+    // Filter berdasarkan harga
+    const priceFilter = filters.find(f => FILTERS.harga.includes(f));
+    if (priceFilter) {
+      const price = property.price;
+      if (priceFilter.includes('< 500rb') && price >= 500000) return false;
+      if (priceFilter.includes('500rb - 1jt') && (price < 500000 || price > 1000000)) return false;
+      if (priceFilter.includes('1jt - 2jt') && (price < 1000000 || price > 2000000)) return false;
+      if (priceFilter.includes('> 2jt') && price <= 2000000) return false;
+    }
+
+    // Filter berdasarkan fasilitas
+    const facilityFilters = filters.filter(f => FILTERS.fasilitas.includes(f));
+    if (facilityFilters.length > 0) {
+      if (!facilityFilters.every(f => property.amenities.includes(f))) {
+        return false;
+      }
+    }
+
+    // Filter berdasarkan lokasi
+    const locationFilters = filters.filter(f => FILTERS.lokasi.includes(f));
+    if (locationFilters.length > 0) {
+      if (!locationFilters.some(f => property.location.includes(f))) {
+        return false;
+      }
+    }
+
+    // Filter berdasarkan rating
+    const ratingFilter = filters.find(f => FILTERS.rating.includes(f));
+    if (ratingFilter) {
+      const minRating = parseInt(ratingFilter);
+      if (property.rating < minRating) return false;
+    }
+
+    return true;
+  };
+
+  // Fungsi untuk memeriksa ketersediaan tanggal
+  const isAvailable = (property: PropertyCardProps) => {
+    if (!checkIn || !checkOut) return true;
+    
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
+    
+    // Periksa apakah properti tersedia pada tanggal yang dipilih
+    return !property.bookedDates?.some(booking => {
+      const bookingStart = new Date(booking.start);
+      const bookingEnd = new Date(booking.end);
+      return (
+        (checkInDate >= bookingStart && checkInDate < bookingEnd) ||
+        (checkOutDate > bookingStart && checkOutDate <= bookingEnd) ||
+        (checkInDate <= bookingStart && checkOutDate >= bookingEnd)
+      );
+    });
+  };
+
+  // Filter dan skor hasil pencarian
+  const filteredResults = useMemo(() => {
+    const results = [...getVillasData(), ...getHomestaysData()]
+      .filter(property => matchesFilters(property) && isAvailable(property))
+      .map(property => ({
+        ...property,
+        score: calculateScore(property)
+      }))
+      .sort((a, b) => b.score - a.score);
+
+    return results;
+  }, [searchQuery, searchType, filters, accommodationType, checkIn, checkOut]);
 
   const scoredArticles = articleData
      .map(article => ({ ...article, score: calculateScore(article) }));
@@ -67,37 +159,26 @@ const Search = () => {
     .map(destination => ({ ...destination, score: calculateScore(destination) }));
 
   // Gabungkan dan urutkan semua hasil dengan filter score > 0 di sini
-  const allResults: ( (ExtendedPropertyCardProps | Article | Destination) & { score: number } )[] = [
-    ...scoredVillas,
-    ...scoredHomestays,
+  const allResults: ( (PropertyCardProps | Article | Destination) & { score: number } )[] = [
+    ...filteredResults,
     ...scoredArticles,
     ...scoredDestinations
-  ].filter(item => item.score > 0);
+  ].filter(item => item.score > 0)
+   .sort((a, b) => b.score - a.score);
 
-  allResults.sort((a, b) => b.score - a.score); // Urutkan dari skor tertinggi
+  // Pisahkan hasil berdasarkan tipe
+  const villasResults = filteredResults.filter((item): item is PropertyCardProps & { score: number } => 
+    getVillasData().some(v => 'id' in item && v.id === item.id)
+  ) as (PropertyCardProps & { score: number })[];
 
-  // Tambahkan filter akomodasi (villa/homestay) setelah scoring jika diperlukan
-  const filteredAccommodationResults = allResults.filter(item => {
-    if (accommodationFilter === 'all') return true;
-    
-    const isVilla = scoredVillas.some(v => 'id' in item && v.id === item.id);
-    const isHomestay = scoredHomestays.some(h => 'id' in item && h.id === item.id);
-    
-    if (accommodationFilter === 'villa' && isVilla) return true;
-    if (accommodationFilter === 'homestay' && isHomestay) return true;
-    
-    // Item lain (artikel/destinasi) selalu ditampilkan terlepas dari filter akomodasi
-    const isAccommodation = isVilla || isHomestay;
-    return !isAccommodation;
-  });
+  const homestaysResults = filteredResults.filter((item): item is PropertyCardProps & { score: number } => 
+    getHomestaysData().some(h => 'id' in item && h.id === item.id)
+  ) as (PropertyCardProps & { score: number })[];
 
-  // Kita pisahkan kembali hasil untuk rendering berdasarkan tipe aslinya
-  const villasResults = filteredAccommodationResults.filter((item): item is ExtendedPropertyCardProps & { score: number } => scoredVillas.some(v => 'id' in item && v.id === item.id)) as (ExtendedPropertyCardProps & { score: number })[];
-  const homestaysResults = filteredAccommodationResults.filter((item): item is ExtendedPropertyCardProps & { score: number } => scoredHomestays.some(h => 'id' in item && h.id === item.id)) as (ExtendedPropertyCardProps & { score: number })[];
-  const articlesAndDestinationsResults = filteredAccommodationResults.filter(item => {
-      const isVilla = scoredVillas.some(v => 'id' in item && v.id === item.id);
-      const isHomestay = scoredHomestays.some(h => 'id' in item && h.id === item.id);
-      return !isVilla && !isHomestay; // Ambil yang BUKAN akomodasi
+  const articlesAndDestinationsResults = allResults.filter(item => {
+    const isVilla = getVillasData().some(v => 'id' in item && v.id === item.id);
+    const isHomestay = getHomestaysData().some(h => 'id' in item && h.id === item.id);
+    return !isVilla && !isHomestay; // Ambil yang BUKAN akomodasi
   });
 
   // Menggunakan tipe Article dari typeof dan Destination dari import type

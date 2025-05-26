@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight, Star, Users, Bed } from "lucide-react";
 
 const promos = [
   {
-    id: "v2",
+    id: "villa-little-hula-hula",
     title: "Villa Little Hula Hula",
     description: "Villa mewah premium dengan 10 kamar tidur, pemandangan sawah yang menenangkan, dan area outdoor yang luas. Dilengkapi dapur modern dan area BBQ.",
     price: 314500,

@@ -54,9 +54,13 @@ const preloadComponents = () => {
     document.head.appendChild(link);
   };
 
-  // Preload halaman utama
+  // Preload halaman utama dan yang sering diakses
   preload(() => import('./pages/Index'));
+  preload(() => import('./pages/Villas'));
+  preload(() => import('./pages/Homestays'));
+  preload(() => import('./pages/PropertyDetail'));
   preload(() => import('./pages/Destinations'));
+  preload(() => import('./pages/Articles'));
 };
 
 // Replace with your actual Google Client ID
@@ -126,6 +130,12 @@ const App = () => {
       clearTimeout(timer);
     };
   }, [isInstalled]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      preloadComponents();
+    }
+  }, [isLoading]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { PropertyCardProps } from "@/components/PropertyCard";
+import type { Property, Review } from "@/types";
 
 interface RatingBreakdown {
   label: string;
@@ -11,20 +11,7 @@ interface RatingSummary {
   breakdown: RatingBreakdown[];
 }
 
-interface ReviewDetail {
-  id: number;
-  name: string;
-  rating: number;
-  comment: string;
-  date: string;
-}
-
-interface ExtendedPropertyCardProps extends PropertyCardProps {
-  ratingSummary?: RatingSummary;
-  reviewDetails?: ReviewDetail[];
-  contact?: { phone: string };
-  coordinates?: { lat: number; lng: number };
-}
+export type ExtendedPropertyCardProps = Property;
 
 const villasData: ExtendedPropertyCardProps[] = [
   {
@@ -256,22 +243,22 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     },
     reviewDetails: [
       {
-        id: 1,
-        name: "Budi Santoso",
+        id: "1",
+        author: "Budi Santoso",
         rating: 4.9,
         comment: "Villa yang sangat mewah dengan fasilitas lengkap. Staff sangat profesional dan ramah. Pemandangan pantai yang indah.",
         date: "2024-03-15"
       },
       {
-        id: 2,
-        name: "Dewi Lestari",
+        id: "2",
+        author: "Dewi Lestari",
         rating: 4.8,
         comment: "Kamar bersih dan nyaman, fasilitas lengkap. Lokasi strategis dekat dengan pantai dan destinasi wisata.",
         date: "2024-03-10"
       },
       {
-        id: 3,
-        name: "Ahmad Rizki",
+        id: "3",
+        author: "Ahmad Rizki",
         rating: 4.9,
         comment: "Pengalaman menginap yang luar biasa. Kolam renang infinity dengan pemandangan pantai yang memukau.",
         date: "2024-03-05"
@@ -391,36 +378,36 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     },
     reviewDetails: [
       {
-        id: 1,
-        name: "Rizky Maulana",
+        id: "1",
+        author: "Rizky Maulana",
         rating: 4.9,
         comment: "Villa yang sangat nyaman dengan fasilitas lengkap. Staff sangat ramah dan profesional. Pemandangan matahari terbit yang indah.",
         date: "2024-02-15"
       },
       {
-        id: 2,
-        name: "Luna Maharani",
+        id: "2",
+        author: "Luna Maharani",
         rating: 4.8,
-        comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah. Area BBQ yang luas sangat cocok untuk gathering.",
+        comment: "Lokasi strategis dan bersih. Desain tropis yang modern membuat suasana sangat nyaman. Ruang meeting yang luas dan nyaman.",
         date: "2024-02-10"
       },
       {
-        id: 3,
-        name: "Yoga Ardiansyah",
+        id: "3",
+        author: "Yoga Ardiansyah",
         rating: 4.9,
         comment: "Pengalaman menginap yang luar biasa. Kamar bersih dan nyaman, fasilitas lengkap. Cocok untuk liburan keluarga.",
         date: "2024-02-05"
       },
       {
-        id: 4,
-        name: "Cahya Nirmala",
+        id: "4",
+        author: "Cahya Nirmala",
         rating: 4.7,
         comment: "Desain modern dan nyaman untuk menginap bersama teman-teman. Kolam renang infinity dengan pemandangan pantai yang memukau.",
         date: "2024-01-28"
       },
       {
-        id: 5,
-        name: "Arga Saputra",
+        id: "5",
+        author: "Arga Saputra",
         rating: 4.8,
         comment: "Staff sangat membantu dan lokasi dekat dengan destinasi wisata. Area BBQ yang luas menjadi nilai plus.",
         date: "2024-01-20"
@@ -520,22 +507,22 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     },
     reviewDetails: [
       {
-        id: 1,
-        name: "Budi Santoso",
+        id: "1",
+        author: "Budi Santoso",
         rating: 4.8,
         comment: "Villa yang sangat nyaman dengan pemandangan sawah yang menenangkan. Fasilitas lengkap dan staff sangat ramah.",
         date: "2024-03-15"
       },
       {
-        id: 2,
-        name: "Dewi Lestari",
+        id: "2",
+        author: "Dewi Lestari",
         rating: 4.7,
         comment: "Lokasi strategis dan bersih. Pemandangan sawah yang indah membuat suasana sangat tenang dan nyaman.",
         date: "2024-03-10"
       },
       {
-        id: 3,
-        name: "Ahmad Rizki",
+        id: "3",
+        author: "Ahmad Rizki",
         rating: 4.6,
         comment: "Pengalaman menginap yang menyenangkan. Kamar bersih dan nyaman, fasilitas lengkap. Cocok untuk liburan keluarga kecil.",
         date: "2024-03-05"
@@ -671,22 +658,22 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     },
     reviewDetails: [
       {
-        id: 1,
-        name: "Budi Santoso",
+        id: "1",
+        author: "Budi Santoso",
         rating: 4.9,
         comment: "Villa yang sangat mewah dengan kolam renang infinity yang memukau. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
-        id: 2,
-        name: "Dewi Lestari",
+        id: "2",
+        author: "Dewi Lestari",
         rating: 4.8,
         comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah dari kolam renang infinity.",
         date: "2024-03-10"
       },
       {
-        id: 3,
-        name: "Ahmad Rizki",
+        id: "3",
+        author: "Ahmad Rizki",
         rating: 4.9,
         comment: "Pengalaman menginap yang luar biasa. Ruang meeting yang nyaman dan fasilitas lengkap.",
         date: "2024-03-05"
@@ -820,22 +807,22 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     },
     reviewDetails: [
       {
-        id: 1,
-        name: "Budi Santoso",
+        id: "1",
+        author: "Budi Santoso",
         rating: 4.6,
         comment: "Villa yang sangat nyaman dengan pemandangan sawah yang menenangkan. Fasilitas lengkap dan staff sangat ramah.",
         date: "2024-03-15"
       },
       {
-        id: 2,
-        name: "Dewi Lestari",
+        id: "2",
+        author: "Dewi Lestari",
         rating: 4.5,
         comment: "Lokasi strategis dan bersih. Pemandangan sawah yang indah membuat suasana sangat tenang dan nyaman.",
         date: "2024-03-10"
       },
       {
-        id: 3,
-        name: "Ahmad Rizki",
+        id: "3",
+        author: "Ahmad Rizki",
         rating: 4.4,
         comment: "Pengalaman menginap yang menyenangkan. Kamar bersih dan nyaman, fasilitas lengkap. Cocok untuk liburan keluarga besar.",
         date: "2024-03-05"
@@ -845,7 +832,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     coordinates: { lat: -6.978786683942936, lng: 106.30640702985548 }
   },
   {
-    id: "v2",
+    id: "villa-little-hula-hula",
     name: "Villa Little Hula Hula",
     type: "villa" as const,
     location: "Goa Langir, Sawarna",
@@ -887,6 +874,18 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     bedrooms: 14,
     bathrooms: 14,
     image: "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-aea2b07141382e5e96f88bfe59f5efe0.jpeg",
+    mainImages: [
+      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-aea2b07141382e5e96f88bfe59f5efe0.jpeg",
+      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-0db183ec3cca5b93438c55385855a91e.jpeg",
+      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-e5966fec054c219cd6b107026fe6d9eb.jpeg",
+      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-875177727d31c57de10a84766703d5a5.jpeg",
+      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-6597508a2db43a122832fd27725e8a66.jpeg",
+      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-342f3e22a4a85a464c05616ad17382da.jpeg",
+      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-bbcd75583c72e71b8cb5916f70a4d2da.jpeg",
+      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-cabd871a11a7062ab3b6c9c682b69a9d.jpeg",
+      "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/d91b99ab_z.jpg",
+      "https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20036564-dcc2eec2553d85f7c8cab346dfa460a1.jpeg"
+    ],
     tags: ["villa", "goa langir sawarna", "premium", "kolam renang", "ruang meeting"],
     nearbyAttractions: [
       { name: "Pantai Sawarna", distance: "4-5 menit berkendara" },
@@ -896,22 +895,22 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     ],
     reviewDetails: [
       {
-        id: 1,
-        name: "Rizky Maulana",
+        id: "1",
+        author: "Rizky Maulana",
         rating: 9.8,
         comment: "Villa yang sangat mewah dengan fasilitas lengkap. Staff sangat profesional dan ramah. Pemandangan kolam renang infinity yang memukau.",
         date: "2024-03-15"
       },
       {
-        id: 2,
-        name: "Luna Maharani",
+        id: "2",
+        author: "Luna Maharani",
         rating: 9.6,
         comment: "Lokasi strategis dan bersih. Desain tropis yang modern membuat suasana sangat nyaman. Ruang meeting yang luas dan nyaman.",
         date: "2024-03-10"
       },
       {
-        id: 3,
-        name: "Yoga Ardiansyah",
+        id: "3",
+        author: "Yoga Ardiansyah",
         rating: 9.8,
         comment: "Pengalaman menginap yang luar biasa. Kamar bersih dan nyaman, fasilitas lengkap. Cocok untuk liburan keluarga besar.",
         date: "2024-03-05"
@@ -1039,23 +1038,23 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     },
     reviewDetails: [
       {
-        id: 1,
-        name: "Budi Santoso",
-        rating: 4.8,
-        comment: "Villa yang sangat nyaman dengan pemandangan sawah yang menenangkan. Fasilitas lengkap dan staff sangat ramah.",
+        id: "1",
+        author: "Budi Santoso",
+        rating: 4.4,
+        comment: "Villa yang nyaman dengan pemandangan sawah yang menenangkan. Fasilitas lengkap dan staff sangat ramah.",
         date: "2024-03-15"
       },
       {
-        id: 2,
-        name: "Dewi Lestari",
-        rating: 4.7,
+        id: "2",
+        author: "Dewi Lestari",
+        rating: 4.3,
         comment: "Lokasi strategis dan bersih. Pemandangan sawah yang indah membuat suasana sangat tenang dan nyaman.",
         date: "2024-03-10"
       },
       {
-        id: 3,
-        name: "Ahmad Rizki",
-        rating: 4.6,
+        id: "3",
+        author: "Ahmad Rizki",
+        rating: 4.2,
         comment: "Pengalaman menginap yang menyenangkan. Kamar bersih dan nyaman, fasilitas lengkap. Cocok untuk liburan keluarga kecil.",
         date: "2024-03-05"
       }
@@ -1147,16 +1146,16 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
     },
     reviewDetails: [
       {
-        id: 1,
-        name: "Budi Santoso",
-        rating: 4.5,
+        id: "1",
+        author: "Budi Santoso",
+        rating: 4.4,
         comment: "Villa yang nyaman dengan pemandangan pantai yang indah. Fasilitas lengkap dan staff ramah.",
         date: "2024-03-15"
       },
       {
-        id: 2,
-        name: "Dewi Lestari",
-        rating: 4.4,
+        id: "2",
+        author: "Dewi Lestari",
+        rating: 4.3,
         comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah membuat suasana sangat nyaman.",
         date: "2024-03-10"
       }
@@ -1266,15 +1265,15 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
     },
     reviewDetails: [
       {
-        id: 1,
-        name: "Budi Santoso",
-    rating: 4.7,
+        id: "1",
+        author: "Budi Santoso",
+        rating: 4.7,
         comment: "Villa yang sangat nyaman dengan kolam renang infinity yang memukau. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
-        id: 2,
-        name: "Dewi Lestari",
+        id: "2",
+        author: "Dewi Lestari",
         rating: 4.6,
         comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang infinity.",
         date: "2024-03-10"
@@ -1367,15 +1366,15 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
     },
     reviewDetails: [
       {
-        id: 1,
-        name: "Budi Santoso",
+        id: "1",
+        author: "Budi Santoso",
         rating: 4.6,
         comment: "Villa yang nyaman dengan pemandangan pantai yang indah. Fasilitas lengkap dan staff ramah.",
         date: "2024-03-15"
       },
       {
-        id: 2,
-        name: "Dewi Lestari",
+        id: "2",
+        author: "Dewi Lestari",
         rating: 4.5,
         comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah membuat suasana sangat nyaman.",
         date: "2024-03-10"
@@ -1468,15 +1467,15 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
     },
     reviewDetails: [
       {
-        id: 1,
-        name: "Budi Santoso",
-    rating: 4.5,
+        id: "1",
+        author: "Budi Santoso",
+        rating: 4.5,
         comment: "Villa yang nyaman dengan pemandangan pantai yang indah. Fasilitas lengkap dan staff ramah.",
         date: "2024-03-15"
       },
       {
-        id: 2,
-        name: "Dewi Lestari",
+        id: "2",
+        author: "Dewi Lestari",
         rating: 4.4,
         comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah membuat suasana sangat nyaman.",
         date: "2024-03-10"
@@ -1569,14 +1568,14 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
     },
     reviewDetails: [
       {
-        id: 1,
+        id: "1",
         name: "Budi Santoso",
         rating: 4.4,
         comment: "Villa yang nyaman dengan pemandangan pantai yang indah. Fasilitas lengkap dan staff ramah.",
         date: "2024-03-15"
       },
       {
-        id: 2,
+        id: "2",
         name: "Dewi Lestari",
         rating: 4.3,
         comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah membuat suasana sangat nyaman.",
@@ -1670,14 +1669,14 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
     },
     reviewDetails: [
       {
-        id: 1,
+        id: "1",
         name: "Budi Santoso",
         rating: 4.6,
         comment: "Villa yang nyaman dengan pemandangan pantai yang indah. Fasilitas lengkap dan staff ramah.",
         date: "2024-03-15"
       },
       {
-        id: 2,
+        id: "2",
         name: "Dewi Lestari",
         rating: 4.5,
         comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah membuat suasana sangat nyaman.",
@@ -1868,21 +1867,21 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     },
     reviewDetails: [
       {
-        id: 1,
+        id: "1",
         name: "Budi Santoso",
         rating: 4.8,
         comment: "Villa yang sangat nyaman dengan kolam renang infinity yang memukau. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
-        id: 2,
+        id: "2",
         name: "Dewi Lestari",
         rating: 4.7,
         comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah dari kolam renang infinity.",
         date: "2024-03-10"
       },
       {
-        id: 3,
+        id: "3",
         name: "Ahmad Rizki",
         rating: 4.9,
         comment: "Pengalaman menginap yang luar biasa. Ruang meeting yang nyaman dan fasilitas lengkap.",
@@ -1893,7 +1892,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     coordinates: { lat: -6.984472686767081, lng: 106.31050607162815 }
   },
   {
-    id: "v1",
+    id: "villa-cempaka",
     name: "Villa Cempaka",
     location: "Legon Pari, Sawarna",
     description: "Villa Cempaka adalah pilihan tepat untuk menginap di Pantai Sawarna. Terletak strategis, villa ini menawarkan kenyamanan dan akses mudah ke pantai Legon Pari.",

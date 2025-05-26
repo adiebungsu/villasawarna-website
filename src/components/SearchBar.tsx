@@ -99,7 +99,7 @@ const SUGGESTIONS = [
   'Event di Sawarna'
 ];
 
-const FILTERS = {
+export const FILTERS = {
   fasilitas: [
     'Area Parkir',
     'View Pantai',
@@ -114,7 +114,10 @@ const FILTERS = {
   ],
   lokasi: ['Pantai Sawarna', 'Goa Langir', 'Legon Pari', 'Pulo Manuk'],
   rating: ['4+ Bintang', '3+ Bintang', '2+ Bintang'],
-  tipe: ['Villa', 'Homestay']
+  tipe: ['Villa', 'Homestay'],
+  kapasitas: ['1-2 Orang', '3-4 Orang', '5-6 Orang', '7+ Orang'],
+  jarak: ['< 1 km', '1-2 km', '2-5 km', '> 5 km'],
+  harga: ['< 500rb', '500rb - 1jt', '1jt - 2jt', '> 2jt']
 };
 
 interface AccordionSectionProps {
@@ -254,12 +257,22 @@ const SearchBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className }
     fasilitas: boolean;
     lokasi: boolean;
     rating: boolean;
+    kapasitas: boolean;
+    jarak: boolean;
+    harga: boolean;
+    tanggal: boolean;
   }>({
     tipe: true,
     fasilitas: false,
     lokasi: false,
-    rating: false
+    rating: false,
+    kapasitas: false,
+    jarak: false,
+    harga: false,
+    tanggal: false
   });
+  const [checkIn, setCheckIn] = useState<string>('');
+  const [checkOut, setCheckOut] = useState<string>('');
   const searchTimeoutRef = useRef<NodeJS.Timeout>();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -357,10 +370,14 @@ const SearchBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className }
     params.append('query', location);
     if (activeFilters.length) params.append('filters', activeFilters.join(','));
     params.append('accommodation', tipeAkomodasi);
+    
+    // Tambahkan parameter tanggal jika ada
+    if (checkIn) params.append('checkIn', checkIn);
+    if (checkOut) params.append('checkOut', checkOut);
 
     // Navigasi ke halaman search
     navigate(`/search?${params.toString()}`);
-  }, [location, activeFilters, tipeAkomodasi, navigate]);
+  }, [location, activeFilters, tipeAkomodasi, checkIn, checkOut, navigate]);
 
   // Tambahkan useEffect untuk menangani klik di luar dropdown
   useEffect(() => {
@@ -636,6 +653,83 @@ const SearchBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className }
                 selectedItems={activeFilters}
                 onToggle={toggleFilter}
               />
+            </AccordionSection>
+
+            <AccordionSection
+              title="Kapasitas"
+              isExpanded={expandedSections.kapasitas}
+              onToggle={() => toggleSection('kapasitas')}
+              hint="Pilih satu"
+            >
+              <FilterList
+                items={FILTERS.kapasitas}
+                selectedItems={activeFilters}
+                onToggle={toggleFilter}
+              />
+            </AccordionSection>
+
+            <AccordionSection
+              title="Jarak ke Destinasi"
+              isExpanded={expandedSections.jarak}
+              onToggle={() => toggleSection('jarak')}
+              hint="Pilih satu"
+            >
+              <FilterList
+                items={FILTERS.jarak}
+                selectedItems={activeFilters}
+                onToggle={toggleFilter}
+              />
+            </AccordionSection>
+
+            <AccordionSection
+              title="Rentang Harga"
+              isExpanded={expandedSections.harga}
+              onToggle={() => toggleSection('harga')}
+              hint="Pilih satu"
+            >
+              <FilterList
+                items={FILTERS.harga}
+                selectedItems={activeFilters}
+                onToggle={toggleFilter}
+              />
+            </AccordionSection>
+
+            <AccordionSection
+              title="Tanggal Check-in/Check-out"
+              isExpanded={expandedSections.tanggal}
+              onToggle={() => toggleSection('tanggal')}
+              hint="Pilih tanggal"
+            >
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Check-in
+                  </label>
+                  <input
+                    type="date"
+                    value={checkIn}
+                    onChange={(e) => setCheckIn(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ocean"
+                    min={new Date().toISOString().split('T')[0]}
+                    title="Tanggal Check-in"
+                    placeholder="Pilih tanggal check-in"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Check-out
+                  </label>
+                  <input
+                    type="date"
+                    value={checkOut}
+                    onChange={(e) => setCheckOut(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ocean"
+                    min={checkIn || new Date().toISOString().split('T')[0]}
+                    title="Tanggal Check-out"
+                    placeholder="Pilih tanggal check-out"
+                  />
+                </div>
+              </div>
             </AccordionSection>
           </div>
         </motion.div>

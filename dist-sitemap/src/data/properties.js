@@ -808,7 +808,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
     },
     {
-        id: "v2",
+        id: "villa-little-hula-hula",
         name: "Villa Little Hula Hula",
         type: "villa",
         location: "Goa Langir, Sawarna",

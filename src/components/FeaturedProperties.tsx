@@ -9,7 +9,11 @@ import useEmblaCarousel from 'embla-carousel-react';
 
 const FeaturedProperties = () => {
   const [filter, setFilter] = useState<'all' | 'goa-langir' | 'pulo-manuk' | 'legon-pari' | 'pantai-sawarna'>('all');
-  const [emblaRef, emblaApi] = useEmblaCarousel({ align: 'start', loop: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: 'start',
+    loop: true,
+    slidesToScroll: 1
+  });
   
   // Use all properties instead of just featured ones to show more properties per location
   const properties = useMemo(() => {
@@ -94,12 +98,17 @@ const FeaturedProperties = () => {
           </Button>
         </div>
 
-        {/* Property Carousel */}
+        {/* Property Grid */}
         <div className="relative">
+          <div className="text-center mb-6">
+            <p className="text-gray-600 dark:text-gray-300">
+              Geser untuk melihat lebih banyak akomodasi pilihan di Sawarna
+            </p>
+          </div>
           <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex gap-2">
+            <div className="flex gap-4">
               {filteredProperties.map((property) => (
-                <div key={property.id} className="flex-[0_0_50%] md:flex-[0_0_33.33%] lg:flex-[0_0_25%] min-w-0">
+                <div key={property.id} className="flex-[0_0_50%] md:flex-[0_0_33.333%] lg:flex-[0_0_25%] min-w-0">
                   <PropertyCard
                     id={property.id}
                     name={property.name}
@@ -113,6 +122,13 @@ const FeaturedProperties = () => {
                     bedrooms={property.bedrooms}
                     bathrooms={property.bathrooms}
                     amenities={property.amenities}
+                    description={property.description || ''}
+                    ratingSummary={property.ratingSummary}
+                    mainImages={property.mainImages || []}
+                    tags={property.tags || []}
+                    propertyReviews={property.propertyReviews || []}
+                    roomTypes={property.roomTypes || []}
+                    nearbyAttractions={property.nearbyAttractions || []}
                   />
                 </div>
               ))}
@@ -122,19 +138,19 @@ const FeaturedProperties = () => {
           {/* Navigation Buttons */}
           <button
             onClick={scrollPrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 z-10"
-            title="Previous"
+            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg z-10"
+            title="Previous slide"
             aria-label="Previous slide"
           >
-            <ChevronLeft className="h-6 w-6 text-coral dark:text-coral-light" />
+            <ChevronLeft className="w-6 h-6" />
           </button>
           <button
             onClick={scrollNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 z-10"
-            title="Next"
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg z-10"
+            title="Next slide"
             aria-label="Next slide"
           >
-            <ChevronRight className="h-6 w-6 text-coral dark:text-coral-light" />
+            <ChevronRight className="w-6 h-6" />
           </button>
         </div>
         
