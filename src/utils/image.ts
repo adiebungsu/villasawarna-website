@@ -12,24 +12,55 @@ const SUPPORTED_FORMATS = {
   png: 'image/png'
 };
 
+// Cache untuk format yang didukung
+const formatSupportCache = new Map<keyof typeof SUPPORTED_FORMATS, boolean>();
+
 // Cek dukungan format gambar di browser
 const checkFormatSupport = async (format: keyof typeof SUPPORTED_FORMATS): Promise<boolean> => {
-  if (format === 'jpeg' || format === 'png') return true;
+  // Cek cache dulu
+  if (formatSupportCache.has(format)) {
+    return formatSupportCache.get(format)!;
+  }
+
+  if (format === 'jpeg' || format === 'png') {
+    formatSupportCache.set(format, true);
+    return true;
+  }
   
   const img = new Image();
-  return new Promise((resolve) => {
+  const isSupported = await new Promise<boolean>((resolve) => {
     img.onload = () => resolve(true);
     img.onerror = () => resolve(false);
     img.src = `data:${SUPPORTED_FORMATS[format]};base64,${btoa('test')}`;
   });
+
+  formatSupportCache.set(format, isSupported);
+  return isSupported;
 };
 
 interface ImageOptimizationOptions {
   width?: number;
   height?: number;
   quality?: number;
-  format?: 'webp' | 'jpeg' | 'png';
+  format?: 'webp' | 'avif' | 'jpeg' | 'png';
+  cache?: boolean;
 }
+
+/**
+ * Mendapatkan format gambar terbaik yang didukung browser
+ */
+const getBestSupportedFormat = async (): Promise<keyof typeof SUPPORTED_FORMATS> => {
+  // Coba format terbaik dulu
+  const formats: (keyof typeof SUPPORTED_FORMATS)[] = ['avif', 'webp', 'jpeg'];
+  
+  for (const format of formats) {
+    if (await checkFormatSupport(format)) {
+      return format;
+    }
+  }
+  
+  return 'jpeg'; // Fallback ke JPEG
+};
 
 /**
  * Mengoptimasi URL gambar dengan parameter yang sesuai
@@ -38,7 +69,13 @@ export const optimizeImageUrl = async (
   url: string,
   options: ImageOptimizationOptions = {}
 ): Promise<string> => {
-  const { width, height, quality = 80, format = 'webp' } = options;
+  const { 
+    width, 
+    height, 
+    quality = 80, 
+    format = await getBestSupportedFormat(),
+    cache = true 
+  } = options;
 
   // Jika URL sudah dioptimasi, kembalikan as is
   if (url.includes('?') || url.includes('&')) {
@@ -68,6 +105,19 @@ export const optimizeImageUrl = async (
     return url.replace(/\.(jpg|jpeg|png)$/, `.${format}`);
   }
 
+  // Optimasi untuk ImageKit
+  if (url.includes('ik.imagekit.io')) {
+    const params = new URLSearchParams();
+    if (width) params.append('w', width.toString());
+    if (height) params.append('h', height.toString());
+    params.append('q', quality.toString());
+    params.append('fm', format);
+    if (cache) {
+      params.append('cache', 'true');
+    }
+    return `${url}?${params.toString()}`;
+  }
+
   // Untuk gambar lokal, gunakan Next.js Image Optimization
   if (url.startsWith('/')) {
     const params = new URLSearchParams();
@@ -75,18 +125,32 @@ export const optimizeImageUrl = async (
     if (height) params.append('h', height.toString());
     params.append('q', quality.toString());
     params.append('fm', format);
+    if (cache) {
+      params.append('cache', 'true');
+    }
     return `${url}?${params.toString()}`;
   }
 
   return url;
 };
 
+// Cache untuk preloaded images
+const preloadedImages = new Set<string>();
+
 // Preload gambar
 export const preloadImage = (url: string): Promise<void> => {
+  // Cek cache dulu
+  if (preloadedImages.has(url)) {
+    return Promise.resolve();
+  }
+
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.src = url;
-    img.onload = () => resolve();
+    img.onload = () => {
+      preloadedImages.add(url);
+      resolve();
+    };
     img.onerror = reject;
   });
 };
@@ -162,15 +226,21 @@ export const getOptimalImageSize = (
 /**
  * Mendapatkan srcset untuk responsive images
  */
-export const getResponsiveSrcSet = (
+export const getResponsiveSrcSet = async (
   url: string,
   sizes: number[],
   options: Omit<ImageOptimizationOptions, 'width' | 'height'> = {}
-): string => {
-  return sizes
-    .map(size => {
-      const optimizedUrl = optimizeImageUrl(url, { ...options, width: size });
-      return `${optimizedUrl} ${size}w`;
-    })
-    .join(', ');
+): Promise<string> => {
+  const format = await getBestSupportedFormat();
+  const srcsetPromises = sizes.map(async size => {
+    const optimizedUrl = await optimizeImageUrl(url, { 
+      ...options, 
+      width: size,
+      format 
+    });
+    return `${optimizedUrl} ${size}w`;
+  });
+
+  const srcset = await Promise.all(srcsetPromises);
+  return srcset.join(', ');
 }; 

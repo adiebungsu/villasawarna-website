@@ -2,7 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { cn } from '@/utils';
-import { optimizeImageUrl, generateBlurPlaceholder } from '@/utils/image';
+import { optimizeImageUrl, generateBlurPlaceholder, getResponsiveSrcSet } from '@/utils/image';
+import { useConnectionStatus } from '@/hooks/useConnectionStatus';
+import { useImagePerformance } from '@/hooks/useImagePerformance';
 
 interface OptimizedImageProps {
   src: string;
@@ -14,6 +16,10 @@ interface OptimizedImageProps {
   quality?: number;
   style?: React.CSSProperties;
   sizes?: string;
+  loading?: 'lazy' | 'eager';
+  placeholder?: 'blur' | 'empty';
+  blurDataURL?: string;
+  onLoad?: () => void;
 }
 
 const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -25,12 +31,29 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   priority = false,
   quality = 80,
   style,
-  sizes = '100vw'
+  sizes = '100vw',
+  loading = priority ? 'eager' : 'lazy',
+  placeholder = 'blur',
+  blurDataURL,
+  onLoad
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(false);
-  const [blurDataUrl, setBlurDataUrl] = useState<string>('');
+  const [blurDataUrl, setBlurDataUrl] = useState<string>(blurDataURL || '');
   const [optimizedSrc, setOptimizedSrc] = useState<string>('');
+  const [srcsetString, setSrcsetString] = useState<string>('');
+  const { isSlowConnection, isMediumConnection } = useConnectionStatus();
+  const { metrics } = useImagePerformance(src);
+
+  // Optimize quality based on connection
+  const optimizedQuality = isSlowConnection ? 50 : isMediumConnection ? 65 : quality;
+  
+  // Optimize size based on connection
+  const optimizedWidth = isSlowConnection ? Math.round((width || 800) * 0.7) : width;
+  const optimizedHeight = isSlowConnection ? Math.round((height || 600) * 0.7) : height;
+
+  // Generate srcset sizes
+  const srcsetSizes = [320, 640, 960, 1280, 1920].filter(size => size <= (width || 1920));
 
   // Preload dan optimasi gambar
   useEffect(() => {
@@ -38,15 +61,22 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
       try {
         // Optimasi URL gambar
         const optimized = await optimizeImageUrl(src, {
-          width,
-          height,
-          quality,
+          width: optimizedWidth,
+          height: optimizedHeight,
+          quality: optimizedQuality,
           format: 'webp'
         });
         setOptimizedSrc(optimized);
 
+        // Generate srcset
+        const srcset = await getResponsiveSrcSet(src, srcsetSizes, {
+          quality: optimizedQuality,
+          format: 'webp'
+        });
+        setSrcsetString(srcset);
+
         // Generate blur placeholder untuk non-priority images
-        if (!priority) {
+        if (!priority && placeholder === 'blur') {
           const blur = await generateBlurPlaceholder(src);
           setBlurDataUrl(blur);
         }
@@ -55,7 +85,10 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         if (priority) {
           const img = new Image();
           img.src = optimized;
-          img.onload = () => setIsLoaded(true);
+          img.onload = () => {
+            setIsLoaded(true);
+            onLoad?.();
+          };
           img.onerror = () => {
             setError(true);
             setIsLoaded(true);
@@ -68,40 +101,30 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
     };
 
     optimizeAndPreload();
-  }, [src, width, height, quality, priority]);
+  }, [src, width, height, quality, priority, placeholder, onLoad, srcsetSizes, optimizedQuality]);
 
-  // Tambahkan preload link untuk priority images
+  // Log performa gambar jika metrics tersedia
   useEffect(() => {
-    if (priority && optimizedSrc) {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = optimizedSrc;
-      document.head.appendChild(link);
-      return () => {
-        document.head.removeChild(link);
-      };
+    if (metrics) {
+      console.log(`Image Performance - ${src}:`, {
+        loadTime: `${metrics.loadTime.toFixed(2)}ms`,
+        size: `${(metrics.size / 1024).toFixed(2)}KB`,
+        format: metrics.format,
+        dimensions: metrics.dimensions
+      });
     }
-  }, [priority, optimizedSrc]);
+  }, [metrics, src]);
 
   if (error) {
     return (
-      <div 
-        className={cn('bg-gray-100 flex items-center justify-center', className)}
-        style={{ width, height, ...style }}
-      >
+      <div className={cn('bg-gray-100 flex items-center justify-center', className)} style={style}>
         <span className="text-gray-400">Gambar tidak tersedia</span>
       </div>
     );
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
-      className={`relative overflow-hidden ${className}`}
-    >
+    <div className={cn('relative overflow-hidden', className)} style={style}>
       {!isLoaded && !error && (
         <div 
           className="absolute inset-0 bg-gray-200 animate-pulse"
@@ -116,12 +139,13 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
       )}
       <img
         src={optimizedSrc || src}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={priority ? 'eager' : 'lazy'}
-        decoding={priority ? 'sync' : 'async'}
+        srcSet={srcsetString}
         sizes={sizes}
+        alt={alt}
+        width={optimizedWidth}
+        height={optimizedHeight}
+        loading={loading}
+        decoding={priority ? 'sync' : 'async'}
         className={cn(
           'transition-opacity duration-300',
           isLoaded ? 'opacity-100' : 'opacity-0',
@@ -133,15 +157,16 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
           height: '100%',
           objectFit: 'cover'
         }}
-        onLoad={() => setIsLoaded(true)}
-        onError={(e) => {
+        onLoad={() => {
+          setIsLoaded(true);
+          onLoad?.();
+        }}
+        onError={() => {
           setError(true);
           setIsLoaded(true);
-          const target = e.target as HTMLImageElement;
-          target.src = '/images/placeholder.jpg';
         }}
       />
-    </motion.div>
+    </div>
   );
 };
 
