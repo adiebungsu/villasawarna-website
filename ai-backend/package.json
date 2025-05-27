@@ -1,0 +1,22 @@
+{
+  "name": "villa-sawarna-chat",
+  "version": "1.0.0",
+  "description": "Chat Assistant untuk Villa Sawarna",
+  "main": "ai-chat-server.js",
+  "scripts": {
+    "start": "node ai-chat-server.js",
+    "dev": "nodemon ai-chat-server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "express-rate-limit": "^6.11.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

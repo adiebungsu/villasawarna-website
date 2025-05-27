@@ -9,7 +9,7 @@ const Hero = () => {
       {/* Hero Background */}
       <div className="absolute inset-0 z-0">
         <OptimizedImage
-          src="https://i.imgur.com/zQYXHHZ.jpeg"
+          src="/images/home villasawarna.jpg"
           alt="Pantai Sawarna"
           className="w-full h-full object-cover"
           priority={true}

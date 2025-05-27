@@ -10,7 +10,7 @@ interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> 
   priority?: boolean;
   width?: number;
   height?: number;
-  format?: 'webp' | 'avif' | 'jpeg' | 'png';
+  format?: 'webp' | 'jpeg' | 'png';
 }
 
 export function OptimizedImage({
@@ -92,6 +92,7 @@ export function OptimizedImage({
           setError(true);
           setIsLoaded(true);
         }}
+        crossOrigin="anonymous"
         {...props}
       />
     </div>

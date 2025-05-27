@@ -164,7 +164,8 @@ export const cache = {
         return null;
       }
       return data;
-    } catch {
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
       localStorage.removeItem(key);
       return null;
     }
