@@ -1,82 +1,93 @@
-const CACHE_NAME = 'villasawarna-v2';
+const CACHE_NAME = 'image-cache-v1';
+const IMAGE_CACHE_NAME = 'images-v1';
+
+// Daftar URL yang harus di-cache saat instalasi
 const urlsToCache = [
   '/',
-  '/index.html',
-  '/manifest.json',
-  '/offline.html',
-  '/css/index.css',
-  '/js/main.js',
-  '/images/logo-villasawarna2.png',
-  // Tambahkan asset-asset penting lainnya
+  '/images/placeholder.jpg',
+  '/images/logo-villasawarna2.png'
 ];
 
-// Install service worker
+// Install event
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
+    Promise.all([
+      caches.open(CACHE_NAME),
+      caches.open(IMAGE_CACHE_NAME)
+    ]).then(([cache, imageCache]) => {
+      return Promise.all([
+        cache.addAll(urlsToCache),
+        imageCache.addAll(urlsToCache.filter(url => url.startsWith('/images/')))
+      ]);
+    })
+  );
+});
+
+// Activate event - bersihkan cache lama
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames
+          .filter((name) => name.startsWith('image-cache-') && name !== CACHE_NAME)
+          .map((name) => caches.delete(name))
+      );
+    })
   );
 });
 
 // Fetch event
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Cache hit - return response
-        if (response) {
-          return response;
-        }
+  const url = new URL(event.request.url);
 
-        // Clone the request
-        const fetchRequest = event.request.clone();
-
-        return fetch(fetchRequest).then(
-          (response) => {
-            // Check if we received a valid response
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
-            // Clone the response
-            const responseToCache = response.clone();
-
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                // Jangan cache request ke API
-                if (!event.request.url.includes('/api/')) {
-                  cache.put(event.request, responseToCache);
-                }
-              });
-
+  // Hanya handle request gambar
+  if (event.request.destination === 'image') {
+    event.respondWith(
+      caches.open(IMAGE_CACHE_NAME).then((cache) => {
+        return cache.match(event.request).then((response) => {
+          if (response) {
+            // Update cache di background
+            fetch(event.request).then((networkResponse) => {
+              cache.put(event.request, networkResponse.clone());
+            });
             return response;
           }
-        ).catch(() => {
-          // Jika offline dan request adalah halaman HTML, tampilkan offline.html
-          if (event.request.mode === 'navigate') {
-            return caches.match('/offline.html');
-          }
+
+          return fetch(event.request).then((networkResponse) => {
+            // Cache response baru
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          });
         });
       })
-  );
+    );
+  }
 });
 
-// Activate event - cleanup old caches
-self.addEventListener('activate', (event) => {
-  const cacheWhitelist = [CACHE_NAME];
+// Cache expiration
+const CACHE_EXPIRATION = 7 * 24 * 60 * 60 * 1000; // 7 hari
 
+// Bersihkan cache yang sudah expired
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
+    caches.open(IMAGE_CACHE_NAME).then((cache) => {
+      return cache.keys().then((requests) => {
+        return Promise.all(
+          requests.map((request) => {
+            return cache.match(request).then((response) => {
+              if (!response) return Promise.resolve();
+
+              const cacheDate = new Date(response.headers.get('date'));
+              const now = new Date();
+
+              if (now - cacheDate > CACHE_EXPIRATION) {
+                return cache.delete(request);
+              }
+              return Promise.resolve();
+            });
+          })
+        );
+      });
     })
   );
 });

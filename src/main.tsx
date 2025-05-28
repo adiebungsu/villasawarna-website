@@ -1,19 +1,16 @@
-import { createRoot } from 'react-dom/client'
-import { StrictMode } from 'react'
-import { HelmetProvider } from 'react-helmet-async'
-import App from './App.tsx'
-import './index.css'
-import { AuthProvider } from '@/context/AuthContext'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css';
+import { registerServiceWorker } from './utils/registerServiceWorker';
 
-const root = createRoot(document.getElementById("root")!);
-root.render(
-  <StrictMode>
-    <HelmetProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </HelmetProvider>
-  </StrictMode>
+// Daftarkan service worker
+registerServiceWorker();
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
 
 // Service worker dinonaktifkan sementara untuk debugging

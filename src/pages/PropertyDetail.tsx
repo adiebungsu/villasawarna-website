@@ -193,7 +193,7 @@ const BookingWidget: React.FC<BookingWidgetProps> = (props) => {
   };
 
   // Generate URL WhatsApp
-  const whatsappUrl = `https://wa.me/83877080088?text=${generateBookingMessage()}`;
+  const whatsappUrl = `https://wa.me/+6283877080088?text=${generateBookingMessage()}`;
 
   return (
     <div id="booking" className="sticky top-6 space-y-6">
@@ -1080,7 +1080,7 @@ const PropertyDetail: React.FC = () => {
                         </li>
                       </ul>
                       <a
-                      href={`https://wa.me/83877080088?text=${generateBookingMessage()}`}
+                      href={`https://wa.me/+6283877080088?text=${generateBookingMessage()}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors duration-300"

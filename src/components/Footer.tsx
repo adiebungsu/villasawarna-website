@@ -71,12 +71,6 @@ const Footer = () => {
                 <a href="https://wa.me/6283877080088" className="text-gray-300 hover:text-ocean dark:text-gray-400 dark:hover:text-ocean-light">+62 838 7708 0088</a>
               </li>
               <li className="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 flex-shrink-0 text-ocean dark:text-ocean-light">
-                  <path d="M3 21l1.9-5.7a8.5 8.5 0 113.8 3.8z"></path>
-                </svg>
-                <a href="https://wa.me/6283841409494" className="text-gray-300 hover:text-ocean dark:text-gray-400 dark:hover:text-ocean-light">+62 838 4140 9494</a>
-              </li>
-              <li className="flex items-center">
                 <Mail size={18} className="mr-2 flex-shrink-0 text-ocean dark:text-ocean-light" />
                 <span className="text-gray-300 dark:text-gray-400">info@villasawarna.com</span>
               </li>

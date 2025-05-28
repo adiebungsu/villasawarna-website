@@ -9,6 +9,8 @@ export interface RoomType {
   bathrooms: number;
   amenities: string[];
   images: string[];
+  originalPrice?: number;
+  discount?: number;
 }
 
 // Data room types untuk setiap properti
@@ -354,7 +356,9 @@ export const propertyRoomTypes: Record<string, RoomType[]> = {
         "https://i.imgur.com/oHjXCpC.jpeg",
         "https://i.imgur.com/9zWzt7Z.jpeg"
       ],
-      price: 350000
+      price: 356000,
+      originalPrice: 400000,
+      discount: 11
     },
     {
       id: "extra",

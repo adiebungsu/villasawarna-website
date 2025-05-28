@@ -251,15 +251,14 @@ const TermsAndConditions = () => {
               <p>6.2. Tanggung Jawab Tamu:</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>Menjaga keamanan barang pribadi</li>
-                <li>Menggunakan fasilitas dengan bijak</li>
-                <li>Mematuhi aturan yang berlaku</li>
+                <li>Mengikuti aturan dan ketentuan yang berlaku</li>
+                <li>Melaporkan kerusakan atau masalah segera</li>
               </ul>
 
-              <p>6.3. Force Majeure:</p>
+              <p>6.3. Kontak Darurat:</p>
               <ul className="list-disc pl-6 space-y-2">
-                <li>Villa tidak bertanggung jawab atas bencana alam</li>
-                <li>Villa tidak bertanggung jawab atas kerusuhan</li>
-                <li>Villa tidak bertanggung jawab atas pandemi</li>
+                <li>WhatsApp: <a href="https://wa.me/6283877080088" className="hover:underline dark:hover:text-coral-light">0838-7708-0088</a></li>
+                <li>Email: info@villasawarna.com</li>
               </ul>
             </div>
           </section>
@@ -327,10 +326,6 @@ const TermsAndConditions = () => {
               <div className="flex items-center gap-2 text-ocean dark:text-coral">
                 <Phone size={20} />
                 <a href="https://wa.me/6283877080088" className="hover:underline dark:hover:text-coral-light">0838-7708-0088</a>
-              </div>
-              <div className="flex items-center gap-2 text-ocean dark:text-coral">
-                <Phone size={20} />
-                <a href="https://wa.me/6283841409494" className="hover:underline dark:hover:text-coral-light">0838-4140-9494</a>
               </div>
               <div className="flex items-center gap-2 text-ocean dark:text-coral">
                 <Mail size={20} />

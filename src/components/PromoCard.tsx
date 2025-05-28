@@ -61,11 +61,11 @@ export function PromoCard({
     <>
       <div className="flex bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 overflow-hidden w-full max-w-2xl mx-auto min-h-[110px] relative">
         {/* Kiri: Gambar utama dan thumbnail */}
-        <div className="relative w-28 min-w-[100px] flex flex-col items-center p-0">
-        <img
-          src={image}
-          alt={title}
-            className="w-full h-full object-cover cursor-pointer"
+        <div className="relative w-28 min-w-[100px] flex flex-col items-center p-0 overflow-hidden">
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover cursor-pointer transition-transform duration-300 hover:scale-110"
             onClick={() => setShowQuickView(true)}
           />
           {/* Tombol favorit */}
@@ -76,7 +76,7 @@ export function PromoCard({
           </button>
           {/* Tombol Quick View */}
           <button
-            className="absolute top-1 left-1 bg-white/80 dark:bg-gray-700/80 rounded-full p-0.5 shadow hover:bg-white dark:hover:bg-gray-600"
+            className="absolute top-[-5vh] left-1 bg-white/80 dark:bg-gray-700/80 rounded-full p-0.5 shadow hover:bg-white dark:hover:bg-gray-600"
             onClick={() => setShowQuickView(true)}
             title="Quick View"
           >
