@@ -18,6 +18,7 @@ import { PromoSection } from "@/components/PromoSection";
 import { FloatingThemeToggle } from '@/components/FloatingThemeToggle';
 import { Article } from '@/types/article';
 import { cn } from '@/lib/utils';
+import WelcomeModal from '@/components/WelcomeModal';
 
 // Data testimonial
 const testimonialData = [
@@ -91,6 +92,7 @@ const Index = () => {
   const villasData = getVillasData();
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(true);
 
   // Handle resize untuk mendeteksi ukuran layar
   useEffect(() => {
@@ -130,6 +132,37 @@ const Index = () => {
     }
   }, [quickViewOpen, quickViewEmblaApi, quickViewSlide]);
 
+  useEffect(() => {
+    if (quickViewEmblaApi) {
+      const onSelect = () => {
+        setQuickViewSlide(quickViewEmblaApi.selectedScrollSnap());
+      };
+      quickViewEmblaApi.on('select', onSelect);
+      return () => {
+        quickViewEmblaApi.off('select', onSelect);
+      };
+    }
+  }, [quickViewEmblaApi]);
+
+  // Effect untuk menampilkan WelcomeModal saat halaman dimuat
+  useEffect(() => {
+    console.log('useEffect di Index.tsx berjalan');
+    const hasSeenModal = sessionStorage.getItem('hasSeenWelcomeModal');
+    console.log('Nilai sessionStorage "hasSeenModal":', hasSeenModal);
+
+    if (!hasSeenModal) {
+      console.log('hasSeenModal tidak ditemukan di sessionStorage, menampilkan modal');
+      setIsWelcomeModalOpen(true);
+      sessionStorage.setItem('hasSeenWelcomeModal', 'true');
+    } else {
+      console.log('hasSeenModal ditemukan di sessionStorage, tidak menampilkan modal');
+    }
+  }, []); // Array kosong berarti effect hanya berjalan sekali saat component mount
+
+  const handleCloseWelcomeModal = () => {
+    setIsWelcomeModalOpen(false);
+  };
+
   return (
     <>
       <SEO 
@@ -145,8 +178,8 @@ const Index = () => {
       {/* SearchBar Container - untuk menentukan posisi awal */}
       <div className="search-bar-container relative -mt-5 z-10">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto">
-            <SearchBar className="shadow-xl border border-gray-200/80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-xl" />
+          <div className="max-w-3xl mx-auto shadow-xl border border-gray-200/80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-xl">
+            <SearchBar />
           </div>
         </div>
       </div>
@@ -161,14 +194,12 @@ const Index = () => {
         )}
       >
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto">
-            <SearchBar 
-              className={cn(
-                "shadow-xl border border-gray-200/80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-xl",
+          <div className={cn(
+            "max-w-3xl mx-auto shadow-xl border border-gray-200/80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-xl",
                 "transition-all duration-300 transform",
                 isSearchVisible ? "scale-100" : "scale-95"
-              )} 
-            />
+          )}>
+            <SearchBar />
           </div>
         </div>
       </div>
@@ -217,8 +248,106 @@ const Index = () => {
           <FeaturedProperties />
           {/* Custom Villa Promo Cards */}
           <div className="flex flex-col gap-4 mt-8 md:flex-row md:gap-4">
-            {[0,1,2].map((idx) => {
-              const villa = villasData[idx];
+            {[0,1,2,3].map((idx) => {
+              const villa = idx === 3 ? {
+                id: "villa-mutiara-sawarna",
+                name: "Villa Mutiara Sawarna",
+                image: "https://i.imgur.com/9Hcp40U.jpeg",
+                rating: 4.8,
+                reviews: 156,
+                location: "Pantai Sawarna",
+                price: 356000,
+                originalPrice: 400000,
+                discount: 11,
+                mainImages: [
+                  "https://i.imgur.com/9Hcp40U.jpeg",
+                  "https://i.imgur.com/JHASLtZ.jpeg",
+                  "https://i.imgur.com/Khg9u7S.jpeg",
+                  "https://i.imgur.com/yDZCZww.jpeg",
+                  "https://i.imgur.com/uh8FQep.jpeg",
+                  "https://i.imgur.com/5tWlccP.jpeg",
+                  "https://i.imgur.com/jfOhuSi.jpeg",
+                  "https://i.imgur.com/oNmci0u.jpeg"
+                ],
+                facilities: ["View Pantai", "WiFi", "Area BBQ", "AC", "TV", "Kamar Mandi Dalam"],
+                capacity: 4,
+                bedrooms: 2,
+                bathrooms: 2
+              } : idx === 0 ? {
+                id: "villa-cempaka",
+                name: "Villa Cempaka",
+                image: "https://i.imgur.com/MBymqfS.jpeg",
+                rating: 4.5,
+                reviews: 80,
+                location: "Pantai Sawarna",
+                price: 350000,
+                originalPrice: 400000,
+                discount: 12,
+                mainImages: [
+                  "https://i.imgur.com/MBymqfS.jpeg",
+                  "https://i.imgur.com/ZWM1vUu.jpeg",
+                  "https://i.imgur.com/UYjw1CE.jpeg",
+                  "https://i.imgur.com/R0HR9FM.jpeg",
+                  "https://i.imgur.com/qKALLdC.jpeg"
+                ],
+                facilities: ["Kipas Angin", "Kamar Mandi Dalam", "WiFi", "View Pantai", "Pemandangan Sawah"],
+                capacity: 2,
+                bedrooms: 1,
+                bathrooms: 1
+              } : idx === 1 ? {
+                id: "villa-aki-nini",
+                name: "Villa Aki Nini",
+                image: "https://i.imgur.com/B28xTFD.jpeg",
+                rating: 4.6,
+                reviews: 95,
+                location: "Pantai Sawarna",
+                price: 350000,
+                originalPrice: 400000,
+                discount: Math.round(((400000 - 350000) / 400000) * 100),
+                mainImages: [
+                  "https://i.imgur.com/B28xTFD.jpeg",
+                  "https://i.imgur.com/MKYfcag.jpeg",
+                  "https://i.imgur.com/JYILIYe.jpeg",
+                  "https://i.imgur.com/gHHUxrK.jpeg",
+                  "https://i.imgur.com/oRl7XdE.jpeg",
+                  "https://i.imgur.com/Fv9HJPe.jpeg",
+                  "https://i.imgur.com/l0QsGrb.jpeg",
+                  "https://i.imgur.com/AJ4MO1L.jpeg",
+                  "https://i.imgur.com/BtWp6Yr.jpeg",
+                  "https://i.imgur.com/lf3VX4d.jpeg",
+                  "https://i.imgur.com/eXSGFhd.jpeg",
+                  "https://i.imgur.com/nwKjG10.jpeg",
+                  "https://i.imgur.com/SOKaH8H.jpeg",
+                  "https://i.imgur.com/IYAvuag.jpeg",
+                  "https://i.imgur.com/YjosayP.jpeg"
+                ],
+                facilities: ["AC", "TV", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Ruang Tamu"],
+                capacity: 4,
+                bedrooms: 2,
+                bathrooms: 2
+              } : idx === 2 ? { // Ganti index 2 (sebelumnya Sinar Pelangi) dengan Villa Sawarna Resort
+                id: "villa-sawarna-resort",
+                name: "Villa Sawarna Resort",
+                image: "https://i.imgur.com/KP2ncPi.jpeg", // Gambar Utama Sawarna Resort
+                rating: 4.7,
+                reviews: 120,
+                location: "Pantai Sawarna",
+                price: 450000,
+                originalPrice: 500000,
+                discount: 10,
+                mainImages: [
+                  "https://i.imgur.com/KP2ncPi.jpeg",
+                  "https://i.imgur.com/d22kux8.jpeg",
+                  "https://i.imgur.com/BtWp6Yr.jpeg",
+                  "https://i.imgur.com/YjosayP.jpeg",
+                  "https://i.imgur.com/SOKaH8H.jpeg",
+                  "https://i.imgur.com/7Djvl8E.jpeg"
+                ],
+                facilities: ["AC", "WiFi", "Restoran", "Tepi Pantai"],
+                capacity: 6,
+                bedrooms: 3,
+                bathrooms: 3
+              } : villasData[idx];
               if (!villa) return null;
               return (
                 <div key={villa.id} className={cn(
@@ -235,13 +364,15 @@ const Index = () => {
                     </div>
                   )}
                   {/* Gambar utama */}
-                  <div className="h-48 sm:h-56 md:h-64 lg:h-72 w-full relative">
+                  <div className="h-40 sm:h-44 md:h-48 lg:h-52 w-full relative overflow-hidden">
                     <img 
                       src={villa.image} 
                       alt={villa.name} 
-                      className="h-full w-full object-cover rounded-t-2xl cursor-pointer"
+                      className="h-full w-full object-cover rounded-t-2xl cursor-pointer transition-transform duration-300 hover:scale-110"
                       onClick={() => {
-                        setQuickViewImages([villa.image, ...(villa.mainImages?.slice(1,3) || [])]);
+                        const cempakaBuildingImage = "https://i.imgur.com/MBymqfS.jpeg";
+                        const otherCempakaImages = (villa.mainImages || [villa.image]).filter(img => img !== cempakaBuildingImage);
+                        setQuickViewImages(villa.mainImages || (villa.image ? [villa.image] : []));
                         setQuickViewTitle(villa.name);
                         setQuickViewIdx(idx);
                         setQuickViewSlide(0);
@@ -249,10 +380,12 @@ const Index = () => {
                       }}
                     />
                     <button
-                      className="absolute bottom-2 right-2 bg-white/80 dark:bg-gray-800/80 text-blue-600 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-semibold shadow hover:bg-blue-50 dark:hover:bg-blue-900/40 transition-colors"
+                      className="absolute top-[-10vh] right-2 bg-white/80 dark:bg-gray-800/80 text-blue-600 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-semibold shadow hover:bg-blue-50 dark:hover:bg-blue-900/40 transition-colors"
                       onClick={(e) => {
                         e.stopPropagation();
-                        setQuickViewImages([villa.image, ...(villa.mainImages?.slice(1,3) || [])]);
+                        const cempakaBuildingImage = "https://i.imgur.com/MBymqfS.jpeg";
+                        const otherCempakaImages = (villa.mainImages || [villa.image]).filter(img => img !== cempakaBuildingImage);
+                        setQuickViewImages(villa.mainImages || (villa.image ? [villa.image] : []));
                         setQuickViewTitle(villa.name);
                         setQuickViewIdx(idx);
                         setQuickViewSlide(0);
@@ -286,11 +419,12 @@ const Index = () => {
                         {idx === 0 && 'Rp 38.943 digunakan'}
                         {idx === 1 && 'Rp 21.570 digunakan'}
                         {idx === 2 && 'Rp 15.200 digunakan'}
+                        {idx === 3 && 'Rp 44.000 digunakan'}
                       </span>
                     </div>
                     <div className="flex items-end gap-1 sm:gap-2 mb-1">
-                      <span className="line-through text-gray-400 dark:text-gray-500 text-[10px] sm:text-sm">Rp {(villa.price*2).toLocaleString('id-ID')}</span>
-                      <span className="text-red-600 dark:text-red-400 text-base sm:text-xl md:text-2xl font-bold">Rp {villa.price.toLocaleString('id-ID')}</span>
+                      <span className="line-through text-gray-400 dark:text-gray-500 text-[10px] sm:text-sm">Rp {villa.originalPrice?.toLocaleString('id-ID') ?? '-'}</span>
+                      <span className="text-red-600 dark:text-red-400 text-base sm:text-xl md:text-2xl font-bold">Rp {villa.price?.toLocaleString('id-ID') ?? '-'}</span>
                     </div>
                     <div className="text-[9px] sm:text-xs text-gray-500 dark:text-gray-300">Per malam sudah pajak dan biaya lainnya</div>
                   </div>
@@ -512,7 +646,7 @@ const Index = () => {
                             <OptimizedImage
                               src={article.image}
                               alt={article.title}
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                              className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                         quality={80}
                         sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                             />
@@ -554,7 +688,7 @@ const Index = () => {
       {/* QuickView Modal */}
       {quickViewOpen && (
         <div className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4" onClick={() => setQuickViewOpen(false)}>
-          <div className="relative w-full max-w-3xl h-auto md:h-[420px] overflow-hidden rounded-2xl flex flex-col md:flex-row bg-white dark:bg-gray-900 shadow-xl" onClick={e => e.stopPropagation()}>
+          <div className="relative w-full max-w-sm md:max-w-3xl h-auto md:h-[420px] overflow-hidden rounded-2xl flex flex-col md:flex-row bg-white dark:bg-gray-900 shadow-xl" onClick={e => e.stopPropagation()}>
             {/* Tombol Tutup */}
             <button 
               className="absolute top-3 right-3 z-10 bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-white rounded-full p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
@@ -566,11 +700,29 @@ const Index = () => {
               </svg>
             </button>
             {/* Bagian Gambar */}
-            <div className="md:w-1/2 w-full h-56 md:h-auto relative flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+            <div className="md:w-1/2 w-full h-48 md:h-auto relative flex items-center justify-center bg-gray-100 dark:bg-gray-800">
               {/* Badge kategori */}
               <span className="absolute top-3 left-3 bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">Villa</span>
               <div className="w-full h-full flex items-center justify-center">
-                <img src={quickViewImages[quickViewSlide] || quickViewImages[0]} alt={quickViewTitle+`-quickview`} className="object-cover w-full h-full rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none" />
+                <div className="w-full h-full">
+                  <div className="overflow-hidden w-full h-full" ref={quickViewEmblaRef}>
+                    <div className="flex h-full items-center">
+                      {quickViewImages.map((image, index) => (
+                        <div className="flex-[0_0_100%] min-w-0 h-full flex items-center justify-center" key={index}>
+                          <OptimizedImage
+                            src={image}
+                            alt={`${quickViewTitle} Image ${index + 1}`}
+                            className="block w-full h-full object-contain"
+                            quality={90}
+                            sizes="(max-width: 768px) 100vw, 800px"
+                            width={800}
+                            height={600}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
               {/* Navigasi gambar jika lebih dari 1 */}
               {quickViewImages.length > 1 && (
@@ -596,67 +748,185 @@ const Index = () => {
               )}
             </div>
             {/* Bagian Detail */}
-            <div className="md:w-1/2 w-full flex flex-col justify-between p-5 md:p-7">
+            <div className="md:w-1/2 w-full flex flex-col justify-between p-4 md:p-7">
               {(() => {
-                const villa = villasData[quickViewIdx];
+                const villa = quickViewIdx === 3 ? {
+                  id: "villa-mutiara-sawarna",
+                  name: "Villa Mutiara Sawarna",
+                  image: "https://i.imgur.com/9Hcp40U.jpeg",
+                  rating: 4.8,
+                  reviews: 156,
+                  location: "Pantai Sawarna",
+                  price: 356000,
+                  originalPrice: 400000,
+                  discount: 11,
+                  mainImages: [
+                    "https://i.imgur.com/9Hcp40U.jpeg",
+                    "https://i.imgur.com/JHASLtZ.jpeg",
+                    "https://i.imgur.com/Khg9u7S.jpeg",
+                    "https://i.imgur.com/yDZCZww.jpeg",
+                    "https://i.imgur.com/uh8FQep.jpeg",
+                    "https://i.imgur.com/5tWlccP.jpeg",
+                    "https://i.imgur.com/jfOhuSi.jpeg",
+                    "https://i.imgur.com/oNmci0u.jpeg"
+                  ],
+                  facilities: ["View Pantai", "WiFi", "Area BBQ", "AC", "TV", "Kamar Mandi Dalam"],
+                  capacity: 4,
+                  bedrooms: 2,
+                  bathrooms: 2
+                } : quickViewIdx === 0 ? {
+                  id: "villa-cempaka",
+                  name: "Villa Cempaka",
+                  image: "https://i.imgur.com/MBymqfS.jpeg",
+                  rating: 4.5,
+                  reviews: 80,
+                  location: "Pantai Sawarna",
+                  price: 350000,
+                  originalPrice: 400000,
+                  discount: 12,
+                  mainImages: [
+                    "https://i.imgur.com/MBymqfS.jpeg",
+                    "https://i.imgur.com/ZWM1vUu.jpeg",
+                    "https://i.imgur.com/UYjw1CE.jpeg",
+                    "https://i.imgur.com/R0HR9FM.jpeg",
+                    "https://i.imgur.com/qKALLdC.jpeg"
+                  ],
+                  facilities: ["Kipas Angin", "Kamar Mandi Dalam", "WiFi", "View Pantai", "Pemandangan Sawah"],
+                  capacity: 2,
+                  bedrooms: 1,
+                  bathrooms: 1
+                } : quickViewIdx === 1 ? {
+                  id: "villa-aki-nini",
+                  name: "Villa Aki Nini",
+                  image: "https://i.imgur.com/B28xTFD.jpeg",
+                  rating: 4.6,
+                  reviews: 95,
+                  location: "Pantai Sawarna",
+                  price: 350000,
+                  originalPrice: 400000,
+                  discount: Math.round(((400000 - 350000) / 400000) * 100),
+                  mainImages: [
+                    "https://i.imgur.com/B28xTFD.jpeg",
+                    "https://i.imgur.com/MKYfcag.jpeg",
+                    "https://i.imgur.com/JYILIYe.jpeg",
+                    "https://i.imgur.com/gHHUxrK.jpeg",
+                    "https://i.imgur.com/oRl7XdE.jpeg",
+                    "https://i.imgur.com/Fv9HJPe.jpeg",
+                    "https://i.imgur.com/l0QsGrb.jpeg",
+                    "https://i.imgur.com/AJ4MO1L.jpeg",
+                    "https://i.imgur.com/BtWp6Yr.jpeg",
+                    "https://i.imgur.com/lf3VX4d.jpeg",
+                    "https://i.imgur.com/eXSGFhd.jpeg",
+                    "https://i.imgur.com/nwKjG10.jpeg",
+                    "https://i.imgur.com/SOKaH8H.jpeg",
+                    "https://i.imgur.com/IYAvuag.jpeg",
+                    "https://i.imgur.com/YjosayP.jpeg"
+                  ],
+                  facilities: ["AC", "TV", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Ruang Tamu"],
+                  capacity: 4,
+                  bedrooms: 2,
+                  bathrooms: 2
+                } : quickViewIdx === 2 ? { // Data Quickview untuk Villa Sawarna Resort
+                  id: "villa-sawarna-resort",
+                  name: "Villa Sawarna Resort",
+                  image: "https://i.imgur.com/KP2ncPi.jpeg", // Gambar Utama Sawarna Resort
+                  rating: 4.7,
+                  reviews: 120,
+                  location: "Pantai Sawarna",
+                  price: 450000,
+                  originalPrice: 500000,
+                  discount: 10,
+                  mainImages: [
+                    "https://i.imgur.com/KP2ncPi.jpeg",
+                    "https://i.imgur.com/d22kux8.jpeg",
+                    "https://i.imgur.com/BtWp6Yr.jpeg",
+                    "https://i.imgur.com/YjosayP.jpeg",
+                    "https://i.imgur.com/SOKaH8H.jpeg",
+                    "https://i.imgur.com/7Djvl8E.jpeg"
+                  ],
+                  facilities: ["AC", "WiFi", "Restoran", "Tepi Pantai"],
+                  capacity: 6,
+                  bedrooms: 3,
+                  bathrooms: 3
+                } : villasData[quickViewIdx];
                 if (!villa) return null;
                 return (
-                  <>
+                  <React.Fragment>
                     {/* Badge Promo Spesial */}
-                    <div className="mb-2">
-                      <span className="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">Promo Spesial Hari Ini</span>
+                    <div className="mb-2 flex justify-between items-center">
+                      <span className="bg-red-600 text-white text-[10px] sm:text-xs font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded">Promo Spesial Hari Ini</span>
+                      {/* Harga di Quick View Mobile */}
+                      <div className="text-right">
+                        <div className="flex items-end gap-1 justify-end">
+                          {villa.originalPrice && (
+                            <span className="line-through text-gray-400 dark:text-gray-500 text-xs sm:text-sm">Rp {villa.originalPrice.toLocaleString('id-ID')}</span>
+                          )}
+                          <div className="text-base sm:text-lg md:text-xl font-bold text-red-600 dark:text-red-400">Rp {villa.price?.toLocaleString('id-ID') ?? '-'}</div>
+                        </div>
+                        <div className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-300">per malam</div>
+                      </div>
                     </div>
                     <div>
+                      {/* Nama Villa */}
                       <div className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">{villa.name}</div>
+                      {/* Rating dan Review */}
                       <div className="flex items-center gap-2 mb-2">
                         <span className="text-yellow-500 font-bold">★</span>
                         <span className="font-semibold text-sm text-gray-900 dark:text-white">{villa.rating?.toFixed(1) ?? '-'}</span>
                         <span className="text-gray-500 dark:text-gray-300 text-xs">{villa.reviews ?? '-'} ulasan</span>
                       </div>
-                      <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 text-sm mb-3">
-                        <MapPin className="w-4 h-4" />
-                        <span>{villa.location ?? '-'}</span>
+                      {/* Lokasi dan Detail Kamar (Tata Ulang untuk Mobile) */}
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 gap-2 mb-3 text-sm sm:text-base">
+                        {/* Lokasi - tetap di kiri */}
+                        <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+                            <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
+                            <span className="line-clamp-1">{villa.location ?? '-'}</span>
+                        </div>
+                        {/* Detail Kamar - Tampil di kanan Lokasi di Mobile */}
+                        <div className="flex gap-3 sm:gap-4 flex-wrap text-gray-700 dark:text-gray-200 text-xs sm:text-sm">
+                            <div className="flex items-center gap-1">
+                                <User className="w-4 h-4 sm:w-5 sm:h-5" />
+                                <span className="font-semibold">{villa.capacity ?? '-'} tamu</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <Home className="w-4 h-4 sm:w-5 sm:h-5" />
+                                <span className="font-semibold">{villa.bedrooms ?? '-'} kamar</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <Shield className="w-4 h-4 sm:w-5 sm:h-5" />
+                                <span className="font-semibold">{villa.bathrooms ?? '-'} kamar</span>
+                            </div>
+                        </div>
                       </div>
                       <hr className="my-2 border-gray-200 dark:border-gray-700" />
-                      <div className="flex gap-4 mb-3">
-                        <div className="flex flex-col items-center text-xs text-gray-700 dark:text-gray-200">
-                          <User className="w-5 h-5 mb-1" />
-                          <span className="font-semibold">{villa.capacity ?? '-' } tamu</span>
-                          <span>Kapasitas</span>
-                        </div>
-                        <div className="flex flex-col items-center text-xs text-gray-700 dark:text-gray-200">
-                          <Home className="w-5 h-5 mb-1" />
-                          <span className="font-semibold">{villa.bedrooms ?? '-'} kamar</span>
-                          <span>Kamar Tidur</span>
-                        </div>
-                        <div className="flex flex-col items-center text-xs text-gray-700 dark:text-gray-200">
-                          <Shield className="w-5 h-5 mb-1" />
-                          <span className="font-semibold">{villa.bathrooms ?? '-'} kamar</span>
-                          <span>Kamar Mandi</span>
-                        </div>
-                      </div>
+                      {/* Fasilitas */}
                       <div className="mb-3">
                         <div className="font-semibold text-sm mb-1">Fasilitas Utama</div>
                         <div className="flex flex-wrap gap-2">
                           {(villa.facilities && villa.facilities.length > 0 ? villa.facilities : ['-']).map((fasilitas: string, i: number) => (
-                            <span key={i} className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-2 py-1 rounded text-xs font-medium">{fasilitas}</span>
+                            <span key={i} className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200 px-2 py-1 rounded text-xs font-medium">{fasilitas}</span>
                           ))}
                         </div>
                       </div>
-                      <div className="text-lg md:text-xl font-bold text-red-600 dark:text-red-400 mb-1">Rp {villa.price?.toLocaleString('id-ID') ?? '-'}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-300 mb-2">per malam</div>
                     </div>
-                    <div className="flex gap-2 mt-4">
-                      <a href={`/villas/${villa.id}`} className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-center py-2 rounded-lg font-semibold transition-colors">Lihat Detail</a>
-                      <button onClick={() => setQuickViewOpen(false)} className="flex-1 border border-blue-500 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 py-2 rounded-lg font-semibold transition-colors">Tutup</button>
+                    {/* Tombol Aksi */}
+                    <div className="flex gap-2 mt-4 text-sm font-semibold">
+                      <a href={`/villas/${villa.id}`} className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-center py-2 rounded-lg transition-colors">Lihat Detail</a>
+                      <button onClick={() => setQuickViewOpen(false)} className="flex-1 border border-blue-500 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 py-2 rounded-lg transition-colors">Tutup</button>
                     </div>
-                  </>
+                  </React.Fragment>
                 );
               })()}
             </div>
           </div>
         </div>
       )}
+
+      {/* Welcome Modal */}
+      <WelcomeModal
+        isOpen={isWelcomeModalOpen}
+        onClose={handleCloseWelcomeModal}
+      />
     </>
   );
 };
