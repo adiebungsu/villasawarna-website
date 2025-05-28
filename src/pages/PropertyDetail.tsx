@@ -550,7 +550,7 @@ const PropertyDetail: React.FC = () => {
   }, [property?.type]);
 
   const metaDescription = property ? 
-    `${property.name} adalah villa ${property.type === 'villa' ? 'mewah' : 'homestay'} di ${property.location}, Pantai Sawarna. ${property.description.substring(0, 150)}... Harga mulai Rp ${property.price.toLocaleString('id-ID')}. Rating ${property.rating} dari ${property.reviews} review.` :
+    `${property.name} adalah villa ${property.type === 'villa' ? 'nyaman' : 'homestay'} di ${property.location}, Pantai Sawarna. ${property.description.substring(0, 150)}... Harga mulai Rp ${property.price.toLocaleString('id-ID')}. Rating ${property.rating} dari ${property.reviews} review.` :
     'Detail villa dan homestay di Pantai Sawarna';
 
   const metaTitle = property ? 

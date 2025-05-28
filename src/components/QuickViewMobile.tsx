@@ -84,7 +84,7 @@ export default function QuickViewMobile(props: QuickViewMobileProps) {
         {/* Main Container */}
         <div className="flex flex-col h-full">
           {/* Image Section */}
-          <div className="relative w-full h-[30vh] bg-gray-100 dark:bg-gray-800 rounded-t-lg">
+          <div className="relative w-full h-[25vh] bg-gray-100 dark:bg-gray-800 rounded-t-lg">
             <OptimizedImage
               src={image}
               alt={name}
@@ -118,10 +118,18 @@ export default function QuickViewMobile(props: QuickViewMobileProps) {
                 </div>
               </div>
 
-              {/* Location */}
-              <div className="flex items-start gap-1.5 mb-2">
-                <MapPin size={14} className="text-ocean dark:text-ocean-light flex-shrink-0 mt-0.5" />
-                <span className="text-xs text-gray-600 dark:text-gray-300 line-clamp-1">{location}</span>
+              {/* Location and Price */}
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-start gap-1.5">
+                  <MapPin size={14} className="text-ocean dark:text-ocean-light flex-shrink-0 mt-0.5" />
+                  <span className="text-xs text-gray-600 dark:text-gray-300 line-clamp-1">{location}</span>
+                </div>
+                <div className="text-right">
+                  <p className="text-base font-bold text-coral dark:text-coral-light">
+                    Rp {price.toLocaleString('id-ID')}
+                  </p>
+                  <p className="text-[10px] text-gray-500 dark:text-gray-400">per malam</p>
+                </div>
               </div>
 
               {/* Key Features */}
@@ -158,16 +166,8 @@ export default function QuickViewMobile(props: QuickViewMobileProps) {
                 </div>
               </div>
 
-              {/* Price and CTA */}
+              {/* CTA */}
               <div className="mt-auto pt-2 border-t border-gray-200 dark:border-gray-700">
-                <div className="flex justify-between items-end mb-2">
-                  <div>
-                    <p className="text-base font-bold text-coral dark:text-coral-light">
-                      Rp {price.toLocaleString('id-ID')}
-                    </p>
-                    <p className="text-[10px] text-gray-500 dark:text-gray-400">per malam</p>
-                  </div>
-                </div>
                 <div className="flex flex-col gap-1.5">
                   <Button
                     className="w-full bg-ocean hover:bg-ocean-dark text-white shadow-sm hover:shadow transition-all duration-200

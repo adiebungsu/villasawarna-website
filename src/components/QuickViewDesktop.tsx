@@ -119,10 +119,18 @@ export default function QuickViewDesktop(props: QuickViewDesktopProps) {
               </div>
             </div>
 
-            {/* Location */}
-            <div className="flex items-start gap-2">
-              <MapPin size={16} className="text-ocean dark:text-ocean-light flex-shrink-0 mt-0.5" />
-              <span className="text-sm text-gray-600 dark:text-gray-300">{location}</span>
+            {/* Location and Price */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-start gap-2">
+                <MapPin size={16} className="text-ocean dark:text-ocean-light flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-600 dark:text-gray-300">{location}</span>
+              </div>
+              <div className="text-right">
+                <p className="text-lg font-bold text-coral dark:text-coral-light">
+                  Rp {price.toLocaleString('id-ID')}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">per malam</p>
+              </div>
             </div>
 
             {/* Key Features */}
@@ -159,16 +167,8 @@ export default function QuickViewDesktop(props: QuickViewDesktopProps) {
               </div>
             </div>
 
-            {/* Price and CTA */}
+            {/* CTA */}
             <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex justify-between items-end mb-4">
-                <div>
-                  <p className="text-lg font-bold text-coral dark:text-coral-light">
-                    Rp {price.toLocaleString('id-ID')}
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">per malam</p>
-                </div>
-              </div>
               <div className="flex gap-3">
                 <Button
                   className="flex-1 bg-ocean hover:bg-ocean-dark text-white shadow-sm hover:shadow transition-all duration-200

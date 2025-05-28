@@ -119,9 +119,9 @@ const Villas: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Vila Mewah di Pantai Sawarna"
-        description="Nikmati pengalaman menginap yang luar biasa dengan koleksi vila mewah pilihan kami, menawarkan pemandangan spektakuler dan fasilitas modern."
-        keywords="vila sawarna, villa pantai, penginapan sawarna, villa mewah"
+        title="Vila Nyaman di Pantai Sawarna"
+        description="Nikmati pengalaman menginap yang luar biasa dengan koleksi vila nyaman pilihan kami, menawarkan pemandangan spektakuler dan fasilitas modern."
+        keywords="vila sawarna, villa pantai, penginapan sawarna, villa nyaman"
       />
       <div className="min-h-screen flex flex-col">
         {/* Page Header */}
@@ -146,9 +146,9 @@ const Villas: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/60 to-transparent dark:from-black/90 dark:via-black/60 sm:hidden"></div>
 
           <div className="container-custom relative z-10">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">Vila Mewah di Pantai Sawarna</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">Vila Nyaman di Pantai Sawarna</h1>
             <p className="text-lg max-w-3xl text-gray-700 dark:text-gray-200">
-              Nikmati pengalaman menginap yang luar biasa dengan koleksi vila mewah pilihan kami, menawarkan pemandangan spektakuler dan fasilitas modern.
+              Nikmati pengalaman menginap yang luar biasa dengan koleksi vila nyaman pilihan kami, menawarkan pemandangan spektakuler dan fasilitas modern.
             </p>
           </div>
         </div>
@@ -255,7 +255,7 @@ const Villas: React.FC = () => {
             {/* Main Content */}
             <div className="w-full lg:w-3/4">
               <div className="flex flex-wrap justify-between items-center mb-6">
-                <p className="text-gray-500 mb-4 md:mb-0">Menampilkan {filteredVillas.length} vila mewah</p>
+                <p className="text-gray-500 mb-4 md:mb-0">Menampilkan {filteredVillas.length} vila nyaman</p>
                 <div className="flex gap-2">
                   <select 
                     className="border border-gray-300 rounded p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -295,7 +295,7 @@ const Villas: React.FC = () => {
                       <Bed className="h-6 w-6 text-white dark:text-gray-900" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg text-gray-800 dark:text-white">Fasilitas Mewah</h3>
+                      <h3 className="font-semibold text-lg text-gray-800 dark:text-white">Fasilitas Nyaman</h3>
                       <p className="text-gray-600 dark:text-gray-300">Nikmati tempat tidur premium dan dapur lengkap di vila kami.</p>
                     </div>
                   </div>

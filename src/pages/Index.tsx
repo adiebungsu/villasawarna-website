@@ -212,8 +212,8 @@ const Index = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
               <Link to="/villas">
                 <div className="group bg-gradient-to-br from-ocean/5 to-ocean/10 dark:from-ocean-dark/20 dark:to-ocean-dark/30 rounded-xl p-3 text-center transition-all duration-300 hover:shadow-lg hover:scale-105">
-                  <img src="/images/villa mewah.png" alt="Villa Mewah Icon" className="w-10 h-10 mx-auto mb-2" />
-                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Villa Mewah</h3>
+                  <img src="/images/villa mewah.png" alt="Villa Icon" className="w-10 h-10 mx-auto mb-2" />
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Villa</h3>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Penginapan Premium</p>
                 </div>
               </Link>
