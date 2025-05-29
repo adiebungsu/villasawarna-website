@@ -31,7 +31,7 @@ export const villaSawarna: Article = {
 <p class="" data-end="2474" data-start="2276">Terletak di Legon Pari, villa ini memiliki 8 kamar tidur mewah dengan pemandangan sawah. Dilengkapi dapur modern, area BBQ, dan taman asri. Hanya 7 menit dari Pantai Sawarna.</p>
 <hr class="" data-end="2479" data-start="2476" />
 <h3 class="" data-end="2532" data-start="2481"><strong data-end="2532" data-start="2485">8. Villa Muara Legon Pari</strong></h3>
-<p class="" data-end="2756" data-start="2533">Berada tepat di depan Pantai Legon Pari, villa ini menawarkan 4 kamar tidur dengan pemandangan pantai yang indah. Dilengkapi dapur lengkap, area BBQ, dan WiFi gratis.</p>
+<p class="" data-end="2756" data-start="2533">Villa nyaman yang terletak di Pantai Legon Pari, menawarkan pemandangan pantai yang menakjubkan dan suasana yang tenang. Dilengkapi dengan fasilitas modern dan area outdoor yang luas, ideal untuk liburan keluarga atau rombongan. Dengan lokasi strategis, Anda dapat dengan mudah mengakses berbagai destinasi wisata populer di sekitar Sawarna.</p>
 <hr class="" data-end="2761" data-start="2758" />
 <h3 class="" data-end="2818" data-start="2763"><strong data-end="2818" data-start="2767">9. Villa Family Sawarna</strong></h3>
 <p class="" data-end="3032" data-start="2819">Dikelilingi pemandangan pantai yang indah, villa ini menawarkan 6 kamar tidur mewah. Memiliki kolam renang infinity, ruang meeting, dan area BBQ. Cocok untuk liburan keluarga.</p>
