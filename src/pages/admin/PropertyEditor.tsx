@@ -154,14 +154,14 @@ const propertySchema = z.object({
   maxStay: z.number().min(1, 'Maksimal menginap harus lebih dari 0'),
   cancellationPolicy: z.string(),
   houseRules: z.array(z.string()),
-  coordinates: z.object({
-    lat: z.number().min(-90).max(90),
-    lng: z.number().min(-180).max(180)
-  }).refine((value) => {
-    if (value.lat < -90 || value.lat > 90) {
+  coordinates: z.tuple([
+    z.number().min(-90).max(90),
+    z.number().min(-180).max(180)
+  ]).refine(([lat, lng]) => {
+    if (lat < -90 || lat > 90) {
       return 'Latitude tidak valid';
     }
-    if (value.lng < -180 || value.lng > 180) {
+    if (lng < -180 || lng > 180) {
       return 'Longitude tidak valid';
     }
     return true;
@@ -240,10 +240,7 @@ const PropertyEditor = () => {
       maxStay: 30,
       cancellationPolicy: '',
       houseRules: [],
-      coordinates: {
-        lat: 0,
-        lng: 0
-      },
+      coordinates: [0, 0],
       distanceToBeach: 0,
       roomTypes: [],
       buildingSize: 0,
@@ -374,7 +371,7 @@ const PropertyEditor = () => {
         setValue('maxStay', 30);
         setValue('cancellationPolicy', 'Pembatalan 24 jam sebelum check-in');
         setValue('houseRules', ['Tidak merokok', 'Tidak boleh membawa hewan peliharaan']);
-        setValue('coordinates', { lat: -6.9876, lng: 106.1234 });
+        setValue('coordinates', [0, 0]);
         setValue('distanceToBeach', 500);
         setValue('roomTypes', [
             { type: 'Master Bedroom', count: 2, bedType: 'King Size', size: '4x4 m', tab: 'tab1' },

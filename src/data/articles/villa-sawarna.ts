@@ -44,7 +44,7 @@ export const villaSawarna: Article = {
 <p class="" data-end="3890" data-start="3707"><strong data-end="3749" data-start="3707">Sudah siap berlibur ke Pantai Sawarna?</strong><br data-end="3752" data-start="3749" />
 👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
   category: 'Akomodasi',
-  image: 'https://i.imgur.com/9Hcp40U.jpeg',
+  image: 'https://i.imgur.com/g2oC8sT.jpeg',
   author: 'Tim Villa Sawarna',
   date: '2024-03-20',
   tags: ['Villa Sawarna', 'Penginapan Sawarna', 'Akomodasi Banten', 'Liburan', 'Pantai Sawarna'],
@@ -54,10 +54,10 @@ export const villaSawarna: Article = {
     keywords: 'Villa Sawarna, penginapan Sawarna, akomodasi Banten, liburan Sawarna, villa dekat pantai',
     ogTitle: 'Rekomendasi Villa Terbaik di Pantai Sawarna - Penginapan Nyaman Dekat Pantai',
     ogDescription: 'Temukan 10 villa terbaik di Pantai Sawarna dengan lokasi strategis, fasilitas lengkap, dan pemandangan indah untuk liburan yang tak terlupakan.',
-    ogImage: 'https://i.imgur.com/9Hcp40U.jpeg',
+    ogImage: 'https://i.imgur.com/g2oC8sT.jpeg',
     twitterCard: 'summary_large_image',
     twitterTitle: 'Rekomendasi Villa Terbaik di Pantai Sawarna - Penginapan Nyaman Dekat Pantai',
     twitterDescription: 'Temukan 10 villa terbaik di Pantai Sawarna dengan lokasi strategis, fasilitas lengkap, dan pemandangan indah untuk liburan yang tak terlupakan.',
-    twitterImage: 'https://i.imgur.com/9Hcp40U.jpeg'
+    twitterImage: 'https://i.imgur.com/g2oC8sT.jpeg'
   }
 }; 

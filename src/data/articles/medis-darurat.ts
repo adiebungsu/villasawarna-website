@@ -1,12 +1,12 @@
 import { Article } from '@/types/article';
 
 export const medisDarurat: Article = {
-  id: "medis-darurat-sawarna",
-  title: "Panduan Medis Darurat di Sawarna: Tips dan Informasi Penting",
-  slug: "medis-darurat-sawarna",
-  excerpt: "Persiapkan diri Anda dengan informasi penting tentang layanan medis darurat di Sawarna, termasuk lokasi fasilitas kesehatan dan tips penanganan darurat.",
-  content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Panduan Medis Darurat di Sawarna: Tips dan Informasi Penting</strong></h2>
-<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/9Hcp40U.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/9Hcp40U.jpeg" width="236" alt="Panduan Medis Darurat di Sawarna" /></a></div>Berikut adalah panduan lengkap tentang layanan medis darurat di Sawarna, destinasi wisata yang menakjubkan di Banten.<p></p>
+  id: "medis-darurat",
+  title: "Layanan Medis Darurat di Sawarna",
+  slug: "medis-darurat",
+  excerpt: "Informasi penting tentang layanan medis darurat dan fasilitas kesehatan di Sawarna.",
+  content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Layanan Medis Darurat di Sawarna</strong></h2>
+<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/fXwvR4p.png" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/fXwvR4p.png" width="236" alt="Layanan Medis Darurat Sawarna" /></a></div>Keselamatan dan kesehatan adalah prioritas utama. Berikut informasi penting tentang layanan medis darurat di Sawarna.<p></p>
 
 <h3 class="" data-end="647" data-start="601"><strong data-end="647" data-start="605">Fasilitas Kesehatan</strong></h3>
 <p class="" data-end="890" data-start="648">Sawarna memiliki beberapa fasilitas kesehatan, seperti puskesmas dan klinik. Pastikan untuk mengetahui lokasi fasilitas kesehatan terdekat dari tempat menginap Anda.</p>
@@ -29,20 +29,20 @@ export const medisDarurat: Article = {
 <p class="" data-end="3314" data-start="3086"><strong data-end="3749" data-start="3707">Siap untuk berlibur ke Sawarna?</strong><br data-end="3752" data-start="3749" />
 👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
   category: "Kesehatan",
-  image: "https://i.imgur.com/9Hcp40U.jpeg",
+  image: "https://i.imgur.com/fXwvR4p.png",
   author: "Tim Villa Sawarna",
   date: "2024-03-20",
-  tags: ["Medis", "Darurat", "Kesehatan", "Wisata Banten", "Pantai Sawarna"],
+  tags: ["Kesehatan", "Keamanan", "Wisata Banten", "Pantai Sawarna", "Liburan"],
   meta: {
-    title: "Panduan Medis Darurat di Sawarna: Tips dan Informasi Penting",
-    description: "Persiapkan diri Anda dengan informasi penting tentang layanan medis darurat di Sawarna, termasuk lokasi fasilitas kesehatan dan tips penanganan darurat.",
-    keywords: "Medis, Darurat, Kesehatan, Wisata Banten, Pantai Sawarna",
-    ogTitle: "Panduan Medis Darurat di Sawarna: Tips dan Informasi Penting",
-    ogDescription: "Persiapkan diri Anda dengan informasi penting tentang layanan medis darurat di Sawarna, termasuk lokasi fasilitas kesehatan dan tips penanganan darurat.",
-    ogImage: "https://i.imgur.com/9Hcp40U.jpeg",
+    title: "Layanan Medis Darurat di Sawarna",
+    description: "Informasi penting tentang layanan medis darurat dan fasilitas kesehatan di Sawarna.",
+    keywords: "Kesehatan, Keamanan, Wisata Banten, Pantai Sawarna, Liburan",
+    ogTitle: "Layanan Medis Darurat di Sawarna",
+    ogDescription: "Informasi penting tentang layanan medis darurat dan fasilitas kesehatan di Sawarna.",
+    ogImage: "https://i.imgur.com/fXwvR4p.png",
     twitterCard: "summary_large_image",
-    twitterTitle: "Panduan Medis Darurat di Sawarna: Tips dan Informasi Penting",
-    twitterDescription: "Persiapkan diri Anda dengan informasi penting tentang layanan medis darurat di Sawarna, termasuk lokasi fasilitas kesehatan dan tips penanganan darurat.",
-    twitterImage: "https://i.imgur.com/9Hcp40U.jpeg"
+    twitterTitle: "Layanan Medis Darurat di Sawarna",
+    twitterDescription: "Informasi penting tentang layanan medis darurat dan fasilitas kesehatan di Sawarna.",
+    twitterImage: "https://i.imgur.com/fXwvR4p.png"
   }
 };

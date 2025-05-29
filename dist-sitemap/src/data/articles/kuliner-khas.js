@@ -7,7 +7,7 @@ exports.kulinerKhas = {
     slug: 'kuliner-khas-sawarna',
     excerpt: 'Jelajahi kelezatan kuliner khas Sawarna, dari seafood segar hingga masakan tradisional Banten yang menggugah selera.',
     content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Kuliner Khas Sawarna: Kelezatan Seafood dan Masakan Tradisional Banten</strong></h2>
-<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/9Hcp40U.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/9Hcp40U.jpeg" width="236" alt="Kuliner Khas Sawarna - Seafood dan Masakan Tradisional" /></a></div>Pantai Sawarna tidak hanya menawarkan keindahan alam yang memukau, tetapi juga berbagai kuliner khas yang menggugah selera. Berikut adalah beberapa kuliner khas Sawarna yang wajib Anda coba:<p></p>
+<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" width="236" alt="Kuliner Khas Sawarna - Seafood dan Masakan Tradisional" /></a></div>Pantai Sawarna tidak hanya menawarkan keindahan alam yang memukau, tetapi juga berbagai kuliner khas yang menggugah selera. Berikut adalah beberapa kuliner khas Sawarna yang wajib Anda coba:<p></p>
 
 <h3 class="" data-end="647" data-start="601"><strong data-end="647" data-start="605">1. Ikan Bakar Sawarna</strong></h3>
 <p class="" data-end="890" data-start="648">Ikan bakar adalah hidangan wajib saat berkunjung ke Sawarna. Ikan segar hasil tangkapan nelayan lokal dibakar dengan bumbu khas yang membuat rasanya semakin nikmat.</p>
@@ -36,7 +36,7 @@ exports.kulinerKhas = {
 <p class="" data-end="3890" data-start="3707"><strong data-end="3749" data-start="3707">Siap untuk menikmati kuliner khas Sawarna?</strong><br data-end="3752" data-start="3749" />
 👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
     category: 'Kuliner',
-    image: 'https://i.imgur.com/9Hcp40U.jpeg',
+    image: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
     author: 'Tim Villa Sawarna',
     date: '2024-03-20',
     tags: ['Kuliner Sawarna', 'Seafood', 'Masakan Tradisional', 'Banten', 'Wisata Kuliner'],
@@ -46,10 +46,10 @@ exports.kulinerKhas = {
         keywords: 'Kuliner Sawarna, seafood, masakan tradisional, Banten, wisata kuliner',
         ogTitle: 'Kuliner Khas Sawarna: Kelezatan Seafood dan Masakan Tradisional Banten',
         ogDescription: 'Jelajahi kelezatan kuliner khas Sawarna, dari seafood segar hingga masakan tradisional Banten yang menggugah selera.',
-        ogImage: 'https://i.imgur.com/9Hcp40U.jpeg',
+        ogImage: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
         twitterCard: 'summary_large_image',
         twitterTitle: 'Kuliner Khas Sawarna: Kelezatan Seafood dan Masakan Tradisional Banten',
         twitterDescription: 'Jelajahi kelezatan kuliner khas Sawarna, dari seafood segar hingga masakan tradisional Banten yang menggugah selera.',
-        twitterImage: 'https://i.imgur.com/9Hcp40U.jpeg'
+        twitterImage: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
     }
 };

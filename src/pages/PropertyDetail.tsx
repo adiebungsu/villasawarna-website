@@ -62,10 +62,7 @@ interface Property {
   contact?: {
     phone: string;
   };
-  coordinates?: {
-    lat: number;
-    lng: number;
-  };
+  coordinates?: [number, number];
   ratingSummary?: {
     score: number;
     totalReviews: number;
@@ -78,6 +75,7 @@ interface Property {
     name: string;
     distance: string;
   }[];
+  roomTypes?: RoomType[];
 }
 
 // Define main property images for specific properties
@@ -417,7 +415,8 @@ const PropertyDetail: React.FC = () => {
 
   const allProperties = useMemo(() => getAllProperties(), []);
   const property = useMemo(() => allProperties.find((p) => p.id === id), [allProperties, id]);
-  const roomTypes = useMemo(() => propertyRoomTypes[id || ''] || [], [id]);
+  // Ganti inisialisasi roomTypes agar mengambil dari property.roomTypes jika ada
+  const roomTypes = useMemo(() => property?.roomTypes || propertyRoomTypes[id || ''] || [], [property, id]);
   const activeRoomType = useMemo(() => roomTypes.find(room => room.id === selectedRoomType) || roomTypes[0], [roomTypes, selectedRoomType]);
   const mainLocation = useMemo(() => property ? extractMainLocation(property.id === 'villa-little-hula-hula' ? 'Goa Langir, Sawarna' : property.location) : "", [property]);
   const recommendedProperties = useMemo(() => {
@@ -625,8 +624,8 @@ const PropertyDetail: React.FC = () => {
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": property.coordinates?.lat,
-      "longitude": property.coordinates?.lng
+      "latitude": property.coordinates?.[0],
+      "longitude": property.coordinates?.[1]
     },
     "priceRange": `Rp${property.price.toLocaleString('id-ID')}`,
     "aggregateRating": {
@@ -643,7 +642,7 @@ const PropertyDetail: React.FC = () => {
   } : null;
 
   // Tambahkan koordinat default jika tidak ada
-  const propertyCoordinates = property?.coordinates || { lat: -6.9875, lng: 106.3206 }; // Koordinat Sawarna
+  const propertyCoordinates = property?.coordinates || [ -6.9875, 106.3206 ]; // Koordinat Sawarna
 
   return (
     <>
@@ -843,7 +842,7 @@ const PropertyDetail: React.FC = () => {
                 <h2 className="text-xl font-bold mb-4 dark:text-white">Tipe Kamar</h2>
                 <Tabs value={selectedRoomType} onValueChange={setSelectedRoomType} className="mb-6">
                   <SimpleRoomTabsList className="flex w-full gap-1 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl">
-                    {roomTypes.slice(0, 4).map((room) => (
+                    {roomTypes.map((room) => (
                       <SimpleRoomTabsTrigger
                         key={room.id}
                         value={room.id}

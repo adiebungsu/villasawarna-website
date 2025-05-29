@@ -8,6 +8,7 @@ export interface RoomType {
   amenities: string[];
   images: string[];
   price: number;
+  tab?: string;
 }
 
 export interface Review {
@@ -56,7 +57,7 @@ export interface Property {
   ratingSummary: RatingSummary;
   propertyReviews?: Review[];
   contact?: { phone: string };
-  coordinates?: { lat: number; lng: number };
+  coordinates?: [number, number];
   reviewDetails?: Review[];
   distanceToBeach?: number;
   bookedDates?: {

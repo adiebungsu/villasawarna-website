@@ -206,17 +206,17 @@ export const transportasiLokal: Article = {
   tags: ["transportasi sawarna", "ojek sawarna", "sewa kendaraan sawarna", "tips transportasi sawarna", "panduan sawarna"],
   author: "Tim VillaSawarna",
   date: "2024-03-20",
-  image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80",
+  image: "https://i.imgur.com/2A1GlRn.png",
   meta: {
     title: "Transportasi Lokal di Sawarna: Panduan Lengkap | Villa Sawarna",
     description: "Panduan lengkap tentang transportasi lokal di Sawarna, termasuk ojek, sewa kendaraan, dan tips perjalanan untuk menjelajahi destinasi wisata.",
     keywords: "transportasi sawarna, ojek sawarna, sewa kendaraan sawarna, tips transportasi sawarna, panduan sawarna",
     ogTitle: "Transportasi Lokal di Sawarna: Panduan Lengkap",
     ogDescription: "Panduan lengkap tentang transportasi lokal di Sawarna, termasuk ojek, sewa kendaraan, dan tips perjalanan untuk menjelajahi destinasi wisata.",
-    ogImage: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80",
+    ogImage: "https://i.imgur.com/2A1GlRn.png",
     twitterCard: "summary_large_image",
     twitterTitle: "Transportasi Lokal di Sawarna: Panduan Lengkap",
     twitterDescription: "Panduan lengkap tentang transportasi lokal di Sawarna, termasuk ojek, sewa kendaraan, dan tips perjalanan untuk menjelajahi destinasi wisata.",
-    twitterImage: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80"
+    twitterImage: "https://i.imgur.com/2A1GlRn.png"
   }
 };

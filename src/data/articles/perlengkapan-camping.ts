@@ -1,12 +1,12 @@
 import { Article } from '@/types/article';
 
 export const perlengkapanCamping: Article = {
-  id: "perlengkapan-camping-sawarna",
+  id: "perlengkapan-camping",
   title: "Perlengkapan Camping di Sawarna: Panduan Lengkap",
-  slug: "perlengkapan-camping-sawarna",
-  excerpt: "Temukan daftar perlengkapan camping yang diperlukan untuk petualangan di Sawarna.",
+  slug: "perlengkapan-camping",
+  excerpt: "Persiapkan perlengkapan camping yang tepat untuk petualangan di Sawarna.",
   content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Perlengkapan Camping di Sawarna: Panduan Lengkap</strong></h2>
-<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/9Hcp40U.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/9Hcp40U.jpeg" width="236" alt="Perlengkapan Camping di Sawarna" /></a></div>Camping di Sawarna membutuhkan persiapan yang matang. Mari kita bahas perlengkapan camping yang diperlukan.<p></p>
+<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/Z0UEeXj.png" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/Z0UEeXj.png" width="236" alt="Perlengkapan Camping Sawarna" /></a></div>Camping di Sawarna membutuhkan persiapan yang matang. Mari kita bahas perlengkapan yang diperlukan.<p></p>
 
 <h3 class="" data-end="647" data-start="601"><strong data-end="647" data-start="605">Tenda dan Perlengkapan Tidur</strong></h3>
 <p class="" data-end="890" data-start="648">Bawa tenda yang sesuai dengan jumlah orang dan kondisi cuaca. Jangan lupa membawa sleeping bag, matras, dan bantal untuk kenyamanan.</p>
@@ -26,20 +26,20 @@ export const perlengkapanCamping: Article = {
 <p class="" data-end="3314" data-start="3086"><strong data-end="3749" data-start="3707">Siap untuk berlibur ke Sawarna?</strong><br data-end="3752" data-start="3749" />
 👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
   category: "Aktivitas",
-  image: "https://i.imgur.com/9Hcp40U.jpeg",
+  image: "https://i.imgur.com/Z0UEeXj.png",
   author: "Tim Villa Sawarna",
   date: "2024-03-20",
   tags: ["Camping", "Aktivitas", "Wisata Banten", "Pantai Sawarna", "Liburan"],
   meta: {
     title: "Perlengkapan Camping di Sawarna: Panduan Lengkap",
-    description: "Temukan daftar perlengkapan camping yang diperlukan untuk petualangan di Sawarna.",
+    description: "Persiapkan perlengkapan camping yang tepat untuk petualangan di Sawarna.",
     keywords: "Camping, Aktivitas, Wisata Banten, Pantai Sawarna, Liburan",
     ogTitle: "Perlengkapan Camping di Sawarna: Panduan Lengkap",
-    ogDescription: "Temukan daftar perlengkapan camping yang diperlukan untuk petualangan di Sawarna.",
-    ogImage: "https://i.imgur.com/9Hcp40U.jpeg",
+    ogDescription: "Persiapkan perlengkapan camping yang tepat untuk petualangan di Sawarna.",
+    ogImage: "https://i.imgur.com/Z0UEeXj.png",
     twitterCard: "summary_large_image",
     twitterTitle: "Perlengkapan Camping di Sawarna: Panduan Lengkap",
-    twitterDescription: "Temukan daftar perlengkapan camping yang diperlukan untuk petualangan di Sawarna.",
-    twitterImage: "https://i.imgur.com/9Hcp40U.jpeg"
+    twitterDescription: "Persiapkan perlengkapan camping yang tepat untuk petualangan di Sawarna.",
+    twitterImage: "https://i.imgur.com/Z0UEeXj.png"
   }
 };

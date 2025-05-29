@@ -41,7 +41,7 @@ export const aktivitasSeruPantaiSawarna: Article = {
 <p class="" data-end="3314" data-start="3086"><strong data-end="3749" data-start="3707">Siap untuk menikmati aktivitas seru di Sawarna?</strong><br data-end="3752" data-start="3749" />
 👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
   category: "Aktivitas",
-  image: "https://i.imgur.com/9Hcp40U.jpeg",
+  image: "https://i.imgur.com/Ezq1fnp.jpeg",
   author: "Tim Villa Sawarna",
   date: "2024-05-15",
   tags: ["Aktivitas", "Pantai Sawarna", "Surfing", "Snorkeling", "Camping"],

@@ -38,8 +38,14 @@ import { transportasiLokal } from './transportasi-lokal';
 import { rekomendasiVillaMurah } from './10-villa-murah-sawarna';
 import { goaLangirVsTanjungLayar } from './goa-langir-vs-tanjung-layar';
 import { homestayBackpacker } from './homestay-backpacker-sawarna';
+import { villasawarnaPilihanFavorit } from './villasawarna-pilihan-favorit';
+import { checklistLiburanSawarna } from './checklist-liburan-sawarna';
+import { menginapMusimSepi } from './menginap-musim-sepi';
 
 export const articleData: Article[] = [
+  menginapMusimSepi,
+  checklistLiburanSawarna,
+  villasawarnaPilihanFavorit,
   goaLangirVsTanjungLayar,
   villaSawarna,
   pantaiSawarna,

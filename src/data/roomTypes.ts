@@ -11,6 +11,7 @@ export interface RoomType {
   images: string[];
   originalPrice?: number;
   discount?: number;
+  tab?: string;
 }
 
 // Data room types untuk setiap properti
@@ -789,7 +790,7 @@ export const propertyRoomTypes: Record<string, RoomType[]> = {
   ],
   "villa-putri-asih": [
     {
-      id: "standard-room",
+      id: "standard",
       name: "Standard Room",
       description: "Kamar standar yang nyaman dengan pemandangan taman",
       capacity: 2,
@@ -797,47 +798,32 @@ export const propertyRoomTypes: Record<string, RoomType[]> = {
       bathrooms: 1,
       amenities: ["AC", "TV LED", "Kamar Mandi Dalam", "Air Panas", "WiFi"],
       images: [
-        "https://i.imgur.com/B28xTFD.jpeg",
-        "https://i.imgur.com/MKYfcag.jpeg",
-        "https://i.imgur.com/JYILIYe.jpeg",
-        "https://i.imgur.com/gHHUxrK.jpeg",
-        "https://i.imgur.com/oRl7XdE.jpeg"
+        "https://i.imgur.com/8yhD4dp.jpeg",
+        "https://i.imgur.com/qKALLdC.jpeg",
+        "https://i.imgur.com/R0HR9FM.jpeg",
+        "https://i.imgur.com/iAmVH4D.jpeg",
+        "https://i.imgur.com/8yhD4dp.jpeg"
       ],
-      price: 250000
+      price: 250000,
+      tab: "standard"
     },
     {
-      id: "deluxe-room",
+      id: "deluxe",
       name: "Deluxe Room",
-      description: "Kamar deluxe yang luas dengan balkon pribadi",
-      capacity: 3,
-      beds: "1 King Bed",
-      bathrooms: 1,
-      amenities: ["AC", "TV LED", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kulkas"],
-      images: [
-        "https://i.imgur.com/Fv9HJPe.jpeg",
-        "https://i.imgur.com/l0QsGrb.jpeg",
-        "https://i.imgur.com/AJ4MO1L.jpeg",
-        "https://i.imgur.com/BtWp6Yr.jpeg",
-        "https://i.imgur.com/lf3VX4d.jpeg"
-      ],
-      price: 350000
-    },
-    {
-      id: "family-room",
-      name: "Family Room",
-      description: "Kamar keluarga yang sangat luas dengan ruang tamu terpisah",
-      capacity: 6,
-      beds: "2 King Beds",
+      description: "Kamar deluxe yang luas dengan balkon pribadi dan pemandangan pantai",
+      capacity: 4,
+      beds: "1 King Bed + 2 Single Beds",
       bathrooms: 2,
-      amenities: ["AC", "TV LED", "2 Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kitchen", "Ruang Tamu"],
+      amenities: ["AC", "TV LED", "2 Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kulkas", "Ruang Tamu"],
       images: [
-        "https://i.imgur.com/eXSGFhd.jpeg",
-        "https://i.imgur.com/nwKjG10.jpeg",
-        "https://i.imgur.com/SOKaH8H.jpeg",
-        "https://i.imgur.com/IYAvuag.jpeg",
-        "https://i.imgur.com/YjosayP.jpeg"
+        "https://i.imgur.com/8yhD4dp.jpeg",
+        "https://i.imgur.com/qKALLdC.jpeg",
+        "https://i.imgur.com/R0HR9FM.jpeg",
+        "https://i.imgur.com/iAmVH4D.jpeg",
+        "https://i.imgur.com/8yhD4dp.jpeg"
       ],
-      price: 700000
+      price: 450000,
+      tab: "deluxe"
     }
   ],
   "villa-batara": [
@@ -1281,6 +1267,42 @@ export const propertyRoomTypes: Record<string, RoomType[]> = {
         "https://i.imgur.com/BtWp6Yr.jpeg",
         "https://i.imgur.com/lf3VX4d.jpeg"
       ]
+    }
+  ],
+  "villa-dua-putri": [
+    {
+      id: "single-bed",
+      name: "Single Bed Room",
+      description: "Kamar nyaman dengan single bed, ideal untuk tamu tunggal atau pasangan",
+      capacity: 2,
+      beds: "1 Single Bed",
+      bathrooms: 1,
+      amenities: ["Kipas Angin", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi"],
+      images: [
+        "https://i.imgur.com/B28xTFD.jpeg",
+        "https://i.imgur.com/MKYfcag.jpeg",
+        "https://i.imgur.com/JYILIYe.jpeg",
+        "https://i.imgur.com/gHHUxrK.jpeg",
+        "https://i.imgur.com/oRl7XdE.jpeg"
+      ],
+      price: 250000
+    },
+    {
+      id: "double-bed",
+      name: "Double Bed Room",
+      description: "Kamar luas dengan double bed, cocok untuk berdua atau bertiga",
+      capacity: 3,
+      beds: "1 Double Bed",
+      bathrooms: 1,
+      amenities: ["Kipas Angin", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kulkas"],
+      images: [
+        "https://i.imgur.com/Fv9HJPe.jpeg",
+        "https://i.imgur.com/l0QsGrb.jpeg",
+        "https://i.imgur.com/AJ4MO1L.jpeg",
+        "https://i.imgur.com/BtWp6Yr.jpeg",
+        "https://i.imgur.com/lf3VX4d.jpeg"
+      ],
+      price: 350000
     }
   ]
 }; 

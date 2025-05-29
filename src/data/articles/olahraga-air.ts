@@ -1,12 +1,12 @@
 import { Article } from '@/types/article';
 
 export const olahragaAir: Article = {
-  id: "olahraga-air-sawarna",
-  title: "Olahraga Air di Sawarna: Petualangan Seru di Laut",
-  slug: "olahraga-air-sawarna",
-  excerpt: "Jelajahi berbagai aktivitas olahraga air yang tersedia di Sawarna, dari surfing hingga snorkeling.",
-  content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Olahraga Air di Sawarna: Petualangan Seru di Laut</strong></h2>
-<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/9Hcp40U.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/9Hcp40U.jpeg" width="236" alt="Olahraga Air di Sawarna" /></a></div>Sawarna menawarkan berbagai aktivitas olahraga air yang seru. Mari kita jelajahi petualangan air di Sawarna.<p></p>
+  id: "olahraga-air",
+  title: "Olahraga Air di Sawarna: Petualangan Seru",
+  slug: "olahraga-air",
+  excerpt: "Jelajahi berbagai olahraga air yang bisa dinikmati di Sawarna.",
+  content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Olahraga Air di Sawarna: Petualangan Seru</strong></h2>
+<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/jvqOnbZ.png" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/jvqOnbZ.png" width="236" alt="Olahraga Air Sawarna" /></a></div>Sawarna menawarkan berbagai olahraga air yang menarik. Mari kita lihat aktivitas apa saja yang bisa Anda coba.<p></p>
 
 <h3 class="" data-end="647" data-start="601"><strong data-end="647" data-start="605">Surfing</strong></h3>
 <p class="" data-end="890" data-start="648">Pantai Sawarna terkenal dengan ombaknya yang cocok untuk surfing. Terdapat beberapa spot surfing yang bisa dipilih sesuai dengan tingkat keahlian.</p>
@@ -23,20 +23,20 @@ export const olahragaAir: Article = {
 <p class="" data-end="3314" data-start="3086"><strong data-end="3749" data-start="3707">Siap untuk berlibur ke Sawarna?</strong><br data-end="3752" data-start="3749" />
 👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
   category: "Aktivitas",
-  image: "https://i.imgur.com/9Hcp40U.jpeg",
+  image: "https://i.imgur.com/jvqOnbZ.png",
   author: "Tim Villa Sawarna",
   date: "2024-03-20",
-  tags: ["Olahraga Air", "Surfing", "Wisata Banten", "Pantai Sawarna", "Liburan"],
+  tags: ["Olahraga Air", "Aktivitas", "Wisata Banten", "Pantai Sawarna", "Liburan"],
   meta: {
-    title: "Olahraga Air di Sawarna: Petualangan Seru di Laut",
-    description: "Jelajahi berbagai aktivitas olahraga air yang tersedia di Sawarna, dari surfing hingga snorkeling.",
-    keywords: "Olahraga Air, Surfing, Wisata Banten, Pantai Sawarna, Liburan",
-    ogTitle: "Olahraga Air di Sawarna: Petualangan Seru di Laut",
-    ogDescription: "Jelajahi berbagai aktivitas olahraga air yang tersedia di Sawarna, dari surfing hingga snorkeling.",
-    ogImage: "https://i.imgur.com/9Hcp40U.jpeg",
+    title: "Olahraga Air di Sawarna: Petualangan Seru",
+    description: "Jelajahi berbagai olahraga air yang bisa dinikmati di Sawarna.",
+    keywords: "Olahraga Air, Aktivitas, Wisata Banten, Pantai Sawarna, Liburan",
+    ogTitle: "Olahraga Air di Sawarna: Petualangan Seru",
+    ogDescription: "Jelajahi berbagai olahraga air yang bisa dinikmati di Sawarna.",
+    ogImage: "https://i.imgur.com/jvqOnbZ.png",
     twitterCard: "summary_large_image",
-    twitterTitle: "Olahraga Air di Sawarna: Petualangan Seru di Laut",
-    twitterDescription: "Jelajahi berbagai aktivitas olahraga air yang tersedia di Sawarna, dari surfing hingga snorkeling.",
-    twitterImage: "https://i.imgur.com/9Hcp40U.jpeg"
+    twitterTitle: "Olahraga Air di Sawarna: Petualangan Seru",
+    twitterDescription: "Jelajahi berbagai olahraga air yang bisa dinikmati di Sawarna.",
+    twitterImage: "https://i.imgur.com/jvqOnbZ.png"
   }
 };

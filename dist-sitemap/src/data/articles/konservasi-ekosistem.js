@@ -7,7 +7,7 @@ exports.konservasiEkosistem = {
     slug: "konservasi-ekosistem-sawarna",
     excerpt: "Pelajari tentang upaya konservasi ekosistem di Sawarna untuk menjaga keindahan alam dan keanekaragaman hayati.",
     content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Konservasi Ekosistem Sawarna: Menjaga Keindahan Alam</strong></h2>
-<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/9Hcp40U.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/9Hcp40U.jpeg" width="236" alt="Konservasi Ekosistem Sawarna" /></a></div>Sawarna memiliki ekosistem yang kaya dan perlu dilestarikan. Mari kita pelajari tentang konservasi ekosistem di Sawarna.<p></p>
+<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1421&q=80" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1421&q=80" width="236" alt="Konservasi Ekosistem Sawarna" /></a></div>Sawarna memiliki ekosistem yang kaya dan perlu dilestarikan. Mari kita pelajari tentang konservasi ekosistem di Sawarna.<p></p>
 
 <h3 class="" data-end="647" data-start="601"><strong data-end="647" data-start="605">Ekosistem Pantai</strong></h3>
 <p class="" data-end="890" data-start="648">Ekosistem pantai Sawarna terdiri dari terumbu karang, hutan bakau, dan padang lamun. Upaya konservasi dilakukan untuk melindungi habitat ini.</p>
@@ -27,7 +27,7 @@ exports.konservasiEkosistem = {
 <p class="" data-end="3314" data-start="3086"><strong data-end="3749" data-start="3707">Siap untuk berlibur ke Sawarna?</strong><br data-end="3752" data-start="3749" />
 👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
     category: "Alam",
-    image: "https://i.imgur.com/9Hcp40U.jpeg",
+    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1421&q=80",
     author: "Tim Villa Sawarna",
     date: "2024-03-20",
     tags: ["Konservasi", "Ekosistem", "Wisata Banten", "Pantai Sawarna", "Liburan"],
@@ -37,10 +37,10 @@ exports.konservasiEkosistem = {
         keywords: "Konservasi, Ekosistem, Wisata Banten, Pantai Sawarna, Liburan",
         ogTitle: "Konservasi Ekosistem Sawarna: Menjaga Keindahan Alam",
         ogDescription: "Pelajari tentang upaya konservasi ekosistem di Sawarna untuk menjaga keindahan alam dan keanekaragaman hayati.",
-        ogImage: "https://i.imgur.com/9Hcp40U.jpeg",
+        ogImage: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1421&q=80",
         twitterCard: "summary_large_image",
         twitterTitle: "Konservasi Ekosistem Sawarna: Menjaga Keindahan Alam",
         twitterDescription: "Pelajari tentang upaya konservasi ekosistem di Sawarna untuk menjaga keindahan alam dan keanekaragaman hayati.",
-        twitterImage: "https://i.imgur.com/9Hcp40U.jpeg"
+        twitterImage: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1421&q=80"
     }
 };

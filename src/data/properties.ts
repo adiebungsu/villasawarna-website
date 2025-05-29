@@ -15,6 +15,115 @@ export type ExtendedPropertyCardProps = Property;
 
 const villasData: ExtendedPropertyCardProps[] = [
   {
+    id: "villa-dua-putri",
+    name: "Villa Dua Putri",
+    type: "villa" as const,
+    location: "Pantai Sawarna",
+    description: `Villa Dua Putri adalah villa nyaman yang terletak di kawasan Pantai Sawarna. Dengan pemandangan pantai yang menakjubkan dan desain arsitektur modern, villa ini menawarkan pengalaman menginap yang tak terlupakan.
+
+Fasilitas utama villa ini meliputi 7 kamar tidur nyaman yang masing-masing dilengkapi kipas angin, TV LED 43 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan taman yang asri dan gazebo menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan pantai.
+
+Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda untuk memasak sendiri, sementara area BBQ di taman belakang menjadi tempat yang ideal untuk gathering keluarga atau teman. Villa ini juga dilengkapi dengan WiFi berkecepatan tinggi dan area parkir yang luas.
+
+Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer di Sawarna, seperti Pantai Sawarna (6 menit jalan kaki), Goa Langir (5 menit berkendara), Legon Pari (9 menit berkendara), dan Tanjung Layar (4 menit berkendara).`,
+    price: 250000,
+    rating: 4.5,
+    reviews: 120,
+    capacity: 40,
+    bedrooms: 7,
+    bathrooms: 7,
+    image: "https://i.imgur.com/qnFfn4w.jpeg",
+    mainImages: [
+      "https://i.imgur.com/qnFfn4w.jpeg",
+      "https://i.imgur.com/p7w6VtY.jpeg",
+      "https://i.imgur.com/J6o5y5J.jpeg",
+      "https://i.imgur.com/6vuQ236.jpeg",
+      "https://i.imgur.com/QkxlhNy.jpeg",
+      "https://i.imgur.com/uV1MnlL.jpeg",
+      "https://i.imgur.com/5NvmKLM.jpeg",
+      "https://i.imgur.com/sHs8K3b.jpeg"
+    ],
+    tags: ["villa", "pantai sawarna"],
+    amenities: [
+      "7 Kamar Tidur Nyaman",
+      "7 Kamar Mandi Dalam",
+      "Kipas Angin di Semua Kamar",
+      "TV LED 43 inch",
+      "WiFi Fiber Optic",
+      "Dapur Modern Premium",
+      "Area BBQ",
+      "Gazebo",
+      "Taman Asri",
+      "Parkir Luas",
+      "24/7 Security",
+      "Ruang Tamu",
+      "Ruang Makan",
+      "Kulkas",
+      "Mesin Cuci",
+      "Setrika",
+      "Perlengkapan Mandi",
+      "Handuk",
+      "Kasur Premium",
+      "Air Panas",
+      "View Pantai"
+    ],
+    roomTypes: [
+      {
+        id: "single-bed",
+        name: "Single Bed Room",
+        description: "Kamar nyaman dengan single bed, ideal untuk satu orang. Dilengkapi dengan kipas angin, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
+        price: 250000,
+        capacity: 1,
+        beds: "1 Single Bed",
+        bathrooms: 1,
+        amenities: ["Kipas Angin", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
+        images: [
+          "https://i.imgur.com/qnFfn4w.jpeg",
+          "https://i.imgur.com/Xs0KloK.jpeg",
+          "https://i.imgur.com/sHs8K3b.jpeg",
+          "https://i.imgur.com/CjVUpDO.jpeg",
+          "https://i.imgur.com/bwRXG1j.jpeg"
+        ]
+      },
+      {
+        id: "double-bed",
+        name: "Double Bed Room",
+        description: "Kamar nyaman dengan double bed, ideal untuk berdua. Dilengkapi dengan kipas angin, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
+        price: 300000,
+        capacity: 2,
+        beds: "1 Double Bed",
+        bathrooms: 1,
+        amenities: ["Kipas Angin", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
+        images: [
+          "https://i.imgur.com/6vuQ236.jpeg",
+          "https://i.imgur.com/liFf7E0.jpeg",
+          "https://i.imgur.com/Xs0KloK.jpeg",
+          "https://i.imgur.com/sHs8K3b.jpeg",
+          "https://i.imgur.com/CjVUpDO.jpeg"
+        ]
+      }
+    ],
+    nearbyAttractions: [
+      { name: "Pantai Sawarna", distance: "6 menit jalan kaki" },
+      { name: "Goa Langir", distance: "5 menit berkendara" },
+      { name: "Legon Pari", distance: "9 menit berkendara" },
+      { name: "Tanjung Layar", distance: "4 menit berkendara" }
+    ],
+    ratingSummary: {
+      score: 8.7,
+      totalReviews: 120,
+      breakdown: [
+        { label: "Kebersihan", value: 8.5 },
+        { label: "Kenyamanan Kamar", value: 8.8 },
+        { label: "Makanan", value: 8.6 },
+        { label: "Lokasi", value: 8.9 },
+        { label: "Pelayanan dan Fasilitas", value: 8.7 }
+      ]
+    },
+    contact: { phone: "083877080088" },
+    coordinates: [-6.983539105798058, 106.30959983031511]
+  },
+  {
     id: "villa-deka-sawarna",
     name: "Villa Deka Sawarna",
     type: "villa",
@@ -26,7 +135,7 @@ const villasData: ExtendedPropertyCardProps[] = [
     capacity: 40,
     bedrooms: 8,
     bathrooms: 8,
-    image: "https://i.imgur.com/9Hcp40U.jpeg",
+    image: "https://i.imgur.com/iajE3el.jpeg",
     tags: ["villa", "pantai sawarna", "premium", "ruang meeting", "luxury"],
     amenities: [
       "WiFi",
@@ -39,14 +148,117 @@ const villasData: ExtendedPropertyCardProps[] = [
       "View Pantai"
     ],
     mainImages: [
-      "https://i.imgur.com/9Hcp40U.jpeg",
-      "https://i.imgur.com/JHASLtZ.jpeg",
-      "https://i.imgur.com/Khg9u7S.jpeg",
-      "https://i.imgur.com/yDZCZww.jpeg",
-      "https://i.imgur.com/uh8FQep.jpeg",
-      "https://i.imgur.com/5tWlccP.jpeg",
-      "https://i.imgur.com/jfOhuSi.jpeg",
-      "https://i.imgur.com/oNmci0u.jpeg"
+      "https://i.imgur.com/iajE3el.jpeg",
+      "https://i.imgur.com/t6f04pL.jpeg",
+      "https://i.imgur.com/l7lZFRl.jpeg",
+      "https://i.imgur.com/yIDV3Tq.jpeg",
+      "https://i.imgur.com/K5AisLi.jpeg",
+      "https://i.imgur.com/WbCYgzI.jpeg",
+      "https://i.imgur.com/mRJ6Skv.jpeg",
+      "https://i.imgur.com/owY4d5q.jpeg"
+    ],
+    roomTypes: [
+      {
+        id: "deluxe-room",
+        name: "Deluxe Room",
+        description: "Kamar mewah dengan king size bed. Dilengkapi dengan fasilitas premium.",
+        price: 400000,
+        capacity: 3,
+        beds: "1 King Bed + 1 Single Bed",
+        bathrooms: 1,
+        amenities: ["AC", "TV LED 55 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Bar", "Ruang Tamu Pribadi"],
+        images: [
+          "https://i.imgur.com/XzlAVta.jpeg",
+          "https://i.imgur.com/pMMiWd3.jpeg",
+          "https://i.imgur.com/WGHhbBQ.jpeg",
+          "https://i.imgur.com/owY4d5q.jpeg",
+          "https://i.imgur.com/WJ0vTfp.jpeg"
+        ]
+      }
+    ],
+    nearbyAttractions: [
+      {
+        name: "Pantai Sawarna",
+        distance: "4-5 menit berkendara"
+      },
+      {
+        name: "Pantai Legon Pari",
+        distance: "10 menit dengan motor"
+      },
+      {
+        name: "Pantai Tanjung Layar",
+        distance: "5 menit dengan motor"
+      },
+      {
+        name: "Pantai Karang Taraje",
+        distance: "12 menit dengan motor"
+      }
+    ],
+    ratingSummary: {
+      score: 8.8,
+      totalReviews: 163,
+      breakdown: [
+        { label: "Kebersihan", value: 8.7 },
+        { label: "Kenyamanan", value: 8.6 },
+        { label: "Lokasi", value: 8.8 },
+        { label: "Pelayanan", value: 8.5 },
+        { label: "Nilai", value: 8.4 }
+      ]
+    },
+    contact: { phone: "083877080088" },
+    coordinates: [-6.979131015453384, 106.30750895272172]
+  },
+  {
+    id: "villa-sawarna-resort",
+    name: "Villa Sawarna Resort",
+    type: "villa" as const,
+    location: "Goa Langir, Sawarna",
+    description: `Villa Sawarna Resort adalah villa nyaman premium yang terletak di kawasan strategis Goa Langir, Sawarna. Dengan pemandangan pantai yang memukau dan desain arsitektur modern, villa ini menawarkan pengalaman menginap yang tak terlupakan.
+
+Fasilitas utama villa ini meliputi 10 kamar tidur nyaman yang masing-masing dilengkapi AC, TV LED 55 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan kolam renang infinity dan gazebo menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan matahari terbenam.
+
+Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda untuk memasak sendiri, sementara area BBQ di taman belakang menjadi tempat yang ideal untuk gathering keluarga atau teman. Villa ini juga dilengkapi dengan WiFi Fiber Optic berkecepatan tinggi, ruang meeting yang nyaman, dan area parkir yang luas.
+
+Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer di Sawarna, seperti Pantai Sawarna (4-5 menit), Goa Langir (2-3 menit), Legon Pari (10-12 menit), dan Tanjung Layar (7-8 menit).`,
+    price: 450000,
+    rating: 4.4,
+    reviews: 178,
+    capacity: 50,
+    bedrooms: 10,
+    bathrooms: 6,
+    image: "https://i.imgur.com/KP2ncPi.jpeg",
+    tags: ["villa", "goa langir sawarna", "premium", "kolam renang", "ruang meeting"],
+    amenities: [
+      "10 Kamar Tidur Nyaman",
+      "6 Kamar Mandi Dalam",
+      "AC di Semua Kamar",
+      "TV LED 55 inch",
+      "WiFi Fiber Optic",
+      "Kolam Renang Infinity",
+      "Dapur Modern Premium",
+      "Area BBQ",
+      "Gazebo",
+      "Taman",
+      "Parkir Luas",
+      "Ruang Meeting",
+      "24/7 Security",
+      "Ruang Tamu",
+      "Ruang Makan",
+      "Kulkas",
+      "Mesin Cuci",
+      "Setrika",
+      "Perlengkapan Mandi",
+      "Handuk",
+      "Kasur Premium",
+      "Air Panas",
+      "View Pantai"
+    ],
+    mainImages: [
+      "https://i.imgur.com/KP2ncPi.jpeg",
+      "https://i.imgur.com/d22kux8.jpeg",
+      "https://i.imgur.com/BtWp6Yr.jpeg",
+      "https://i.imgur.com/YjosayP.jpeg",
+      "https://i.imgur.com/SOKaH8H.jpeg"
     ],
     roomTypes: [
       {
@@ -100,7 +312,7 @@ const villasData: ExtendedPropertyCardProps[] = [
     ],
     ratingSummary: {
       score: 8.8,
-      totalReviews: 163,
+      totalReviews: 178,
       breakdown: [
         { label: "Kebersihan", value: 8.7 },
         { label: "Kenyamanan", value: 8.6 },
@@ -110,162 +322,7 @@ const villasData: ExtendedPropertyCardProps[] = [
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.979131015453384, lng: 106.30750895272172 }
-  },
-  {
-    id: "villa-sawarna-resort",
-    name: "Villa Sawarna Resort",
-    type: "villa" as const,
-    location: "Goa Langir, Sawarna",
-    description: `Villa Sawarna Resort adalah villa nyaman premium yang terletak di kawasan strategis Goa Langir, Sawarna. Dengan pemandangan pantai yang memukau dan desain arsitektur modern, villa ini menawarkan pengalaman menginap yang tak terlupakan.
-
-Fasilitas utama villa ini meliputi 10 kamar tidur nyaman yang masing-masing dilengkapi AC, TV LED 55 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan kolam renang infinity dan gazebo menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan matahari terbenam.
-
-Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda untuk memasak sendiri, sementara area BBQ di taman belakang menjadi tempat yang ideal untuk gathering keluarga atau teman. Villa ini juga dilengkapi dengan WiFi Fiber Optic berkecepatan tinggi, ruang meeting yang nyaman, dan area parkir yang luas.
-
-Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer di Sawarna, seperti Pantai Sawarna (4-5 menit), Goa Langir (2-3 menit), Legon Pari (10-12 menit), dan Tanjung Layar (7-8 menit).`,
-    price: 450000,
-    rating: 4.4,
-    reviews: 178,
-    capacity: 50,
-    bedrooms: 10,
-    bathrooms: 6,
-    image: "https://i.imgur.com/KP2ncPi.jpeg",
-    tags: ["villa", "goa langir sawarna", "premium", "kolam renang", "ruang meeting"],
-    amenities: [
-      "10 Kamar Tidur Nyaman",
-      "6 Kamar Mandi Dalam",
-      "AC di Semua Kamar",
-      "TV LED 55 inch",
-      "WiFi Fiber Optic",
-      "Kolam Renang Infinity",
-      "Dapur Modern Premium",
-      "Area BBQ",
-      "Gazebo",
-      "Taman",
-      "Parkir Luas",
-      "Ruang Meeting",
-      "24/7 Security",
-      "Ruang Tamu",
-      "Ruang Makan",
-      "Kulkas",
-      "Mesin Cuci",
-      "Setrika",
-      "Perlengkapan Mandi",
-      "Handuk",
-      "Kasur Premium",
-      "Air Panas"
-    ],
-    mainImages: [
-      "https://i.imgur.com/KP2ncPi.jpeg",
-      "https://i.imgur.com/d22kux8.jpeg",
-      "https://i.imgur.com/BtWp6Yr.jpeg",
-      "https://i.imgur.com/YjosayP.jpeg",
-      "https://i.imgur.com/SOKaH8H.jpeg",
-      "https://i.imgur.com/7Djvl8E.jpeg",
-      "https://i.imgur.com/g4cFUG6.jpeg",
-      "https://i.imgur.com/nxHkeGn.jpeg",
-      "https://i.imgur.com/SRCkcfv.jpeg",
-      "https://i.imgur.com/5Kyzd6s.jpeg",
-      "https://i.imgur.com/b610wqP.jpeg",
-      "https://i.imgur.com/q4icl51.jpeg",
-      "https://i.imgur.com/oRl7XdE.jpeg"
-    ],
-    roomTypes: [
-      {
-        id: "single-bed",
-        name: "Single Bed Room",
-        description: "Kamar nyaman dengan single bed premium, ideal untuk tamu tunggal atau pasangan. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
-        price: 450000,
-        capacity: 2,
-        beds: "1 Single Bed Premium",
-        bathrooms: 1,
-        images: [
-          "https://i.imgur.com/B28xTFD.jpeg",
-          "https://i.imgur.com/MKYfcag.jpeg",
-          "https://i.imgur.com/JYILIYe.jpeg",
-          "https://i.imgur.com/gHHUxrK.jpeg",
-          "https://i.imgur.com/oRl7XdE.jpeg"
-        ],
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas", "Setrika", "Perlengkapan Mandi"]
-      },
-      {
-        id: "twin-bed",
-        name: "Twin Bed Room",
-        description: "Kamar luas dengan twin bed premium, cocok untuk berdua atau bertiga. Dilengkapi dengan balkon pribadi dan pemandangan taman yang menenangkan.",
-        price: 650000,
-        capacity: 3,
-        beds: "2 Single Beds Premium",
-        bathrooms: 1,
-        images: [
-          "https://i.imgur.com/Fv9HJPe.jpeg",
-          "https://i.imgur.com/l0QsGrb.jpeg",
-          "https://i.imgur.com/AJ4MO1L.jpeg",
-          "https://i.imgur.com/BtWp6Yr.jpeg",
-          "https://i.imgur.com/lf3VX4d.jpeg"
-        ],
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kulkas", "Setrika", "Perlengkapan Mandi"]
-      },
-      {
-        id: "superqueen-bed",
-        name: "Super Queen Room",
-        description: "Kamar mewah dengan super queen bed premium, dilengkapi ruang tamu terpisah dan balkon pribadi dengan pemandangan kolam renang.",
-        price: 950000,
-        capacity: 4,
-        beds: "1 Super Queen Bed Premium",
-        bathrooms: 2,
-        images: [
-          "https://i.imgur.com/eXSGFhd.jpeg",
-          "https://i.imgur.com/nwKjG10.jpeg",
-          "https://i.imgur.com/SOKaH8H.jpeg",
-          "https://i.imgur.com/IYAvuag.jpeg",
-          "https://i.imgur.com/YjosayP.jpeg"
-        ],
-        amenities: ["AC", "TV LED 55 inch", "2 Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kitchen", "Ruang Tamu", "Setrika", "Perlengkapan Mandi"]
-      }
-    ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "4-5 menit berkendara" },
-      { name: "Goa Langir", distance: "2 menit berkendara" },
-      { name: "Legon Pari", distance: "10-12 menit berkendara" },
-      { name: "Tanjung Layar", distance: "7-8 menit berkendara" }
-    ],
-    ratingSummary: {
-      score: 8.8,
-      totalReviews: 178,
-      breakdown: [
-        { label: "Kebersihan", value: 8.7 },
-        { label: "Kenyamanan Kamar", value: 8.6 },
-        { label: "Makanan", value: 8.5 },
-        { label: "Lokasi", value: 8.8 },
-        { label: "Pelayanan dan Fasilitas", value: 8.6 }
-      ]
-    },
-    reviewDetails: [
-      {
-        id: "1",
-        author: "Budi Santoso",
-        rating: 4.9,
-        comment: "Villa yang sangat mewah dengan fasilitas lengkap. Staff sangat profesional dan ramah. Pemandangan pantai yang indah.",
-        date: "2024-03-15"
-      },
-      {
-        id: "2",
-        author: "Dewi Lestari",
-        rating: 4.8,
-        comment: "Kamar bersih dan nyaman, fasilitas lengkap. Lokasi strategis dekat dengan pantai dan destinasi wisata.",
-        date: "2024-03-10"
-      },
-      {
-        id: "3",
-        author: "Ahmad Rizki",
-        rating: 4.9,
-        comment: "Pengalaman menginap yang luar biasa. Kolam renang infinity dengan pemandangan pantai yang memukau.",
-        date: "2024-03-05"
-      }
-    ],
-    contact: { phone: "083877080088" },
-    coordinates: { lat: -6.97482530204474, lng: 106.29817948838344 }
+    coordinates: [-6.984472686767081, 106.31050607162815]
   },
   {
     id: "villa-sinar-pelangi",
@@ -414,38 +471,42 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.9794509441148715, lng: 106.30601896279369 }
+    coordinates: [-6.9794509441148715, 106.30601896279369]
   },
   {
     id: "villa-aki-nini",
     name: "Villa Aki Nini",
     type: "villa" as const,
     location: "Pantai Sawarna",
-    description: `Villa Aki Nini adalah villa nyaman yang terletak di kawasan Pantai Sawarna. Dengan pemandangan sawah yang menenangkan dan desain arsitektur modern, villa ini menawarkan pengalaman menginap yang unik dan nyaman.
+    description: `Villa Aki Nini adalah villa mewah yang terletak di kawasan Pantai Sawarna. Dengan pemandangan pantai yang menakjubkan dan desain arsitektur modern, villa ini menawarkan pengalaman menginap yang tak terlupakan.
 
-Fasilitas utama villa ini meliputi 3 kamar tidur nyaman yang masing-masing dilengkapi AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan taman yang asri dan gazebo menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan sawah yang hijau.
+Fasilitas utama villa ini meliputi 8 kamar tidur nyaman yang masing-masing dilengkapi AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan taman yang asri dan gazebo menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan pantai.
 
 Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda untuk memasak sendiri, sementara area BBQ di taman belakang menjadi tempat yang ideal untuk gathering keluarga atau teman. Villa ini juga dilengkapi dengan WiFi berkecepatan tinggi dan area parkir yang luas.
 
-Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer di Sawarna, seperti Pantai Sawarna (3 menit berkendara), Goa Langir (5 menit berkendara), Legon Pari (9-10 menit berkendara), dan Tanjung Layar (7 menit berkendara).`,
-    price: 350000,
-    rating: 4.3,
-    reviews: 192,
-    capacity: 10,
-    bedrooms: 3,
-    bathrooms: 3,
-    image: "https://i.imgur.com/KP2ncPi.jpeg",
+Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer di Sawarna, seperti Pantai Sawarna (6 menit jalan kaki), Goa Langir (5 menit berkendara), Legon Pari (9 menit berkendara), dan Tanjung Layar (4 menit berkendara).`,
+    price: 450000,
+    rating: 4.5,
+    reviews: 120,
+    capacity: 60,
+    bedrooms: 8,
+    bathrooms: 8,
+    image: "https://i.imgur.com/SHPK4Qf.jpeg",
     mainImages: [
-      "https://i.imgur.com/KP2ncPi.jpeg",
-      "https://i.imgur.com/d22kux8.jpeg",
-      "https://i.imgur.com/BtWp6Yr.jpeg",
-      "https://i.imgur.com/YjosayP.jpeg",
-      "https://i.imgur.com/SOKaH8H.jpeg"
+      "https://i.imgur.com/SHPK4Qf.jpeg",
+      "https://i.imgur.com/YzOw7h5.jpeg",
+      "https://i.imgur.com/xLoaHAa.jpeg",
+      "https://i.imgur.com/DasIbsh.jpeg",
+      "https://i.imgur.com/5dKSBLs.jpeg",
+      "https://i.imgur.com/fKygTJY.jpeg",
+      "https://i.imgur.com/WZgMdyW.jpeg",
+      "https://i.imgur.com/wYR0Uzv.jpeg",
+      "https://i.imgur.com/VhVkW9P.jpeg"
     ],
-    tags: ["villa", "pantai sawarna", "view sawah", "keluarga kecil"],
+    tags: ["villa", "pantai sawarna"],
     amenities: [
-      "3 Kamar Tidur Nyaman",
-      "3 Kamar Mandi Dalam",
+      "8 Kamar Tidur Nyaman",
+      "8 Kamar Mandi Dalam",
       "AC di Semua Kamar",
       "TV LED 43 inch",
       "WiFi Fiber Optic",
@@ -464,70 +525,76 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "Handuk",
       "Kasur Premium",
       "Air Panas",
-      "View Sawah"
+      "View Pantai"
     ],
     roomTypes: [
       {
-        id: "standard",
+        id: "standard-room",
         name: "Standard Room",
-        description: "Kamar standar yang nyaman dengan queen bed premium dan pemandangan sawah yang menenangkan. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
+        description: "Kamar nyaman dengan single bed, ideal untuk satu orang. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
         price: 350000,
-        capacity: 2,
-        beds: "1 Queen Bed Premium",
+        capacity: 1,
+        beds: "1 Single Bed",
         bathrooms: 1,
+        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
         images: [
-          "https://i.imgur.com/KP2ncPi.jpeg",
-          "https://i.imgur.com/d22kux8.jpeg",
-          "https://i.imgur.com/BtWp6Yr.jpeg"
-        ],
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas", "Setrika", "Perlengkapan Mandi", "View Sawah"]
+          "https://i.imgur.com/5dKSBLs.jpeg",
+          "https://i.imgur.com/nlQzPaw.jpeg",
+          "https://i.imgur.com/zvMobT5.jpeg",
+          "https://i.imgur.com/OUyp83v.jpeg",
+          "https://i.imgur.com/xLoaHAa.jpeg"
+        ]
       },
       {
-        id: "deluxe",
+        id: "deluxe-room",
         name: "Deluxe Room",
-        description: "Kamar deluxe yang luas dengan king bed premium dan balkon pribadi. Dilengkapi dengan pemandangan sawah yang menenangkan dan fasilitas modern untuk kenyamanan maksimal.",
+        description: "Kamar nyaman dengan double bed, ideal untuk berdua. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
         price: 450000,
-        capacity: 3,
-        beds: "1 King Bed Premium",
+        capacity: 2,
+        beds: "1 Double Bed",
         bathrooms: 1,
+        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
         images: [
-          "https://i.imgur.com/YjosayP.jpeg",
-          "https://i.imgur.com/SOKaH8H.jpeg",
-          "https://i.imgur.com/7Djvl8E.jpeg"
-        ],
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kulkas", "Setrika", "Perlengkapan Mandi", "View Sawah"]
+          "https://i.imgur.com/sxMTrVy.jpeg",
+          "https://i.imgur.com/vgoLkcU.jpeg",
+          "https://i.imgur.com/rYCBPT3.jpeg",
+          "https://i.imgur.com/wYR0Uzv.jpeg",
+          "https://i.imgur.com/fKygTJY.jpeg"
+        ]
       },
       {
-        id: "family",
+        id: "family-room",
         name: "Family Room",
-        description: "Kamar keluarga yang sangat luas dengan ruang tamu terpisah dan pemandangan sawah yang menenangkan. Dilengkapi dengan fasilitas premium untuk kenyamanan keluarga.",
+        description: "Kamar nyaman dengan double bed dan single bed, ideal untuk keluarga. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
         price: 550000,
-        capacity: 4,
-        beds: "2 Queen Beds Premium",
-        bathrooms: 2,
+        capacity: 3,
+        beds: "1 Double Bed + 1 Single Bed",
+        bathrooms: 1,
+        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
         images: [
-          "https://i.imgur.com/KP2ncPi.jpeg",
-          "https://i.imgur.com/d22kux8.jpeg",
-          "https://i.imgur.com/BtWp6Yr.jpeg"
-        ],
-        amenities: ["AC", "TV LED 55 inch", "2 Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kitchen", "Ruang Tamu", "Setrika", "Perlengkapan Mandi", "View Sawah"]
+          "https://i.imgur.com/DasIbsh.jpeg",
+          "https://i.imgur.com/YzOw7h5.jpeg",
+          "https://i.imgur.com/t5cKYO3.jpeg",
+          "https://i.imgur.com/xU8djhC.jpeg",
+          "https://i.imgur.com/zvMobT5.jpeg"
+        ]
       }
     ],
     nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "3 menit berkendara" },
+      { name: "Pantai Sawarna", distance: "6 menit jalan kaki" },
       { name: "Goa Langir", distance: "5 menit berkendara" },
-      { name: "Legon Pari", distance: "9-10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "7 menit berkendara" }
+      { name: "Legon Pari", distance: "9 menit berkendara" },
+      { name: "Tanjung Layar", distance: "4 menit berkendara" }
     ],
     ratingSummary: {
-      score: 8.6,
-      totalReviews: 192,
+      score: 8.7,
+      totalReviews: 120,
       breakdown: [
-        { label: "Kebersihan", value: 8.5 },
-        { label: "Kenyamanan Kamar", value: 8.4 },
-        { label: "Makanan", value: 8.5 },
-        { label: "Lokasi", value: 8.6 },
-        { label: "Pelayanan dan Fasilitas", value: 8.4 }
+        { label: "Kebersihan", value: 8.6 },
+        { label: "Kenyamanan Kamar", value: 8.5 },
+        { label: "Makanan", value: 8.4 },
+        { label: "Lokasi", value: 8.7 },
+        { label: "Pelayanan dan Fasilitas", value: 8.5 }
       ]
     },
     reviewDetails: [
@@ -535,26 +602,26 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "1",
         author: "Budi Santoso",
         rating: 4.8,
-        comment: "Villa yang sangat nyaman dengan pemandangan sawah yang menenangkan. Fasilitas lengkap dan staff sangat ramah.",
+        comment: "Villa yang sangat nyaman dengan kolam renang infinity yang memukau. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
         author: "Dewi Lestari",
         rating: 4.7,
-        comment: "Lokasi strategis dan bersih. Pemandangan sawah yang indah membuat suasana sangat tenang dan nyaman.",
+        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang infinity.",
         date: "2024-03-10"
       },
       {
         id: "3",
         author: "Ahmad Rizki",
-        rating: 4.6,
-        comment: "Pengalaman menginap yang menyenangkan. Kamar bersih dan nyaman, fasilitas lengkap. Cocok untuk liburan keluarga kecil.",
+        rating: 4.9,
+        comment: "Pengalaman menginap yang luar biasa. Ruang meeting yang nyaman dan fasilitas lengkap.",
         date: "2024-03-05"
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.978931022659246, lng: 106.30716794926109 }
+    coordinates: [-6.983539105798058, 106.30959983031511]
   },
   {
     id: "villa-mutiara-sawarna",
@@ -696,7 +763,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.978249058445284, lng: 106.30597263278183 }
+    coordinates: [-6.978249058445284, 106.30597263278183]
   },
   {
     id: "villa-regin-sawarna",
@@ -845,7 +912,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.978786683942936, lng: 106.30640702985548 }
+    coordinates: [-6.978786683942936, 106.30640702985548]
   },
   {
     id: "villa-little-hula-hula",
@@ -918,6 +985,36 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
           "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-0db183ec3cca5b93438c55385855a91e.jpeg",
           "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-e5966fec054c219cd6b107026fe6d9eb.jpeg"
         ]
+      },
+      {
+        id: "single-bed",
+        name: "Single Bed Room",
+        description: "Kamar nyaman dengan single bed, ideal untuk satu orang. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
+        price: 350000,
+        capacity: 1,
+        beds: "1 Single Bed",
+        bathrooms: 1,
+        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
+        images: [
+          "https://i.imgur.com/9Hcp40U.jpeg",
+          "https://i.imgur.com/JHASLtZ.jpeg",
+          "https://i.imgur.com/Khg9u7S.jpeg"
+        ]
+      },
+      {
+        id: "double-bed",
+        name: "Double Bed Room",
+        description: "Kamar nyaman dengan double bed, ideal untuk berdua. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
+        price: 450000,
+        capacity: 2,
+        beds: "1 Double Bed",
+        bathrooms: 1,
+        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
+        images: [
+          "https://i.imgur.com/9Hcp40U.jpeg",
+          "https://i.imgur.com/JHASLtZ.jpeg",
+          "https://i.imgur.com/Khg9u7S.jpeg"
+        ]
       }
     ],
     nearbyAttractions: [
@@ -961,7 +1058,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.975702407092274, lng: 106.30000198769226 }
+    coordinates: [-6.975702407092274, 106.30000198769226]
   },
   {
     id: "villa-arizky-sawarna",
@@ -1101,7 +1198,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.978931022659246, lng: 106.30716794926109 }
+    coordinates: [-6.978931022659246, 106.30716794926109]
   },
   {
     id: "villa-andrew",
@@ -1202,7 +1299,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.979993633033276, lng: 106.31008290573902 }
+    coordinates: [-6.979993633033276, 106.31008290573902]
   },
   {
     id: "villa-sinar-matahari-resort",
@@ -1321,7 +1418,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.98382227227367, lng: 106.31032309995304 }
+    coordinates: [-6.98382227227367, 106.31032309995304]
   },
   {
     id: "villa-putri-asih",
@@ -1341,13 +1438,18 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     capacity: 12,
     bedrooms: 4,
     bathrooms: 4,
-    image: "https://i.imgur.com/KP2ncPi.jpeg",
+    image: "https://i.imgur.com/ac6qcyq.jpeg",
     mainImages: [
-      "https://i.imgur.com/KP2ncPi.jpeg",
-      "https://i.imgur.com/d22kux8.jpeg",
-      "https://i.imgur.com/BtWp6Yr.jpeg",
-      "https://i.imgur.com/YjosayP.jpeg",
-      "https://i.imgur.com/SOKaH8H.jpeg"
+      "https://i.imgur.com/ac6qcyq.jpeg",
+      "https://i.imgur.com/bsoX9Sb.jpeg",
+      "https://i.imgur.com/17cGCvg.jpeg",
+      "https://i.imgur.com/ksFgVJL.jpeg",
+      "https://i.imgur.com/0eAobNP.jpeg",
+      "https://i.imgur.com/bsoX9Sb.jpeg",
+      "https://i.imgur.com/jmiTW7d.jpeg",
+      "https://i.imgur.com/xLSh7cH.jpeg",
+      "https://i.imgur.com/0eAobNP.jpeg",
+      "https://i.imgur.com/ac6qcyq.jpeg"
     ],
     tags: ["villa", "pantai sawarna", "view pantai", "kolam renang"],
     amenities: [
@@ -1384,9 +1486,11 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         beds: "1 Queen Bed Premium",
         bathrooms: 1,
         images: [
-          "https://i.imgur.com/KP2ncPi.jpeg",
-          "https://i.imgur.com/d22kux8.jpeg",
-          "https://i.imgur.com/BtWp6Yr.jpeg"
+          "https://i.imgur.com/jmiTW7d.jpeg",
+          "https://i.imgur.com/UL37iEs.jpeg",
+          "https://i.imgur.com/0eAobNP.jpeg",
+          "https://i.imgur.com/xLSh7cH.jpeg",
+          "https://i.imgur.com/bsoX9Sb.jpeg"
         ],
         amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas", "Setrika", "Perlengkapan Mandi", "View Pantai"]
       },
@@ -1399,33 +1503,20 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         beds: "1 King Bed Premium",
         bathrooms: 1,
         images: [
-          "https://i.imgur.com/YjosayP.jpeg",
-          "https://i.imgur.com/SOKaH8H.jpeg",
-          "https://i.imgur.com/7Djvl8E.jpeg"
+          "https://i.imgur.com/KwB90iV.jpeg",
+          "https://i.imgur.com/EhGmbu2.jpeg",
+          "https://i.imgur.com/111ocDI.jpeg",
+          "https://i.imgur.com/0eAobNP.jpeg",
+          "https://i.imgur.com/ac6qcyq.jpeg"
         ],
         amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kulkas", "Setrika", "Perlengkapan Mandi", "View Pantai"]
-      },
-      {
-        id: "family",
-        name: "Family Room",
-        description: "Kamar keluarga yang sangat luas dengan ruang tamu terpisah dan pemandangan pantai yang menakjubkan. Dilengkapi dengan fasilitas premium untuk kenyamanan keluarga.",
-        price: 600000,
-        capacity: 4,
-        beds: "2 Queen Beds Premium",
-        bathrooms: 2,
-        images: [
-          "https://i.imgur.com/KP2ncPi.jpeg",
-          "https://i.imgur.com/d22kux8.jpeg",
-          "https://i.imgur.com/BtWp6Yr.jpeg"
-        ],
-        amenities: ["AC", "TV LED 55 inch", "2 Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kitchen", "Ruang Tamu", "Setrika", "Perlengkapan Mandi", "View Pantai"]
       }
     ],
     nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "2 menit berjalan kaki" },
+      { name: "Pantai Sawarna", distance: "6 menit jalan kaki" },
       { name: "Goa Langir", distance: "5 menit berkendara" },
-      { name: "Legon Pari", distance: "8 menit berkendara" },
-      { name: "Tanjung Layar", distance: "10 menit berkendara" }
+      { name: "Legon Pari", distance: "9 menit berkendara" },
+      { name: "Tanjung Layar", distance: "4 menit berkendara" }
     ],
     ratingSummary: {
       score: 8.8,
@@ -1462,7 +1553,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.98382227227367, lng: 106.31032309995304 }
+    coordinates: [-6.98382227227367, 106.31032309995304]
   },
   {
     id: "villa-widi",
@@ -1563,7 +1654,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.983539105798058, lng: 106.30959983031511 }
+    coordinates: [-6.983539105798058, 106.30959983031511]
   },
   {
     id: "villa-batara",
@@ -1706,7 +1797,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.98382227227367, lng: 106.31032309995304 }
+    coordinates: [-6.98382227227367, 106.31032309995304]
   },
   {
     id: "villa-andrew-pasput",
@@ -1807,7 +1898,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.982431685908441, lng: 106.30955879500338 }
+    coordinates: [-6.982431685908441, 106.30955879500338]
   },
   {
     id: "villa-cempaka",
@@ -1869,7 +1960,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.987195368395686, lng: 106.32599254774482 }
+    coordinates: [-6.987195368395686, 106.32599254774482]
   },
   {
     id: "villa-muara-legon-pari",
@@ -1942,7 +2033,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.987741959248546, lng: 106.32176972637788 }
+    coordinates: [-6.987741959248546, 106.32176972637788]
   },
   {
     id: "villa-family-sawarna",
@@ -2092,11 +2183,94 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.984472686767081, lng: 106.31050607162815 }
+    coordinates: [-6.984472686767081, 106.31050607162815]
   }
 ];
 
 const homestaysData: ExtendedPropertyCardProps[] = [
+  {
+    id: "homestay-melati",
+    name: "Homestay Melati",
+    type: "homestay",
+    location: "Legon Pari, Sawarna",
+    price: 750000,
+    image: "https://i.imgur.com/eedYhN9.jpeg",
+    mainImages: [
+      "https://i.imgur.com/eedYhN9.jpeg",
+      "https://i.imgur.com/zXEfak2.jpeg",
+      "https://i.imgur.com/JdfQh6h.jpeg",
+      "https://i.imgur.com/sRgqsw0.jpeg",
+      "https://i.imgur.com/bCiJWDo.jpeg",
+      "https://i.imgur.com/TpHYgUp.jpeg",
+      "https://i.imgur.com/bWC6mya.jpeg"
+    ],
+    capacity: 20,
+    bedrooms: 5,
+    bathrooms: 5,
+    rating: 4.8,
+    reviews: 197,
+    description: "Homestay Melati adalah penginapan nyaman di kawasan Legon Pari, Sawarna. Dengan 5 kamar tidur dan kapasitas hingga 20 orang, homestay ini cocok untuk rombongan besar. Setiap kamar dilengkapi AC, WiFi, dan kamar mandi dalam. Lokasi strategis dekat Pantai Legon Pari dan berbagai destinasi wisata Sawarna.",
+    amenities: [
+      "AC di setiap kamar",
+      "WiFi gratis",
+      "Kamar mandi dalam",
+      "TV LED",
+      "Dapur bersama",
+      "Area parkir luas",
+      "Ruang tamu",
+      "Teras depan",
+      "Area bersantai"
+    ],
+    roomTypes: [
+      {
+        id: "kamar-tidur",
+        name: "Kamar Tidur",
+        price: 750000,
+        capacity: 20,
+        description: "Kamar tidur nyaman dengan AC, WiFi, dan kamar mandi dalam. Dilengkapi dengan tempat tidur king size, lemari pakaian, dan TV LED. Tersedia 5 kamar dengan kapasitas total 20 orang.",
+        amenities: [
+          "AC",
+          "WiFi",
+          "Kamar mandi dalam",
+          "TV LED",
+          "Tempat tidur king size",
+          "Lemari pakaian"
+        ],
+        images: [
+          "https://i.imgur.com/31AqeR8.jpeg",
+          "https://i.imgur.com/e5yAvhB.jpeg",
+          "https://i.imgur.com/NSAiOxi.jpeg",
+          "https://i.imgur.com/CaN7JWH.jpeg",
+          "https://i.imgur.com/cQIjQd3.jpeg"
+        ],
+        tab: "room",
+        beds: "5 King Beds",
+        bathrooms: 5
+      }
+    ],
+    contact: {
+      phone: "+6283877080088"
+    },
+    coordinates: [-6.9875, 106.3206],
+    ratingSummary: {
+      score: 4.8,
+      totalReviews: 197,
+      breakdown: [
+        { label: "Kebersihan", value: 4.9 },
+        { label: "Kenyamanan Kamar", value: 4.8 },
+        { label: "Makanan", value: 4.7 },
+        { label: "Lokasi", value: 4.9 },
+        { label: "Pelayanan dan Fasilitas", value: 4.8 }
+      ]
+    },
+    nearbyAttractions: [
+      { name: "Pantai Legon Pari", distance: "2 menit jalan kaki" },
+      { name: "Pantai Sawarna", distance: "5 menit" },
+      { name: "Tanjung Layar", distance: "10 menit" },
+      { name: "Goa Langir", distance: "15 menit" }
+    ],
+    tags: ["homestay", "legon pari", "pantai sawarna", "room"]
+  },
   {
     id: "h2",
     name: "Homestay Andrew Batara",
@@ -2108,7 +2282,7 @@ const homestaysData: ExtendedPropertyCardProps[] = [
     capacity: 2,
     reviews: 28,
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.979892295917413, lng: 106.31003232694785 },
+    coordinates: [-6.979892295917413, 106.31003232694785],
     // Menambahkan properti yang hilang dengan nilai default
     mainImages: ["https://images.unsplash.com/photo-1540555700478-4be289fbecef"],
     description: "",
@@ -2135,7 +2309,7 @@ const homestaysData: ExtendedPropertyCardProps[] = [
     capacity: 5,
     reviews: 32,
     contact: { phone: "083877080088" },
-    coordinates: { lat: -6.987654, lng: 106.123456 },
+    coordinates: [-6.987654, 106.123456],
     // Menambahkan properti yang hilang dengan nilai default
     mainImages: ["https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef"],
     description: "",
@@ -2150,6 +2324,78 @@ const homestaysData: ExtendedPropertyCardProps[] = [
     tags: ["homestay"],
     amenities: [],
     roomTypes: []
+  },
+  {
+    id: "homestay-putri-asih",
+    name: "Homestay Putri Asih",
+    type: "homestay",
+    location: "Pantai Sawarna",
+    description: "Homestay Putri Asih adalah penginapan nyaman yang terletak di kawasan Pantai Sawarna. Dengan 3 kamar tidur dan kapasitas hingga 20 tamu, homestay ini cocok untuk rombongan besar. Dilengkapi dengan fasilitas dasar seperti kipas angin dan kamar mandi dalam untuk kenyamanan tamu.",
+    price: 300000,
+    rating: 4.5,
+    reviews: 0,
+    capacity: 20,
+    bedrooms: 3,
+    bathrooms: 3,
+    image: "https://i.imgur.com/QHDaRpW.jpeg",
+    mainImages: [
+      "https://i.imgur.com/QHDaRpW.jpeg",
+      "https://i.imgur.com/fwiWCyM.jpeg",
+      "https://i.imgur.com/y8RvyOk.jpeg",
+      "https://i.imgur.com/a2SPfMy.jpeg",
+      "https://i.imgur.com/BWZt1WQ.jpeg",
+      "https://i.imgur.com/HmFcOU2.jpeg",
+      "https://i.imgur.com/7hkFTaM.jpeg",
+      "https://i.imgur.com/Akw8oc2.jpeg"
+    ],
+    tags: ["homestay", "pantai sawarna"],
+    amenities: [
+      "Kipas Angin",
+      "Kamar Mandi Dalam",
+      "Dapur Bersama",
+      "Area Parkir",
+      "Ruang Tamu",
+      "Teras Depan",
+      "Area Bersantai"
+    ],
+    roomTypes: [
+      {
+        id: "standard-room",
+        name: "Standard Room",
+        description: "Kamar nyaman dengan kipas angin dan kamar mandi dalam. Dilengkapi dengan tempat tidur dan lemari pakaian.",
+        price: 300000,
+        capacity: 6,
+        beds: "3 Double Beds",
+        bathrooms: 1,
+        amenities: ["Kipas Angin", "Kamar Mandi Dalam", "Lemari Pakaian"],
+        images: [
+          "https://i.imgur.com/joKLqJb.jpeg",
+          "https://i.imgur.com/xjSAfqs.jpeg",
+          "https://i.imgur.com/4fusIDs.jpeg",
+          "https://i.imgur.com/9yq1fwN.jpeg",
+          "https://i.imgur.com/p7Mcs6t.jpeg"
+        ]
+      }
+    ],
+    nearbyAttractions: [
+      { name: "Pantai Sawarna", distance: "5 menit jalan kaki" },
+      { name: "Goa Langir", distance: "8 menit berkendara" },
+      { name: "Legon Pari", distance: "10 menit berkendara" },
+      { name: "Tanjung Layar", distance: "12 menit berkendara" }
+    ],
+    ratingSummary: {
+      score: 0,
+      totalReviews: 0,
+      breakdown: [
+        { label: "Kebersihan", value: 0 },
+        { label: "Kenyamanan", value: 0 },
+        { label: "Lokasi", value: 0 },
+        { label: "Pelayanan", value: 0 },
+        { label: "Nilai", value: 0 }
+      ]
+    },
+    contact: { phone: "083877080088" },
+    coordinates: [-6.983539105798058, 106.30959983031511]
   }
 ];
 

@@ -1,12 +1,12 @@
 import { Article } from '@/types/article';
 
 export const etikaWisata: Article = {
-  id: "etika-wisata-sawarna",
-  title: "Etika Wisata di Sawarna: Menjaga Keindahan dan Budaya Lokal",
-  slug: "etika-wisata-sawarna",
-  excerpt: "Pelajari etika wisata yang baik untuk menjaga keindahan dan budaya lokal Sawarna.",
-  content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Etika Wisata di Sawarna: Menjaga Keindahan dan Budaya Lokal</strong></h2>
-<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/9Hcp40U.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/9Hcp40U.jpeg" width="236" alt="Etika Wisata di Sawarna" /></a></div>Menjaga etika wisata sangat penting untuk melestarikan keindahan Sawarna. Mari kita pelajari etika wisata yang baik.<p></p>
+  id: "etika-wisata",
+  title: "Etika Wisata di Sawarna: Menjaga Keindahan Alam",
+  slug: "etika-wisata",
+  excerpt: "Pelajari etika wisata yang baik untuk menjaga keindahan dan kelestarian Sawarna.",
+  content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Etika Wisata di Sawarna: Menjaga Keindahan Alam</strong></h2>
+<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/BYJLkqG.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/BYJLkqG.jpeg" width="236" alt="Etika Wisata di Sawarna" /></a></div>Sawarna adalah destinasi wisata yang indah yang perlu dijaga kelestariannya. Mari kita pelajari etika wisata yang baik di Sawarna.<p></p>
 
 <h3 class="" data-end="647" data-start="601"><strong data-end="647" data-start="605">Menjaga Kebersihan</strong></h3>
 <p class="" data-end="890" data-start="648">Buang sampah pada tempatnya. Bawa kantong sampah pribadi dan jangan meninggalkan sampah di pantai atau tempat wisata.</p>
@@ -26,20 +26,20 @@ export const etikaWisata: Article = {
 <p class="" data-end="3314" data-start="3086"><strong data-end="3749" data-start="3707">Siap untuk berlibur ke Sawarna?</strong><br data-end="3752" data-start="3749" />
 👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
   category: "Tips",
-  image: "https://i.imgur.com/9Hcp40U.jpeg",
+  image: "https://i.imgur.com/BYJLkqG.jpeg",
   author: "Tim Villa Sawarna",
   date: "2024-03-20",
   tags: ["Etika Wisata", "Tips", "Wisata Banten", "Pantai Sawarna", "Liburan"],
   meta: {
-    title: "Etika Wisata di Sawarna: Menjaga Keindahan dan Budaya Lokal",
-    description: "Pelajari etika wisata yang baik untuk menjaga keindahan dan budaya lokal Sawarna.",
+    title: "Etika Wisata di Sawarna: Menjaga Keindahan Alam",
+    description: "Pelajari etika wisata yang baik untuk menjaga keindahan dan kelestarian Sawarna.",
     keywords: "Etika Wisata, Tips, Wisata Banten, Pantai Sawarna, Liburan",
-    ogTitle: "Etika Wisata di Sawarna: Menjaga Keindahan dan Budaya Lokal",
-    ogDescription: "Pelajari etika wisata yang baik untuk menjaga keindahan dan budaya lokal Sawarna.",
-    ogImage: "https://i.imgur.com/9Hcp40U.jpeg",
+    ogTitle: "Etika Wisata di Sawarna: Menjaga Keindahan Alam",
+    ogDescription: "Pelajari etika wisata yang baik untuk menjaga keindahan dan kelestarian Sawarna.",
+    ogImage: "https://i.imgur.com/BYJLkqG.jpeg",
     twitterCard: "summary_large_image",
-    twitterTitle: "Etika Wisata di Sawarna: Menjaga Keindahan dan Budaya Lokal",
-    twitterDescription: "Pelajari etika wisata yang baik untuk menjaga keindahan dan budaya lokal Sawarna.",
-    twitterImage: "https://i.imgur.com/9Hcp40U.jpeg"
+    twitterTitle: "Etika Wisata di Sawarna: Menjaga Keindahan Alam",
+    twitterDescription: "Pelajari etika wisata yang baik untuk menjaga keindahan dan kelestarian Sawarna.",
+    twitterImage: "https://i.imgur.com/BYJLkqG.jpeg"
   }
 };

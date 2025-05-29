@@ -1,12 +1,12 @@
 import { Article } from '@/types/article';
 
 export const sejarahDesa: Article = {
-  id: "sejarah-desa-sawarna",
-  title: "Sejarah Desa Sawarna: Dari Kampung Nelayan Menjadi Destinasi Wisata",
-  slug: "sejarah-desa-sawarna",
-  excerpt: "Temukan sejarah panjang Desa Sawarna, dari kampung nelayan tradisional hingga menjadi destinasi wisata populer di Banten.",
-  content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Sejarah Desa Sawarna: Dari Kampung Nelayan Menjadi Destinasi Wisata</strong></h2>
-<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/9Hcp40U.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/9Hcp40U.jpeg" width="236" alt="Sejarah Desa Sawarna" /></a></div>Desa Sawarna memiliki sejarah panjang yang menarik untuk dijelajahi. Mari kita telusuri perjalanan desa ini dari masa ke masa.<p></p>
+  id: "sejarah-desa",
+  title: "Sejarah Desa Sawarna: Warisan Budaya",
+  slug: "sejarah-desa",
+  excerpt: "Temukan sejarah dan warisan budaya Desa Sawarna yang kaya.",
+  content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Sejarah Desa Sawarna: Warisan Budaya</strong></h2>
+<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/JuJNjj5.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/JuJNjj5.jpeg" width="236" alt="Sejarah Desa Sawarna" /></a></div>Desa Sawarna memiliki sejarah panjang yang kaya akan warisan budaya. Mari kita telusuri sejarah desa ini.<p></p>
 
 <h3 class="" data-end="647" data-start="601"><strong data-end="647" data-start="605">Asal Usul Nama</strong></h3>
 <p class="" data-end="890" data-start="648">Nama Sawarna konon berasal dari kata "Sawah" dan "Warna", yang menggambarkan keindahan alam dan kesuburan tanah di daerah ini. Sejak dulu, Sawarna dikenal sebagai daerah yang subur dan kaya akan hasil laut.</p>
@@ -29,20 +29,20 @@ export const sejarahDesa: Article = {
 <p class="" data-end="3314" data-start="3086"><strong data-end="3749" data-start="3707">Siap untuk berlibur ke Sawarna?</strong><br data-end="3752" data-start="3749" />
 👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
   category: "Sejarah",
-  image: "https://i.imgur.com/9Hcp40U.jpeg",
+  image: "https://i.imgur.com/JuJNjj5.jpeg",
   author: "Tim Villa Sawarna",
   date: "2024-03-20",
-  tags: ["Sejarah", "Desa Sawarna", "Wisata Banten", "Budaya", "Nelayan"],
+  tags: ["Sejarah", "Budaya", "Wisata Banten", "Pantai Sawarna", "Liburan"],
   meta: {
-    title: "Sejarah Desa Sawarna: Dari Kampung Nelayan Menjadi Destinasi Wisata",
-    description: "Temukan sejarah panjang Desa Sawarna, dari kampung nelayan tradisional hingga menjadi destinasi wisata populer di Banten.",
-    keywords: "Sejarah, Desa Sawarna, Wisata Banten, Budaya, Nelayan",
-    ogTitle: "Sejarah Desa Sawarna: Dari Kampung Nelayan Menjadi Destinasi Wisata",
-    ogDescription: "Temukan sejarah panjang Desa Sawarna, dari kampung nelayan tradisional hingga menjadi destinasi wisata populer di Banten.",
-    ogImage: "https://i.imgur.com/9Hcp40U.jpeg",
+    title: "Sejarah Desa Sawarna: Warisan Budaya",
+    description: "Temukan sejarah dan warisan budaya Desa Sawarna yang kaya.",
+    keywords: "Sejarah, Budaya, Wisata Banten, Pantai Sawarna, Liburan",
+    ogTitle: "Sejarah Desa Sawarna: Warisan Budaya",
+    ogDescription: "Temukan sejarah dan warisan budaya Desa Sawarna yang kaya.",
+    ogImage: "https://i.imgur.com/JuJNjj5.jpeg",
     twitterCard: "summary_large_image",
-    twitterTitle: "Sejarah Desa Sawarna: Dari Kampung Nelayan Menjadi Destinasi Wisata",
-    twitterDescription: "Temukan sejarah panjang Desa Sawarna, dari kampung nelayan tradisional hingga menjadi destinasi wisata populer di Banten.",
-    twitterImage: "https://i.imgur.com/9Hcp40U.jpeg"
+    twitterTitle: "Sejarah Desa Sawarna: Warisan Budaya",
+    twitterDescription: "Temukan sejarah dan warisan budaya Desa Sawarna yang kaya.",
+    twitterImage: "https://i.imgur.com/JuJNjj5.jpeg"
   }
 };

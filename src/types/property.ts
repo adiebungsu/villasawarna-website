@@ -14,10 +14,7 @@ export interface Property {
   amenities: string[];
   rating: number;
   reviews: number;
-  coordinates: {
-    lat: number;
-    lng: number;
-  };
+  coordinates: [number, number];
   availability?: string;
   featured?: boolean;
   createdAt: string;

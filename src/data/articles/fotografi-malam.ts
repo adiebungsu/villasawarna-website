@@ -1,12 +1,12 @@
 import { Article } from '@/types/article';
 
 export const fotografiMalam: Article = {
-  id: "fotografi-malam-sawarna",
-  title: "Fotografi Malam di Sawarna: Menangkap Keindahan Malam",
-  slug: "fotografi-malam-sawarna",
-  excerpt: "Temukan tips dan lokasi terbaik untuk fotografi malam di Sawarna, dari bintang hingga siluet pantai.",
-  content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Fotografi Malam di Sawarna: Menangkap Keindahan Malam</strong></h2>
-<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/9Hcp40U.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/9Hcp40U.jpeg" width="236" alt="Fotografi Malam di Sawarna" /></a></div>Sawarna menawarkan pemandangan malam yang menakjubkan untuk fotografi. Mari kita pelajari tentang fotografi malam di Sawarna.<p></p>
+  id: "fotografi-malam",
+  title: "Fotografi Malam di Sawarna: Menangkap Keindahan",
+  slug: "fotografi-malam",
+  excerpt: "Pelajari tips dan trik fotografi malam di Sawarna untuk hasil yang memukau.",
+  content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Fotografi Malam di Sawarna: Menangkap Keindahan</strong></h2>
+<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/Ezq1fnp.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/Ezq1fnp.jpeg" width="236" alt="Fotografi Malam Sawarna" /></a></div>Sawarna menawarkan pemandangan malam yang indah untuk fotografi. Mari kita pelajari cara menangkap keindahan malam di Sawarna.<p></p>
 
 <h3 class="" data-end="647" data-start="601"><strong data-end="647" data-start="605">Lokasi Terbaik</strong></h3>
 <p class="" data-end="890" data-start="648">Beberapa lokasi terbaik untuk fotografi malam di Sawarna adalah Tanjung Layar, pantai berpasir putih, dan area perkampungan nelayan.</p>
@@ -26,20 +26,20 @@ export const fotografiMalam: Article = {
 <p class="" data-end="3314" data-start="3086"><strong data-end="3749" data-start="3707">Siap untuk berlibur ke Sawarna?</strong><br data-end="3752" data-start="3749" />
 👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
   category: "Fotografi",
-  image: "https://i.imgur.com/9Hcp40U.jpeg",
+  image: "https://i.imgur.com/Ezq1fnp.jpeg",
   author: "Tim Villa Sawarna",
   date: "2024-03-20",
   tags: ["Fotografi", "Malam", "Wisata Banten", "Pantai Sawarna", "Liburan"],
   meta: {
-    title: "Fotografi Malam di Sawarna: Menangkap Keindahan Malam",
-    description: "Temukan tips dan lokasi terbaik untuk fotografi malam di Sawarna, dari bintang hingga siluet pantai.",
+    title: "Fotografi Malam di Sawarna: Menangkap Keindahan",
+    description: "Pelajari tips dan trik fotografi malam di Sawarna untuk hasil yang memukau.",
     keywords: "Fotografi, Malam, Wisata Banten, Pantai Sawarna, Liburan",
-    ogTitle: "Fotografi Malam di Sawarna: Menangkap Keindahan Malam",
-    ogDescription: "Temukan tips dan lokasi terbaik untuk fotografi malam di Sawarna, dari bintang hingga siluet pantai.",
-    ogImage: "https://i.imgur.com/9Hcp40U.jpeg",
+    ogTitle: "Fotografi Malam di Sawarna: Menangkap Keindahan",
+    ogDescription: "Pelajari tips dan trik fotografi malam di Sawarna untuk hasil yang memukau.",
+    ogImage: "https://i.imgur.com/Ezq1fnp.jpeg",
     twitterCard: "summary_large_image",
-    twitterTitle: "Fotografi Malam di Sawarna: Menangkap Keindahan Malam",
-    twitterDescription: "Temukan tips dan lokasi terbaik untuk fotografi malam di Sawarna, dari bintang hingga siluet pantai.",
-    twitterImage: "https://i.imgur.com/9Hcp40U.jpeg"
+    twitterTitle: "Fotografi Malam di Sawarna: Menangkap Keindahan",
+    twitterDescription: "Pelajari tips dan trik fotografi malam di Sawarna untuk hasil yang memukau.",
+    twitterImage: "https://i.imgur.com/Ezq1fnp.jpeg"
   }
 };

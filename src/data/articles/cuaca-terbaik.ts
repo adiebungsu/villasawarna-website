@@ -6,7 +6,7 @@ export const cuacaTerbaik: Article = {
   slug: "cuaca-terbaik-sawarna",
   excerpt: "Temukan waktu terbaik untuk mengunjungi Sawarna berdasarkan kondisi cuaca dan musim yang ideal untuk liburan.",
   content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Cuaca Terbaik di Sawarna: Panduan Musim Liburan</strong></h2>
-<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/9Hcp40U.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/9Hcp40U.jpeg" width="236" alt="Cuaca Terbaik di Sawarna" /></a></div>Sawarna memiliki cuaca yang ideal untuk liburan. Mari kita pelajari tentang cuaca terbaik di Sawarna.<p></p>
+<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/D543MC0.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/D543MC0.jpeg" width="236" alt="Cuaca Terbaik di Sawarna" /></a></div>Sawarna memiliki cuaca yang ideal untuk liburan. Mari kita pelajari tentang cuaca terbaik di Sawarna.<p></p>
 
 <h3 class="" data-end="647" data-start="601"><strong data-end="647" data-start="605">Musim Kemarau</strong></h3>
 <p class="" data-end="890" data-start="648">Musim kemarau di Sawarna berlangsung dari April hingga Oktober. Cuaca cerah dan ideal untuk aktivitas pantai dan olahraga air.</p>
@@ -26,7 +26,7 @@ export const cuacaTerbaik: Article = {
 <p class="" data-end="3314" data-start="3086"><strong data-end="3749" data-start="3707">Siap untuk berlibur ke Sawarna?</strong><br data-end="3752" data-start="3749" />
 👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
   category: "Tips",
-  image: "https://i.imgur.com/9Hcp40U.jpeg",
+  image: "https://i.imgur.com/D543MC0.jpeg",
   author: "Tim Villa Sawarna",
   date: "2024-03-20",
   tags: ["Cuaca", "Musim", "Wisata Banten", "Pantai Sawarna", "Liburan"],
@@ -36,10 +36,10 @@ export const cuacaTerbaik: Article = {
     keywords: "Cuaca, Musim, Wisata Banten, Pantai Sawarna, Liburan",
     ogTitle: "Cuaca Terbaik di Sawarna: Panduan Musim Liburan",
     ogDescription: "Temukan waktu terbaik untuk mengunjungi Sawarna berdasarkan kondisi cuaca dan musim yang ideal untuk liburan.",
-    ogImage: "https://i.imgur.com/9Hcp40U.jpeg",
+    ogImage: "https://i.imgur.com/D543MC0.jpeg",
     twitterCard: "summary_large_image",
     twitterTitle: "Cuaca Terbaik di Sawarna: Panduan Musim Liburan",
     twitterDescription: "Temukan waktu terbaik untuk mengunjungi Sawarna berdasarkan kondisi cuaca dan musim yang ideal untuk liburan.",
-    twitterImage: "https://i.imgur.com/9Hcp40U.jpeg"
+    twitterImage: "https://i.imgur.com/D543MC0.jpeg"
   }
 };
