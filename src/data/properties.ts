@@ -2180,7 +2180,11 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "https://i.imgur.com/113iLqC.jpeg",
       "https://i.imgur.com/SL61Ddj.jpeg",
       "https://i.imgur.com/d1uiuL6.jpeg",
-      "https://i.imgur.com/V1nNNWI.jpeg"
+      "https://i.imgur.com/V1nNNWI.jpeg",
+      "https://i.imgur.com/lp4y4lz.jpeg",
+      "https://i.imgur.com/TyvQWkE.jpeg",
+      "https://i.imgur.com/K0oZJhl.jpeg",
+      "https://i.imgur.com/ep3rbbc.jpeg"
     ],
     tags: ["villa", "legon pari", "pantai", "keluarga"],
     amenities: [
@@ -2216,22 +2220,28 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         bathrooms: 1,
         amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi"],
         images: [
-          "https://i.imgur.com/113iLqC.jpeg",
-          "https://i.imgur.com/SL61Ddj.jpeg"
+          "https://i.imgur.com/NrQtZBp.jpeg",
+          "https://i.imgur.com/NCmW3YT.jpeg",
+          "https://i.imgur.com/NrQtZBp.jpeg",
+          "https://i.imgur.com/XbUWjkF.jpeg",
+          "https://i.imgur.com/ep3rbbc.jpeg"
         ]
       },
       {
-        id: "family-room",
-        name: "Family Room",
-        description: "Kamar luas untuk keluarga, dengan 2 double bed dan fasilitas lengkap.",
+        id: "deluxe-room",
+        name: "Deluxe Room",
+        description: "Kamar mewah dengan pemandangan pantai, dilengkapi fasilitas premium.",
         price: 600000,
-        capacity: 4,
-        beds: "2 Double Bed",
+        capacity: 2,
+        beds: "1 King Bed",
         bathrooms: 1,
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi"],
+        amenities: ["AC", "TV LED 55 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "View Pantai"],
         images: [
-          "https://i.imgur.com/d1uiuL6.jpeg",
-          "https://i.imgur.com/V1nNNWI.jpeg"
+          "https://i.imgur.com/kk3uXA7.jpeg",
+          "https://i.imgur.com/pngviek.jpeg",
+          "https://i.imgur.com/rkMGwqt.jpeg",
+          "https://i.imgur.com/6bRwedR.jpeg",
+          "https://i.imgur.com/mzEJPe8.jpeg"
         ]
       }
     ],
@@ -2272,9 +2282,177 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
   }
 ];
 
+const homestaysData: ExtendedPropertyCardProps[] = [
+  {
+    id: "homestay-melati",
+    name: "Homestay Melati",
+    type: "homestay" as const,
+    location: "Pantai Sawarna",
+    description: `Homestay Melati adalah penginapan nyaman yang terletak di kawasan Pantai Sawarna. Dengan suasana yang tenang dan pelayanan yang ramah, homestay ini menawarkan pengalaman menginap yang menyenangkan dengan harga terjangkau.
+
+Fasilitas utama homestay ini meliputi kamar tidur nyaman yang dilengkapi kipas angin, TV LED, dan kamar mandi dalam. Area outdoor yang luas dengan taman yang asri menjadi tempat yang sempurna untuk bersantai sambil menikmati suasana Sawarna.
+
+Lokasi strategis homestay ini memudahkan akses ke berbagai destinasi wisata populer di Sawarna, seperti Pantai Sawarna (3 menit jalan kaki), Goa Langir (5 menit berkendara), Legon Pari (10 menit berkendara), dan Tanjung Layar (5 menit berkendara).`,
+    price: 850000,
+    rating: 4.3,
+    reviews: 85,
+    capacity: 4,
+    bedrooms: 2,
+    bathrooms: 2,
+    image: "https://i.imgur.com/eedYhN9.jpeg",
+    mainImages: [
+      "https://i.imgur.com/eedYhN9.jpeg",
+      "https://i.imgur.com/zXEfak2.jpeg",
+      "https://i.imgur.com/JdfQh6h.jpeg",
+      "https://i.imgur.com/sRgqsw0.jpeg",
+      "https://i.imgur.com/bCiJWDo.jpeg",
+      "https://i.imgur.com/TpHYgUp.jpeg",
+      "https://i.imgur.com/bWC6mya.jpeg"
+    ],
+    tags: ["homestay", "pantai sawarna"],
+    amenities: [
+      "2 Kamar Tidur Nyaman",
+      "2 Kamar Mandi Dalam",
+      "Kipas Angin di Semua Kamar",
+      "TV LED",
+      "WiFi",
+      "Dapur Bersama",
+      "Taman",
+      "Parkir",
+      "Ruang Tamu",
+      "Ruang Makan",
+      "Kulkas",
+      "Perlengkapan Mandi",
+      "Handuk",
+      "Kasur Nyaman"
+    ],
+    roomTypes: [
+      {
+        id: "kamar-tidur",
+        name: "Kamar Tidur",
+        description: "Kamar nyaman dengan double bed, ideal untuk berdua. Dilengkapi dengan kipas angin, TV LED, dan kamar mandi dalam.",
+        price: 850000,
+        capacity: 2,
+        beds: "1 Double Bed",
+        bathrooms: 1,
+        amenities: ["Kipas Angin", "TV LED", "Kamar Mandi Dalam", "WiFi"],
+        images: [
+          "https://i.imgur.com/31AqeR8.jpeg",
+          "https://i.imgur.com/e5yAvhB.jpeg",
+          "https://i.imgur.com/NSAiOxi.jpeg",
+          "https://i.imgur.com/CaN7JWH.jpeg",
+          "https://i.imgur.com/cQIjQd3.jpeg"
+        ]
+      }
+    ],
+    nearbyAttractions: [
+      { name: "Pantai Sawarna", distance: "3 menit jalan kaki" },
+      { name: "Goa Langir", distance: "5 menit berkendara" },
+      { name: "Legon Pari", distance: "10 menit berkendara" },
+      { name: "Tanjung Layar", distance: "5 menit berkendara" }
+    ],
+    ratingSummary: {
+      score: 8.5,
+      totalReviews: 85,
+      breakdown: [
+        { label: "Kebersihan", value: 8.4 },
+        { label: "Kenyamanan Kamar", value: 8.6 },
+        { label: "Makanan", value: 8.3 },
+        { label: "Lokasi", value: 8.7 },
+        { label: "Pelayanan dan Fasilitas", value: 8.5 }
+      ]
+    },
+    contact: { phone: "083877080088" },
+    coordinates: [-6.983539105798058, 106.30959983031511]
+  },
+  {
+    id: "homestay-putri-asih",
+    name: "Homestay Putri Asih",
+    type: "homestay" as const,
+    location: "Pantai Sawarna",
+    description: `Homestay Putri Asih adalah penginapan nyaman yang terletak di kawasan Pantai Sawarna. Dengan suasana yang tenang dan pelayanan yang ramah, homestay ini menawarkan pengalaman menginap yang menyenangkan dengan harga terjangkau.
+
+Fasilitas utama homestay ini meliputi kamar tidur nyaman yang dilengkapi kipas angin, TV LED, dan kamar mandi dalam. Area outdoor yang luas dengan taman yang asri menjadi tempat yang sempurna untuk bersantai sambil menikmati suasana Sawarna.
+
+Lokasi strategis homestay ini memudahkan akses ke berbagai destinasi wisata populer di Sawarna, seperti Pantai Sawarna (2 menit jalan kaki), Goa Langir (4 menit berkendara), Legon Pari (9 menit berkendara), dan Tanjung Layar (4 menit berkendara).`,
+    price: 750000,
+    rating: 4.2,
+    reviews: 75,
+    capacity: 4,
+    bedrooms: 2,
+    bathrooms: 2,
+    image: "https://i.imgur.com/QHDaRpW.jpeg",
+    mainImages: [
+      "https://i.imgur.com/QHDaRpW.jpeg",
+      "https://i.imgur.com/fwiWCyM.jpeg",
+      "https://i.imgur.com/y8RvyOk.jpeg",
+      "https://i.imgur.com/a2SPfMy.jpeg",
+      "https://i.imgur.com/BWZt1WQ.jpeg",
+      "https://i.imgur.com/HmFcOU2.jpeg",
+      "https://i.imgur.com/7hkFTaM.jpeg",
+      "https://i.imgur.com/Akw8oc2.jpeg"
+    ],
+    tags: ["homestay", "pantai sawarna"],
+    amenities: [
+      "2 Kamar Tidur Nyaman",
+      "2 Kamar Mandi Dalam",
+      "Kipas Angin di Semua Kamar",
+      "TV LED",
+      "WiFi",
+      "Dapur Bersama",
+      "Taman",
+      "Parkir",
+      "Ruang Tamu",
+      "Ruang Makan",
+      "Kulkas",
+      "Perlengkapan Mandi",
+      "Handuk",
+      "Kasur Nyaman"
+    ],
+    roomTypes: [
+      {
+        id: "room",
+        name: "Room",
+        description: "Kamar nyaman dengan double bed, ideal untuk berdua. Dilengkapi dengan kipas angin, TV LED, dan kamar mandi dalam.",
+        price: 750000,
+        capacity: 2,
+        beds: "1 Double Bed",
+        bathrooms: 1,
+        amenities: ["Kipas Angin", "TV LED", "Kamar Mandi Dalam", "WiFi"],
+        images: [
+          "https://i.imgur.com/joKLqJb.jpeg",
+          "https://i.imgur.com/xjSAfqs.jpeg",
+          "https://i.imgur.com/4fusIDs.jpeg",
+          "https://i.imgur.com/9yq1fwN.jpeg",
+          "https://i.imgur.com/p7Mcs6t.jpeg"
+        ]
+      }
+    ],
+    nearbyAttractions: [
+      { name: "Pantai Sawarna", distance: "2 menit jalan kaki" },
+      { name: "Goa Langir", distance: "4 menit berkendara" },
+      { name: "Legon Pari", distance: "9 menit berkendara" },
+      { name: "Tanjung Layar", distance: "4 menit berkendara" }
+    ],
+    ratingSummary: {
+      score: 8.4,
+      totalReviews: 75,
+      breakdown: [
+        { label: "Kebersihan", value: 8.3 },
+        { label: "Kenyamanan Kamar", value: 8.5 },
+        { label: "Makanan", value: 8.2 },
+        { label: "Lokasi", value: 8.6 },
+        { label: "Pelayanan dan Fasilitas", value: 8.4 }
+      ]
+    },
+    contact: { phone: "083877080088" },
+    coordinates: [-6.983539105798058, 106.30959983031511]
+  }
+];
+
 // Function to get all properties combined
 export const getAllProperties = (): Property[] => {
-  return villasData;
+  return [...villasData, ...homestaysData];
 };
 
 export const getVillasData = (): Property[] => {
@@ -2282,7 +2460,7 @@ export const getVillasData = (): Property[] => {
 };
 
 export const getHomestaysData = (): Property[] => {
-  return [];
+  return homestaysData;
 };
 
 export const getFeaturedProperties = (): Property[] => {
