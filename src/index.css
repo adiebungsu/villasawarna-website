@@ -377,3 +377,7 @@ html,
   height: 0;
   pointer-events: none;
 }
+
+.leaflet-control-attribution {
+  display: none !important;
+}

@@ -356,6 +356,8 @@ const PropertyDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [isMobile, setIsMobile] = useState(false);
   const [isAndroid, setIsAndroid] = useState(false);
+  // Tambahkan state untuk dropdown jarak destinasi
+  const [openDropdown, setOpenDropdown] = useState(false);
 
   // Effect untuk mendeteksi Android
   useEffect(() => {
@@ -1022,19 +1024,73 @@ const PropertyDetail: React.FC = () => {
               {/* Lokasi */}
               <div id="lokasi" className="mb-8">
                 <h2 className="text-xl font-bold mb-4 dark:text-white">Lokasi</h2>
-                <div className="rounded-xl overflow-hidden shadow-lg dark:shadow-gray-800/50">
-                  <Suspense fallback={
-                    <div className="h-[250px] rounded-xl bg-gray-100 dark:bg-gray-800 animate-pulse flex items-center justify-center">
-                      <span className="text-gray-500 dark:text-gray-400">Memuat peta...</span>
+                <div className="grid grid-cols-2 gap-4 rounded-xl overflow-hidden shadow-lg dark:shadow-gray-800/50 p-4 bg-white dark:bg-gray-900">
+                  {/* Kiri: Info Lokasi & Jarak */}
+                  <div className="min-w-0 flex flex-col justify-between">
+                    <div>
+                      <div className="font-semibold text-lg mb-1">{property.location}</div>
+                      <ul className="mb-3 text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                        <li className="flex items-center justify-between py-1">
+                          <span className="flex items-center gap-1">🚗 <span>Parkir</span></span>
+                          <span className="bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded text-xs">GRATIS</span>
+                        </li>
+                      </ul>
+                      {/* Dropdown Jarak Destinasi */}
+                      <div className="mb-2">
+                        <button
+                          type="button"
+                          className="w-full flex items-center justify-between px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                          onClick={() => setOpenDropdown((prev) => !prev)}
+                        >
+                          <span>Jarak ke Destinasi Populer</span>
+                          <span className={`transform transition-transform ${openDropdown ? 'rotate-180' : ''}`}>▼</span>
+                        </button>
+                        {openDropdown && (
+                          <ul className="mt-2 space-y-1">
+                            {property.nearbyAttractions && property.nearbyAttractions.length > 0 ? (
+                              property.nearbyAttractions.map((item, idx) => (
+                                <li
+                                  key={idx}
+                                  className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap"
+                                >
+                                  <span className="flex items-center gap-1 whitespace-nowrap">🌊 <span>{item.name}</span></span>
+                                  <span className="bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">{item.distance}</span>
+                                </li>
+                              ))
+                            ) : (
+                              <>
+                                <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap">
+                                  <span className="flex items-center gap-1 whitespace-nowrap">🌊 <span>Pantai Seminyak</span></span>
+                                  <span className="bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">7,57 km</span>
+                                </li>
+                                <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap">
+                                  <span className="flex items-center gap-1 whitespace-nowrap">🌊 <span>Pantai Kuta</span></span>
+                                  <span className="bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">9,02 km</span>
+                                </li>
+                                <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap">
+                                  <span className="flex items-center gap-1 whitespace-nowrap">🌊 <span>Pantai Sanur</span></span>
+                                  <span className="bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">9,19 km</span>
+                                </li>
+                              </>
+                            )}
+                          </ul>
+                        )}
+                      </div>
                     </div>
-                  }>
-                    <MapComponent 
-                      center={property.coordinates}
-                      propertyName={property.name}
-                      propertyLocation={property.location}
-                      height="400px"
-                    />
-                  </Suspense>
+                    <a href="#" className="text-blue-600 text-sm underline mt-2">Lihat sekitar</a>
+                  </div>
+                  {/* Kanan: Peta & Tombol */}
+                  <div className="flex flex-col items-center gap-2 w-full max-w-[320px] mx-auto">
+                    <button className="mb-2 px-4 py-1 bg-blue-100 text-blue-700 rounded-full font-medium text-sm shadow hover:bg-blue-200 transition">Lihat peta</button>
+                    <div className="w-full h-[120px] md:h-[250px] rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300">
+                      <MapComponent 
+                        center={property.coordinates}
+                        propertyName={property.name}
+                        propertyLocation={property.location}
+                        height="100%"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </main>
