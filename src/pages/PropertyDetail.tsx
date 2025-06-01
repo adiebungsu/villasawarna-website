@@ -48,7 +48,7 @@ interface PropertyReview {
 interface Property {
   id: string;
   name: string;
-  type: 'villa' | 'homestay' | 'hotel';
+  type: 'villa' | 'homestay' | 'hotel' | 'apartment'; // Added 'apartment'
   location: string;
   price: number;
   image: string;
@@ -197,51 +197,6 @@ const BookingWidget: React.FC<BookingWidgetProps> = (props) => {
 
   return (
     <div id="booking" className="sticky top-6 space-y-6">
-      {/* Card Bayar dengan QRIS */}
-      <div id="qris-payment" className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-2xl shadow-xl dark:shadow-gray-800/50 border border-ocean/20 dark:border-ocean-dark/20 overflow-hidden">
-        <button
-          className="w-full flex items-center justify-between p-6 text-left font-bold text-xl text-ocean dark:text-ocean-light hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200"
-          onClick={() => props.setIsQrisExpanded(!props.isQrisExpanded)}
-        >
-          Bayar dengan QRIS
-          <motion.div
-            animate={{ rotate: props.isQrisExpanded ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <ChevronDown size={24} />
-          </motion.div>
-        </button>
-        <AnimatePresence>
-          {props.isQrisExpanded && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="overflow-hidden px-6 pb-6"
-            >
-              <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg flex flex-col items-center">
-                <img src="https://i.imgur.com/BYSdDjB.jpeg" alt="QRIS Pembayaran" className="w-full max-w-xs mx-auto rounded-md" />
-                <p className="text-center text-gray-700 dark:text-gray-300 text-sm mt-3">Scan QRIS di atas untuk melakukan pembayaran.</p>
-                <p className="text-center text-gray-700 dark:text-gray-300 text-sm mt-1 font-semibold">Nama Merchant: Sawarna Creative</p>
-                <a
-                  href="https://i.imgur.com/BYSdDjB.jpeg"
-                  download="QRIS_Pembayaran_Sawarna_Creative.jpeg"
-                  className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-ocean text-white rounded-lg hover:bg-ocean-dark transition-colors duration-200"
-                >
-                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="7 10 12 15 17 10"/>
-                    <line x1="12" y1="15" x2="12" y2="3"/>
-                  </svg>
-                  Download QRIS
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
       {/* Card Catatan */}
       <div className="bg-amber-50 dark:bg-amber-900/20 rounded-xl p-4 border border-amber-100 dark:border-amber-800/30">
         <div className="flex items-start gap-3">
