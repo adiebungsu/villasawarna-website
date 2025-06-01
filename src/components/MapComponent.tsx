@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { useRef, useEffect } from 'react';
 
 // Fix untuk marker icon Leaflet
 interface IconDefault extends L.Icon.Default {
@@ -20,9 +21,21 @@ interface MapComponentProps {
   propertyName: string;
   propertyLocation: string;
   height: string;
+  shouldUpdateSize?: boolean;
 }
 
-const MapComponent: FC<MapComponentProps> = ({ center, propertyName, propertyLocation, height }) => {
+const MapComponent: FC<MapComponentProps> = ({ center, propertyName, propertyLocation, height, shouldUpdateSize }) => {
+  const mapRef = useRef<L.Map | null>(null);
+
+  useEffect(() => {
+    if (mapRef.current) {
+      setTimeout(() => {
+        mapRef.current?.invalidateSize();
+        console.log('Map size invalidated');
+      }, 0);
+    }
+  }, [shouldUpdateSize]);
+
   return (
     <div className="rounded-xl overflow-hidden" style={{ height }}>
       <MapContainer 
@@ -30,6 +43,7 @@ const MapComponent: FC<MapComponentProps> = ({ center, propertyName, propertyLoc
         zoom={15} 
         style={{ height: '100%', width: '100%' }}
         scrollWheelZoom={false}
+        whenReady={(map) => { mapRef.current = map; }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

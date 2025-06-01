@@ -19,6 +19,7 @@ import { FloatingThemeToggle } from '@/components/FloatingThemeToggle';
 import { Article } from '@/types/article';
 import { cn } from '@/lib/utils';
 import WelcomeModal from '@/components/WelcomeModal';
+import ArticlesSection from '@/components/ArticlesSection';
 
 // Data testimonial
 const testimonialData = [
@@ -81,7 +82,7 @@ const Index = () => {
     "priceRange": "Rp 300.000 - Rp 1.000.000",
     "openingHours": "Mo-Su 00:00-23:59",
     "telephone": "+62-123-4567-890",
-    "email": "info@villasawarna.com"
+    "email": "layanan@villasawarna.com"
   };
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: 'start' });
@@ -677,6 +678,23 @@ const Index = () => {
 
         <WhyChooseUs />
         <GoFoodSawarna />
+
+        {/* Partnership Call to Action Section */}
+        <section className="py-12 bg-white dark:bg-gray-900">
+          <div className="container-custom text-center">
+            <h2 className="text-3xl font-bold mb-4">Bermitra dengan Kami</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
+              Apakah Anda pemilik villa, homestay, atau penginapan di Sawarna? Bergabunglah dengan jaringan kami dan jangkau lebih banyak wisatawan!
+            </p>
+            <Link to="/partnership">
+              <Button size="lg">
+                Pelajari Lebih Lanjut tentang Kemitraan
+              </Button>
+            </Link>
+          </div>
+        </section>
+
+        {/* About Sawarna Section */}
         <AboutSawarna />
       </div>
       {/* QuickView Modal */}

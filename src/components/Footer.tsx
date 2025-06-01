@@ -72,7 +72,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="mr-2 flex-shrink-0 text-ocean dark:text-ocean-light" />
-                <span className="text-gray-300 dark:text-gray-400">info@villasawarna.com</span>
+                <a href="mailto:layanan@villasawarna.com" className="text-gray-300 hover:text-ocean dark:text-gray-400 dark:hover:text-ocean-light">layanan@villasawarna.com</a>
               </li>
             </ul>
           </div>

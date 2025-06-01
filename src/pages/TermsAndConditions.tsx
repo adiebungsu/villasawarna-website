@@ -258,7 +258,7 @@ const TermsAndConditions = () => {
               <p>6.3. Kontak Darurat:</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>WhatsApp: <a href="https://wa.me/6283877080088" className="hover:underline dark:hover:text-coral-light">0838-7708-0088</a></li>
-                <li>Email: info@villasawarna.com</li>
+                <li>Email: layanan@villasawarna.com</li>
               </ul>
             </div>
           </section>
@@ -329,7 +329,7 @@ const TermsAndConditions = () => {
               </div>
               <div className="flex items-center gap-2 text-ocean dark:text-coral">
                 <Mail size={20} />
-                <a href="mailto:info@villasawarna.com" className="hover:underline dark:hover:text-coral-light">info@villasawarna.com</a>
+                <a href="mailto:layanan@villasawarna.com" className="hover:underline dark:hover:text-coral-light">layanan@villasawarna.com</a>
               </div>
             </div>
           </div>

@@ -31,6 +31,11 @@ import { propertyReviews } from "@/data/reviews";
 import OptimizedImage from '@/components/OptimizedImage';
 import SEO from '@/components/SEO';
 import QuickNavigation from '@/components/QuickNavigation';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 // Ganti dynamic import dengan React.lazy
 const MapComponent = lazy(() => import('../components/MapComponent'));
@@ -553,16 +558,16 @@ const PropertyDetail: React.FC = () => {
   }, [property?.type]);
 
   const metaDescription = property ? 
-    `${property.name} adalah villa ${property.type === 'villa' ? 'nyaman' : 'homestay'} di ${property.location}, Pantai Sawarna. ${property.description.substring(0, 150)}... Harga mulai Rp ${property.price.toLocaleString('id-ID')}. Rating ${property.rating} dari ${property.reviews} review.` :
-    'Detail villa dan homestay di Pantai Sawarna';
+    `${property.name} adalah ${property.type === 'villa' ? 'villa nyaman' : 'penginapan homestay'} di ${property.location}, Pantai Sawarna. ${property.description.substring(0, 150)}... Harga mulai Rp ${property.price.toLocaleString('id-ID')}. Rating ${property.rating} dari ${property.reviews} review. Fasilitas lengkap termasuk ${property.amenities?.slice(0, 3).join(', ')}. Cocok untuk liburan keluarga dan rombongan.` :
+    'Detail villa dan penginapan di Pantai Sawarna';
 
   const metaTitle = property ? 
-    `${property.name} - ${property.type === 'villa' ? 'Villa' : 'Homestay'} di ${property.location} | Villa Sawarna` : 
+    `${property.name} - ${property.type === 'villa' ? 'Villa' : 'Penginapan Homestay'} di ${property.location} | Villa Sawarna` : 
     'Detail Properti - Villa Sawarna';
 
   const ogDescription = property ? 
-    `Sewa ${property.name} di ${property.location}. ${property.type === 'villa' ? 'Villa' : 'Homestay'} dengan pemandangan pantai dan fasilitas lengkap.` : 
-    'Detail properti di Pantai Sawarna';
+    `Sewa ${property.name} di ${property.location}. ${property.type === 'villa' ? 'Villa' : 'Penginapan homestay'} dengan pemandangan pantai dan fasilitas lengkap. Harga mulai Rp ${property.price.toLocaleString('id-ID')}. Rating ${property.rating} dari ${property.reviews} review.` : 
+    'Detail properti dan penginapan di Pantai Sawarna';
 
   const ratingSummary = useMemo(() => {
     // Ambil data rating dari properti jika ada, jika tidak gunakan struktur dasar
@@ -611,46 +616,133 @@ const PropertyDetail: React.FC = () => {
   }
 
   // Generate structured data
-  const structuredData = property ? {
-    "@context": "https://schema.org",
-    "@type": property.type === 'villa' ? "LodgingBusiness" : "Hotel",
-    "name": property.name,
-    "description": property.description,
-    "image": property.image,
-    "url": `https://villasawarna.com/property/${id}`,
-    "telephone": property.contact?.phone,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": property.location,
-      "addressLocality": "Sawarna",
-      "addressRegion": "Banten",
-      "addressCountry": "ID"
+  const structuredData = property ? [
+    {
+      "@context": "https://schema.org",
+      "@type": property.type === 'villa' ? "LodgingBusiness" : "Hotel",
+      "name": property.name,
+      "description": property.description,
+      "image": property.image,
+      "url": `https://villasawarna.com/property/${id}`,
+      "telephone": property.contact?.phone,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": property.location,
+        "addressLocality": "Sawarna",
+        "addressRegion": "Banten",
+        "addressCountry": "ID"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": property.coordinates?.[0],
+        "longitude": property.coordinates?.[1]
+      },
+      "priceRange": `Rp${property.price.toLocaleString('id-ID')}`,
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": property.rating,
+        "reviewCount": property.reviews
+      },
+      "amenityFeature": property.amenities?.map(amenity => ({
+        "@type": "LocationFeatureSpecification",
+        "name": amenity
+      })),
+      "numberOfRooms": property.bedrooms,
+      "maximumAttendeeCapacity": property.capacity
     },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": property.coordinates?.[0],
-      "longitude": property.coordinates?.[1]
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://villasawarna.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": property.type === 'villa' ? "Villa" : "Homestay",
+          "item": `https://villasawarna.com/${property.type === 'villa' ? 'villas' : 'homestays'}`
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": property.name,
+          "item": `https://villasawarna.com/property/${id}`
+        }
+      ]
     },
-    "priceRange": `Rp${property.price.toLocaleString('id-ID')}`,
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": property.rating,
-      "reviewCount": property.reviews
-    },
-    "amenityFeature": property.amenities?.map(amenity => ({
-      "@type": "LocationFeatureSpecification",
-      "name": amenity
-    })),
-    "numberOfRooms": property.bedrooms,
-    "maximumAttendeeCapacity": property.capacity
-  } : null;
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": `Apa saja fasilitas yang tersedia di ${property.name}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": property.amenities?.join(', ') || 'Tidak ada informasi fasilitas'
+          }
+        },
+        {
+          "@type": "Question",
+          "name": `Berapa harga sewa ${property.name}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `Harga mulai Rp ${property.price.toLocaleString('id-ID')} per malam`
+          }
+        },
+        {
+          "@type": "Question",
+          "name": `Berapa kapasitas maksimal ${property.name}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `Kapasitas maksimal ${property.capacity} orang`
+          }
+        },
+        {
+          "@type": "Question",
+          "name": `Dimana lokasi ${property.name}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `${property.name} berlokasi di ${property.location}, Sawarna, Banten`
+          }
+        }
+      ]
+    }
+  ] : null;
 
   // Tambahkan koordinat default jika tidak ada
   const propertyCoordinates = property?.coordinates || [ -6.9875, 106.3206 ]; // Koordinat Sawarna
 
-  const handleDownloadQRIS = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleDownloadQRIS = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowDownloadDialog(true);
+  };
+
+  const downloadQRIS = async () => {
+    try {
+      const response = await fetch('/images/QRIS.jpg');
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'QRIS_Pembayaran_Sawarna_Creative.jpg';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      setShowDownloadDialog(false);
+    } catch (error) {
+      console.error('Error downloading QRIS:', error);
+      toast({
+        title: "Gagal Mengunduh QRIS",
+        description: "Silakan coba lagi nanti",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -658,7 +750,7 @@ const PropertyDetail: React.FC = () => {
       <SEO 
         title={metaTitle}
         description={metaDescription}
-        keywords={`${property?.type} sawarna, ${property?.location}, pantai sawarna, sewa ${property?.type}, ${property?.name?.toLowerCase()}, penginapan sawarna, wisata sawarna`}
+        keywords={`${property?.type} sawarna, ${property?.location}, pantai sawarna, sewa ${property?.type}, ${property?.name?.toLowerCase()}, penginapan sawarna, wisata sawarna, villa sawarna, homestay sawarna, penginapan murah sawarna, sewa villa sawarna, sewa homestay sawarna, penginapan dekat pantai sawarna, villa dekat pantai sawarna, homestay dekat pantai sawarna, penginapan keluarga sawarna, villa keluarga sawarna, homestay keluarga sawarna`}
         url={`https://villasawarna.com/property/${id}`}
         image={property?.image}
         type="website"
@@ -667,7 +759,7 @@ const PropertyDetail: React.FC = () => {
           type: 'website',
           article: {
             section: property?.type || 'property',
-            tags: [property?.type, 'sawarna', 'wisata sawarna']
+            tags: [property?.type, 'sawarna', 'wisata sawarna', 'penginapan sawarna', 'villa sawarna', 'homestay sawarna']
           }
         }}
       />
@@ -802,11 +894,11 @@ const PropertyDetail: React.FC = () => {
               <div id="info" className="mb-8 bg-white/90 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-lg dark:shadow-gray-800/50 p-8 border border-ocean/10 dark:border-ocean-dark/30">
                 <h2 className="text-2xl md:text-3xl font-extrabold text-ocean dark:text-ocean-light mb-2 flex items-center gap-2">
                   {property.name}
-                  <span className="text-coral dark:text-coral-light text-lg font-semibold">| Liburan Tropis Eksklusif</span>
+                  <span className="text-coral dark:text-coral-light text-lg font-semibold">| {property.type === 'villa' ? 'Villa Eksklusif' : 'Penginapan Homestay'} Tropis</span>
                 </h2>
                 <div className="border-b border-gray-200 dark:border-gray-700/50 mb-4"></div>
                 <div className="text-lg text-gray-800 dark:text-gray-100 mb-2 leading-relaxed">
-                  Temukan kenyamanan dan ketenangan di <span className="font-bold text-ocean dark:text-ocean-light">{property.name}</span>, destinasi eksklusif di kawasan {property.location}. Dirancang untuk keluarga maupun rombongan yang menginginkan suasana privat, modern, dan penuh kehangatan.
+                  Temukan kenyamanan dan ketenangan di penginapan <span className="font-bold text-ocean dark:text-ocean-light">{property.name}</span>, {property.type === 'villa' ? 'villa eksklusif' : 'penginapan homestay'} di kawasan {property.location}. Dirancang untuk keluarga maupun rombongan yang menginginkan suasana privat, modern, dan penuh kehangatan.
                 </div>
                 <ul className="mb-3 space-y-1 text-gray-700 dark:text-gray-200">
                   <li className="flex items-center gap-2">
@@ -866,7 +958,7 @@ const PropertyDetail: React.FC = () => {
                             <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300">🌊 <span>Pantai Kuta</span></span>
                             <span className="bg-ocean/10 dark:bg-ocean-dark/20 text-ocean dark:text-ocean-light font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">9,02 km</span>
                           </li>
-                          <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-ocean-dark/20 whitespace-nowrap">
+                          <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap">
                             <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300">🌊 <span>Pantai Sanur</span></span>
                             <span className="bg-ocean/10 dark:bg-ocean-dark/20 text-ocean dark:text-ocean-light font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">9,19 km</span>
                           </li>
@@ -879,6 +971,7 @@ const PropertyDetail: React.FC = () => {
                   {/* Peta */}
                   <div className="w-full h-[150px] md:h-[250px] rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300">
                     <MapComponent
+                      key={showDownloadDialog ? 'map-dialog-open' : 'map-dialog-closed'}
                       center={property.coordinates}
                       propertyName={property.name}
                       propertyLocation={property.location}
@@ -932,12 +1025,10 @@ const PropertyDetail: React.FC = () => {
                       className="overflow-hidden px-6 pb-6"
                     >
                       <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg flex flex-col items-center">
-                        <img src="https://i.imgur.com/BYSdDjB.jpeg" alt="QRIS Pembayaran" className="w-full max-w-xs mx-auto rounded-md" />
+                        <img src="/images/QRIS.jpg" alt="QRIS Pembayaran" className="w-full max-w-xs mx-auto rounded-md" />
                         <p className="text-center text-gray-700 dark:text-gray-300 text-sm mt-3">Scan QRIS di atas untuk melakukan pembayaran.</p>
                         <p className="text-center text-gray-700 dark:text-gray-300 text-sm mt-1 font-semibold">Nama Merchant: Sawarna Creative</p>
-                        <a
-                          href="https://i.imgur.com/BYSdDjB.jpeg"
-                          download="QRIS_Pembayaran_Sawarna_Creative.jpeg"
+                        <button
                           onClick={handleDownloadQRIS}
                           className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-ocean text-white rounded-lg hover:bg-ocean-dark transition-colors duration-200"
                         >
@@ -947,7 +1038,7 @@ const PropertyDetail: React.FC = () => {
                             <line x1="12" y1="15" x2="12" y2="3"/>
                           </svg>
                           Download QRIS
-                        </a>
+                        </button>
                       </div>
                     </motion.div>
                   )}
@@ -1120,44 +1211,93 @@ const PropertyDetail: React.FC = () => {
                   <span className="font-medium dark:text-white">{property.rating.toFixed(1)}</span>
                   <span className="text-gray-500 dark:text-gray-400 ml-1">({property.reviews} ulasan)</span>
                 </div>
-                <AnimatePresence mode="wait">
-                  <motion.div 
-                    className="space-y-4"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {displayedReviews.map((review) => (
-                      <motion.div
-                        key={review.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <Card className="dark:bg-gray-800 dark:border-gray-700">
-                          <CardContent className="p-4">
-                            <div className="flex justify-between mb-2 dark:text-white">
-                              <div className="font-medium dark:text-white">{review.author}</div>
-                              <div className="text-gray-500 dark:text-gray-400 text-sm">{review.date}</div>
+                <Swiper
+                  modules={[Pagination, Navigation, Autoplay]}
+                  spaceBetween={20}
+                  slidesPerView={1}
+                  pagination={{ 
+                    clickable: true,
+                    bulletActiveClass: 'swiper-pagination-bullet-active !bg-ocean dark:!bg-ocean-light',
+                    bulletClass: 'swiper-pagination-bullet !bg-gray-300 dark:!bg-gray-600',
+                  }}
+                  navigation={{
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                  }}
+                  loop={true}
+                  autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: false,
+                  }}
+                  className="w-full relative group"
+                >
+                  {displayedReviews.map((review) => {
+                    // Fungsi untuk mendapatkan inisial dari nama
+                    const getInitials = (name: string) => {
+                      return name
+                        .split(' ')
+                        .map(word => word[0])
+                        .join('')
+                        .toUpperCase()
+                        .slice(0, 2);
+                    };
+
+                    return (
+                      <SwiperSlide key={review.id}>
+                        <Card className="dark:bg-gray-800 dark:border-gray-700 h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] hover:border-ocean/30 dark:hover:border-ocean-dark/30">
+                          <CardContent className="p-6">
+                            <div className="flex items-center gap-4 mb-4">
+                              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-ocean to-ocean-dark dark:from-ocean-dark dark:to-ocean flex items-center justify-center text-white font-bold text-lg shadow-md">
+                                {getInitials(review.author)}
+                              </div>
+                              <div className="flex-1">
+                                <div className="font-semibold text-lg dark:text-white">{review.author}</div>
+                                <div className="text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2">
+                                  <Clock size={14} />
+                                  {review.date}
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/20 px-3 py-1.5 rounded-full">
+                                <Star size={16} className="text-yellow-400 fill-yellow-400" />
+                                <span className="font-semibold text-yellow-600 dark:text-yellow-400">{review.rating}.0</span>
+                              </div>
                             </div>
-                            <div className="flex items-center mb-2">
-                              {[...Array(5)].map((_, idx) => (
-                                <Star 
-                                  key={idx} 
-                                  size={14}
-                                  className={idx < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300 dark:text-gray-600"}
-                                />
-                              ))}
+                            <div className="relative">
+                              <div className="absolute -left-2 top-0 text-4xl text-gray-200 dark:text-gray-700">"</div>
+                              <p className="text-gray-600 dark:text-gray-300 pl-4 italic">{review.comment}</p>
+                              <div className="absolute -right-2 bottom-0 text-4xl text-gray-200 dark:text-gray-700">"</div>
                             </div>
-                            <p className="text-gray-600 dark:text-gray-300">{review.comment}</p>
+                            <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+                              <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                                <CheckCircle size={14} className="text-green-500" />
+                                <span>Verified Stay</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <button 
+                                  className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                                  title="Suka review ini"
+                                  aria-label="Suka review ini"
+                                >
+                                  <Heart size={16} className="text-gray-400 hover:text-red-500" />
+                                </button>
+                                <button 
+                                  className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                                  title="Bagikan review ini"
+                                  aria-label="Bagikan review ini"
+                                >
+                                  <Share2 size={16} className="text-gray-400 hover:text-blue-500" />
+                                </button>
+                            </div>
+                            </div>
                           </CardContent>
                         </Card>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                </AnimatePresence>
+                      </SwiperSlide>
+                    );
+                  })}
+                  <div className="swiper-button-prev !w-8 !h-8 !bg-white/80 dark:!bg-gray-800/80 !rounded-full !shadow-lg !border !border-gray-200 dark:!border-gray-700 after:!text-base after:!text-ocean dark:after:!text-ocean-light opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                  <div className="swiper-button-next !w-8 !h-8 !bg-white/80 dark:!bg-gray-800/80 !rounded-full !shadow-lg !border !border-gray-200 dark:!border-gray-700 after:!text-base after:!text-ocean dark:after:!text-ocean-light opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                  <div className="swiper-pagination !bottom-0"></div>
+                </Swiper>
               </div>
             </main>
 
@@ -1379,7 +1519,6 @@ const PropertyDetail: React.FC = () => {
               </div>
               <DialogTitle className="text-xl font-bold text-ocean dark:text-ocean-light">Konfirmasi Download QRIS</DialogTitle>
             </div>
-            {/* Pesan Penting dalam Kotak */}
             <DialogDescription asChild>
               <div className="mt-4 p-4 bg-blue-100 dark:bg-blue-900/30 border-2 border-blue-200 dark:border-blue-800 rounded-lg text-gray-800 dark:text-gray-100 text-base leading-relaxed shadow-inner">
                 Silahkan lakukan booking atau pelunasan, pastikan menyertakan data lengkap seperti nama <span className="font-bold">villa/homestay/penginapan</span> dan <span className="font-bold">tanggal menginap</span>.<br />
@@ -1396,10 +1535,7 @@ const PropertyDetail: React.FC = () => {
               Batal
             </Button>
             <Button
-              onClick={() => {
-                window.location.href = "https://i.imgur.com/BYSdDjB.jpeg";
-                setShowDownloadDialog(false);
-              }}
+              onClick={downloadQRIS}
               className="bg-gradient-to-r from-ocean to-ocean-dark hover:from-ocean-dark hover:to-ocean text-white shadow-lg hover:shadow-xl transition-all duration-200"
             >
               <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="mr-2">

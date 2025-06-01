@@ -57,7 +57,7 @@ const Contact = () => {
         "@type": "ContactPoint",
         "telephone": "+62-812-3456-7890",
         "contactType": "customer service",
-        "email": "info@villasawarna.com",
+        "email": "layanan@villasawarna.com",
         "availableLanguage": ["Indonesian", "English"]
       }
     }
@@ -151,7 +151,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-bold text-gray-800 dark:text-white mb-1">Email</h3>
-                      <p className="text-gray-600 dark:text-gray-300">info@villasawarna.com</p>
+                      <p className="text-gray-600 dark:text-gray-300">layanan@villasawarna.com</p>
                       <p className="text-gray-600 dark:text-gray-300">booking@villasawarna.com</p>
                     </div>
                   </div>
