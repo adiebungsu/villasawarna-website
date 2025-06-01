@@ -43,6 +43,7 @@ export interface Property {
   location: string;
   description: string;
   price: number;
+  originalPrice?: number;
   rating: number;
   reviews: number;
   capacity: number;
@@ -51,6 +52,7 @@ export interface Property {
   image: string;
   tags: string[];
   amenities: string[];
+  facilities?: string[];
   mainImages: string[];
   roomTypes: RoomType[];
   nearbyAttractions: { name: string; distance: string; }[];

@@ -145,6 +145,8 @@ interface BookingWidgetProps {
   setChildren: (num: number) => void;
   numberOfNights: number;
   onBooking: () => void;
+  isQrisExpanded: boolean;
+  setIsQrisExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface RatingBreakdown {
@@ -195,6 +197,51 @@ const BookingWidget: React.FC<BookingWidgetProps> = (props) => {
 
   return (
     <div id="booking" className="sticky top-6 space-y-6">
+      {/* Card Bayar dengan QRIS */}
+      <div id="qris-payment" className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-2xl shadow-xl dark:shadow-gray-800/50 border border-ocean/20 dark:border-ocean-dark/20 overflow-hidden">
+        <button
+          className="w-full flex items-center justify-between p-6 text-left font-bold text-xl text-ocean dark:text-ocean-light hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200"
+          onClick={() => props.setIsQrisExpanded(!props.isQrisExpanded)}
+        >
+          Bayar dengan QRIS
+          <motion.div
+            animate={{ rotate: props.isQrisExpanded ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <ChevronDown size={24} />
+          </motion.div>
+        </button>
+        <AnimatePresence>
+          {props.isQrisExpanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden px-6 pb-6"
+            >
+              <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg flex flex-col items-center">
+                <img src="https://i.imgur.com/BYSdDjB.jpeg" alt="QRIS Pembayaran" className="w-full max-w-xs mx-auto rounded-md" />
+                <p className="text-center text-gray-700 dark:text-gray-300 text-sm mt-3">Scan QRIS di atas untuk melakukan pembayaran.</p>
+                <p className="text-center text-gray-700 dark:text-gray-300 text-sm mt-1 font-semibold">Nama Merchant: Sawarna Creative</p>
+                <a
+                  href="https://i.imgur.com/BYSdDjB.jpeg"
+                  download="QRIS_Pembayaran_Sawarna_Creative.jpeg"
+                  className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-ocean text-white rounded-lg hover:bg-ocean-dark transition-colors duration-200"
+                >
+                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                  Download QRIS
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
       {/* Card Catatan */}
       <div className="bg-amber-50 dark:bg-amber-900/20 rounded-xl p-4 border border-amber-100 dark:border-amber-800/30">
         <div className="flex items-start gap-3">
@@ -356,9 +403,8 @@ const PropertyDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [isMobile, setIsMobile] = useState(false);
   const [isAndroid, setIsAndroid] = useState(false);
-  // Tambahkan state untuk dropdown jarak destinasi
-  const [openDropdown, setOpenDropdown] = useState(false);
-
+  const [showDownloadDialog, setShowDownloadDialog] = useState(false);
+  
   // Effect untuk mendeteksi Android
   useEffect(() => {
     const userAgent = navigator.userAgent || navigator.vendor;
@@ -414,6 +460,7 @@ const PropertyDetail: React.FC = () => {
   const [checkInDate, setCheckInDate] = useState("");
   const [checkOutDate, setCheckOutDate] = useState("");
   const [showAllReviews, setShowAllReviews] = useState(false);
+  const [isQrisExpanded, setIsQrisExpanded] = useState(false);
 
   const allProperties = useMemo(() => getAllProperties(), []);
   const property = useMemo(() => allProperties.find((p) => p.id === id), [allProperties, id]);
@@ -646,6 +693,11 @@ const PropertyDetail: React.FC = () => {
   // Tambahkan koordinat default jika tidak ada
   const propertyCoordinates = property?.coordinates || [ -6.9875, 106.3206 ]; // Koordinat Sawarna
 
+  const handleDownloadQRIS = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setShowDownloadDialog(true);
+  };
+
   return (
     <>
       <SEO 
@@ -759,13 +811,14 @@ const PropertyDetail: React.FC = () => {
                       </div>
                     ))}
                   </div>
+                  <div className="h-1.5 bg-coral dark:bg-coral-light mt-4 rounded-full"></div>
                 </div>
               ) : (
                 <div className="mb-8 text-center text-gray-400 dark:text-gray-600">Tidak ada gambar</div>
               )}
 
               {/* Card Info Properti */}
-              <div className="mb-8 grid grid-cols-4 gap-2">
+              <div className="mb-8 grid grid-cols-4 gap-1 -mt-6">
                 <div className="rounded-lg bg-white dark:bg-gray-800 shadow border border-blue-100 dark:border-gray-700 p-1.5 flex flex-col items-center">
                   <svg width="18" height="18" fill="none" stroke="#1da1f2" strokeWidth="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                   <div className="font-semibold text-[11px] mt-1 mb-0.5 text-gray-800 dark:text-white">Kapasitas</div>
@@ -797,10 +850,10 @@ const PropertyDetail: React.FC = () => {
                   <span className="text-coral dark:text-coral-light text-lg font-semibold">| Liburan Tropis Eksklusif</span>
                 </h2>
                 <div className="border-b border-gray-200 dark:border-gray-700/50 mb-4"></div>
-                <div className="text-lg text-gray-800 dark:text-gray-100 mb-4 leading-relaxed">
+                <div className="text-lg text-gray-800 dark:text-gray-100 mb-2 leading-relaxed">
                   Temukan kenyamanan dan ketenangan di <span className="font-bold text-ocean dark:text-ocean-light">{property.name}</span>, destinasi eksklusif di kawasan {property.location}. Dirancang untuk keluarga maupun rombongan yang menginginkan suasana privat, modern, dan penuh kehangatan.
                 </div>
-                <ul className="mb-4 space-y-2 text-gray-700 dark:text-gray-200">
+                <ul className="mb-3 space-y-1 text-gray-700 dark:text-gray-200">
                   <li className="flex items-center gap-2">
                     <span className="text-coral dark:text-coral-light text-lg">•</span>
                     <span className="text-base">AC & WiFi super cepat di setiap kamar</span>
@@ -824,20 +877,151 @@ const PropertyDetail: React.FC = () => {
                 </div>
               </div>
 
-              {/* Card Jarak ke Pantai */}
-              {pantaiDistancesById[property.id] && (
-                <div className="mb-8">
-                  <h2 className="text-lg font-bold mb-3 text-coral dark:text-coral-light">Jarak ke Pantai:</h2>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {pantaiDistancesById[property.id].map((pantai, idx) => (
-                      <div key={idx} className="rounded-xl bg-white/90 dark:bg-gray-800/95 backdrop-blur-sm border border-gray-100 dark:border-gray-700/50 p-4 shadow-sm flex flex-col">
-                        <div className="font-bold text-base mb-1 text-sky-600 dark:text-sky-400">{pantai.name}</div>
-                        <div className="text-gray-700 dark:text-gray-200 text-sm border-t border-gray-100 dark:border-gray-700/50 pt-2">{pantai.time}</div>
-                      </div>
-                    ))}
+              {/* Lokasi */}
+              <div id="lokasi" className="mb-8">
+                <h2 className="text-xl font-bold mb-4 dark:text-white">Lokasi</h2>
+                {/* Layout vertikal: Info di atas, Peta di bawah */}
+                <div className="space-y-4 rounded-xl overflow-hidden shadow-lg dark:shadow-gray-800/50 p-4 bg-white dark:bg-gray-900">
+                  {/* Info Lokasi & Jarak */}
+                  <div>
+                    <div className="font-semibold text-lg mb-1">Jarak ke Pantai</div>
+                    <ul className="mb-3 text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                      <li className="flex items-center justify-between py-1">
+                        <span className="flex items-center gap-1">🚗 <span>Parkir</span></span>
+                        <span className="bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded text-xs">GRATIS</span>
+                      </li>
+                      {/* Tampilkan daftar destinasi secara langsung */}
+                      {property.nearbyAttractions && property.nearbyAttractions.length > 0 ? (
+                        property.nearbyAttractions.map((item, idx) => (
+                          <li
+                            key={idx}
+                            className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap"
+                          >
+                            <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300">🌊 <span>{item.name}</span></span>
+                            <span className="bg-ocean/10 dark:bg-ocean-dark/20 text-ocean dark:text-ocean-light font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">{item.distance}</span>
+                          </li>
+                        ))
+                      ) : (
+                        <>
+                          <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap">
+                            <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300">🌊 <span>Jarak ke Pantai</span></span>
+                            <span className="bg-ocean/10 dark:bg-ocean-dark/20 text-ocean dark:text-ocean-light font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">7,57 km</span>
+                          </li>
+                          <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap">
+                            <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300">🌊 <span>Pantai Kuta</span></span>
+                            <span className="bg-ocean/10 dark:bg-ocean-dark/20 text-ocean dark:text-ocean-light font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">9,02 km</span>
+                          </li>
+                          <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-ocean-dark/20 whitespace-nowrap">
+                            <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300">🌊 <span>Pantai Sanur</span></span>
+                            <span className="bg-ocean/10 dark:bg-ocean-dark/20 text-ocean dark:text-ocean-light font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">9,19 km</span>
+                          </li>
+                        </>
+                      )}
+                    </ul>
+                    <a href="#" className="text-blue-600 text-sm underline mt-2">Lihat sekitar</a>
+                  </div>
+
+                  {/* Peta */}
+                  <div className="w-full h-[150px] md:h-[250px] rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300">
+                    <MapComponent
+                      center={property.coordinates}
+                      propertyName={property.name}
+                      propertyLocation={property.location}
+                      height="100%"
+                    />
                   </div>
                 </div>
-              )}
+
+                {/* Card Kontak Villa */}
+                {property?.contact?.phone && (
+                  <div id="kontak" className="mt-4 bg-white/90 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-lg dark:shadow-gray-800/50 p-8 border border-ocean/10 dark:border-ocean-dark/30">
+                    <h2 className="text-xl font-bold mb-4 text-ocean dark:text-ocean-light">Kontak : {property.name}</h2>
+                    <div className="flex items-center gap-4">
+                      <Phone size={24} className="text-green-600 dark:text-green-400" />
+                      <a
+                        href={`https://wa.me/+62${property.contact.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Halo, saya dapat informasi ${property.name} dari villasawarna.com, apakah penginapannya masih tersedia?`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-lg font-semibold text-green-600 dark:text-green-400 hover:underline"
+                      >
+                        +62 {property.contact.phone}
+                      </a>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">Klik nomor di atas untuk langsung chat via WhatsApp.</p>
+                  </div>
+                )}
+
+              </div>
+
+              {/* Card Bayar dengan QRIS */}
+              <div id="qris-payment" className="mb-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-2xl shadow-xl dark:shadow-gray-800/50 border border-ocean/20 dark:border-ocean-dark/20 overflow-hidden">
+                <button
+                  className="w-full flex items-center justify-between p-6 text-left font-bold text-xl text-ocean dark:text-ocean-light hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200"
+                  onClick={() => setIsQrisExpanded(!isQrisExpanded)}
+                >
+                  Bayar dengan QRIS
+                  <motion.div
+                    animate={{ rotate: isQrisExpanded ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ChevronDown size={24} />
+                  </motion.div>
+                </button>
+                <AnimatePresence>
+                  {isQrisExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden px-6 pb-6"
+                    >
+                      <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg flex flex-col items-center">
+                        <img src="https://i.imgur.com/BYSdDjB.jpeg" alt="QRIS Pembayaran" className="w-full max-w-xs mx-auto rounded-md" />
+                        <p className="text-center text-gray-700 dark:text-gray-300 text-sm mt-3">Scan QRIS di atas untuk melakukan pembayaran.</p>
+                        <p className="text-center text-gray-700 dark:text-gray-300 text-sm mt-1 font-semibold">Nama Merchant: Sawarna Creative</p>
+                        <a
+                          href="https://i.imgur.com/BYSdDjB.jpeg"
+                          download="QRIS_Pembayaran_Sawarna_Creative.jpeg"
+                          onClick={handleDownloadQRIS}
+                          className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-ocean text-white rounded-lg hover:bg-ocean-dark transition-colors duration-200"
+                        >
+                          <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                          </svg>
+                          Download QRIS
+                        </a>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Card Fasilitas Utama */}
+              <div className="mb-8">
+                <h2 className="text-lg font-bold mb-2 text-coral dark:text-coral-light">Fasilitas Utama:</h2>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
+                  {property.amenities?.slice(0, 8).map((amenity, idx) => (
+                    <div key={idx} className="rounded-lg bg-white/90 dark:bg-gray-800/95 backdrop-blur-sm border border-gray-100 dark:border-gray-700/50 p-2 shadow-sm flex flex-col items-center text-center">
+                      <div className="w-6 h-6 mb-1 flex items-center justify-center text-ocean dark:text-ocean-light">
+                        {amenity.toLowerCase().includes('wifi') && <Wifi size={16} />}
+                        {amenity.toLowerCase().includes('ac') && <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2v2m0 16v2m8-8h2M2 12H4m15.07 7.07l1.42 1.42M4.93 4.93L3.51 3.51m15.56 0l-1.42 1.42M4.93 19.07l-1.42 1.42"/></svg>}
+                        {amenity.toLowerCase().includes('tv') && <Tv size={16} />}
+                        {amenity.toLowerCase().includes('mandi') && <Bath size={16} />}
+                        {amenity.toLowerCase().includes('bed') && <BedDouble size={16} />}
+                        {amenity.toLowerCase().includes('parkir') && <Car size={16} />}
+                        {amenity.toLowerCase().includes('dapur') && <Utensils size={16} />}
+                        {amenity.toLowerCase().includes('taman') && <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>}
+                        {amenity.toLowerCase().includes('pantai') && <Waves size={16} />}
+                        {!['wifi', 'ac', 'tv', 'mandi', 'bed', 'parkir', 'dapur', 'taman', 'pantai'].some(k => amenity.toLowerCase().includes(k)) && <CheckCircle size={16} />}
+                      </div>
+                      <div className="font-medium text-xs text-gray-900 dark:text-gray-100">{amenity}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
               {/* Tipe Kamar */}
               <div id="kamar" className="mb-8">
@@ -1020,134 +1204,26 @@ const PropertyDetail: React.FC = () => {
                   </motion.div>
                 </AnimatePresence>
               </div>
-
-              {/* Lokasi */}
-              <div id="lokasi" className="mb-8">
-                <h2 className="text-xl font-bold mb-4 dark:text-white">Lokasi</h2>
-                <div className="grid grid-cols-2 gap-4 rounded-xl overflow-hidden shadow-lg dark:shadow-gray-800/50 p-4 bg-white dark:bg-gray-900">
-                  {/* Kiri: Info Lokasi & Jarak */}
-                  <div className="min-w-0 flex flex-col justify-between">
-                    <div>
-                      <div className="font-semibold text-lg mb-1">{property.location}</div>
-                      <ul className="mb-3 text-sm text-gray-700 dark:text-gray-300 space-y-1">
-                        <li className="flex items-center justify-between py-1">
-                          <span className="flex items-center gap-1">🚗 <span>Parkir</span></span>
-                          <span className="bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded text-xs">GRATIS</span>
-                        </li>
-                      </ul>
-                      {/* Dropdown Jarak Destinasi */}
-                      <div className="mb-2">
-                        <button
-                          type="button"
-                          className="w-full flex items-center justify-between px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                          onClick={() => setOpenDropdown((prev) => !prev)}
-                        >
-                          <span>Jarak ke Destinasi Populer</span>
-                          <span className={`transform transition-transform ${openDropdown ? 'rotate-180' : ''}`}>▼</span>
-                        </button>
-                        {openDropdown && (
-                          <ul className="mt-2 space-y-1">
-                            {property.nearbyAttractions && property.nearbyAttractions.length > 0 ? (
-                              property.nearbyAttractions.map((item, idx) => (
-                                <li
-                                  key={idx}
-                                  className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap"
-                                >
-                                  <span className="flex items-center gap-1 whitespace-nowrap">🌊 <span>{item.name}</span></span>
-                                  <span className="bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">{item.distance}</span>
-                                </li>
-                              ))
-                            ) : (
-                              <>
-                                <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap">
-                                  <span className="flex items-center gap-1 whitespace-nowrap">🌊 <span>Pantai Seminyak</span></span>
-                                  <span className="bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">7,57 km</span>
-                                </li>
-                                <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap">
-                                  <span className="flex items-center gap-1 whitespace-nowrap">🌊 <span>Pantai Kuta</span></span>
-                                  <span className="bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">9,02 km</span>
-                                </li>
-                                <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap">
-                                  <span className="flex items-center gap-1 whitespace-nowrap">🌊 <span>Pantai Sanur</span></span>
-                                  <span className="bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">9,19 km</span>
-                                </li>
-                              </>
-                            )}
-                          </ul>
-                        )}
-                      </div>
-                    </div>
-                    <a href="#" className="text-blue-600 text-sm underline mt-2">Lihat sekitar</a>
-                  </div>
-                  {/* Kanan: Peta & Tombol */}
-                  <div className="flex flex-col items-center gap-2 w-full max-w-[320px] mx-auto">
-                    <button className="mb-2 px-4 py-1 bg-blue-100 text-blue-700 rounded-full font-medium text-sm shadow hover:bg-blue-200 transition">Lihat peta</button>
-                    <div className="w-full h-[120px] md:h-[250px] rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300">
-                      <MapComponent 
-                        center={property.coordinates}
-                        propertyName={property.name}
-                        propertyLocation={property.location}
-                        height="100%"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
             </main>
 
             {/* Kolom Kanan - Widget (1/3 lebar di desktop) */}
             <aside className="lg:col-span-1 space-y-6">
               {/* Card Booking WhatsApp */}
-              <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-2xl shadow-xl dark:shadow-gray-800/50 border border-ocean/20 dark:border-ocean-dark/20 p-6">
-                  <h2 className="text-xl font-bold mb-4 text-ocean dark:text-ocean-light">Booking Sekarang</h2>
-                  <div className="space-y-4">
-                    {/* Info WhatsApp */}
-                    <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-4 border border-green-100 dark:border-green-800/30">
-                      <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-100 dark:bg-green-800/50 flex items-center justify-center">
-                        <svg width="20" height="20" fill="#25D366" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.431-.148-.61.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                          </svg>
-                        </div>
-                        <div>
-                          <div className="text-lg font-bold text-green-700 dark:text-green-400">Booking via WhatsApp</div>
-                          <div className="text-gray-600 dark:text-gray-200 text-sm">Pesan langsung dan dapatkan penawaran terbaik</div>
-                        </div>
-                      </div>
-                      <ul className="text-green-700 dark:text-green-400 text-sm mt-3 space-y-1">
-                        <li className="flex items-center gap-2">
-                          <svg width="16" height="16" fill="none" stroke="#25D366" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M5 13l4 4L19 7"/>
-                          </svg>
-                          <span>Respon cepat dalam 1x24 jam</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <svg width="16" height="16" fill="none" stroke="#25D366" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M5 13l4 4L19 7"/>
-                          </svg>
-                          <span>Konfirmasi booking instan</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <svg width="16" height="16" fill="none" stroke="#25D366" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M5 13l4 4L19 7"/>
-                          </svg>
-                          <span>Layanan pelanggan 24/7</span>
-                        </li>
-                      </ul>
-                      <a
-                      href={`https://wa.me/+6283877080088?text=${generateBookingMessage()}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors duration-300"
-                      >
-                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.431-.148-.61.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                        </svg>
-                        Booking via WhatsApp
-                      </a>
-                    </div>
-                  </div>
-                  </div>
+              <BookingWidget 
+                property={property}
+                checkInDate={checkInDate}
+                setCheckInDate={setCheckInDate}
+                checkOutDate={checkOutDate}
+                setCheckOutDate={setCheckOutDate}
+                adults={adults}
+                setAdults={setAdults}
+                children={children}
+                setChildren={setChildren}
+                numberOfNights={numberOfNights}
+                onBooking={handleBooking} // Assuming handleBooking exists or replace with correct handler
+                isQrisExpanded={isQrisExpanded} // Pass the state
+                setIsQrisExpanded={setIsQrisExpanded} // Pass the state setter
+              />
 
               <RatingWidget ratingSummary={ratingSummary} />
               
@@ -1338,6 +1414,49 @@ const PropertyDetail: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <Dialog open={showDownloadDialog} onOpenChange={setShowDownloadDialog}>
+        <DialogContent className="sm:max-w-md bg-gradient-to-br from-white/95 to-white/90 dark:from-gray-800/95 dark:to-gray-800/90 backdrop-blur-sm border border-ocean/20 dark:border-ocean-dark/20 shadow-xl dark:shadow-gray-800/50">
+          <DialogHeader className="space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-ocean/10 dark:bg-ocean-dark/20 flex items-center justify-center">
+                <CreditCard className="w-5 h-5 text-ocean dark:text-ocean-light" />
+              </div>
+              <DialogTitle className="text-xl font-bold text-ocean dark:text-ocean-light">Konfirmasi Download QRIS</DialogTitle>
+            </div>
+            {/* Pesan Penting dalam Kotak */}
+            <DialogDescription asChild>
+              <div className="mt-4 p-4 bg-blue-100 dark:bg-blue-900/30 border-2 border-blue-200 dark:border-blue-800 rounded-lg text-gray-800 dark:text-gray-100 text-base leading-relaxed shadow-inner">
+                Silahkan lakukan booking atau pelunasan, pastikan menyertakan data lengkap seperti nama <span className="font-bold">villa/homestay/penginapan</span> dan <span className="font-bold">tanggal menginap</span>.<br />
+                Setelah pembayaran tolong konfirmasikan.
+              </div>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end gap-3 mt-6">
+            <Button
+              variant="outline"
+              onClick={() => setShowDownloadDialog(false)}
+              className="border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+            >
+              Batal
+            </Button>
+            <Button
+              onClick={() => {
+                window.location.href = "https://i.imgur.com/BYSdDjB.jpeg";
+                setShowDownloadDialog(false);
+              }}
+              className="bg-gradient-to-r from-ocean to-ocean-dark hover:from-ocean-dark hover:to-ocean text-white shadow-lg hover:shadow-xl transition-all duration-200"
+            >
+              <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="mr-2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download QRIS
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

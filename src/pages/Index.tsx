@@ -92,7 +92,7 @@ const Index = () => {
   const villasData = getVillasData();
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(true);
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
 
   // Handle resize untuk mendeteksi ukuran layar
   useEffect(() => {
@@ -157,7 +157,7 @@ const Index = () => {
     } else {
       console.log('hasSeenModal ditemukan di sessionStorage, tidak menampilkan modal');
     }
-  }, []); // Array kosong berarti effect hanya berjalan sekali saat component mount
+  }, []);
 
   const handleCloseWelcomeModal = () => {
     setIsWelcomeModalOpen(false);

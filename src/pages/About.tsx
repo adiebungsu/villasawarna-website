@@ -84,9 +84,12 @@ const About = () => {
               <div className="md:w-1/2">
                 <div className="relative">
                   <div className="absolute -inset-4 bg-ocean/10 dark:bg-ocean-light/20 rounded-2xl transform rotate-3"></div>
-                  <img 
-                    src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
-                    alt="Villa Sawarna Story"
+                  <video 
+                    src="/videos/villasawarna.mp4"
+                    autoPlay
+                    loop
+                    playsInline
+                    controls
                     className="relative rounded-2xl shadow-xl w-full h-auto object-cover"
                   />
                 </div>
