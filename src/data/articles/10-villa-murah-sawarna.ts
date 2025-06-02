@@ -12,7 +12,7 @@ export const rekomendasiVillaMurah: Article = {
         <h3>1. Villa Cempaka</h3>
         <ul>
           <li><strong>Harga:</strong> Mulai Rp 300.000/malam</li>
-          <li><strong>Fasilitas:</strong> WiFi, Kipas Angin, TV, Dapur, Parkir, Area Bermain Anak</li>
+          <li><strong>Fasilitas:</strong> WiFi, Kipas Angin, TV, Dapur, Parkir, Area Bermain Anak, Gazebo, Taman Asri</li>
           <li><strong>Deskripsi:</strong> Villa Cempaka adalah pilihan tepat untuk menginap di Pantai Sawarna. Terletak strategis di Legon Pari, villa ini menawarkan kenyamanan dan akses mudah ke pantai. Cocok untuk keluarga dengan 3 kamar tidur dan 2 kamar mandi.</li>
         </ul>
         <a href="/villa/villa-cempaka" class="villa-link">selengkapnya</a>
@@ -49,7 +49,7 @@ export const rekomendasiVillaMurah: Article = {
         <ul>
           <li><strong>Harga:</strong> Mulai Rp 400.000/malam</li>
           <li><strong>Fasilitas:</strong> 4 Kamar Tidur Nyaman, 4 Kamar Mandi Dalam, AC, TV LED 43 inch, WiFi, Dapur Modern, Area BBQ, Gazebo, Taman Asri, Parkir Luas</li>
-          <li><strong>Deskripsi:</strong> Villa nyaman dengan pemandangan pantai yang menakjubkan dan desain arsitektur modern. Dilengkapi dengan kolam renang pribadi dan area outdoor yang luas untuk bersantai.</li>
+          <li><strong>Deskripsi:</strong> Villa nyaman dengan pemandangan pantai yang menakjubkan dan desain arsitektur modern. Dilengkapi dengan area outdoor yang luas untuk bersantai.</li>
         </ul>
         <a href="/villa/villa-putri-asih" class="villa-link">selengkapnya</a>
       </div>
@@ -60,8 +60,8 @@ export const rekomendasiVillaMurah: Article = {
         <h3>5. Villa Dua Putri</h3>
         <ul>
           <li><strong>Harga:</strong> Mulai Rp 500.000/malam</li>
-          <li><strong>Fasilitas:</strong> 6 Kamar Tidur Mewah, 6 Kamar Mandi Dalam, AC, TV LED 55 inch, WiFi, Kolam Renang Infinity, Jacuzzi, Dapur Modern, Area BBQ, Ruang Meeting</li>
-          <li><strong>Deskripsi:</strong> Villa mewah dengan pemandangan pantai yang menakjubkan. Dilengkapi dengan kolam renang infinity, jacuzzi, dan ruang meeting. Lokasi strategis hanya 1 menit dari Pantai Sawarna.</li>
+          <li><strong>Fasilitas:</strong> 6 Kamar Tidur Mewah, 6 Kamar Mandi Dalam, AC, TV LED 55 inch, WiFi, Jacuzzi, Dapur Modern, Area BBQ, Ruang Meeting</li>
+          <li><strong>Deskripsi:</strong> Villa mewah dengan pemandangan pantai yang menakjubkan. Dilengkapi dengan jacuzzi dan ruang meeting. Lokasi strategis hanya 1 menit dari Pantai Sawarna.</li>
         </ul>
         <a href="/villa/villa-dua-putri" class="villa-link">selengkapnya</a>
       </div>
@@ -72,8 +72,8 @@ export const rekomendasiVillaMurah: Article = {
         <h3>6. Villa Mutiara Sawarna</h3>
         <ul>
           <li><strong>Harga:</strong> Mulai Rp 350.000/malam</li>
-          <li><strong>Fasilitas:</strong> 8 Kamar Tidur, 8 Kamar Mandi Dalam, AC, TV LED 43 inch, WiFi, Kolam Renang Infinity, Dapur Modern, Area BBQ, Ruang Meeting</li>
-          <li><strong>Deskripsi:</strong> Villa nyaman dengan kolam renang infinity dan pemandangan pantai yang memukau. Dilengkapi dengan ruang meeting dan area BBQ yang luas untuk gathering.</li>
+          <li><strong>Fasilitas:</strong> 8 Kamar Tidur, 8 Kamar Mandi Dalam, AC, TV LED 43 inch, WiFi, Dapur Modern, Area BBQ, Ruang Meeting</li>
+          <li><strong>Deskripsi:</strong> Villa nyaman dengan pemandangan pantai yang memukau. Dilengkapi dengan ruang meeting dan area BBQ yang luas untuk gathering.</li>
         </ul>
         <a href="/villa/villa-mutiara-sawarna" class="villa-link">selengkapnya</a>
       </div>
@@ -108,8 +108,8 @@ export const rekomendasiVillaMurah: Article = {
         <h3>9. Villa Little Hula Hula</h3>
         <ul>
           <li><strong>Harga:</strong> Mulai Rp 320.000/malam</li>
-          <li><strong>Fasilitas:</strong> 14 Kamar Tidur Mewah, 14 Kamar Mandi Dalam, AC, TV LED 55 inch, WiFi, Kolam Renang Infinity, Dapur Modern, Area BBQ, Ruang Meeting</li>
-          <li><strong>Deskripsi:</strong> Villa mewah premium dengan 14 kamar tidur dan kolam renang infinity. Dilengkapi dengan ruang meeting dan area BBQ yang luas untuk gathering besar.</li>
+          <li><strong>Fasilitas:</strong> 14 Kamar Tidur Mewah, 14 Kamar Mandi Dalam, AC, TV LED 55 inch, WiFi, Dapur Modern, Area BBQ, Ruang Meeting</li>
+          <li><strong>Deskripsi:</strong> Villa mewah premium dengan 14 kamar tidur. Dilengkapi dengan ruang meeting dan area BBQ yang luas untuk gathering besar.</li>
         </ul>
         <a href="/villa/villa-little-hula-hula" class="villa-link">selengkapnya</a>
       </div>
@@ -120,8 +120,8 @@ export const rekomendasiVillaMurah: Article = {
         <h3>10. Villa Sinar Pelangi</h3>
         <ul>
           <li><strong>Harga:</strong> Mulai Rp 350.000/malam</li>
-          <li><strong>Fasilitas:</strong> 10 Kamar Tidur Mewah, 4 Kamar Mandi Dalam, AC, TV LED 43 inch, WiFi, Kolam Renang Infinity, Dapur Modern, Area BBQ, Gazebo, Taman</li>
-          <li><strong>Deskripsi:</strong> Villa nyaman dengan pemandangan matahari terbit yang indah. Dilengkapi dengan kolam renang infinity dan area BBQ yang luas untuk gathering keluarga.</li>
+          <li><strong>Fasilitas:</strong> 10 Kamar Tidur Mewah, 4 Kamar Mandi Dalam, AC, TV LED 43 inch, WiFi, Dapur Modern, Area BBQ, Gazebo, Taman</li>
+          <li><strong>Deskripsi:</strong> Villa nyaman dengan pemandangan matahari terbit yang indah. Dilengkapi dengan area BBQ yang luas untuk gathering keluarga.</li>
         </ul>
         <a href="/villa/villa-sinar-pelangi" class="villa-link">selengkapnya</a>
       </div>

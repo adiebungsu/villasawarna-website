@@ -143,7 +143,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "AC di Semua Kamar",
       "TV LED 43 inch",
       "WiFi Fiber Optic",
-      "Kolam Renang Infinity",
       "Dapur Modern Premium",
       "Area BBQ Luas",
       "Gazebo",
@@ -230,7 +229,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "AC di Semua Kamar",
       "TV LED 43 inch",
       "WiFi Fiber Optic",
-      "Kolam Renang Infinity",
+      "Kolam Renang Pribadi",
       "Dapur Modern Premium",
       "Area BBQ Luas",
       "Gazebo",
@@ -339,51 +338,110 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
   {
     id: "villa-sinar-pelangi",
     name: "Villa Sinar Pelangi",
-    type: "villa" as const,
-    location: "Pantai Sawarna",
-    description: `Villa Sinar Pelangi menawarkan pengalaman menginap yang nyaman di Pantai Sawarna. Villa ini memiliki fasilitas lengkap dan lokasi yang strategis untuk menjelajahi pantai dan atraksi sekitar.`,
-    price: 280000,
-    rating: 4.2,
-    reviews: 85,
-    capacity: 20,
-    bedrooms: 5,
-    bathrooms: 5,
-    image: "https://i.imgur.com/sinarpelangi1.jpeg", // Ganti dengan URL gambar aktual
+    type: "villa",
+    image: "https://i.imgur.com/lNcydX5.jpeg",
     mainImages: [
-      "https://i.imgur.com/sinarpelangi1.jpeg",
-      "https://i.imgur.com/sinarpelangi2.jpeg",
-      "https://i.imgur.com/sinarpelangi3.jpeg",
-    ], // Tambahkan URL gambar lainnya
-    tags: ["villa", "pantai sawarna"],
-    amenities: [
-      "5 Kamar Tidur",
-      "5 Kamar Mandi Dalam",
-      "AC",
-      "TV",
-      "WiFi",
-      "Dapur",
-      "Area Parkir",
+      "https://i.imgur.com/lNcydX5.jpeg",
+      "https://i.imgur.com/GkCBWRe.jpeg",
+      "https://i.imgur.com/KjL0Jpg.jpeg",
+      "https://i.imgur.com/wZ0cSjQ.jpeg",
+      "https://i.imgur.com/WhBRfqs.jpeg",
+      "https://i.imgur.com/Nh6XLTg.jpeg",
+      "https://i.imgur.com/7EnCW0d.jpeg",
+      "https://i.imgur.com/DTBq7Dq.jpeg",
+      "https://i.imgur.com/9cttGSs.jpeg",
+      "https://i.imgur.com/0aMZ0iY.jpeg"
     ],
-    roomTypes: [], // Sesuaikan jika ada tipe kamar spesifik
+    price: 200000,
+    rating: 4.8,
+    location: "Pantai Sawarna",
+    capacity: 8,
+    reviews: 12,
+    bedrooms: 4,
+    bathrooms: 4,
+    amenities: [
+      "AC",
+      "WiFi",
+      "TV",
+      "Dapur",
+      "Parkir",
+      "Kolam Renang",
+      "Pemandangan Pantai",
+      "Teras",
+      "Ruang Tamu",
+      "Kamar Mandi Dalam"
+    ],
+    description: "Villa Sinar Pelangi adalah villa eksklusif dengan 4 kamar tidur yang menawarkan pemandangan pantai yang menakjubkan. Terletak di Pantai Sawarna, villa ini dilengkapi dengan kolam renang pribadi, dapur lengkap, dan teras yang luas. Cocok untuk liburan keluarga atau rombongan besar.",
+    tags: ["Pantai", "Kolam Renang", "4 Kamar", "Eksklusif"],
+    roomTypes: [
+      {
+        id: "standar-room",
+        name: "Standar Room",
+        description: "Kamar standar dengan fasilitas lengkap",
+        price: 200000,
+        capacity: 2,
+        beds: "1 Queen Bed",
+        bathrooms: 1,
+        images: [
+          "https://i.imgur.com/xjM7Pu6.jpeg",
+          "https://i.imgur.com/7EnCW0d.jpeg",
+          "https://i.imgur.com/DTBq7Dq.jpeg",
+          "https://i.imgur.com/9cttGSs.jpeg",
+          "https://i.imgur.com/0aMZ0iY.jpeg"
+        ],
+        amenities: ["AC", "TV", "Kamar Mandi Dalam", "WiFi"]
+      },
+      {
+        id: "deluxe-room",
+        name: "Deluxe Room",
+        description: "Kamar deluxe dengan pemandangan pantai",
+        price: 200000,
+        capacity: 2,
+        beds: "1 King Bed",
+        bathrooms: 1,
+        images: [
+          "https://i.imgur.com/lNcydX5.jpeg",
+          "https://i.imgur.com/wZ0cSjQ.jpeg",
+          "https://i.imgur.com/WhBRfqs.jpeg",
+          "https://i.imgur.com/Nh6XLTg.jpeg",
+          "https://i.imgur.com/7EnCW0d.jpeg"
+        ],
+        amenities: ["AC", "TV", "Kamar Mandi Dalam", "WiFi", "Balkon", "Pemandangan Pantai"]
+      }
+    ],
     nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "5 menit jalan kaki" },
-      { name: "Goa Langir", distance: "7 menit berkendara" },
-      { name: "Legon Pari", distance: "12 menit berkendara" },
-      { name: "Tanjung Layar", distance: "6 menit berkendara" }
+      { name: "Pantai Sawarna", distance: "100m" },
+      { name: "Tanjung Layar", distance: "2km" },
+      { name: "Goa Langir", distance: "3km" },
+      { name: "Karang Bokor", distance: "4km" }
     ],
     ratingSummary: {
-      score: 8.0, // Sesuaikan dengan rating sebenarnya
-      totalReviews: 85, // Sesuaikan dengan jumlah review sebenarnya
+      score: 4.8,
+      totalReviews: 12,
       breakdown: [
-        { label: "Kebersihan", value: 8.0 },
-        { label: "Kenyamanan Kamar", value: 8.0 },
-        { label: "Makanan", value: 7.5 },
-        { label: "Lokasi", value: 8.5 },
-        { label: "Pelayanan dan Fasilitas", value: 8.0 }
+        { label: "Kebersihan", value: 4.8 },
+        { label: "Kenyamanan", value: 4.9 },
+        { label: "Lokasi", value: 4.9 },
+        { label: "Pelayanan", value: 4.7 },
+        { label: "Nilai", value: 4.8 }
       ]
     },
-    contact: { phone: "083877080088" }, // Sesuaikan nomor telepon
-    coordinates: [-6.9835, 106.3095], // Sesuaikan koordinat jika ada
+    propertyReviews: [
+      {
+        id: "1",
+        author: "Budi Santoso",
+        rating: 5,
+        comment: "Villa yang sangat nyaman dengan pemandangan pantai yang menakjubkan. Pelayanan staff sangat ramah dan profesional.",
+        date: "2024-02-15"
+      },
+      {
+        id: "2",
+        author: "Ani Wijaya",
+        rating: 4.5,
+        comment: "Fasilitas lengkap dan bersih. Lokasi strategis dekat pantai. Hanya saja harga sedikit mahal.",
+        date: "2024-02-10"
+      }
+    ]
   },
   {
     id: "villa-aki-nini",
@@ -514,14 +572,14 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "1",
         author: "Budi Santoso",
         rating: 4.8,
-        comment: "Villa yang sangat nyaman dengan kolam renang infinity yang memukau. Staff sangat profesional dan ramah.",
+        comment: "Villa yang sangat nyaman dengan kolam renang pribadi yang memukau. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
         author: "Dewi Lestari",
         rating: 4.7,
-        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang infinity.",
+        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang pribadi.",
         date: "2024-03-10"
       },
       {
@@ -542,7 +600,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     location: "Pantai Sawarna",
     description: `Villa Mutiara Sawarna adalah villa nyaman yang terletak di kawasan Pantai Sawarna. Dengan pemandangan pantai yang menakjubkan dan desain arsitektur modern, villa ini menawarkan pengalaman menginap yang tak terlupakan.
 
-Fasilitas utama villa ini meliputi kolam renang infinity dengan pemandangan pantai yang memukau, area BBQ yang luas, dan ruang meeting yang nyaman. Setiap kamar dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.
+Fasilitas utama villa ini meliputi area BBQ yang luas, dan ruang meeting yang nyaman. Setiap kamar dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.
 
 Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda untuk memasak sendiri, sementara area outdoor yang luas menjadi tempat yang ideal untuk gathering keluarga atau teman. Villa ini juga dilengkapi dengan WiFi berkecepatan tinggi dan area parkir yang luas.
 
@@ -561,14 +619,13 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "https://i.imgur.com/yDZCZww.jpeg",
       "https://i.imgur.com/uh8FQep.jpeg"
     ],
-    tags: ["villa", "pantai sawarna", "kolam renang", "ruang meeting"],
+    tags: ["villa", "pantai sawarna", "ruang meeting"],
     amenities: [
       "8 Kamar Tidur Nyaman",
       "8 Kamar Mandi Dalam",
       "AC di Semua Kamar",
       "TV LED 43 inch",
       "WiFi Fiber Optic",
-      "Kolam Renang Infinity",
       "Dapur Modern Premium",
       "Area BBQ Luas",
       "Gazebo",
@@ -671,14 +728,14 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "1",
         author: "Budi Santoso",
         rating: 4.9,
-        comment: "Villa yang sangat mewah dengan kolam renang infinity yang memukau. Staff sangat profesional dan ramah.",
+        comment: "Villa yang sangat mewah dengan kolam renang pribadi yang memukau. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
         author: "Dewi Lestari",
         rating: 4.8,
-        comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah dari kolam renang infinity.",
+        comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah dari kolam renang pribadi.",
         date: "2024-03-10"
       },
       {
@@ -869,7 +926,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "AC di Semua Kamar",
       "TV LED 55 inch",
       "WiFi Fiber Optic",
-      "Kolam Renang Infinity",
       "Dapur Modern Premium",
       "Area BBQ",
       "Gazebo",
@@ -889,7 +945,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     ],
     description: `Villa Little Hula Hula adalah villa nyaman premium yang terletak di kawasan strategis Goa Langir, Sawarna. Dengan desain arsitektur modern yang mengadopsi konsep tropis, villa ini menawarkan pengalaman menginap yang tak terlupakan.
 
-Fasilitas utama villa ini meliputi 14 kamar tidur nyaman yang masing-masing dilengkapi AC, TV LED 55 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan kolam renang infinity dan gazebo menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan matahari terbenam.
+Fasilitas utama villa ini meliputi 14 kamar tidur nyaman yang masing-masing dilengkapi AC, TV LED 55 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan gazebo menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan matahari terbenam.
 
 Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda untuk memasak sendiri, sementara area BBQ di taman belakang menjadi tempat yang ideal untuk gathering keluarga atau teman. Villa ini juga dilengkapi dengan WiFi Fiber Optic berkecepatan tinggi, ruang meeting yang nyaman, dan area parkir yang luas.
 
@@ -906,24 +962,19 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-0db183ec3cca5b93438c55385855a91e.jpeg",
       "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-e5966fec054c219cd6b107026fe6d9eb.jpeg",
       "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-875177727d31c57de10a84766703d5a5.jpeg",
-      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-6597508a2db43a122832fd27725e8a66.jpeg",
-      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-342f3e22a4a85a464c05616ad17382da.jpeg",
-      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-bbcd75583c72e71b8cb5916f70a4d2da.jpeg",
-      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-cabd871a11a7062ab3b6c9c682b69a9d.jpeg",
-      "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/d91b99ab_z.jpg",
-      "https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20036564-dcc2eec2553d85f7c8cab346dfa460a1.jpeg"
+      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-6597508a2db43a122832fd27725e8a66.jpeg"
     ],
-    tags: ["villa", "goa langir sawarna", "premium", "kolam renang", "ruang meeting"],
+    tags: ["villa", "goa langir sawarna", "premium", "ruang meeting"],
     roomTypes: [
       {
         id: "laguna",
         name: "Laguna",
-        description: "Kamar dengan view kolam renang dan akses langsung ke area outdoor, cocok untuk keluarga.",
+        description: "Kamar dengan view taman dan akses langsung ke area outdoor, cocok untuk keluarga.",
         price: 400000,
         capacity: 4,
         beds: "2 Queen Bed",
         bathrooms: 1,
-        amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "Akses Kolam Renang"],
+        amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "View Taman"],
         images: [
           "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/ca450ae7_z.jpg",
           "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/b5ee7db5_z.jpg",
@@ -995,7 +1046,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "1",
         author: "Rizky Maulana",
         rating: 9.8,
-        comment: "Villa yang sangat mewah dengan fasilitas lengkap. Staff sangat profesional dan ramah. Pemandangan kolam renang infinity yang memukau.",
+        comment: "Villa yang sangat mewah dengan fasilitas lengkap. Staff sangat profesional dan ramah. Pemandangan kolam renang pribadi yang memukau.",
         date: "2024-03-15"
       },
       {
@@ -1250,14 +1301,14 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
         id: "1",
         author: "Budi Santoso",
         rating: 4.7,
-        comment: "Villa yang sangat nyaman dengan kolam renang infinity yang memukau. Staff sangat profesional dan ramah.",
+        comment: "Villa yang sangat nyaman dengan kolam renang pribadi yang memukau. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
         author: "Dewi Lestari",
         rating: 4.6,
-        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang infinity.",
+        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang pribadi.",
         date: "2024-03-10"
       }
     ],
@@ -1271,7 +1322,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
     location: "Pantai Sawarna",
     description: `Villa Putri Asih adalah villa nyaman yang terletak di kawasan Pantai Sawarna. Dengan pemandangan pantai yang menakjubkan dan desain arsitektur modern, villa ini menawarkan pengalaman menginap yang unik dan nyaman.
 
-Fasilitas utama villa ini meliputi 4 kamar tidur nyaman yang masing-masing dilengkapi AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan kolam renang pribadi dan gazebo menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan pantai yang indah.
+Fasilitas utama villa ini meliputi 4 kamar tidur nyaman yang masing-masing dilengkapi AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan gazebo menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan pantai yang indah.
 
 Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda untuk memasak sendiri, sementara area BBQ di taman belakang menjadi tempat yang ideal untuk gathering keluarga atau teman. Villa ini juga dilengkapi dengan WiFi berkecepatan tinggi dan area parkir yang luas.
 
@@ -1288,14 +1339,9 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "https://i.imgur.com/bsoX9Sb.jpeg",
       "https://i.imgur.com/17cGCvg.jpeg",
       "https://i.imgur.com/ksFgVJL.jpeg",
-      "https://i.imgur.com/0eAobNP.jpeg",
-      "https://i.imgur.com/bsoX9Sb.jpeg",
-      "https://i.imgur.com/jmiTW7d.jpeg",
-      "https://i.imgur.com/xLSh7cH.jpeg",
-      "https://i.imgur.com/0eAobNP.jpeg",
-      "https://i.imgur.com/ac6qcyq.jpeg"
+      "https://i.imgur.com/0eAobNP.jpeg"
     ],
-    tags: ["villa", "pantai sawarna", "view pantai", "kolam renang"],
+    tags: ["villa", "pantai sawarna", "view pantai"],
     amenities: [
       "4 Kamar Tidur Nyaman",
       "4 Kamar Mandi Dalam",
@@ -1304,7 +1350,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "WiFi Fiber Optic",
       "Dapur Modern Premium",
       "Area BBQ",
-      "Kolam Renang Pribadi",
       "Gazebo",
       "Taman Asri",
       "Parkir Luas",
@@ -1378,14 +1423,14 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "1",
         author: "Budi Santoso",
         rating: 4.9,
-        comment: "Villa yang sangat nyaman dengan kolam renang infinity yang memukau. Staff sangat profesional dan ramah.",
+        comment: "Villa yang sangat nyaman dengan kolam renang pribadi yang memukau. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
         author: "Dewi Lestari",
         rating: 4.8,
-        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang infinity.",
+        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang pribadi.",
         date: "2024-03-10"
       },
       {
@@ -1507,7 +1552,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
     location: "Pantai Sawarna",
     description: `Villa Batara adalah villa mewah yang terletak di kawasan Pantai Sawarna. Dengan pemandangan pantai yang menakjubkan dan desain arsitektur modern, villa ini menawarkan pengalaman menginap yang eksklusif dan nyaman.
 
-Fasilitas utama villa ini meliputi 6 kamar tidur mewah yang masing-masing dilengkapi AC, TV LED 55 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan kolam renang infinity dan jacuzzi menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan pantai yang indah.
+Fasilitas utama villa ini meliputi 6 kamar tidur mewah yang masing-masing dilengkapi AC, TV LED 55 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan jacuzzi menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan pantai yang indah.
 
 Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda untuk memasak sendiri, sementara area BBQ di taman belakang menjadi tempat yang ideal untuk gathering keluarga atau teman. Villa ini juga dilengkapi dengan WiFi berkecepatan tinggi, ruang meeting, dan area parkir yang luas.
 
@@ -1526,7 +1571,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "https://i.imgur.com/YjosayP.jpeg",
       "https://i.imgur.com/SOKaH8H.jpeg"
     ],
-    tags: ["villa", "pantai sawarna", "view pantai", "kolam renang infinity", "jacuzzi"],
+    tags: ["villa", "pantai sawarna", "view pantai", "jacuzzi"],
     amenities: [
       "6 Kamar Tidur Mewah",
       "6 Kamar Mandi Dalam",
@@ -1535,7 +1580,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "WiFi Fiber Optic",
       "Dapur Modern Premium",
       "Area BBQ",
-      "Kolam Renang Infinity",
       "Jacuzzi",
       "Ruang Meeting",
       "Gazebo",
@@ -1622,14 +1666,14 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "1",
         author: "Budi Santoso",
         rating: 4.8,
-        comment: "Villa yang sangat nyaman dengan kolam renang infinity yang memukau. Staff sangat profesional dan ramah.",
+        comment: "Villa yang sangat nyaman dengan kolam renang pribadi yang memukau. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
         author: "Dewi Lestari",
         rating: 4.7,
-        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang infinity.",
+        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang pribadi.",
         date: "2024-03-10"
       },
       {
@@ -1764,7 +1808,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       "AC di Semua Kamar",
       "TV LED 43 inch",
       "WiFi Fiber Optic",
-      "Kolam Renang Infinity",
+      "Kolam Renang Pribadi",
       "Dapur Modern Premium",
       "Area BBQ Luas",
       "Gazebo",
@@ -1978,14 +2022,14 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "1",
         author: "Budi Santoso",
         rating: 4.8,
-        comment: "Villa yang sangat nyaman dengan kolam renang infinity yang memukau. Staff sangat profesional dan ramah.",
+        comment: "Villa yang sangat nyaman dengan kolam renang pribadi yang memukau. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
         author: "Dewi Lestari",
         rating: 4.7,
-        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang infinity.",
+        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang pribadi.",
         date: "2024-03-10"
       },
       {
@@ -2019,7 +2063,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "AC di Semua Kamar",
       "TV LED 43 inch",
       "WiFi Fiber Optic",
-      "Kolam Renang Infinity",
       "Dapur Modern Premium",
       "Area BBQ Luas",
       "Gazebo",
@@ -2215,6 +2258,102 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         date: "2024-03-10"
       }
     ]
+  },
+  {
+    id: "v1",
+    name: "Villa Cempaka",
+    location: "Legon Pari, Sawarna",
+    description: "Villa Cempaka adalah pilihan tepat untuk menginap di Pantai Sawarna. Terletak strategis, villa ini menawarkan kenyamanan dan akses mudah ke pantai Legon Pari.",
+    price: 300000,
+    rating: 4.5,
+    reviews: 182,
+    capacity: 6,
+    bedrooms: 3,
+    bathrooms: 2,
+    image: "https://i.imgur.com/MBymqfS.jpeg",
+    mainImages: [
+        "https://i.imgur.com/MBymqfS.jpeg",
+        "https://i.imgur.com/UYjw1CE.jpeg",
+        "https://i.imgur.com/R0HR9FM.jpeg",
+        "https://i.imgur.com/AthrjXv.jpeg",
+        "https://i.imgur.com/sFQwfll.jpeg",
+        "https://i.imgur.com/yX0potM.jpeg",
+        "https://i.imgur.com/qKALLdC.jpeg",
+        "https://i.imgur.com/ZWM1vUu.jpeg"
+    ],
+    amenities: ["WiFi", "Kipas Angin", "TV", "Dapur", "Parkir", "Area Bermain Anak", "Gazebo", "Taman Asri"],
+    type: "villa",
+    tags: ["villa", "pantai sawarna", "view pantai"],
+    roomTypes: [
+        {
+            id: "standard",
+            name: "Standard Room",
+            description: "Kamar standar yang nyaman dengan pemandangan sawah. Dilengkapi dengan tempat tidur queen size dan kamar mandi bersih.",
+            capacity: 2,
+            beds: "1 Queen Bed",
+            bathrooms: 1,
+            amenities: ["Kipas Angin", "Kamar Mandi Dalam", "WiFi", "View Pantai"],
+            images: [
+                "https://i.imgur.com/iAmVH4D.jpeg",
+                "https://i.imgur.com/ZWM1vUu.jpeg",
+                "https://i.imgur.com/UYjw1CE.jpeg",
+                "https://i.imgur.com/R0HR9FM.jpeg",
+                "https://i.imgur.com/qKALLdC.jpeg"
+            ],
+            price: 350000
+        },
+        {
+            id: "deluxe",
+            name: "Deluxe Room",
+            description: "Kamar deluxe dengan balkon pribadi dan pemandangan sawah yang menenangkan. Dilengkapi dengan tempat tidur king size.",
+            capacity: 2,
+            beds: "1 King Bed",
+            bathrooms: 1,
+            amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "TV", "Balkon", "Mini Fridge", "Pemandangan Sawah"],
+            images: [
+                "https://i.imgur.com/iAmVH4D.jpeg",
+                "https://i.imgur.com/ZWM1vUu.jpeg",
+                "https://i.imgur.com/UYjw1CE.jpeg",
+                "https://i.imgur.com/R0HR9FM.jpeg",
+                "https://i.imgur.com/qKALLdC.jpeg"
+            ],
+            price: 450000
+        },
+        {
+            id: "family",
+            name: "Family Room",
+            description: "Kamar keluarga yang luas dengan ruang tamu terpisah. Dilengkapi dengan 3 tempat tidur dan 2 kamar mandi.",
+            price: 900000,
+            capacity: 6,
+            beds: "3 Queen Beds",
+            bathrooms: 2,
+            amenities: ["AC", "WiFi", "2 Kamar Mandi Dalam", "TV", "Ruang Tamu", "Mini Fridge", "Pemandangan Sawah"],
+            images: [
+                "https://i.imgur.com/iAmVH4D.jpeg",
+                "https://i.imgur.com/ZWM1vUu.jpeg",
+                "https://i.imgur.com/UYjw1CE.jpeg",
+                "https://i.imgur.com/R0HR9FM.jpeg",
+                "https://i.imgur.com/qKALLdC.jpeg"
+            ]
+        }
+    ],
+    nearbyAttractions: [
+        { name: "Pantai Legon Pari", distance: "2 menit jalan kaki" },
+        { name: "Goa Langir", distance: "12 menit berkendara" },
+        { name: "Tanjung Layar", distance: "12 menit berkendara" },
+        { name: "Pantai Sawarna", distance: "10 menit berkendara" }
+    ],
+    ratingSummary: {
+        score: 8.7,
+        totalReviews: 182,
+        breakdown: [
+            { label: "Kebersihan", value: 8.5 },
+            { label: "Lokasi", value: 9.0 },
+            { label: "Fasilitas", value: 8.2 },
+            { label: "Pelayanan", value: 8.7 },
+            { label: "Nilai", value: 8.8 }
+        ]
+    }
   }
 ];
 
@@ -2421,3 +2560,80 @@ export const extractMainLocation = (fullLocation: string): string => {
   const parts = fullLocation.split(",");
   return parts[0].trim();
 }; 
+
+// Tambahkan interface untuk tracking kunjungan
+interface PropertyVisit {
+  propertyId: string;
+  visitCount: number;
+  lastVisited: string;
+}
+
+// Simpan data kunjungan di localStorage
+const VISIT_STORAGE_KEY = 'property_visits';
+
+// Fungsi untuk mendapatkan data kunjungan
+const getPropertyVisits = (): PropertyVisit[] => {
+  if (typeof window === 'undefined') return [];
+  const visits = localStorage.getItem(VISIT_STORAGE_KEY);
+  return visits ? JSON.parse(visits) : [];
+};
+
+// Fungsi untuk menambah kunjungan
+export const incrementPropertyVisit = (propertyId: string) => {
+  if (typeof window === 'undefined') return;
+  
+  const visits = getPropertyVisits();
+  const existingVisit = visits.find(v => v.propertyId === propertyId);
+  
+  if (existingVisit) {
+    existingVisit.visitCount += 1;
+    existingVisit.lastVisited = new Date().toISOString();
+  } else {
+    visits.push({
+      propertyId,
+      visitCount: 1,
+      lastVisited: new Date().toISOString()
+    });
+  }
+  
+  localStorage.setItem(VISIT_STORAGE_KEY, JSON.stringify(visits));
+};
+
+// Fungsi untuk mendapatkan villa populer berdasarkan kunjungan
+export const getPopularVillas = (): Property[] => {
+  const visits = getPropertyVisits();
+  const allVillas = getAllProperties().filter(property => property.type === 'villa');
+  
+  // Tambahkan data kunjungan ke setiap villa
+  const villasWithVisits = allVillas.map(villa => ({
+    ...villa,
+    visitCount: visits.find(v => v.propertyId === villa.id)?.visitCount || 0,
+    lastVisited: visits.find(v => v.propertyId === villa.id)?.lastVisited || null
+  }));
+  
+  // Urutkan berdasarkan jumlah kunjungan (descending)
+  return villasWithVisits
+    .sort((a, b) => b.visitCount - a.visitCount)
+    .slice(0, 8); // Ambil 8 villa teratas
+};
+
+// Fungsi untuk mendapatkan villa termurah
+export const getCheapestVillas = (): Property[] => {
+  const allVillas = getAllProperties().filter(property => property.type === 'villa');
+  
+  // Hitung harga termurah untuk setiap villa (berdasarkan roomTypes)
+  const villasWithMinPrice = allVillas.map(villa => {
+    // Jika ada roomTypes, ambil harga termurah dari roomTypes
+    if (villa.roomTypes && villa.roomTypes.length > 0) {
+      const minRoomPrice = Math.min(...villa.roomTypes.map(room => room.price));
+      return { ...villa, minPrice: minRoomPrice };
+    }
+    // Jika tidak ada roomTypes, gunakan harga default
+    return { ...villa, minPrice: villa.price };
+  });
+  
+  // Urutkan berdasarkan harga termurah (ascending)
+  return villasWithMinPrice
+    .sort((a, b) => a.minPrice - b.minPrice)
+    .slice(0, 8); // Ambil 8 villa termurah
+};

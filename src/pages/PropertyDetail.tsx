@@ -202,22 +202,7 @@ const BookingWidget: React.FC<BookingWidgetProps> = (props) => {
 
   return (
     <div id="booking" className="sticky top-6 space-y-6">
-      {/* Card Catatan */}
-      <div className="bg-amber-50 dark:bg-amber-900/20 rounded-xl p-4 border border-amber-100 dark:border-amber-800/30">
-        <div className="flex items-start gap-3">
-          <div className="flex-shrink-0 w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-800/50 flex items-center justify-center">
-            <svg width="20" height="20" fill="none" stroke="#D97706" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            </div>
-            <div>
-            <div className="text-lg font-bold text-amber-700 dark:text-amber-400">Catatan</div>
-            <div className="text-gray-600 dark:text-gray-200 text-sm mt-1">
-              Harga sewaktu-waktu dapat berubah, menyesuaikan dengan hari libur dan kondisi lainnya, untuk dapat harga terbaik hari ini silahkan bisa ditanyakan langsung via WhatsApp.
-            </div>
-              </div>
-            </div>
-          </div>
+      
 
       {/* Card Booking Sekarang */}
       <div id="booking-whatsapp" className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-2xl shadow-xl dark:shadow-gray-800/50 border border-ocean/20 dark:border-ocean-dark/20 p-6">
@@ -1230,7 +1215,7 @@ const PropertyDetail: React.FC = () => {
                     disableOnInteraction: false,
                   }}
                   className="w-full relative group"
-                >
+                  >
                   {displayedReviews.map((review) => {
                     // Fungsi untuk mendapatkan inisial dari nama
                     const getInitials = (name: string) => {
