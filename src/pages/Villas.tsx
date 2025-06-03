@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import PropertyCard from "@/components/PropertyCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Waves } from "lucide-react";
-import { getAllProperties, getFeaturedProperties, getPopularVillas, getCheapestVillas, incrementPropertyVisit } from "@/data/properties";
+import { getAllProperties, getFeaturedProperties, getPopularVillas, getCheapestVillas, incrementPropertyVisit, extractMainLocation } from "@/data/properties";
 import SEO from '@/components/SEO';
 
 const Villas = () => {
@@ -23,12 +23,12 @@ const Villas = () => {
 
   // Kelompokkan villa berdasarkan lokasi
   const propertiesByLocation = {
-    sawarna: villaProperties.filter(villa => villa.location.toLowerCase().includes('sawarna')),
-    'goa-langir': villaProperties.filter(villa => villa.location.toLowerCase().includes('goa langir')),
-    'legon-pari': villaProperties.filter(villa => villa.location.toLowerCase().includes('legon pari')),
-    'tanjung-layar': villaProperties.filter(villa => villa.location.toLowerCase().includes('tanjung layar')),
-    'karang-bokor': villaProperties.filter(villa => villa.location.toLowerCase().includes('karang bokor')),
-    'pulo-manuk': villaProperties.filter(villa => villa.location.toLowerCase().includes('pulo manuk'))
+    sawarna: villaProperties.filter(villa => extractMainLocation(villa.location).toLowerCase() === 'pantai sawarna'),
+    'goa-langir': villaProperties.filter(villa => extractMainLocation(villa.location).toLowerCase() === 'goa langir'),
+    'legon-pari': villaProperties.filter(villa => extractMainLocation(villa.location).toLowerCase() === 'legon pari'),
+    'tanjung-layar': villaProperties.filter(villa => extractMainLocation(villa.location).toLowerCase() === 'tanjung layar'),
+    'karang-bokor': villaProperties.filter(villa => extractMainLocation(villa.location).toLowerCase() === 'karang bokor'),
+    'pulo-manuk': villaProperties.filter(villa => extractMainLocation(villa.location).toLowerCase() === 'pulo manuk')
   };
 
   // Fungsi untuk menangani klik pada villa
