@@ -62,7 +62,7 @@ const Villas = () => {
             <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Temukan villa impian Anda di berbagai lokasi Sawarna. Setiap villa menawarkan pemandangan pantai yang menakjubkan dan fasilitas lengkap untuk liburan yang tak terlupakan.
             </p>
-          </div>
+        </div>
         
           {/* Tab Lokasi */}
           <div className="mb-8">
@@ -150,34 +150,34 @@ const Villas = () => {
                         </p>
                       </>
                     )}
-                  </div>
-                
+              </div>
+              
                   {/* Daftar Villa */}
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
                     {properties.length > 0 ? (
                       properties.map((property) => (
                         <div key={property.id} onClick={() => handleVillaClick(property.id)}>
-                          <PropertyCard
-                            id={property.id}
-                            name={property.name}
-                            type={property.type}
-                            image={property.mainImages?.[0] || property.image}
-                            price={property.price}
-                            rating={property.rating}
-                            location={property.location}
-                            capacity={property.capacity}
-                            reviews={property.reviews}
-                            bedrooms={property.bedrooms}
-                            bathrooms={property.bathrooms}
-                            amenities={property.amenities}
-                            description={property.description}
-                            tags={property.tags || []}
-                            mainImages={property.mainImages || []}
-                            roomTypes={property.roomTypes || []}
-                            nearbyAttractions={property.nearbyAttractions || []}
-                            ratingSummary={property.ratingSummary}
-                            propertyReviews={property.propertyReviews || []}
-                          />
+                        <PropertyCard
+                          id={property.id}
+                          name={property.name}
+                          type={property.type}
+                          image={property.mainImages?.[0] || property.image}
+                          price={property.price}
+                          rating={property.rating}
+                          location={property.location}
+                          capacity={property.capacity}
+                          reviews={property.reviews}
+                          bedrooms={property.bedrooms}
+                          bathrooms={property.bathrooms}
+                          amenities={property.amenities}
+                          description={property.description}
+                          tags={property.tags || []}
+                          mainImages={property.mainImages || []}
+                          roomTypes={property.roomTypes || []}
+                          nearbyAttractions={property.nearbyAttractions || []}
+                          ratingSummary={property.ratingSummary}
+                          propertyReviews={property.propertyReviews || []}
+                        />
                         </div>
                       ))
                     ) : (
@@ -185,7 +185,7 @@ const Villas = () => {
                         <p className="text-gray-500 dark:text-gray-400">
                           Belum ada villa yang tersedia di lokasi ini.
                         </p>
-                      </div>
+                    </div>
                     )}
                   </div>
                 </div>

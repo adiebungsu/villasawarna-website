@@ -1093,8 +1093,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     amenities: [
       "5 Kamar Tidur Nyaman",
       "5 Kamar Mandi Dalam",
-      "AC di Semua Kamar",
-      "TV LED 43 inch",
+      "Kipas Angin di Semua Kamar",
       "WiFi Fiber Optic",
       "Dapur Modern",
       "Area BBQ",
@@ -1127,12 +1126,12 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       {
         id: "standard-room",
         name: "Standard Room",
-        description: "Kamar nyaman dengan double bed, AC, TV, dan kamar mandi dalam.",
+        description: "Kamar nyaman dengan double bed, kipas angin, dan kamar mandi dalam.",
         price: 380000,
         capacity: 2,
         beds: "1 Double Bed",
         bathrooms: 1,
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi"],
+        amenities: ["Kipas Angin", "Kamar Mandi Dalam", "WiFi", "Parkir Luas"],
         images: [
           "https://i.imgur.com/pExSpkd.jpeg",
           "https://i.imgur.com/DGHi30T.jpeg",
@@ -1145,11 +1144,11 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "deluxe-room",
         name: "Deluxe Room",
         description: "Kamar luas untuk keluarga, dengan 2 double bed dan fasilitas lengkap.",
-        price: 550000,
+        price: 395000,
         capacity: 4,
         beds: "2 Double Bed",
         bathrooms: 1,
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi"],
+        amenities: ["Kipas Angin", "Kamar Mandi Dalam", "WiFi", "Parkir Luas"],
         images: [
           "https://i.imgur.com/XQKMbFZ.jpeg",
           "https://i.imgur.com/DabvprB.jpeg",
@@ -2166,8 +2165,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     amenities: [
       "6 Kamar Tidur Nyaman",
       "6 Kamar Mandi Dalam",
-      "AC di Semua Kamar",
-      "TV LED 43 inch",
+      "Kipas Angin di Semua Kamar",
+      "Parkir Luas",
       "WiFi Fiber Optic",
       "Dapur Modern",
       "Area BBQ",
@@ -2189,12 +2188,12 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       {
         id: "standard-room",
         name: "Standard Room",
-        description: "Kamar nyaman dengan double bed, AC, TV, dan kamar mandi dalam.",
-        price: 400000,
+        description: "Kamar nyaman dengan double bed, kipas angin, TV, dan kamar mandi dalam.",
+        price: 350000,
         capacity: 2,
         beds: "1 Double Bed",
         bathrooms: 1,
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi"],
+        amenities: ["Kipas Angin", "Parkir Luas", "Kamar Mandi Dalam", "Air Panas", "WiFi"],
         images: [
           "https://i.imgur.com/NrQtZBp.jpeg",
           "https://i.imgur.com/NCmW3YT.jpeg",
@@ -2207,11 +2206,11 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "deluxe-room",
         name: "Deluxe Room",
         description: "Kamar mewah dengan pemandangan pantai, dilengkapi fasilitas premium.",
-        price: 600000,
+        price: 375000,
         capacity: 2,
         beds: "1 King Bed",
         bathrooms: 1,
-        amenities: ["AC", "TV LED 55 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "View Pantai"],
+        amenities: ["Kipas Angin", "Kamar Mandi Dalam", "WiFi", "View Pantai"],
         images: [
           "https://i.imgur.com/kk3uXA7.jpeg",
           "https://i.imgur.com/pngviek.jpeg",
@@ -2537,4 +2536,4 @@ export const getCheapestVillas = (): Property[] => {
   return villasWithMinPrice
     .sort((a, b) => a.minPrice - b.minPrice)
     .slice(0, 8); // Ambil 8 villa termurah
-};
+}; 
