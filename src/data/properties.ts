@@ -229,7 +229,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "AC di Semua Kamar",
       "TV LED 43 inch",
       "WiFi Fiber Optic",
-      "Kolam Renang Pribadi",
       "Dapur Modern Premium",
       "Area BBQ Luas",
       "Gazebo",
@@ -365,14 +364,13 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "TV",
       "Dapur",
       "Parkir",
-      "Kolam Renang",
       "Pemandangan Pantai",
       "Teras",
       "Ruang Tamu",
       "Kamar Mandi Dalam"
     ],
-    description: "Villa Sinar Pelangi adalah villa eksklusif dengan 4 kamar tidur yang menawarkan pemandangan pantai yang menakjubkan. Terletak di Pantai Sawarna, villa ini dilengkapi dengan kolam renang pribadi, dapur lengkap, dan teras yang luas. Cocok untuk liburan keluarga atau rombongan besar.",
-    tags: ["Pantai", "Kolam Renang", "4 Kamar", "Eksklusif"],
+    description: "Villa Sinar Pelangi adalah villa eksklusif dengan 4 kamar tidur yang menawarkan pemandangan pantai yang menakjubkan. Terletak di Pantai Sawarna, villa ini dilengkapi dengan  dapur lengkap, dan teras yang luas. Cocok untuk liburan keluarga atau rombongan besar.",
+    tags: ["Pantai", "4 Kamar", "Eksklusif"],
     roomTypes: [
       {
         id: "standar-room",
@@ -572,14 +570,14 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "1",
         author: "Budi Santoso",
         rating: 4.8,
-        comment: "Villa yang sangat nyaman dengan kolam renang pribadi yang memukau. Staff sangat profesional dan ramah.",
+        comment: "Villa yang sangat nyaman. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
         author: "Dewi Lestari",
         rating: 4.7,
-        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang pribadi.",
+        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah.",
         date: "2024-03-10"
       },
       {
@@ -728,14 +726,14 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "1",
         author: "Budi Santoso",
         rating: 4.9,
-        comment: "Villa yang sangat mewah dengan kolam renang pribadi yang memukau. Staff sangat profesional dan ramah.",
+        comment: "Villa yang sangat mewah. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
         author: "Dewi Lestari",
         rating: 4.8,
-        comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah dari kolam renang pribadi.",
+        comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah dari.",
         date: "2024-03-10"
       },
       {
@@ -1025,7 +1023,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         capacity: 6,
         beds: "3 Queen Bed",
         bathrooms: 2,
-        amenities: ["AC", "WiFi", "2 Kamar Mandi Dalam", "Ruang Keluarga", "Akses Kolam Renang"],
+        amenities: ["AC", "WiFi", "2 Kamar Mandi Dalam", "Ruang Keluarga",],
         images: [
           "https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20036564-17620bb91ad4386e52d8e4ca140bf6b2.jpeg",
           "https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20036564-c1cd6b0ca8a09d208dfd43e395505f89.jpeg",
@@ -1046,7 +1044,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "1",
         author: "Rizky Maulana",
         rating: 9.8,
-        comment: "Villa yang sangat mewah dengan fasilitas lengkap. Staff sangat profesional dan ramah. Pemandangan kolam renang pribadi yang memukau.",
+        comment: "Villa yang sangat mewah dengan fasilitas lengkap. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
@@ -1301,14 +1299,14 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
         id: "1",
         author: "Budi Santoso",
         rating: 4.7,
-        comment: "Villa yang sangat nyaman dengan kolam renang pribadi yang memukau. Staff sangat profesional dan ramah.",
+        comment: "Villa yang sangat nyaman. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
         author: "Dewi Lestari",
         rating: 4.6,
-        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang pribadi.",
+        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah.",
         date: "2024-03-10"
       }
     ],
@@ -1423,14 +1421,14 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "1",
         author: "Budi Santoso",
         rating: 4.9,
-        comment: "Villa yang sangat nyaman dengan kolam renang pribadi yang memukau. Staff sangat profesional dan ramah.",
+        comment: "Villa yang sangat nyaman. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
         author: "Dewi Lestari",
         rating: 4.8,
-        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang pribadi.",
+        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah.",
         date: "2024-03-10"
       },
       {
@@ -1666,14 +1664,14 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "1",
         author: "Budi Santoso",
         rating: 4.8,
-        comment: "Villa yang sangat nyaman dengan kolam renang pribadi yang memukau. Staff sangat profesional dan ramah.",
+        comment: "Villa yang sangat nyaman. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
         author: "Dewi Lestari",
         rating: 4.7,
-        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang pribadi.",
+        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah.",
         date: "2024-03-10"
       },
       {
@@ -1808,7 +1806,6 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       "AC di Semua Kamar",
       "TV LED 43 inch",
       "WiFi Fiber Optic",
-      "Kolam Renang Pribadi",
       "Dapur Modern Premium",
       "Area BBQ Luas",
       "Gazebo",
@@ -2022,14 +2019,14 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         id: "1",
         author: "Budi Santoso",
         rating: 4.8,
-        comment: "Villa yang sangat nyaman dengan kolam renang pribadi yang memukau. Staff sangat profesional dan ramah.",
+        comment: "Villa yang sangat nyaman. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
         author: "Dewi Lestari",
         rating: 4.7,
-        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah dari kolam renang pribadi.",
+        comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah.",
         date: "2024-03-10"
       },
       {
