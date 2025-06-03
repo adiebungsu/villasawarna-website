@@ -140,7 +140,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     amenities: [
       "10 Kamar Tidur Nyaman",
       "4 Kamar Mandi Dalam",
-      "AC di Semua Kamar",
+      "Kipas Angin di Semua Kamar",
       "TV LED 43 inch",
       "WiFi Fiber Optic",
       "Dapur Modern Premium",
@@ -1159,9 +1159,9 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     nearbyAttractions: [
-      { name: "Pantai Legon Pari", distance: "Depan villa" },
+      { name: "Pantai Sawarna", distance: "9 menit berkendara" },
       { name: "Goa Langir", distance: "10 menit berkendara" },
-      { name: "Pantai Sawarna", distance: "15 menit berkendara" }
+      { name: "Legon Pari", distance: "Depan villa" }
     ],
     ratingSummary: {
       score: 8.8,
@@ -1802,8 +1802,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
     amenities: [
       "10 Kamar Tidur Nyaman",
       "4 Kamar Mandi Dalam",
-      "AC di Semua Kamar",
-      "TV LED 43 inch",
+      "Kipas Angin di Semua Kamar",
       "WiFi Fiber Optic",
       "Dapur Modern Premium",
       "Area BBQ Luas",
@@ -1837,12 +1836,12 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       {
         id: "standard-room",
         name: "Standard Room",
-        description: "Kamar nyaman dengan twin bed, ideal untuk berdua. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
+        description: "Kamar nyaman dengan twin bed, ideal untuk berdua. Dilengkapi dengan kipas angin dan kamar mandi dalam dengan air panas.",
         price: 320000,
         capacity: 2,
         beds: "2 Single Beds",
         bathrooms: 1,
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
+        amenities: ["Kipas Angin", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas", "Parkir Luas"],
         images: [
           "https://i.imgur.com/iAmVH4D.jpeg",
           "https://i.imgur.com/ZWM1vUu.jpeg",
@@ -1854,12 +1853,12 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       {
         id: "extrabed-room",
         name: "Extra Bed Room",
-        description: "Kamar nyaman dengan extra bed, ideal untuk keluarga kecil. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
+        description: "Kamar nyaman dengan extra bed, ideal untuk keluarga kecil. Dilengkapi dengan kipas angin dan kamar mandi dalam dengan air panas.",
         price: 450000,
         capacity: 3,
         beds: "2 Single Beds + 1 Extra Bed",
         bathrooms: 1,
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
+        amenities: ["Kipas Angin", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas", "Parkir Luas"],
         images: [
           "https://i.imgur.com/iAmVH4D.jpeg",
           "https://i.imgur.com/ZWM1vUu.jpeg",
@@ -1871,9 +1870,9 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       }
     ],
     nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "5 menit jalan kaki" },
+      { name: "Pantai Sawarna", distance: "9 menit berkendara" },
       { name: "Goa Langir", distance: "10 menit berkendara" },
-      { name: "Legon Pari", distance: "15 menit berkendara" }
+      { name: "Legon Pari", distance: "Depan villa" }
     ],
     ratingSummary: {
       score: 8.7,
