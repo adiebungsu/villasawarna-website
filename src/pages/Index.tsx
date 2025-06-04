@@ -20,6 +20,7 @@ import { Article } from '@/types/article';
 import { cn } from '@/lib/utils';
 import WelcomeModal from '@/components/WelcomeModal';
 import ArticlesSection from '@/components/ArticlesSection';
+import { getLowestRoomPrice } from '@/utils/price';
 
 // Data testimonial
 const testimonialData = [
@@ -251,29 +252,36 @@ const Index = () => {
           <div className="flex flex-col gap-4 mt-8 md:flex-row md:gap-4">
             {[0,1,2,3].map((idx) => {
               const villa = idx === 3 ? {
-                id: "villa-mutiara-sawarna",
-                name: "Villa Mutiara Sawarna",
-                image: "https://i.imgur.com/9Hcp40U.jpeg",
+                id: "villa-sinar-matahari-resort",
+                name: "Villa Sinar Matahari Resort",
+                image: "https://i.imgur.com/nalEe4n.jpeg",
                 rating: 4.8,
-                reviews: 156,
+                reviews: 189,
                 location: "Pantai Sawarna",
-                price: 356000,
-                originalPrice: 400000,
-                discount: 11,
+                price: getLowestRoomPrice("villa-sinar-matahari-resort", 200000),
+                originalPrice: 450000,
+                discount: 56,
                 mainImages: [
-                  "https://i.imgur.com/9Hcp40U.jpeg",
-                  "https://i.imgur.com/JHASLtZ.jpeg",
-                  "https://i.imgur.com/Khg9u7S.jpeg",
-                  "https://i.imgur.com/yDZCZww.jpeg",
-                  "https://i.imgur.com/uh8FQep.jpeg",
-                  "https://i.imgur.com/5tWlccP.jpeg",
-                  "https://i.imgur.com/jfOhuSi.jpeg",
-                  "https://i.imgur.com/oNmci0u.jpeg"
+                  "https://i.imgur.com/nalEe4n.jpeg",
+                  "https://i.imgur.com/dJPXB3o.jpeg",
+                  "https://i.imgur.com/buvZnBO.jpeg",
+                  "https://i.imgur.com/HTv5TtH.jpeg",
+                  "https://i.imgur.com/t2e07FS.jpeg",
+                  "https://i.imgur.com/SrriRYF.jpeg",
+                  "https://i.imgur.com/zXqlpvv.jpeg",
+                  "https://i.imgur.com/Zenhfsh.jpeg",
+                  "https://i.imgur.com/0fBZA9U.jpeg",
+                  "https://i.imgur.com/nj62x2B.jpeg",
+                  "https://i.imgur.com/zLTr5LZ.jpeg",
+                  "https://i.imgur.com/gHYvnGu.jpeg",
+                  "https://i.imgur.com/Ndo0XAD.jpeg",
+                  "https://i.imgur.com/xSIQsbI.jpeg",
+                  "https://i.imgur.com/jAylpLL.jpeg"
                 ],
-                facilities: ["View Pantai", "WiFi", "Area BBQ", "AC", "TV", "Kamar Mandi Dalam"],
-                capacity: 4,
-                bedrooms: 2,
-                bathrooms: 2
+                facilities: ["6 Kamar Tidur Nyaman", "6 Kamar Mandi Dalam", "AC di Semua Kamar", "TV LED 43 inch", "WiFi Fiber Optic", "Dapur Modern Premium", "Area BBQ", "Gazebo", "Taman", "Parkir Luas", "Ruang Meeting", "24/7 Security", "Ruang Tamu", "Ruang Makan", "Kulkas", "Mesin Cuci", "Setrika", "Perlengkapan Mandi", "Handuk", "Kasur Premium", "Air Panas", "View Pantai"],
+                capacity: 50,
+                bedrooms: 6,
+                bathrooms: 6
               } : idx === 0 ? {
                 id: "villa-cempaka",
                 name: "Villa Cempaka",
@@ -281,7 +289,7 @@ const Index = () => {
                 rating: 4.5,
                 reviews: 80,
                 location: "Pantai Sawarna",
-                price: 350000,
+                price: getLowestRoomPrice("villa-cempaka", 350000),
                 originalPrice: 400000,
                 discount: 12,
                 mainImages: [
@@ -302,7 +310,7 @@ const Index = () => {
                 rating: 4.6,
                 reviews: 95,
                 location: "Pantai Sawarna",
-                price: 350000,
+                price: getLowestRoomPrice("villa-aki-nini", 350000),
                 originalPrice: 400000,
                 discount: 12,
                 mainImages: [
@@ -327,7 +335,7 @@ const Index = () => {
                 rating: 4.7,
                 reviews: 120,
                 location: "Pantai Sawarna",
-                price: 450000,
+                price: getLowestRoomPrice("villa-sawarna-resort", 450000),
                 originalPrice: 500000,
                 discount: 10,
                 mainImages: [
@@ -763,29 +771,36 @@ const Index = () => {
             <div className="md:w-1/2 w-full flex flex-col justify-between p-4 md:p-7">
               {(() => {
                 const villa = quickViewIdx === 3 ? {
-                  id: "villa-mutiara-sawarna",
-                  name: "Villa Mutiara Sawarna",
-                  image: "https://i.imgur.com/9Hcp40U.jpeg",
+                  id: "villa-sinar-matahari-resort",
+                  name: "Villa Sinar Matahari Resort",
+                  image: "https://i.imgur.com/nalEe4n.jpeg",
                   rating: 4.8,
-                  reviews: 156,
+                  reviews: 189,
                   location: "Pantai Sawarna",
-                  price: 356000,
-                  originalPrice: 400000,
-                  discount: 11,
+                  price: getLowestRoomPrice("villa-sinar-matahari-resort", 200000),
+                  originalPrice: 450000,
+                  discount: 56,
                   mainImages: [
-                    "https://i.imgur.com/9Hcp40U.jpeg",
-                    "https://i.imgur.com/JHASLtZ.jpeg",
-                    "https://i.imgur.com/Khg9u7S.jpeg",
-                    "https://i.imgur.com/yDZCZww.jpeg",
-                    "https://i.imgur.com/uh8FQep.jpeg",
-                    "https://i.imgur.com/5tWlccP.jpeg",
-                    "https://i.imgur.com/jfOhuSi.jpeg",
-                    "https://i.imgur.com/oNmci0u.jpeg"
+                    "https://i.imgur.com/nalEe4n.jpeg",
+                    "https://i.imgur.com/dJPXB3o.jpeg",
+                    "https://i.imgur.com/buvZnBO.jpeg",
+                    "https://i.imgur.com/HTv5TtH.jpeg",
+                    "https://i.imgur.com/t2e07FS.jpeg",
+                    "https://i.imgur.com/SrriRYF.jpeg",
+                    "https://i.imgur.com/zXqlpvv.jpeg",
+                    "https://i.imgur.com/Zenhfsh.jpeg",
+                    "https://i.imgur.com/0fBZA9U.jpeg",
+                    "https://i.imgur.com/nj62x2B.jpeg",
+                    "https://i.imgur.com/zLTr5LZ.jpeg",
+                    "https://i.imgur.com/gHYvnGu.jpeg",
+                    "https://i.imgur.com/Ndo0XAD.jpeg",
+                    "https://i.imgur.com/xSIQsbI.jpeg",
+                    "https://i.imgur.com/jAylpLL.jpeg"
                   ],
-                  facilities: ["View Pantai", "WiFi", "Area BBQ", "AC", "TV", "Kamar Mandi Dalam"],
-                  capacity: 4,
-                  bedrooms: 2,
-                  bathrooms: 2
+                  facilities: ["6 Kamar Tidur Nyaman", "6 Kamar Mandi Dalam", "AC di Semua Kamar", "TV LED 43 inch", "WiFi Fiber Optic", "Dapur Modern Premium", "Area BBQ", "Gazebo", "Taman", "Parkir Luas", "Ruang Meeting", "24/7 Security", "Ruang Tamu", "Ruang Makan", "Kulkas", "Mesin Cuci", "Setrika", "Perlengkapan Mandi", "Handuk", "Kasur Premium", "Air Panas", "View Pantai"],
+                  capacity: 50,
+                  bedrooms: 6,
+                  bathrooms: 6
                 } : quickViewIdx === 0 ? {
                   id: "villa-cempaka",
                   name: "Villa Cempaka",
@@ -793,7 +808,7 @@ const Index = () => {
                   rating: 4.5,
                   reviews: 80,
                   location: "Pantai Sawarna",
-                  price: 350000,
+                  price: getLowestRoomPrice("villa-cempaka", 350000),
                   originalPrice: 400000,
                   discount: 12,
                   mainImages: [
@@ -814,7 +829,7 @@ const Index = () => {
                   rating: 4.6,
                   reviews: 95,
                   location: "Pantai Sawarna",
-                  price: 350000,
+                  price: getLowestRoomPrice("villa-aki-nini", 350000),
                   originalPrice: 400000,
                   discount: 12,
                   mainImages: [
@@ -839,7 +854,7 @@ const Index = () => {
                   rating: 4.7,
                   reviews: 120,
                   location: "Pantai Sawarna",
-                  price: 450000,
+                  price: getLowestRoomPrice("villa-sawarna-resort", 450000),
                   originalPrice: 500000,
                   discount: 10,
                   mainImages: [

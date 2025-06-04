@@ -1201,28 +1201,60 @@ export const propertyRoomTypes: Record<string, RoomType[]> = {
   ],
   "villa-sinar-matahari-resort": [
     {
-      id: "standard",
-      name: "Standard Room",
-      description: "Kamar standar yang nyaman dengan queen bed premium dan pemandangan pantai yang menakjubkan. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
-      price: 400000,
-      capacity: 2,
-      beds: "1 Queen Bed Premium",
+      id: "single-non-ac",
+      name: "Single Non AC",
+      description: "Kamar single yang nyaman tanpa AC, cocok untuk penginapan ekonomis.",
+      price: 255000,
+      capacity: 1,
+      beds: "1 Single Bed",
       bathrooms: 1,
       images: [
-        "https://i.imgur.com/9Hcp40U.jpeg",
-        "https://i.imgur.com/JHASLtZ.jpeg",
-        "https://i.imgur.com/Khg9u7S.jpeg",
-        "https://i.imgur.com/yDZCZww.jpeg",
-        "https://i.imgur.com/uh8FQep.jpeg"
+        "https://i.imgur.com/zXqlpvv.jpeg",
+        "https://i.imgur.com/HtPXyWd.jpeg",
+        "https://i.imgur.com/yO8LxPP.jpeg",
+        "https://i.imgur.com/4x3NTLV.jpeg",
+        "https://i.imgur.com/SrriRYF.jpeg"
       ],
-      amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas", "Setrika", "Perlengkapan Mandi", "View Pantai"]
+      amenities: ["Kipas Angin", "WiFi", "Kamar Mandi Dalam", "TV"]
     },
     {
-      id: "deluxe",
-      name: "Deluxe Room",
-      description: "Kamar deluxe yang luas dengan king bed premium dan balkon pribadi. Dilengkapi dengan pemandangan pantai yang menakjubkan dan fasilitas modern untuk kenyamanan maksimal.",
-      price: 500000,
+      id: "single-ac",
+      name: "Single AC",
+      description: "Kamar single yang nyaman dengan AC, dilengkapi dengan fasilitas modern.",
+      price: 365000,
+      capacity: 1,
+      beds: "1 Single Bed",
+      bathrooms: 1,
+      images: [
+        "https://i.imgur.com/nj62x2B.jpeg",
+        "https://i.imgur.com/LPY2YGW.jpeg",
+        "https://i.imgur.com/5fnhV3u.jpeg",
+        "https://i.imgur.com/Ndo0XAD.jpeg",
+        "https://i.imgur.com/4ifOJod.jpeg"
+      ],
+      amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "TV", "Mini Kulkas"]
+    },
+    {
+      id: "double-bedroom",
+      name: "Double Bedroom",
+      description: "Kamar luas dengan double bed, cocok untuk berdua atau bertiga.",
+      price: 400000,
       capacity: 3,
+      beds: "1 Double Bed",
+      bathrooms: 1,
+      images: [
+        "https://i.imgur.com/5tWlccP.jpeg",
+        "https://i.imgur.com/jfOhuSi.jpeg",
+        "https://i.imgur.com/oNmci0u.jpeg"
+      ],
+      amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"]
+    },
+    {
+      id: "family-room",
+      name: "Family Room",
+      description: "Kamar keluarga yang luas dengan king bed premium dan balkon pribadi. Dilengkapi dengan pemandangan pantai yang menakjubkan dan fasilitas modern untuk kenyamanan maksimal.",
+      price: 600000,
+      capacity: 4,
       beds: "1 King Bed Premium",
       bathrooms: 1,
       images: [

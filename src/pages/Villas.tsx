@@ -9,7 +9,7 @@ import { getAllProperties, getFeaturedProperties, getPopularVillas, getCheapestV
 import SEO from '@/components/SEO';
 
 const Villas = () => {
-  const [selectedLocation, setSelectedLocation] = useState("sawarna");
+  const [selectedLocation, setSelectedLocation] = useState("all");
   const [popularVillas, setPopularVillas] = useState(getPopularVillas());
   const [cheapestVillas, setCheapestVillas] = useState(getCheapestVillas());
   const allProperties = getAllProperties();
@@ -23,6 +23,7 @@ const Villas = () => {
 
   // Kelompokkan villa berdasarkan lokasi
   const propertiesByLocation = {
+    all: villaProperties,
     sawarna: villaProperties.filter(villa => extractMainLocation(villa.location).toLowerCase() === 'pantai sawarna'),
     'goa-langir': villaProperties.filter(villa => extractMainLocation(villa.location).toLowerCase() === 'goa langir'),
     'legon-pari': villaProperties.filter(villa => extractMainLocation(villa.location).toLowerCase() === 'legon pari'),
@@ -37,7 +38,7 @@ const Villas = () => {
     setPopularVillas(getPopularVillas());
   };
 
-  const metaDescription = "Temukan villa eksklusif di berbagai lokasi Sawarna. Dari Pantai Sawarna hingga Tanjung Layar, kami menyediakan villa dengan pemandangan pantai yang menakjubkan dan fasilitas lengkap untuk liburan Anda.";
+  const metaDescription = "Temukan penginapan villa eksklusif di berbagai lokasi Sawarna. Dari Pantai Sawarna hingga Tanjung Layar, kami menyediakan villa dengan pemandangan pantai yang menakjubkan dan fasilitas lengkap untuk liburan Anda. Sewa villa murah, villa keluarga, villa pantai, dan penginapan terbaik di Sawarna. Penginapan dekat pantai, penginapan murah, penginapan keluarga, dan penginapan dengan pemandangan indah. Homestay, resort, cottage, dan berbagai pilihan akomodasi terbaik untuk liburan Anda. Cocok untuk liburan keluarga, honeymoon, gathering, atau staycation.";
   const metaTitle = "Villa di Sawarna - Sewa Villa Eksklusif dengan Pemandangan Pantai";
   
   return (
@@ -45,7 +46,7 @@ const Villas = () => {
       <SEO 
         title={metaTitle}
         description={metaDescription}
-        keywords="villa sawarna, sewa villa sawarna, villa pantai sawarna, villa eksklusif sawarna, villa goa langir, villa tanjung layar, villa legon pari, villa karang bokor, villa pulo manuk"
+        keywords="villa sawarna, sewa villa sawarna, villa pantai sawarna, villa eksklusif sawarna, villa goa langir, villa tanjung layar, villa legon pari, villa karang bokor, villa pulo manuk, penginapan sawarna, sewa penginapan sawarna, villa murah sawarna, villa keluarga sawarna, villa pantai sawarna, penginapan murah sawarna, sewa villa murah sawarna, villa dengan kolam renang sawarna, villa dengan pemandangan pantai sawarna, villa untuk keluarga besar sawarna, villa untuk rombongan sawarna, villa dengan dapur sawarna, villa dengan wifi sawarna, villa dengan ac sawarna, villa dengan parkir luas sawarna, villa dekat pantai sawarna, villa dekat goa langir sawarna, villa dekat tanjung layar sawarna, villa dekat legon pari sawarna, villa dekat karang bokor sawarna, villa dekat pulo manuk sawarna, villa dengan fasilitas lengkap sawarna, villa dengan pemandangan sunset sawarna, villa dengan pemandangan sunrise sawarna, villa dengan pemandangan sawah sawarna, villa dengan pemandangan tebing sawarna, villa dengan pemandangan laut sawarna, villa dengan pemandangan gunung sawarna, villa dengan pemandangan hutan sawarna, villa dengan pemandangan bukit sawarna, villa dengan pemandangan sungai sawarna, villa dengan pemandangan danau sawarna, villa dengan pemandangan taman sawarna, villa dengan pemandangan kolam sawarna, villa dengan pemandangan kebun sawarna, penginapan dekat pantai sawarna, penginapan dekat goa langir sawarna, penginapan dekat tanjung layar sawarna, penginapan dekat legon pari sawarna, penginapan dekat karang bokor sawarna, penginapan dekat pulo manuk sawarna, penginapan dengan kolam renang sawarna, penginapan dengan pemandangan pantai sawarna, penginapan untuk keluarga besar sawarna, penginapan untuk rombongan sawarna, penginapan dengan dapur sawarna, penginapan dengan wifi sawarna, penginapan dengan ac sawarna, penginapan dengan parkir luas sawarna, penginapan dengan fasilitas lengkap sawarna, penginapan dengan pemandangan sunset sawarna, penginapan dengan pemandangan sunrise sawarna, penginapan dengan pemandangan sawah sawarna, penginapan dengan pemandangan tebing sawarna, penginapan dengan pemandangan laut sawarna, penginapan dengan pemandangan gunung sawarna, penginapan dengan pemandangan hutan sawarna, penginapan dengan pemandangan bukit sawarna, penginapan dengan pemandangan sungai sawarna, penginapan dengan pemandangan danau sawarna, penginapan dengan pemandangan taman sawarna, penginapan dengan pemandangan kolam sawarna, penginapan dengan pemandangan kebun sawarna, penginapan keluarga sawarna, penginapan rombongan sawarna, penginapan murah sawarna, penginapan eksklusif sawarna, penginapan mewah sawarna, penginapan nyaman sawarna, penginapan bersih sawarna, penginapan aman sawarna, penginapan strategis sawarna, penginapan terbaik sawarna, penginapan favorit sawarna, penginapan populer sawarna, penginapan rekomendasi sawarna, penginapan terlaris sawarna, penginapan terbaru sawarna, penginapan promo sawarna, penginapan diskon sawarna, penginapan hemat sawarna, penginapan ekonomis sawarna, penginapan terjangkau sawarna, penginapan bintang sawarna, penginapan premium sawarna, penginapan luxury sawarna, penginapan modern sawarna, penginapan tradisional sawarna, penginapan lokal sawarna, penginapan asli sawarna, penginapan otentik sawarna, penginapan unik sawarna, penginapan khas sawarna, penginapan istimewa sawarna, penginapan spesial sawarna, penginapan terpercaya sawarna, penginapan terjamin sawarna, homestay sawarna, sewa homestay sawarna, homestay murah sawarna, homestay keluarga sawarna, homestay dekat pantai sawarna, homestay dengan pemandangan sawarna, homestay tradisional sawarna, homestay lokal sawarna, homestay otentik sawarna, resort sawarna, sewa resort sawarna, resort murah sawarna, resort keluarga sawarna, resort dekat pantai sawarna, resort dengan pemandangan sawarna, resort mewah sawarna, resort eksklusif sawarna, resort premium sawarna, cottage sawarna, sewa cottage sawarna, cottage murah sawarna, cottage keluarga sawarna, cottage dekat pantai sawarna, cottage dengan pemandangan sawarna, cottage romantis sawarna, cottage nyaman sawarna, guesthouse sawarna, sewa guesthouse sawarna, guesthouse murah sawarna, guesthouse keluarga sawarna, guesthouse dekat pantai sawarna, guesthouse dengan pemandangan sawarna, guesthouse nyaman sawarna, guesthouse bersih sawarna, bungalow sawarna, sewa bungalow sawarna, bungalow murah sawarna, bungalow keluarga sawarna, bungalow dekat pantai sawarna, bungalow dengan pemandangan sawarna, bungalow nyaman sawarna, bungalow tradisional sawarna, akomodasi sawarna, sewa akomodasi sawarna, akomodasi murah sawarna, akomodasi keluarga sawarna, akomodasi dekat pantai sawarna, akomodasi dengan pemandangan sawarna, akomodasi nyaman sawarna, akomodasi terbaik sawarna, tempat menginap sawarna, sewa tempat menginap sawarna, tempat menginap murah sawarna, tempat menginap keluarga sawarna, tempat menginap dekat pantai sawarna, tempat menginap dengan pemandangan sawarna, tempat menginap nyaman sawarna, tempat menginap terbaik sawarna, tempat istirahat sawarna, sewa tempat istirahat sawarna, tempat istirahat murah sawarna, tempat istirahat keluarga sawarna, tempat istirahat dekat pantai sawarna, tempat istirahat dengan pemandangan sawarna, tempat istirahat nyaman sawarna, tempat istirahat terbaik sawarna, liburan sawarna, wisata sawarna, staycation sawarna, honeymoon sawarna, gathering sawarna, meeting sawarna, retreat sawarna, camping sawarna, backpacker sawarna, backpacking sawarna, solo traveler sawarna, couple sawarna, keluarga sawarna, rombongan sawarna, grup sawarna, musim liburan sawarna, liburan sekolah sawarna, liburan lebaran sawarna, liburan natal sawarna, liburan tahun baru sawarna, liburan akhir pekan sawarna, liburan panjang sawarna, liburan pendek sawarna, liburan murah sawarna, liburan hemat sawarna, liburan ekonomis sawarna, liburan terjangkau sawarna, liburan mewah sawarna, liburan eksklusif sawarna, liburan premium sawarna, liburan luxury sawarna, liburan modern sawarna, liburan tradisional sawarna, liburan lokal sawarna, liburan asli sawarna, liburan otentik sawarna, liburan unik sawarna, liburan khas sawarna, liburan istimewa sawarna, liburan spesial sawarna, liburan terpercaya sawarna, liburan terjamin sawarna"
         url="https://villasawarna.com/villas"
         type="website"
       />
@@ -83,6 +84,7 @@ const Villas = () => {
                       >
                         <Waves size={16} className="flex-shrink-0" />
                         <span>
+                          {location === 'all' && 'Semua Lokasi'}
                           {location === 'sawarna' && 'Pantai Sawarna'}
                           {location === 'goa-langir' && 'Goa Langir'}
                           {location === 'karang-bokor' && 'Karang Bokor'}
@@ -102,6 +104,14 @@ const Villas = () => {
                 <div key={location} className={location === selectedLocation ? 'block' : 'hidden'}>
                   {/* Keterangan Lokasi */}
                   <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-xl p-6 shadow-lg dark:shadow-gray-800/50 border border-ocean/20 dark:border-ocean-dark/20 mb-8">
+                    {location === 'all' && (
+                      <>
+                        <h3 className="text-xl font-bold mb-3 text-ocean dark:text-ocean-light">Semua Lokasi di Sawarna</h3>
+                        <p className="text-gray-600 dark:text-gray-300">
+                          Temukan penginapan villa eksklusif di berbagai lokasi Sawarna. Dari Pantai Sawarna hingga Tanjung Layar, setiap lokasi menawarkan pengalaman unik dengan pemandangan pantai yang menakjubkan dan fasilitas lengkap untuk liburan Anda.
+                        </p>
+                      </>
+                    )}
                     {location === 'sawarna' && (
                       <>
                         <h3 className="text-xl font-bold mb-3 text-ocean dark:text-ocean-light">Pantai Sawarna</h3>

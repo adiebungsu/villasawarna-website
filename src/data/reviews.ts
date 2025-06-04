@@ -849,5 +849,79 @@ export const propertyReviews: Record<string, Review[]> = {
       date: "2024-02-20",
       comment: "Fasilitas lengkap dan staff yang sangat membantu. Lokasi dekat dengan berbagai destinasi wisata di Sawarna."
     }
+  ],
+  "villa-sinar-matahari-resort": [
+    {
+      id: "r1",
+      author: "Hadi Rizwan",
+      rating: 4.9,
+      comment: "Villa yang sangat nyaman. Staff sangat profesional dan ramah.",
+      date: "2024-03-15"
+    },
+    {
+      id: "r2",
+      author: "Malik Rashid",
+      rating: 4.7,
+      comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah.",
+      date: "2024-03-10"
+    },
+    {
+      id: "r3",
+      author: "Faris Anwar",
+      rating: 4.8,
+      comment: "Fasilitas lengkap, bersih, dan pelayanan ramah.",
+      date: "2024-03-05"
+    },
+    {
+      id: "r4",
+      author: "Rafisqy Haikal",
+      rating: 4.6,
+      comment: "Pengalaman menginap yang luar biasa. Kamar bersih dan nyaman.",
+      date: "2024-02-28"
+    },
+    {
+      id: "r5",
+      author: "Mona Hasibuan",
+      rating: 4.9,
+      comment: "Cocok untuk liburan keluarga. Pemandangan pantai yang menakjubkan.",
+      date: "2024-02-20"
+    }
+  ],
+  "villa-aliya-sawarna": [
+    {
+      id: "r1",
+      author: "Rafa Akbar",
+      rating: 5,
+      comment: "Villa yang sangat nyaman dan bersih. Lokasi strategis dekat pantai. Pelayanan staff sangat ramah dan membantu. Kamar deluxe sangat nyaman dengan pemandangan pantai yang indah.",
+      date: "2024-03-15"
+    },
+    {
+      id: "r2",
+      author: "Moch. Angga",
+      rating: 4,
+      comment: "Fasilitas lengkap dan kamar nyaman. AC dan kipas angin membuat kamar sangat sejuk. Hanya saja WiFi kadang tidak stabil. Tapi overall pengalaman menginap sangat menyenangkan.",
+      date: "2024-03-10"
+    },
+    {
+      id: "r3",
+      author: "Nadila",
+      rating: 5,
+      comment: "Pengalaman menginap yang luar biasa. Family room sangat luas dan nyaman untuk keluarga. Staff sangat ramah dan membantu. Pemandangan pantai dari villa sangat indah.",
+      date: "2024-03-05"
+    },
+    {
+      id: "r4",
+      author: "Syahira Azahra",
+      rating: 4,
+      comment: "Villa dengan pemandangan pantai yang memukau. Fasilitas lengkap dan kamar standard sangat nyaman. Hanya saja parkir agak sempit saat weekend. Tapi pelayanan staff sangat baik.",
+      date: "2024-02-28"
+    },
+    {
+      id: "r5",
+      author: "Tuti Aryani",
+      rating: 5,
+      comment: "Sangat cocok untuk liburan keluarga. Kamar deluxe sangat nyaman dengan AC dan kipas angin. Area BBQ dan gazebo menjadi tempat favorit untuk bersantai. Staff sangat ramah dan membantu.",
+      date: "2024-02-20"
+    }
   ]
 }; 

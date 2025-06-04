@@ -15,6 +15,127 @@ export type ExtendedPropertyCardProps = Property;
 
 const villasData: ExtendedPropertyCardProps[] = [
   {
+    id: "villa-aliya-sawarna",
+    name: "Villa Aliya Sawarna",
+    type: "villa",
+    location: "Pantai Sawarna",
+    description: "Villa mewah dengan pemandangan pantai yang menakjubkan dan arsitektur modern. Menawarkan berbagai fasilitas dan tipe kamar untuk kenyamanan maksimal.",
+    price: 250000,
+    rating: 4.5,
+    reviews: 178,
+    capacity: 40,
+    bedrooms: 8,
+    bathrooms: 8,
+    image: "https://i.imgur.com/KNZs2rS.jpeg",
+    mainImages: [
+      "https://i.imgur.com/KNZs2rS.jpeg",
+      "https://i.imgur.com/DG7UVVn.jpeg",
+      "https://i.imgur.com/n8PRWNu.jpeg",
+      "https://i.imgur.com/3SBy64G.jpeg",
+      "https://i.imgur.com/nNqsgI4.jpeg",
+      "https://i.imgur.com/CjJZEtZ.jpeg",
+      "https://i.imgur.com/PURTpP0.jpeg",
+      "https://i.imgur.com/poKtaOU.jpeg",
+      "https://i.imgur.com/B3uAtlT.jpeg",
+      "https://i.imgur.com/tvjzciT.jpeg",
+      "https://i.imgur.com/6QudI8p.jpeg"
+    ],
+    tags: ["villa", "pantai sawarna"],
+    amenities: [
+      "AC",
+      "Kipas Angin",
+      "TV LED",
+      "WiFi Fiber Optic",
+      "Dapur Modern Premium",
+      "Area BBQ",
+      "View Sawah",
+      "Taman Asri",
+      "Parkir Luas",
+      "24/7 Security",
+      "Ruang Tamu",
+      "Ruang Makan",
+      "Kulkas",
+      "Mesin Cuci",
+      "Setrika",
+      "Perlengkapan Mandi",
+      "Handuk",
+      "Kasur Premium",
+      "View Pantai"
+    ],
+    roomTypes: [
+      {
+        id: "standard-room",
+        name: "Standard Room",
+        description: "Kamar nyaman dengan single bed, ideal untuk 2-4 orang. Dilengkapi dengan kipas angin, TV LED, dan kamar mandi dalam.",
+        price: 250000,
+        capacity: 4,
+        beds: "1 Single Bed",
+        bathrooms: 1,
+        amenities: ["Kipas Angin", "TV LED", "Kamar Mandi Dalam", "WiFi"],
+        images: [
+          "https://i.imgur.com/gM2wgbk.jpeg",
+          "https://i.imgur.com/bpEpwhv.jpeg",
+          "https://i.imgur.com/KRwPJYw.jpeg",
+          "https://i.imgur.com/2Cx5cww.jpeg",
+          "https://i.imgur.com/xTsMb8F.jpeg"
+        ]
+      },
+      {
+        id: "deluxe-room",
+        name: "Deluxe Room",
+        description: "Kamar nyaman dengan double bed, ideal untuk 6-8 orang. Dilengkapi dengan AC, kipas angin, TV LED, dan kamar mandi dalam.",
+        price: 350000,
+        capacity: 8,
+        beds: "1 Double Bed",
+        bathrooms: 1,
+        amenities: ["AC", "Kipas Angin", "TV LED", "Kamar Mandi Dalam", "WiFi"],
+        images: [
+          "https://i.imgur.com/aPXXgXY.jpeg",
+          "https://i.imgur.com/D1kETYY.jpeg",
+          "https://i.imgur.com/Ka1EzdS.jpeg",
+          "https://i.imgur.com/BISJx6R.jpeg",
+          "https://i.imgur.com/aTlRKm2.jpeg"
+        ]
+      },
+      {
+        id: "family-room",
+        name: "Family Room",
+        description: "Kamar luas dengan double bed dan single bed, ideal untuk 10-12 orang. Dilengkapi dengan AC, kipas angin, TV LED, dan kamar mandi dalam.",
+        price: 750000,
+        capacity: 12,
+        beds: "1 Double Bed + 1 Single Bed",
+        bathrooms: 1,
+        amenities: ["AC", "Kipas Angin", "TV LED", "Kamar Mandi Dalam", "WiFi"],
+        images: [
+          "https://i.imgur.com/tvjzciT.jpeg",
+          "https://i.imgur.com/6QudI8p.jpeg",
+          "https://i.imgur.com/s0ZPnEX.jpeg",
+          "https://i.imgur.com/A3LxarN.jpeg",
+          "https://i.imgur.com/iflDism.jpeg"
+        ]
+      }
+    ],
+    nearbyAttractions: [
+      { name: "Pantai Sawarna", distance: "5 menit jalan kaki" },
+      { name: "Goa Langir", distance: "4 menit jalan kaki" },
+      { name: "Legon Pari", distance: "9 menit berkendara" },
+      { name: "Tanjung Layar", distance: "4 menit berkendara" }
+    ],
+    ratingSummary: {
+      score: 8.5,
+      totalReviews: 178,
+      breakdown: [
+        { label: "Kebersihan", value: 8.7 },
+        { label: "Kenyamanan Kamar", value: 8.6 },
+        { label: "Makanan", value: 8.4 },
+        { label: "Lokasi", value: 8.8 },
+        { label: "Pelayanan dan Fasilitas", value: 8.5 }
+      ]
+    },
+    contact: { phone: "083877080088" },
+    coordinates: [-6.983539105798058, 106.30959983031511]
+  },
+  {
     id: "villa-dua-putri",
     name: "Villa Dua Putri",
     type: "villa" as const,
@@ -499,9 +620,9 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       {
         id: "standard-room",
         name: "Standard Room",
-        description: "Kamar nyaman dengan single bed, ideal untuk satu orang. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
+        description: "Kamar nyaman dengan single bed, ideal untuk 2-4 orang. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
         price: 350000,
-        capacity: 1,
+        capacity: 4,
         beds: "1 Single Bed",
         bathrooms: 1,
         amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
@@ -516,9 +637,9 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       {
         id: "deluxe-room",
         name: "Deluxe Room",
-        description: "Kamar nyaman dengan double bed, ideal untuk berdua. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
+        description: "Kamar nyaman dengan double bed, ideal untuk 6-8 orang. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
         price: 450000,
-        capacity: 2,
+        capacity: 8,
         beds: "1 Double Bed",
         bathrooms: 1,
         amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
@@ -533,9 +654,9 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       {
         id: "family-room",
         name: "Family Room",
-        description: "Kamar nyaman dengan double bed dan single bed, ideal untuk keluarga. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
+        description: "Kamar nyaman dengan double bed dan single bed, ideal untuk 10-12 orang. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
         price: 550000,
-        capacity: 3,
+        capacity: 12,
         beds: "1 Double Bed + 1 Single Bed",
         bathrooms: 1,
         amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
@@ -1204,12 +1325,29 @@ Fasilitas utama villa ini meliputi 6 kamar tidur nyaman yang masing-masing dilen
 
 Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda untuk memasak sendiri, sementara area BBQ di taman belakang menjadi tempat yang ideal untuk gathering keluarga atau teman. Villa ini juga dilengkapi dengan WiFi berkecepatan tinggi, ruang meeting yang nyaman, dan area parkir yang luas.`,
     price: 450000,
-    rating: 4.3,
+    rating: 4.8,
     reviews: 189,
     capacity: 50,
     bedrooms: 6,
     bathrooms: 6,
-    image: "https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef",
+    image: "https://i.imgur.com/nalEe4n.jpeg",
+    mainImages: [
+      "https://i.imgur.com/nalEe4n.jpeg",
+      "https://i.imgur.com/dJPXB3o.jpeg",
+      "https://i.imgur.com/buvZnBO.jpeg",
+      "https://i.imgur.com/HTv5TtH.jpeg",
+      "https://i.imgur.com/t2e07FS.jpeg",
+      "https://i.imgur.com/SrriRYF.jpeg",
+      "https://i.imgur.com/zXqlpvv.jpeg",
+      "https://i.imgur.com/Zenhfsh.jpeg",
+      "https://i.imgur.com/0fBZA9U.jpeg",
+      "https://i.imgur.com/nj62x2B.jpeg",
+      "https://i.imgur.com/zLTr5LZ.jpeg",
+      "https://i.imgur.com/gHYvnGu.jpeg",
+      "https://i.imgur.com/Ndo0XAD.jpeg",
+      "https://i.imgur.com/xSIQsbI.jpeg",
+      "https://i.imgur.com/jAylpLL.jpeg"
+    ],
     tags: ["villa", "pantai sawarna", "ruang meeting"],
     amenities: [
       "6 Kamar Tidur Nyaman",
@@ -1235,45 +1373,74 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       "Air Panas",
       "View Pantai"
     ],
-    mainImages: [
-      "https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
-      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6",
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511",
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
-    ],
     roomTypes: [
       {
-        id: "standard",
-        name: "Standard Room",
-        description: "Kamar standar yang nyaman dengan queen bed premium dan pemandangan pantai yang menakjubkan. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
-        price: 400000,
-        capacity: 2,
-        beds: "1 Queen Bed Premium",
+        id: "single-non-ac",
+        name: "Single Non AC",
+        description: "Kamar single yang nyaman tanpa AC, cocok untuk penginapan ekonomis.",
+        price: 255000,
+        capacity: 1,
+        beds: "1 Single Bed",
         bathrooms: 1,
         images: [
-          "https://i.imgur.com/9Hcp40U.jpeg",
-          "https://i.imgur.com/JHASLtZ.jpeg",
-          "https://i.imgur.com/Khg9u7S.jpeg",
-          "https://i.imgur.com/yDZCZww.jpeg",
-          "https://i.imgur.com/uh8FQep.jpeg"
+          "https://i.imgur.com/zXqlpvv.jpeg",
+          "https://i.imgur.com/HtPXyWd.jpeg",
+          "https://i.imgur.com/yO8LxPP.jpeg",
+          "https://i.imgur.com/4x3NTLV.jpeg",
+          "https://i.imgur.com/SrriRYF.jpeg"
         ],
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas", "Setrika", "Perlengkapan Mandi", "View Pantai"]
+        amenities: ["Kipas Angin", "WiFi", "Kamar Mandi Dalam", "TV"]
       },
       {
-        id: "deluxe",
-        name: "Deluxe Room",
-        description: "Kamar deluxe yang luas dengan king bed premium dan balkon pribadi. Dilengkapi dengan pemandangan pantai yang menakjubkan dan fasilitas modern untuk kenyamanan maksimal.",
-        price: 500000,
-        capacity: 3,
-        beds: "1 King Bed Premium",
+        id: "single-ac",
+        name: "Single AC",
+        description: "Kamar single yang nyaman dengan AC, dilengkapi dengan fasilitas modern.",
+        price: 365000,
+        capacity: 1,
+        beds: "1 Single Bed",
         bathrooms: 1,
         images: [
-          "https://i.imgur.com/5tWlccP.jpeg",
-          "https://i.imgur.com/jfOhuSi.jpeg",
-          "https://i.imgur.com/oNmci0u.jpeg"
+          "https://i.imgur.com/nj62x2B.jpeg",
+          "https://i.imgur.com/LPY2YGW.jpeg",
+          "https://i.imgur.com/5fnhV3u.jpeg",
+          "https://i.imgur.com/Ndo0XAD.jpeg",
+          "https://i.imgur.com/4ifOJod.jpeg"
         ],
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kulkas", "Setrika", "Perlengkapan Mandi", "View Pantai"]
+        amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "TV", "Mini Kulkas"]
+      },
+      {
+        id: "double-bedroom",
+        name: "Double Bedroom",
+        description: "Kamar double yang luas dengan dua tempat tidur, ideal untuk berdua.",
+        price: 400000,
+        capacity: 2,
+        beds: "2 Single Beds",
+        bathrooms: 1,
+        images: [
+          "https://i.imgur.com/0iklgMM.jpeg",
+          "https://i.imgur.com/s8tzrI6.jpeg",
+          "https://i.imgur.com/fGtnEpN.jpeg",
+          "https://i.imgur.com/mkX3Buk.jpeg",
+          "https://i.imgur.com/O8RoiSG.jpeg"
+        ],
+        amenities: ["AC", "WiFi", "Kamar Mandi Dalam", "TV", "Mini Kulkas"]
+      },
+      {
+        id: "family-room",
+        name: "Family Room",
+        description: "Kamar keluarga yang sangat luas dengan ruang tamu terpisah.",
+        price: 600000,
+        capacity: 4,
+        beds: "2 Queen Beds",
+        bathrooms: 2,
+        images: [
+          "https://i.imgur.com/Zenhfsh.jpeg",
+          "https://i.imgur.com/WDG9ZjJ.jpeg",
+          "https://i.imgur.com/UCWmfRU.jpeg",
+          "https://i.imgur.com/Ra9a4iU.jpeg",
+          "https://i.imgur.com/lEWj0go.jpeg"
+        ],
+        amenities: ["AC", "WiFi", "2 Kamar Mandi Dalam", "TV", "Mini Kulkas", "Ruang Tamu"]
       }
     ],
     nearbyAttractions: [
@@ -1296,21 +1463,40 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
     reviewDetails: [
       {
         id: "1",
-        author: "Budi Santoso",
-        rating: 4.7,
+        author: "Hadi Rizwan",
+        rating: 4.9,
         comment: "Villa yang sangat nyaman. Staff sangat profesional dan ramah.",
         date: "2024-03-15"
       },
       {
         id: "2",
-        author: "Dewi Lestari",
-        rating: 4.6,
+        author: "Malik Rashid",
+        rating: 4.7,
         comment: "Lokasi strategis dan bersih. Pemandangan matahari terbit yang indah.",
         date: "2024-03-10"
+      },
+      {
+        id: "3",
+        author: "Faris Anwar",
+        rating: 4.8,
+        comment: "Fasilitas lengkap, bersih, dan pelayanan ramah.",
+        date: "2024-03-05"
+      },
+      {
+        id: "4",
+        author: "Rafisqy Haikal",
+        rating: 4.6,
+        comment: "Pengalaman menginap yang luar biasa. Kamar bersih dan nyaman.",
+        date: "2024-02-28"
+      },
+      {
+        id: "5",
+        author: "Mona Hasibuan",
+        rating: 4.9,
+        comment: "Cocok untuk liburan keluarga. Pemandangan pantai yang menakjubkan.",
+        date: "2024-02-20"
       }
-    ],
-    contact: { phone: "083877080088" },
-    coordinates: [-6.98382227227367, 106.31032309995304]
+    ]
   },
   {
     id: "villa-putri-asih",
@@ -1980,19 +2166,19 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       {
         id: "family",
         name: "Family Room",
-        description: "Kamar keluarga yang sangat luas dengan ruang tamu terpisah dan pemandangan pantai yang menakjubkan. Dilengkapi dengan fasilitas premium untuk kenyamanan keluarga.",
-        price: 650000,
-        capacity: 6,
-        beds: "2 Queen Beds Premium",
-        bathrooms: 2,
+        description: "Kamar luas ideal untuk keluarga. Dilengkapi dengan AC dan kamar mandi dalam yang nyaman.",
+        price: 597000,
+        capacity: 12,
+        beds: "2 Double Beds",
+        bathrooms: 1,
+        amenities: ["AC", "Kamar Mandi Dalam", "WiFi", "Mini Kulkas", "TV LED", "Sofa"],
         images: [
-          "https://i.imgur.com/Khg9u7S.jpeg",
-          "https://i.imgur.com/yDZCZww.jpeg",
-          "https://i.imgur.com/uh8FQep.jpeg",
-          "https://i.imgur.com/5tWlccP.jpeg",
-          "https://i.imgur.com/jfOhuSi.jpeg"
-        ],
-        amenities: ["AC", "TV LED 55 inch", "2 Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kitchen", "Ruang Tamu", "Setrika", "Perlengkapan Mandi", "View Pantai"]
+          "https://i.imgur.com/hwrTWry.jpeg",
+          "https://i.imgur.com/H7cnL1E.jpeg",
+          "https://i.imgur.com/KEdpRpf.jpeg",
+          "https://i.imgur.com/chZSK1p.jpeg",
+          "https://i.imgur.com/wIFDFF0.jpeg"
+        ]
       }
     ],
     nearbyAttractions: [
@@ -2253,6 +2439,144 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         date: "2024-03-10"
       }
     ]
+  },
+  {
+    id: "villa-sabumi-goa-langir",
+    name: "Villa Sabumi Goa Langir",
+    type: "villa" as const,
+    location: "Goa Langir",
+    description: `Villa Sabumi Goa Langir adalah villa nyaman yang terletak di kawasan Goa Langir. Dengan kapasitas hingga 30 tamu, villa ini menawarkan pengalaman menginap yang tak terlupakan dengan berbagai tipe kamar yang dapat dipilih sesuai kebutuhan.
+
+Fasilitas utama villa ini meliputi kamar-kamar nyaman yang dilengkapi AC dan kipas angin, memastikan kenyamanan tamu dalam segala cuaca. Setiap kamar didesain dengan mempertimbangkan kenyamanan dan fungsionalitas.
+
+Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer di Sawarna, termasuk Goa Langir yang berada di dekat villa.`,
+    price: 300000,
+    rating: 4.5,
+    reviews: 201,
+    capacity: 30,
+    bedrooms: 10,
+    bathrooms: 5,
+    image: "https://i.imgur.com/HisfkFs.jpeg",
+    mainImages: [
+      "https://i.imgur.com/HisfkFs.jpeg",
+      "https://i.imgur.com/ttlTfhR.jpeg",
+      "https://i.imgur.com/yJZWSQ2.jpeg",
+      "https://i.imgur.com/vAiJMMx.jpeg",
+      "https://i.imgur.com/GJGvv8Z.jpeg",
+      "https://i.imgur.com/2ItBE2B.jpeg",
+      "https://i.imgur.com/VrcsToO.jpeg",
+      "https://i.imgur.com/hwrTWry.jpeg",
+      "https://i.imgur.com/jMPb2Kg.jpeg",
+      "https://i.imgur.com/IF91kqD.jpeg",
+      "https://i.imgur.com/Xv7HrPW.jpeg",
+      "https://i.imgur.com/S9vUVGx.jpeg"
+    ],
+    tags: ["villa", "goa langir"],
+    amenities: [
+      "AC",
+      "Kipas Angin",
+      "WiFi",
+      "Parkir Luas",
+      "24/7 Security",
+      "Ruang Tamu",
+      "Ruang Makan",
+      "Dapur Bersama",
+      "Kulkas",
+      "Mesin Cuci",
+      "Setrika",
+      "Perlengkapan Mandi",
+      "Handuk",
+      "Kasur Premium"
+    ],
+    roomTypes: [
+      {
+        id: "single-bedroom",
+        name: "Single Bedroom",
+        description: "Kamar nyaman dengan single bed, ideal untuk satu orang. Dilengkapi dengan kipas angin dan kamar mandi dalam.",
+        price: 250000,
+        capacity: 2,
+        beds: "1 Single Bed",
+        bathrooms: 1,
+        amenities: ["Kipas Angin", "Kamar Mandi Dalam", "WiFi", "Mini Kulkas"],
+        images: [
+          "https://i.imgur.com/reGQLRF.jpeg",
+          "https://i.imgur.com/XuAHgyi.jpeg",
+          "https://i.imgur.com/bTzTWF8.jpeg",
+          "https://i.imgur.com/WCVedML.jpeg",
+          "https://i.imgur.com/OuzmnMz.jpeg"
+        ]
+      },
+      {
+        id: "non-ac-twinbed",
+        name: "Non AC Twinbed",
+        description: "Kamar nyaman dengan twin bed, ideal untuk berdua. Dilengkapi dengan kipas angin dan kamar mandi dalam.",
+        price: 300000,
+        capacity: 2,
+        beds: "2 Single Beds",
+        bathrooms: 1,
+        amenities: ["Kipas Angin", "Kamar Mandi Dalam", "WiFi", "Mini Kulkas"],
+        images: [
+          "https://i.imgur.com/chUKixP.jpeg",
+          "https://i.imgur.com/ystamnb.jpeg",
+          "https://i.imgur.com/9uXMNeu.jpeg",
+          "https://i.imgur.com/BGaNbOO.jpeg",
+          "https://i.imgur.com/vAiJMMx.jpeg"
+        ]
+      },
+      {
+        id: "ac-twinbed",
+        name: "AC Twinbed",
+        description: "Kamar nyaman dengan twin bed dan AC, ideal untuk berdua. Dilengkapi dengan kamar mandi dalam.",
+        price: 450000,
+        capacity: 2,
+        beds: "2 Single Beds",
+        bathrooms: 1,
+        amenities: ["AC", "Kamar Mandi Dalam", "WiFi", "Mini Kulkas"],
+        images: [
+          "https://i.imgur.com/0tA6cIb.jpeg",
+          "https://i.imgur.com/HEYe5UW.jpeg",
+          "https://i.imgur.com/0tA6cIb.jpeg",
+          "https://i.imgur.com/ffDlqHV.jpeg",
+          "https://i.imgur.com/S9vUVGx.jpeg"
+        ]
+      },
+      {
+        id: "family-room",
+        name: "Family Room",
+        description: "Kamar luas ideal untuk keluarga. Dilengkapi dengan AC dan kamar mandi dalam yang nyaman.",
+        price: 597000,
+        capacity: 12,
+        beds: "2 Double Beds",
+        bathrooms: 1,
+        amenities: ["AC", "Kamar Mandi Dalam", "WiFi", "Mini Kulkas", "TV LED", "Sofa"],
+        images: [
+          "https://i.imgur.com/hwrTWry.jpeg",
+          "https://i.imgur.com/H7cnL1E.jpeg",
+          "https://i.imgur.com/KEdpRpf.jpeg",
+          "https://i.imgur.com/chZSK1p.jpeg",
+          "https://i.imgur.com/wIFDFF0.jpeg"
+        ]
+      }
+    ],
+    nearbyAttractions: [
+      { name: "Goa Langir", distance: "5 menit jalan kaki" },
+      { name: "Pantai Sawarna", distance: "10 menit berkendara" },
+      { name: "Legon Pari", distance: "15 menit berkendara" },
+      { name: "Tanjung Layar", distance: "10 menit berkendara" }
+    ],
+    ratingSummary: {
+      score: 8.6,
+      totalReviews: 201,
+      breakdown: [
+        { label: "Kebersihan", value: 8.7 },
+        { label: "Kenyamanan Kamar", value: 8.6 },
+        { label: "Makanan", value: 8.5 },
+        { label: "Lokasi", value: 8.8 },
+        { label: "Pelayanan dan Fasilitas", value: 8.4 }
+      ]
+    },
+    contact: { phone: "0838-4134-8177" },
+    coordinates: [-6.983539105798058, 106.30959983031511]
   }
 ];
 
