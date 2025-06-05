@@ -256,92 +256,55 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         name: "Villa Sinar Pelangi",
         type: "villa",
         location: "Pantai Sawarna",
-        description: `Villa Sinar Pelangi adalah villa mewah yang terletak tepat di depan Pantai Sawarna. Dengan pemandangan matahari terbit yang menakjubkan dan desain arsitektur modern, villa ini menawarkan pengalaman menginap yang tak terlupakan.
-
-Fasilitas utama villa ini meliputi 10 kamar tidur mewah yang masing-masing dilengkapi AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan kolam renang infinity dan gazebo menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan matahari terbit.
-
-Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda untuk memasak sendiri, sementara area BBQ yang luas di taman belakang menjadi tempat yang ideal untuk gathering keluarga atau teman. Villa ini juga dilengkapi dengan WiFi berkecepatan tinggi, ruang meeting yang nyaman, dan area parkir yang luas.
-
-Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer di Sawarna, seperti Pantai Sawarna (depan pantai), Goa Langir (8 menit berkendara), Legon Pari (9-10 menit berkendara), dan Tanjung Layar (4 menit berkendara).`,
+        description: `Villa Sinar Pelangi adalah villa eksklusif dengan 10 kamar tidur yang menawarkan halaman luas. Terletak di Pantai Sawarna, villa ini dilengkapi dengan dapur lengkap, dan teras yang luas. Cocok untuk liburan keluarga atau rombongan besar.`,
         price: 200000,
-        rating: 4.7,
-        reviews: 239,
-        capacity: 50,
+        rating: 4.8,
+        reviews: 12,
+        capacity: 40,
         bedrooms: 10,
         bathrooms: 4,
         image: "https://i.imgur.com/lNcydX5.jpeg",
-        tags: ["villa", "pantai sawarna"],
-        amenities: [
-            "10 Kamar Tidur Mewah",
-            "4 Kamar Mandi Dalam",
-            "AC di Semua Kamar",
-            "TV LED 43 inch",
-            "WiFi Fiber Optic",
-            "Kolam Renang Infinity",
-            "Dapur Modern Premium",
-            "Area BBQ Luas",
-            "Gazebo",
-            "Taman",
-            "Parkir Luas",
-            "Ruang Meeting",
-            "24/7 Security",
-            "Ruang Tamu",
-            "Ruang Makan",
-            "Kulkas",
-            "Mesin Cuci",
-            "Setrika",
-            "Perlengkapan Mandi",
-            "Handuk",
-            "Kasur Premium",
-            "Air Panas"
-        ],
         mainImages: [
-            "https://i.imgur.com/lNcydX5.jpeg",
-            "https://i.imgur.com/GkCBWRe.jpeg",
-            "https://i.imgur.com/KjL0Jpg.jpeg",
-            "https://i.imgur.com/wZ0cSjQ.jpeg",
-            "https://i.imgur.com/WhBRfqs.jpeg",
-            "https://i.imgur.com/Nh6XLTg.jpeg",
-            "https://i.imgur.com/7EnCW0d.jpeg",
-            "https://i.imgur.com/DTBq7Dq.jpeg",
-            "https://i.imgur.com/9cttGSs.jpeg",
-            "https://i.imgur.com/0aMZ0iY.jpeg"
+          "https://i.imgur.com/lNcydX5.jpeg",
+          "https://i.imgur.com/GkCBWRe.jpeg",
+          "https://i.imgur.com/KjL0Jpg.jpeg",
+          "https://i.imgur.com/wZ0cSjQ.jpeg",
+          "https://i.imgur.com/WhBRfqs.jpeg",
+          "https://i.imgur.com/Nh6XLTg.jpeg",
+          "https://i.imgur.com/7EnCW0d.jpeg",
+          "https://i.imgur.com/DTBq7Dq.jpeg",
+          "https://i.imgur.com/9cttGSs.jpeg",
+          "https://i.imgur.com/0aMZ0iY.jpeg"
         ],
+        amenities: [
+          "Kipas Angin",
+          "10 Kamar Tidur",
+          "24/7 Security",
+          "Dapur",
+          "Parkir",
+          "Halaman Luas",
+          "Teras",
+          "Kamar Mandi Dalam"
+        ],
+        tags: ["Pantai", "10 Kamar", "Eksklusif"],
         roomTypes: [
-            {
-                id: "standard",
-                name: "Standard Room",
-                description: "Kamar standar yang nyaman dengan queen bed premium, ideal untuk pasangan atau keluarga kecil. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
-                price: 450000,
-                capacity: 2,
-                beds: "1 Queen Bed Premium",
-                bathrooms: 1,
-                images: [
-                    "https://i.imgur.com/xjM7Pu6.jpeg",
-                    "https://i.imgur.com/7EnCW0d.jpeg",
-                    "https://i.imgur.com/DTBq7Dq.jpeg",
-                    "https://i.imgur.com/9cttGSs.jpeg",
-                    "https://i.imgur.com/0aMZ0iY.jpeg"
-                ],
-                amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas", "Setrika", "Perlengkapan Mandi"]
-            },
-            {
-                id: "deluxe",
-                name: "Deluxe Room",
-                description: "Kamar deluxe yang luas dengan king bed premium dan balkon pribadi. Dilengkapi dengan pemandangan pantai yang menakjubkan dan fasilitas modern untuk kenyamanan maksimal.",
-                price: 550000,
-                capacity: 2,
-                beds: "1 King Bed Premium",
-                bathrooms: 1,
-                images: [
-                    "https://i.imgur.com/lNcydX5.jpeg",
-                    "https://i.imgur.com/wZ0cSjQ.jpeg",
-                    "https://i.imgur.com/WhBRfqs.jpeg",
-                    "https://i.imgur.com/Nh6XLTg.jpeg",
-                    "https://i.imgur.com/7EnCW0d.jpeg"
-                ],
-                amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kulkas", "Setrika", "Perlengkapan Mandi"]
-            }
+          {
+            id: "standar-room",
+            name: "Standar Room",
+            description: "Kamar standar dengan fasilitas lengkap",
+            price: 200000,
+            capacity: 2,
+            beds: "1 Queen Bed",
+            bathrooms: 1,
+            images: [
+              "https://i.imgur.com/xjM7Pu6.jpeg",
+              "https://i.imgur.com/7EnCW0d.jpeg",
+              "https://i.imgur.com/DTBq7Dq.jpeg",
+              "https://i.imgur.com/9cttGSs.jpeg",
+              "https://i.imgur.com/0aMZ0iY.jpeg"
+            ],
+            amenities: ["Kipas Angin", "10 Kamar Tidur", "24/7 Security", "Kamar Mandi Dalam"]
+          }
         ],
         nearbyAttractions: [
             { name: "Pantai Sawarna", distance: "depan pantai" },
@@ -351,7 +314,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ],
         ratingSummary: {
             score: 9.0,
-            totalReviews: 239,
+            totalReviews: 12,
             breakdown: [
                 { label: "Kebersihan", value: 9.2 },
                 { label: "Kenyamanan Kamar", value: 9.1 },
@@ -363,38 +326,17 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         reviewDetails: [
             {
                 id: 1,
-                name: "Rizky Maulana",
-                rating: 4.9,
-                comment: "Villa yang sangat nyaman dengan fasilitas lengkap. Staff sangat ramah dan profesional. Pemandangan matahari terbit yang indah.",
-                date: "2024-02-15"
+                name: "Budi Santoso",
+                rating: 4.8,
+                comment: "Villa yang sangat nyaman dengan pemandangan pantai yang indah. Fasilitas lengkap dan staff ramah.",
+                date: "2024-03-15"
             },
             {
                 id: 2,
-                name: "Luna Maharani",
-                rating: 4.8,
-                comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah. Area BBQ yang luas sangat cocok untuk gathering.",
-                date: "2024-02-10"
-            },
-            {
-                id: 3,
-                name: "Yoga Ardiansyah",
-                rating: 4.9,
-                comment: "Pengalaman menginap yang luar biasa. Kamar bersih dan nyaman, fasilitas lengkap. Cocok untuk liburan keluarga.",
-                date: "2024-02-05"
-            },
-            {
-                id: 4,
-                name: "Cahya Nirmala",
+                name: "Dewi Lestari",
                 rating: 4.7,
-                comment: "Desain modern dan nyaman untuk menginap bersama teman-teman. Kolam renang infinity dengan pemandangan pantai yang memukau.",
-                date: "2024-01-28"
-            },
-            {
-                id: 5,
-                name: "Arga Saputra",
-                rating: 4.8,
-                comment: "Staff sangat membantu dan lokasi dekat dengan destinasi wisata. Area BBQ yang luas menjadi nilai plus.",
-                date: "2024-01-20"
+                comment: "Lokasi strategis dan bersih. Pemandangan pantai yang indah membuat suasana sangat nyaman.",
+                date: "2024-03-10"
             }
         ]
     },
@@ -922,10 +864,10 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
             }
         ],
         nearbyAttractions: [
-            { name: "Pantai Sawarna", distance: "4-5 menit berkendara" },
-            { name: "Tanjung Layar", distance: "7 menit berkendara" },
-            { name: "Goa Langir", distance: "2-3 menit berkendara" },
-            { name: "Legon Pari", distance: "10-12 menit berkendara" }
+            { name: "Pantai Sawarna", distance: "4-6 menit jalan kaki" },
+            { name: "Goa Langir", distance: "8 menit berkendara" },
+            { name: "Legon Pari", distance: "9-10 menit berkendara" },
+            { name: "Tanjung Layar", distance: "4 menit berkendara" }
         ],
         reviewDetails: [
             {
@@ -1147,7 +1089,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
             }
         ],
         nearbyAttractions: [
-            { name: "Pantai Sawarna", distance: "3 menit jalan kaki" },
+            { name: "Pantai Sawarna", distance: "4-6 menit jalan kaki" },
             { name: "Goa Langir", distance: "8 menit berkendara" },
             { name: "Legon Pari", distance: "9-10 menit berkendara" },
             { name: "Tanjung Layar", distance: "4 menit berkendara" }
@@ -1264,7 +1206,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
             }
         ],
         nearbyAttractions: [
-            { name: "Pantai Sawarna", distance: "depan pantai" },
+            { name: "Pantai Sawarna", distance: "4-6 menit jalan kaki" },
             { name: "Goa Langir", distance: "8 menit berkendara" },
             { name: "Legon Pari", distance: "9-10 menit berkendara" },
             { name: "Tanjung Layar", distance: "4 menit berkendara" }
@@ -1363,7 +1305,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
             }
         ],
         nearbyAttractions: [
-            { name: "Pantai Sawarna", distance: "3 menit jalan kaki" },
+            { name: "Pantai Sawarna", distance: "4-6 menit jalan kaki" },
             { name: "Goa Langir", distance: "8 menit berkendara" },
             { name: "Legon Pari", distance: "9-10 menit berkendara" },
             { name: "Tanjung Layar", distance: "4 menit berkendara" }
@@ -1462,7 +1404,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
             }
         ],
         nearbyAttractions: [
-            { name: "Pantai Sawarna", distance: "3 menit jalan kaki" },
+            { name: "Pantai Sawarna", distance: "4-6 menit jalan kaki" },
             { name: "Goa Langir", distance: "8 menit berkendara" },
             { name: "Legon Pari", distance: "9-10 menit berkendara" },
             { name: "Tanjung Layar", distance: "4 menit berkendara" }
@@ -1561,7 +1503,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
             }
         ],
         nearbyAttractions: [
-            { name: "Pantai Sawarna", distance: "3 menit jalan kaki" },
+            { name: "Pantai Sawarna", distance: "4-6 menit jalan kaki" },
             { name: "Goa Langir", distance: "8 menit berkendara" },
             { name: "Legon Pari", distance: "9-10 menit berkendara" },
             { name: "Tanjung Layar", distance: "4 menit berkendara" }
@@ -1660,7 +1602,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
             }
         ],
         nearbyAttractions: [
-            { name: "Pantai Sawarna", distance: "3 menit jalan kaki" },
+            { name: "Pantai Sawarna", distance: "4-6 menit jalan kaki" },
             { name: "Goa Langir", distance: "8 menit berkendara" },
             { name: "Legon Pari", distance: "9-10 menit berkendara" },
             { name: "Tanjung Layar", distance: "4 menit berkendara" }
@@ -1935,6 +1877,56 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
                 { label: "Nilai", value: 8.8 }
             ]
         }
+    },
+    {
+        id: "villa-cariang-resort",
+        name: "Vila Cariang Resort",
+        type: "villa",
+        location: "Goa Langir, Sawarna",
+        description: "Villa mewah dengan pemandangan yang menakjubkan dan arsitektur modern. Menawarkan berbagai fasilitas dan tipe kamar untuk kenyamanan maksimal.",
+        price: 354000,
+        rating: 4.8,
+        reviews: 173,
+        capacity: 60,
+        bedrooms: 8,
+        bathrooms: 8,
+        image: "https://i.imgur.com/DZUDP0B.jpeg",
+        mainImages: [
+          "https://i.imgur.com/DZUDP0B.jpeg",
+          "https://i.imgur.com/fcXMylc.jpeg",
+          "https://i.imgur.com/j6DVFuR.jpeg",
+          "https://i.imgur.com/ElZhSYF.jpeg",
+          "https://i.imgur.com/tEHYq0T.jpeg",
+          "https://i.imgur.com/kT0WXmy.jpeg",
+          "https://i.imgur.com/9x03WMf.jpeg",
+          "https://i.imgur.com/d3uH6hO.jpeg",
+          "https://i.imgur.com/PJt26cy.jpeg",
+          "https://i.imgur.com/swSUfVW.jpeg"
+        ],
+        tags: ["villa", "goa langir sawarna"],
+        amenities: [
+          "8 Kamar Tidur Nyaman",
+          "8 Kamar Mandi Dalam",
+          "AC di Semua Kamar",
+          "TV LED 43 inch",
+          "WiFi Fiber Optic",
+          "Dapur Modern Premium",
+          "Area BBQ",
+          "Gazebo",
+          "Taman",
+          "Parkir Luas",
+          "Ruang Meeting",
+          "24/7 Security",
+          "Ruang Tamu",
+          "Ruang Makan",
+          "Kulkas",
+          "Mesin Cuci",
+          "Setrika",
+          "Perlengkapan Mandi",
+          "Handuk",
+          "Kasur Premium",
+          "Air Panas"
+        ],
     }
 ];
 const homestaysData = [

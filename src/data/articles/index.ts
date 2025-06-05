@@ -41,8 +41,10 @@ import { homestayBackpacker } from './homestay-backpacker-sawarna';
 import { villasawarnaPilihanFavorit } from './villasawarna-pilihan-favorit';
 import { checklistLiburanSawarna } from './checklist-liburan-sawarna';
 import { menginapMusimSepi } from './menginap-musim-sepi';
+import { hargaTiket } from './harga-tiket';
 
 export const articleData: Article[] = [
+  hargaTiket,
   menginapMusimSepi,
   checklistLiburanSawarna,
   villasawarnaPilihanFavorit,

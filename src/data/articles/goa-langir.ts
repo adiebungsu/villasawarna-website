@@ -2,43 +2,69 @@ import { Article } from '@/types/article';
 
 export const goaLangir: Article = {
   id: "goa-langir",
-  title: "Goa Langir Sawarna",
+  title: "Goa Langir Sawarna: Pesona Alam Bawah Tanah yang Memukau",
   slug: "goa-langir",
-  excerpt: "Jelajahi keindahan Goa Langir, salah satu destinasi wisata alam di Sawarna.",
-  content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Goa Langir Sawarna</strong></h2>
-<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/X2qJFHn.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/X2qJFHn.jpeg" width="236" alt="Goa Langir Sawarna" /></a></div>Jelajahi keindahan Goa Langir, salah satu destinasi wisata alam di Sawarna.<p></p>
-
-<h3 class="" data-end="647" data-start="601"><strong data-end="647" data-start="605">Lokasi</strong></h3>
-<p class="" data-end="890" data-start="648">Goa Langir terletak di kawasan Sawarna, Banten, dengan akses yang mudah dijangkau.</p>
-
-<h3 class="" data-end="950" data-start="897"><strong data-end="950" data-start="901">Keunikan</strong></h3>
-<p class="" data-end="1156" data-start="951">Goa ini memiliki stalaktit dan stalagmit yang menakjubkan serta aliran air yang jernih.</p>
-
-<h3 class="" data-end="1195" data-start="1163"><strong data-end="1195" data-start="1167">Aktivitas</strong></h3>
-<p class="" data-end="1424" data-start="1196">Pengunjung dapat menikmati keindahan alam, berfoto, dan mempelajari sejarah goa.</p>
-
-<h3 class="" data-end="1468" data-start="1431"><strong data-end="1468" data-start="1435">Tips Berkunjung</strong></h3>
-<p class="" data-end="1682" data-start="1469">Bawa peralatan yang diperlukan dan ikuti panduan pemandu lokal untuk keamanan.</p>
-
-<p class="" data-end="3314" data-start="3086"><strong data-end="3749" data-start="3707">Siap untuk berlibur ke Sawarna?</strong><br data-end="3752" data-start="3749" />
-👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
+  excerpt: "Jelajahi keindahan Goa Langir di Sawarna, destinasi wisata alam yang menawarkan pengalaman petualangan unik dengan stalaktit dan stalagmit yang memukau.",
+  content: `<h2 data-end="273" data-start="195"><strong data-end="273" data-start="198">Goa Langir Sawarna: Pesona Alam Bawah Tanah yang Memukau</strong></h2>
+<p data-end="471" data-start="275"><strong data-end="296" data-start="275">Meta Description:</strong><br data-end="299" data-start="296" />
+Jelajahi keindahan Goa Langir di Sawarna, destinasi wisata alam yang menawarkan pengalaman petualangan unik dengan stalaktit dan stalagmit yang memukau.</p>
+<hr data-end="476" data-start="473" />
+<h3 data-end="497" data-start="478"><strong data-end="497" data-start="482">Pendahuluan</strong></h3>
+<p data-end="899" data-start="499">Goa Langir merupakan salah satu destinasi wisata alam yang menarik di Sawarna. Terletak di kawasan perbukitan, goa ini menawarkan pengalaman petualangan yang unik dengan keindahan stalaktit dan stalagmit yang terbentuk secara alami selama ribuan tahun.</p>
+<hr data-end="904" data-start="901" />
+<h3 data-end="957" data-start="906"><strong data-end="957" data-start="910">1. Lokasi dan Akses</strong></h3>
+<p data-end="1145" data-start="959">Goa Langir terletak di Desa Sawarna, Kabupaten Lebak, Banten. Untuk mencapainya:</p>
+<ul data-end="1311" data-start="1163">
+<li data-end="1208" data-start="1163">Dari pusat Desa Sawarna: 15 menit perjalanan</li>
+<li data-end="1261" data-start="1209">Dari Pantai Sawarna: 20 menit perjalanan</li>
+</ul>
+<p data-end="1395" data-start="1313">Akses menuju goa bisa ditempuh dengan motor atau berjalan kaki melalui jalan setapak yang sudah dipaving.</p>
+<hr data-end="1400" data-start="1397" />
+<h3 data-end="1470" data-start="1402"><strong data-end="1470" data-start="1406">2. Keunikan Goa Langir</strong></h3>
+<p data-end="1679" data-start="1472">Goa Langir memiliki beberapa keunikan yang menarik:</p>
+<ul data-end="1841" data-start="1697">
+<li data-end="1752" data-start="1697">Stalaktit dan stalagmit yang masih aktif tumbuh</li>
+<li data-end="1806" data-start="1753">Sumber air alami di dalam goa</li>
+<li data-end="1841" data-start="1807">Formasi batuan yang menakjubkan</li>
+</ul>
+<hr data-end="1846" data-start="1843" />
+<h3 data-end="1914" data-start="1848"><strong data-end="1914" data-start="1852">3. Tips Berkunjung</strong></h3>
+<p data-end="2146" data-start="1916">Beberapa tips saat berkunjung ke Goa Langir:</p>
+<ul data-end="2313" data-start="2164">
+<li data-end="2200" data-start="2164">Datang pagi hari untuk menghindari keramaian</li>
+<li data-end="2249" data-start="2201">Bawa senter dan air minum</li>
+<li data-end="2313" data-start="2250">Gunakan alas kaki yang nyaman</li>
+</ul>
+<hr data-end="2318" data-start="2315" />
+<h3 data-end="2375" data-start="2320"><strong data-end="2375" data-start="2324">4. Fasilitas</strong></h3>
+<ul data-end="2748" data-start="2634">
+<li data-end="2678" data-start="2634">Area parkir</li>
+<li data-end="2714" data-start="2679">Warung makan</li>
+<li data-end="2748" data-start="2715">Toilet umum</li>
+</ul>
+<hr data-end="2806" data-start="2803" />
+<h3 data-end="2862" data-start="2808"><strong data-end="2862" data-start="2812">5. Menginap di Villa Sawarna</strong></h3>
+<p data-end="3210" data-start="2864">Setelah mengeksplor Goa Langir, beristirahatlah di Villa Sawarna yang nyaman dan strategis. Villa kami menawarkan berbagai fasilitas lengkap untuk membuat liburan Anda lebih menyenangkan.</p>
+<hr data-end="3215" data-start="3212" />
+<h3 data-end="3273" data-start="3217"><strong data-end="3273" data-start="3221">Kesimpulan</strong></h3>
+<p data-end="3562" data-start="3275">Goa Langir merupakan destinasi wisata yang wajib dikunjungi saat berlibur di Sawarna. Keindahan alam bawah tanahnya akan memberikan pengalaman liburan yang tak terlupakan.</p>`,
   category: "Wisata",
   image: "https://i.imgur.com/X2qJFHn.jpeg",
   author: "Tim Villa Sawarna",
   date: "2024-03-20",
-  tags: ["Wisata", "Wisata Banten", "Pantai Sawarna", "Goa"],
+  tags: ["Goa Langir", "Wisata Sawarna", "Wisata Alam", "Petualangan", "Villa Sawarna", "Wisata Banten"],
   meta: {
-    title: "Goa Langir Sawarna",
-    description: "Jelajahi keindahan Goa Langir, salah satu destinasi wisata alam di Sawarna.",
-    keywords: "Wisata, Wisata Banten, Pantai Sawarna, Goa",
-    ogTitle: "Goa Langir Sawarna",
-    ogDescription: "Jelajahi keindahan Goa Langir, salah satu destinasi wisata alam di Sawarna.",
+    title: "Goa Langir Sawarna: Pesona Alam Bawah Tanah yang Memukau",
+    description: "Jelajahi keindahan Goa Langir di Sawarna, destinasi wisata alam yang menawarkan pengalaman petualangan unik dengan stalaktit dan stalagmit yang memukau.",
+    keywords: "Goa Langir, Wisata Sawarna, Wisata Alam, Petualangan, Villa Sawarna, Wisata Banten, Stalaktit, Stalagmit",
+    ogTitle: "Goa Langir Sawarna: Pesona Alam Bawah Tanah yang Memukau",
+    ogDescription: "Jelajahi keindahan Goa Langir di Sawarna, destinasi wisata alam yang menawarkan pengalaman petualangan unik dengan stalaktit dan stalagmit yang memukau.",
     ogImage: "https://i.imgur.com/X2qJFHn.jpeg",
     twitterCard: "summary_large_image",
-    twitterTitle: "Goa Langir Sawarna",
-    twitterDescription: "Jelajahi keindahan Goa Langir, salah satu destinasi wisata alam di Sawarna.",
+    twitterTitle: "Goa Langir Sawarna: Pesona Alam Bawah Tanah yang Memukau",
+    twitterDescription: "Jelajahi keindahan Goa Langir di Sawarna, destinasi wisata alam yang menawarkan pengalaman petualangan unik dengan stalaktit dan stalagmit yang memukau.",
     twitterImage: "https://i.imgur.com/X2qJFHn.jpeg"
   }
 };
 
-export default goaLangir;
+export default goaLangir; 

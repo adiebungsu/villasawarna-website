@@ -21,7 +21,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg', 'sitemap.xml'],
       manifest: {
         name: 'Villa Sawarna',
         short_name: 'Villa Sawarna',
@@ -43,7 +43,7 @@ export default defineConfig({
     }),
     compression({
       algorithm: 'gzip',
-      exclude: [/\.(br)$/, /\.(gz)$/],
+      exclude: [/\.(br)$/, /\.(gz)$/, /\.(xml)$/],
     }),
     visualizer({
       filename: 'dist/stats.html',
@@ -84,5 +84,6 @@ export default defineConfig({
         drop_debugger: true
       }
     }
-  }
+  },
+  publicDir: 'public'
 });

@@ -27,20 +27,20 @@ const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
       <script type="application/ld+json">
         {JSON.stringify(structuredData)}
       </script>
-      <nav className="flex items-center space-x-2 text-sm text-gray-500 mb-6">
+      <nav className="flex flex-wrap items-center gap-1 text-sm text-gray-500 mb-4 md:mb-6">
         <Link to="/" className="flex items-center hover:text-ocean">
           <Home size={16} className="mr-1" />
-          Beranda
+          <span className="hidden sm:inline">Beranda</span>
         </Link>
         {items.map((item, index) => (
           <div key={index} className="flex items-center">
-            <ChevronRight size={16} className="mx-2" />
+            <ChevronRight size={14} className="mx-1 md:mx-2" />
             {item.href ? (
-              <Link to={item.href} className="hover:text-ocean">
+              <Link to={item.href} className="hover:text-ocean truncate max-w-[150px] md:max-w-none">
                 {item.label}
               </Link>
             ) : (
-              <span className="text-gray-700">{item.label}</span>
+              <span className="text-gray-700 truncate max-w-[200px] md:max-w-none">{item.label}</span>
             )}
           </div>
         ))}

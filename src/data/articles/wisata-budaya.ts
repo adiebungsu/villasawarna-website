@@ -2,41 +2,67 @@ import { Article } from '@/types/article';
 
 export const wisataBudaya: Article = {
   id: "wisata-budaya",
-  title: "Wisata Budaya Sawarna",
+  title: "Wisata Budaya Sawarna: Menjelajahi Warisan Budaya yang Kaya",
   slug: "wisata-budaya",
-  excerpt: "Jelajahi kekayaan budaya dan tradisi masyarakat Sawarna.",
-  content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Wisata Budaya Sawarna</strong></h2>
-<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/tEbFepM.jpeg" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/tEbFepM.jpeg" width="236" alt="Wisata Budaya Sawarna" /></a></div>Jelajahi kekayaan budaya dan tradisi masyarakat Sawarna yang masih terjaga hingga saat ini.<p></p>
-
-<h3 class="" data-end="647" data-start="601"><strong data-end="647" data-start="605">Tradisi Lokal</strong></h3>
-<p class="" data-end="890" data-start="648">Masyarakat Sawarna memiliki berbagai tradisi unik yang masih dilestarikan, termasuk upacara adat dan kesenian tradisional.</p>
-
-<h3 class="" data-end="950" data-start="897"><strong data-end="950" data-start="901">Kesenian</strong></h3>
-<p class="" data-end="1156" data-start="951">Berbagai kesenian tradisional seperti tari, musik, dan kerajinan tangan dapat ditemukan di Sawarna.</p>
-
-<h3 class="" data-end="1195" data-start="1163"><strong data-end="1195" data-start="1167">Kuliner</strong></h3>
-<p class="" data-end="1424" data-start="1196">Nikmati kuliner khas Sawarna yang menggambarkan kekayaan budaya dan tradisi lokal.</p>
-
-<h3 class="" data-end="1468" data-start="1431"><strong data-end="1468" data-start="1435">Kesimpulan</strong></h3>
-<p class="" data-end="1682" data-start="1469">Wisata budaya di Sawarna menawarkan pengalaman unik untuk mengenal lebih dekat kehidupan masyarakat lokal.</p>
-
-<p class="" data-end="3314" data-start="3086"><strong data-end="3749" data-start="3707">Siap untuk berlibur ke Sawarna?</strong><br data-end="3752" data-start="3749" />
-👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
-  category: "Budaya",
+  excerpt: "Temukan kekayaan budaya Sawarna melalui berbagai atraksi budaya, tradisi lokal, dan kerajinan tangan yang unik. Pengalaman wisata yang memperkaya pengetahuan budaya Anda.",
+  content: `<h2 data-end="273" data-start="195"><strong data-end="273" data-start="198">Wisata Budaya Sawarna: Menjelajahi Warisan Budaya yang Kaya</strong></h2>
+<p data-end="471" data-start="275"><strong data-end="296" data-start="275">Meta Description:</strong><br data-end="299" data-start="296" />
+Temukan kekayaan budaya Sawarna melalui berbagai atraksi budaya, tradisi lokal, dan kerajinan tangan yang unik. Pengalaman wisata yang memperkaya pengetahuan budaya Anda.</p>
+<hr data-end="476" data-start="473" />
+<h3 data-end="497" data-start="478"><strong data-end="497" data-start="482">Pendahuluan</strong></h3>
+<p data-end="899" data-start="499">Sawarna tidak hanya menawarkan keindahan alam yang memukau, tetapi juga kekayaan budaya yang menarik untuk dieksplorasi. Desa wisata ini menyimpan berbagai warisan budaya yang telah diwariskan secara turun-temurun.</p>
+<hr data-end="904" data-start="901" />
+<h3 data-end="957" data-start="906"><strong data-end="957" data-start="910">1. Tradisi dan Upacara Adat</strong></h3>
+<p data-end="1145" data-start="959">Beberapa tradisi dan upacara adat yang masih dilestarikan:</p>
+<ul data-end="1311" data-start="1163">
+<li data-end="1208" data-start="1163">Upacara Seren Taun (panen raya)</li>
+<li data-end="1261" data-start="1209">Ritual Ngaruat Laut</li>
+<li data-end="1311" data-start="1262">Tradisi Mapag Sri (menyambut musim tanam)</li>
+</ul>
+<hr data-end="1400" data-start="1397" />
+<h3 data-end="1470" data-start="1402"><strong data-end="1470" data-start="1406">2. Kerajinan Tradisional</strong></h3>
+<p data-end="1679" data-start="1472">Berbagai kerajinan tradisional yang bisa ditemukan:</p>
+<ul data-end="1841" data-start="1697">
+<li data-end="1752" data-start="1697">Anyaman bambu dan rotan</li>
+<li data-end="1806" data-start="1753">Kerajinan kulit kerang</li>
+<li data-end="1841" data-start="1807">Tenun tradisional</li>
+</ul>
+<hr data-end="1846" data-start="1843" />
+<h3 data-end="1914" data-start="1848"><strong data-end="1914" data-start="1852">3. Kuliner Tradisional</strong></h3>
+<p data-end="2146" data-start="1916">Hidangan khas Sawarna yang wajib dicoba:</p>
+<ul data-end="2313" data-start="2164">
+<li data-end="2200" data-start="2164">Sate Bandeng</li>
+<li data-end="2249" data-start="2201">Emping Melinjo</li>
+<li data-end="2313" data-start="2250">Kue Cucur</li>
+</ul>
+<hr data-end="2318" data-start="2315" />
+<h3 data-end="2375" data-start="2320"><strong data-end="2375" data-start="2324">4. Desa Budaya</strong></h3>
+<p data-end="2748" data-start="2634">Beberapa desa budaya yang bisa dikunjungi:</p>
+<ul data-end="2806" data-start="2750">
+<li data-end="2770" data-start="2750">Desa Sawarna Indah</li>
+<li data-end="2806" data-start="2771">Desa Sawarna Sejahtera</li>
+</ul>
+<hr data-end="2862" data-start="2808" />
+<h3 data-end="3210" data-start="2864"><strong data-end="3210" data-start="2864">5. Menginap di Villa Sawarna</strong></h3>
+<p data-end="3273" data-start="3212">Setelah mengeksplorasi budaya Sawarna, beristirahatlah di Villa Sawarna yang nyaman dan strategis. Villa kami menawarkan berbagai fasilitas lengkap untuk membuat liburan Anda lebih menyenangkan.</p>
+<hr data-end="3562" data-start="3275" />
+<h3 data-end="3562" data-start="3275"><strong data-end="3562" data-start="3275">Kesimpulan</strong></h3>
+<p data-end="3562" data-start="3275">Wisata budaya di Sawarna menawarkan pengalaman yang berbeda dan memperkaya pengetahuan tentang warisan budaya Indonesia. Kunjungi Sawarna untuk merasakan kehangatan budaya lokal yang masih terjaga.</p>`,
+  category: "Wisata",
   image: "https://i.imgur.com/tEbFepM.jpeg",
   author: "Tim Villa Sawarna",
   date: "2024-03-20",
-  tags: ["Budaya", "Wisata Banten", "Pantai Sawarna", "Tradisi"],
+  tags: ["Wisata Budaya", "Tradisi Sawarna", "Kerajinan Tradisional", "Kuliner Khas", "Villa Sawarna", "Wisata Banten"],
   meta: {
-    title: "Wisata Budaya Sawarna",
-    description: "Jelajahi kekayaan budaya dan tradisi masyarakat Sawarna.",
-    keywords: "Budaya, Wisata Banten, Pantai Sawarna, Tradisi",
-    ogTitle: "Wisata Budaya Sawarna",
-    ogDescription: "Jelajahi kekayaan budaya dan tradisi masyarakat Sawarna.",
+    title: "Wisata Budaya Sawarna: Menjelajahi Warisan Budaya yang Kaya",
+    description: "Temukan kekayaan budaya Sawarna melalui berbagai atraksi budaya, tradisi lokal, dan kerajinan tangan yang unik. Pengalaman wisata yang memperkaya pengetahuan budaya Anda.",
+    keywords: "Wisata Budaya, Tradisi Sawarna, Kerajinan Tradisional, Kuliner Khas, Villa Sawarna, Wisata Banten, Upacara Adat",
+    ogTitle: "Wisata Budaya Sawarna: Menjelajahi Warisan Budaya yang Kaya",
+    ogDescription: "Temukan kekayaan budaya Sawarna melalui berbagai atraksi budaya, tradisi lokal, dan kerajinan tangan yang unik. Pengalaman wisata yang memperkaya pengetahuan budaya Anda.",
     ogImage: "https://i.imgur.com/tEbFepM.jpeg",
     twitterCard: "summary_large_image",
-    twitterTitle: "Wisata Budaya Sawarna",
-    twitterDescription: "Jelajahi kekayaan budaya dan tradisi masyarakat Sawarna.",
+    twitterTitle: "Wisata Budaya Sawarna: Menjelajahi Warisan Budaya yang Kaya",
+    twitterDescription: "Temukan kekayaan budaya Sawarna melalui berbagai atraksi budaya, tradisi lokal, dan kerajinan tangan yang unik. Pengalaman wisata yang memperkaya pengetahuan budaya Anda.",
     twitterImage: "https://i.imgur.com/tEbFepM.jpeg"
   }
 };

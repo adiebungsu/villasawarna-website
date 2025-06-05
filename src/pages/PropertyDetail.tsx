@@ -89,6 +89,42 @@ const propertyMainImages: Record<string, { url: string; description: string }[]>
     {
       url: "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-aea2b07141382e5e96f88bfe59f5efe0.jpeg",
       description: "Tampilan Depan Villa - Arsitektur modern dengan taman yang rindang"
+    },
+    {
+      url: "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-0db183ec3cca5b93438c55385855a91e.jpeg",
+      description: "Tampilan Interior Villa - Ruang tamu yang nyaman"
+    },
+    {
+      url: "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-e5966fec054c219cd6b107026fe6d9eb.jpeg",
+      description: "Kamar Tidur Utama - Dilengkapi dengan tempat tidur premium"
+    },
+    {
+      url: "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-875177727d31c57de10a84766703d5a5.jpeg",
+      description: "Kamar Mandi - Modern dan bersih"
+    },
+    {
+      url: "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-6597508a2db43a122832fd27725e8a66.jpeg",
+      description: "Dapur Modern - Dilengkapi dengan peralatan lengkap"
+    },
+    {
+      url: "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-342f3e22a4a85a464c05616ad17382da.jpeg",
+      description: "Area Outdoor - Taman dan tempat bersantai"
+    },
+    {
+      url: "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-bbcd75583c72e71b8cb5916f70a4d2da.jpeg",
+      description: "Area BBQ - Tempat memasak outdoor"
+    },
+    {
+      url: "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-cabd871a11a7062ab3b6c9c682b69a9d.jpeg",
+      description: "Gazebo - Tempat bersantai di taman"
+    },
+    {
+      url: "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/d91b99ab_z.jpg",
+      description: "Tampilan Malam - Villa dengan pencahayaan yang indah"
+    },
+    {
+      url: "https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20036564-dcc2eec2553d85f7c8cab346dfa460a1.jpeg",
+      description: "Tampilan Panorama - Pemandangan sekitar villa"
     }
   ]
 };
@@ -888,14 +924,6 @@ const PropertyDetail: React.FC = () => {
                 <ul className="mb-3 space-y-1 text-gray-700 dark:text-gray-200">
                   <li className="flex items-center gap-2">
                     <span className="text-coral dark:text-coral-light text-lg">•</span>
-                    <span className="text-base">AC & WiFi super cepat di setiap kamar</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-coral dark:text-coral-light text-lg">•</span>
-                    <span className="text-base">Kamar mandi dalam & ruang tamu luas</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-coral dark:text-coral-light text-lg">•</span>
                     <span className="text-base">Dapur modern & area bersantai asri</span>
                   </li>
                   <li className="flex items-center gap-2">
@@ -1244,7 +1272,7 @@ const PropertyDetail: React.FC = () => {
                               </div>
                               <div className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/20 px-3 py-1.5 rounded-full">
                                 <Star size={16} className="text-yellow-400 fill-yellow-400" />
-                                <span className="font-semibold text-yellow-600 dark:text-yellow-400">{review.rating}.0</span>
+                                <span className="font-semibold text-yellow-600 dark:text-yellow-400">{review.rating}</span>
                               </div>
                             </div>
                             <div className="relative">

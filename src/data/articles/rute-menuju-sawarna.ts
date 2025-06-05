@@ -2,42 +2,67 @@ import { Article } from '@/types/article';
 
 export const ruteMenujuSawarna: Article = {
   id: "rute-menuju-sawarna",
-  title: "Rute Menuju Sawarna",
+  title: "Rute Menuju Sawarna: Panduan Lengkap Perjalanan ke Surga Banten",
   slug: "rute-menuju-sawarna",
-  excerpt: "Panduan lengkap rute perjalanan menuju Sawarna dari berbagai kota.",
-  content: `<p>&nbsp;</p><h2 class="" data-end="202" data-start="132"><strong data-end="202" data-start="135">Rute Menuju Sawarna</strong></h2>
-<p class="" data-end="499" data-start="204"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://i.imgur.com/7XZU1Bn.png" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1280" data-original-width="720" height="399" src="https://i.imgur.com/7XZU1Bn.png" width="236" alt="Rute Menuju Sawarna" /></a></div>Panduan lengkap rute perjalanan menuju Sawarna dari berbagai kota.<p></p>
-
-<h3 class="" data-end="647" data-start="601"><strong data-end="647" data-start="605">Dari Jakarta</strong></h3>
-<p class="" data-end="890" data-start="648">Rute melalui Tol Jagorawi - Tol Bocimi - Sukabumi - Pelabuhan Ratu - Bayah - Sawarna.</p>
-
-<h3 class="" data-end="950" data-start="897"><strong data-end="950" data-start="901">Dari Bandung</strong></h3>
-<p class="" data-end="1156" data-start="951">Rute melalui Cianjur - Sukabumi - Pelabuhan Ratu - Bayah - Sawarna.</p>
-
-<h3 class="" data-end="1195" data-start="1163"><strong data-end="1195" data-start="1167">Dari Bogor</strong></h3>
-<p class="" data-end="1424" data-start="1196">Rute melalui Sukabumi - Pelabuhan Ratu - Bayah - Sawarna.</p>
-
-<h3 class="" data-end="1468" data-start="1431"><strong data-end="1468" data-start="1435">Tips Perjalanan</strong></h3>
-<p class="" data-end="1682" data-start="1469">Persiapkan kendaraan dan perbekalan dengan baik untuk perjalanan yang nyaman.</p>
-
-<p class="" data-end="3314" data-start="3086"><strong data-end="3749" data-start="3707">Siap untuk berlibur ke Sawarna?</strong><br data-end="3752" data-start="3749" />
-👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
-  category: "Transportasi",
-  image: "https://i.imgur.com/7XZU1Bn.png",
+  excerpt: "Temukan berbagai rute menuju Sawarna dari Jakarta, Bandung, dan kota-kota lainnya. Panduan lengkap dengan pilihan transportasi, estimasi waktu tempuh, dan tips perjalanan.",
+  content: `<h2 data-end="273" data-start="195"><strong data-end="273" data-start="198">Rute Menuju Sawarna: Panduan Lengkap Perjalanan ke Surga Banten</strong></h2>
+<p data-end="471" data-start="275"><strong data-end="296" data-start="275">Meta Description:</strong><br data-end="299" data-start="296" />
+Temukan berbagai rute menuju Sawarna dari Jakarta, Bandung, dan kota-kota lainnya. Panduan lengkap dengan pilihan transportasi, estimasi waktu tempuh, dan tips perjalanan.</p>
+<hr data-end="476" data-start="473" />
+<h3 data-end="497" data-start="478"><strong data-end="497" data-start="482">Pendahuluan</strong></h3>
+<p data-end="899" data-start="499">Sawarna, desa wisata di Kabupaten Lebak, Banten, memang sudah dikenal sebagai destinasi wisata pantai yang eksotis. Untuk mencapai Sawarna, ada beberapa rute yang bisa dipilih tergantung dari kota asal Anda. Artikel ini akan membahas rute-rute utama menuju Sawarna beserta estimasi waktu tempuh dan tips perjalanannya.</p>
+<hr data-end="904" data-start="901" />
+<h3 data-end="957" data-start="906"><strong data-end="957" data-start="910">1. Rute dari Jakarta</strong></h3>
+<p data-end="1145" data-start="959">Dari Jakarta, ada beberapa pilihan rute menuju Sawarna:</p>
+<ul data-end="1311" data-start="1163">
+<li data-end="1208" data-start="1163">Rute via Serang: Jakarta - Serang - Rangkasbitung - Sawarna (5-6 jam)</li>
+<li data-end="1261" data-start="1209">Rute via Tangerang: Jakarta - Tangerang - Rangkasbitung - Sawarna (5-6 jam)</li>
+</ul>
+<p data-end="1395" data-start="1313">Tips: Gunakan tol Jakarta-Merak untuk rute via Serang, atau tol Jakarta-Tangerang untuk rute via Tangerang.</p>
+<hr data-end="1400" data-start="1397" />
+<h3 data-end="1470" data-start="1402"><strong data-end="1470" data-start="1406">2. Rute dari Bandung</strong></h3>
+<p data-end="1679" data-start="1472">Dari Bandung, perjalanan menuju Sawarna memakan waktu sekitar 7-8 jam dengan rute:</p>
+<ul data-end="1841" data-start="1697">
+<li data-end="1752" data-start="1697">Bandung - Cianjur - Sukabumi - Rangkasbitung - Sawarna</li>
+<li data-end="1806" data-start="1753">Bandung - Cipularang - Jakarta - Serang - Rangkasbitung - Sawarna</li>
+</ul>
+<hr data-end="1846" data-start="1843" />
+<h3 data-end="1914" data-start="1848"><strong data-end="1914" data-start="1852">3. Transportasi Umum</strong></h3>
+<p data-end="2146" data-start="1916">Untuk yang tidak membawa kendaraan pribadi, ada beberapa pilihan transportasi umum:</p>
+<ul data-end="2313" data-start="2164">
+<li data-end="2200" data-start="2164">Bus dari Terminal Lebak Bulus ke Rangkasbitung</li>
+<li data-end="2249" data-start="2201">Angkot dari Rangkasbitung ke Sawarna</li>
+<li data-end="2313" data-start="2250">Travel door-to-door dari Jakarta atau Bandung</li>
+</ul>
+<hr data-end="2318" data-start="2315" />
+<h3 data-end="2375" data-start="2320"><strong data-end="2375" data-start="2324">4. Tips Perjalanan</strong></h3>
+<ul data-end="2748" data-start="2634">
+<li data-end="2678" data-start="2634">Berangkat pagi untuk menghindari macet</li>
+<li data-end="2714" data-start="2679">Siapkan bekal dan air minum</li>
+<li data-end="2748" data-start="2715">Cek kondisi kendaraan sebelum berangkat</li>
+</ul>
+<hr data-end="2806" data-start="2803" />
+<h3 data-end="2862" data-start="2808"><strong data-end="2862" data-start="2812">5. Menginap di Villa Sawarna</strong></h3>
+<p data-end="3210" data-start="2864">Setelah perjalanan panjang, beristirahatlah di Villa Sawarna yang nyaman dan strategis. Villa kami menawarkan berbagai fasilitas lengkap untuk membuat liburan Anda lebih menyenangkan.</p>
+<hr data-end="3215" data-start="3212" />
+<h3 data-end="3273" data-start="3217"><strong data-end="3273" data-start="3221">Kesimpulan</strong></h3>
+<p data-end="3562" data-start="3275">Perjalanan menuju Sawarna memang membutuhkan waktu yang cukup lama, tapi semua itu akan terbayar dengan keindahan alam dan pengalaman liburan yang tak terlupakan. Pilih rute yang paling sesuai dengan kebutuhan Anda dan nikmati perjalanan menuju surga tersembunyi di Banten ini.</p>`,
+  category: "Wisata",
+  image: "https://i.imgur.com/7XZU1Bn.jpeg",
   author: "Tim Villa Sawarna",
   date: "2024-03-20",
-  tags: ["Transportasi", "Wisata Banten", "Pantai Sawarna", "Rute"],
+  tags: ["Rute Sawarna", "Wisata Banten", "Transportasi", "Villa Sawarna", "Wisata Pantai", "Liburan", "Panduan Wisata"],
   meta: {
-    title: "Rute Menuju Sawarna",
-    description: "Panduan lengkap rute perjalanan menuju Sawarna dari berbagai kota.",
-    keywords: "Transportasi, Wisata Banten, Pantai Sawarna, Rute",
-    ogTitle: "Rute Menuju Sawarna",
-    ogDescription: "Panduan lengkap rute perjalanan menuju Sawarna dari berbagai kota.",
-    ogImage: "https://i.imgur.com/7XZU1Bn.png",
+    title: "Rute Menuju Sawarna: Panduan Lengkap Perjalanan ke Surga Banten",
+    description: "Temukan berbagai rute menuju Sawarna dari Jakarta, Bandung, dan kota-kota lainnya. Panduan lengkap dengan pilihan transportasi, estimasi waktu tempuh, dan tips perjalanan.",
+    keywords: "Rute Sawarna, Wisata Banten, Transportasi, Villa Sawarna, Wisata Pantai, Liburan, Panduan Wisata, Jakarta ke Sawarna, Bandung ke Sawarna",
+    ogTitle: "Rute Menuju Sawarna: Panduan Lengkap Perjalanan ke Surga Banten",
+    ogDescription: "Temukan berbagai rute menuju Sawarna dari Jakarta, Bandung, dan kota-kota lainnya. Panduan lengkap dengan pilihan transportasi, estimasi waktu tempuh, dan tips perjalanan.",
+    ogImage: "https://i.imgur.com/7XZU1Bn.jpeg",
     twitterCard: "summary_large_image",
-    twitterTitle: "Rute Menuju Sawarna",
-    twitterDescription: "Panduan lengkap rute perjalanan menuju Sawarna dari berbagai kota.",
-    twitterImage: "https://i.imgur.com/7XZU1Bn.png"
+    twitterTitle: "Rute Menuju Sawarna: Panduan Lengkap Perjalanan ke Surga Banten",
+    twitterDescription: "Temukan berbagai rute menuju Sawarna dari Jakarta, Bandung, dan kota-kota lainnya. Panduan lengkap dengan pilihan transportasi, estimasi waktu tempuh, dan tips perjalanan.",
+    twitterImage: "https://i.imgur.com/7XZU1Bn.jpeg"
   }
 };
 

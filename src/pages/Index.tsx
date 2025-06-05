@@ -278,9 +278,9 @@ const Index = () => {
                   "https://i.imgur.com/xSIQsbI.jpeg",
                   "https://i.imgur.com/jAylpLL.jpeg"
                 ],
-                facilities: ["6 Kamar Tidur Nyaman", "6 Kamar Mandi Dalam", "AC di Semua Kamar", "TV LED 43 inch", "WiFi Fiber Optic", "Dapur Modern Premium", "Area BBQ", "Gazebo", "Taman", "Parkir Luas", "Ruang Meeting", "24/7 Security", "Ruang Tamu", "Ruang Makan", "Kulkas", "Mesin Cuci", "Setrika", "Perlengkapan Mandi", "Handuk", "Kasur Premium", "Air Panas", "View Pantai"],
-                capacity: 50,
-                bedrooms: 6,
+                facilities: ["18 Kamar Tidur Mewah", "6 Kamar Mandi Dalam", "AC di Semua Kamar", "TV LED 43 inch"],
+                capacity: 100,
+                bedrooms: 18,
                 bathrooms: 6
               } : idx === 0 ? {
                 id: "villa-cempaka",
@@ -797,9 +797,9 @@ const Index = () => {
                     "https://i.imgur.com/xSIQsbI.jpeg",
                     "https://i.imgur.com/jAylpLL.jpeg"
                   ],
-                  facilities: ["6 Kamar Tidur Nyaman", "6 Kamar Mandi Dalam", "AC di Semua Kamar", "TV LED 43 inch", "WiFi Fiber Optic", "Dapur Modern Premium", "Area BBQ", "Gazebo", "Taman", "Parkir Luas", "Ruang Meeting", "24/7 Security", "Ruang Tamu", "Ruang Makan", "Kulkas", "Mesin Cuci", "Setrika", "Perlengkapan Mandi", "Handuk", "Kasur Premium", "Air Panas", "View Pantai"],
-                  capacity: 50,
-                  bedrooms: 6,
+                  facilities: ["18 Kamar Tidur Mewah", "6 Kamar Mandi Dalam", "AC di Semua Kamar", "TV LED 43 inch"],
+                  capacity: 100,
+                  bedrooms: 18,
                   bathrooms: 6
                 } : quickViewIdx === 0 ? {
                   id: "villa-cempaka",

@@ -156,7 +156,7 @@ export default function QuickViewDesktop(props: QuickViewDesktopProps) {
             <div>
               <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Fasilitas Utama</h3>
               <div className="flex flex-wrap gap-2">
-                {amenities.slice(0, 6).map((amenity, index) => (
+                {amenities.slice(0, 4).map((amenity, index) => (
                   <span
                     key={index}
                     className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-xs shadow-sm"

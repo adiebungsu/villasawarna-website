@@ -53,17 +53,31 @@ const Villas = () => {
       
       <Navbar />
       
-      <div className="min-h-screen bg-white dark:bg-gray-900">
+      <div className="min-h-screen bg-gradient-to-br from-sand-light via-white to-ocean-light dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <div className="container-custom py-8">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-ocean dark:text-ocean-light mb-4">
-              Villa Eksklusif di Sawarna
-            </h1>
-            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Temukan villa impian Anda di berbagai lokasi Sawarna. Setiap villa menawarkan pemandangan pantai yang menakjubkan dan fasilitas lengkap untuk liburan yang tak terlupakan.
-            </p>
-        </div>
+          <div className="relative mb-12">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/90 to-white/80 dark:from-gray-800/80 dark:via-gray-800/90 dark:to-gray-800/80 rounded-2xl shadow-lg"></div>
+            
+            {/* Content */}
+            <div className="relative z-10 text-center p-8 md:p-12">
+              <div className="inline-block mb-6">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/95 to-white/90 dark:from-gray-800/90 dark:via-gray-800/95 dark:to-gray-800/90 rounded-lg shadow-md transform -rotate-1"></div>
+                  <h1 className="relative text-3xl md:text-5xl font-bold text-ocean dark:text-ocean-light px-6 py-2">
+                    Villa Eksklusif di Sawarna
+                  </h1>
+                </div>
+              </div>
+              
+              <div className="max-w-3xl mx-auto">
+                <p className="text-gray-600 dark:text-gray-300 text-lg md:text-xl leading-relaxed">
+                  Temukan villa impian Anda di berbagai lokasi Sawarna. Setiap villa menawarkan pemandangan pantai yang menakjubkan dan fasilitas lengkap untuk liburan yang tak terlupakan.
+                </p>
+              </div>
+            </div>
+          </div>
         
           {/* Tab Lokasi */}
           <div className="mb-8">
@@ -76,13 +90,13 @@ const Villas = () => {
                       <button
                         key={location}
                         onClick={() => setSelectedLocation(location)}
-                        className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                        className={`flex items-center space-x-1 sm:space-x-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                           selectedLocation === location
                             ? 'bg-ocean text-white shadow-md'
                             : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                         }`}
                       >
-                        <Waves size={16} className="flex-shrink-0" />
+                        <Waves size={14} className="flex-shrink-0 sm:w-4 sm:h-4" />
                         <span>
                           {location === 'all' && 'Semua Lokasi'}
                           {location === 'sawarna' && 'Pantai Sawarna'}

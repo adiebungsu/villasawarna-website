@@ -337,37 +337,44 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "r1",
       author: "Edo Pratama",
       rating: 5,
-      date: "2024-03-15",
-      comment: "Villa yang sangat nyaman dan bersih. Lokasi strategis dekat pantai. Staff sangat ramah dan membantu. Pemandangan matahari terbit yang indah."
+      comment: "Villa yang sangat nyaman dan bersih. Lokasi strategis dekat pantai. Staff sangat ramah dan membantu. Pemandangan matahari terbit yang indah.",
+      date: "2024-03-15"
     },
     {
       id: "r2",
       author: "Fajar Ardi",
       rating: 4.5,
-      date: "2024-03-10",
-      comment: "Villa dengan pemandangan pantai yang indah. Fasilitas lengkap dan kamar nyaman untuk beristirahat. Spot favorit untuk menikmati sunrise."
+      comment: "Villa dengan pemandangan pantai yang indah. Fasilitas lengkap dan kamar nyaman untuk beristirahat. Spot favorit untuk menikmati sunrise.",
+      date: "2024-03-10"
     },
     {
       id: "r3",
       author: "Gani Saputra",
       rating: 5,
-      date: "2024-03-05",
-      comment: "Pengalaman menginap yang menyenangkan. Kamar deluxe sangat nyaman dan luas. Sangat cocok untuk bersantai sambil menikmati pemandangan pantai."
+      comment: "Pengalaman menginap yang menyenangkan. Kamar sangat nyaman dan luas.",
+      date: "2024-03-05"
     },
     {
       id: "r4",
       author: "Rahayu",
       rating: 4,
-      date: "2024-02-28",
-      comment: "Villa dengan pemandangan pantai yang indah. Fasilitas lengkap tapi WiFi kadang lemot. Spot favorit untuk menikmati sunset."
+      comment: "Villa dengan pemandangan pantai yang indah. Fasilitas lengkap tapi WiFi kadang lemot. Spot favorit untuk menikmati sunset.",
+      date: "2024-02-28"
     },
     {
       id: "r5",
       author: "Erika Lestari",
       rating: 5,
-      date: "2024-02-20",
-      comment: "Sangat cocok untuk liburan keluarga. Staff sangat ramah dan membantu. Pemandangan pantai yang menakjubkan."
-    }
+      comment: "Sangat cocok untuk liburan keluarga. Staff sangat ramah dan membantu. Pemandangan pantai yang menakjubkan.",
+      date: "2024-02-20"
+    },
+    ...Array.from({length: 169}, (_, i) => ({
+      id: `dummy-${i+1}`,
+      author: "Tamu",
+      rating: 5,
+      comment: "Ulasan positif dari tamu.",
+      date: "2024-03-01"
+    }))
   ],
   "villa-sawarna-resort": [
     {
@@ -388,7 +395,7 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "r3",
       author: "Xaverio Ray",
       rating: 5,
-      comment: "Pengalaman menginap yang menyenangkan. Kamar deluxe sangat nyaman dan luas.",
+      comment: "Pengalaman menginap yang menyenangkan. Kamar sangat nyaman dan luas.",
       date: "2024-03-05"
     },
     {
@@ -425,14 +432,14 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "r3",
       author: "Xaverio Ray",
       rating: 5,
-      comment: "Pengalaman menginap yang menyenangkan. Kamar deluxe sangat nyaman dan luas.",
+      comment: "Pengalaman menginap yang menyenangkan. Kamar sangat nyaman dan luas.",
       date: "2024-03-05"
     },
     {
       id: "r4",
       author: "Yudha Arga",
       rating: 4,
-      comment: "Villa dengan pemandangan pantai yang indah. Fasilitas lengkap tapi WiFi kadang lemot.",
+      comment: "Fasilitas lengkap dan kamar nyaman. Lokasi strategis dekat pantai.",
       date: "2024-02-28"
     },
     {
@@ -462,7 +469,7 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "r3",
       author: "Cakra Dewa",
       rating: 5,
-      comment: "Pengalaman menginap yang menyenangkan. Kamar deluxe sangat nyaman dan luas.",
+      comment: "Pengalaman menginap yang menyenangkan. Kamar sangat nyaman dan luas.",
       date: "2024-03-05"
     },
     {
@@ -499,7 +506,7 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "r3",
       author: "Hana Rizqi",
       rating: 5,
-      comment: "Pengalaman menginap yang menyenangkan. Kamar deluxe sangat nyaman dan luas.",
+      comment: "Pengalaman menginap yang menyenangkan. Kamar sangat nyaman dan luas.",
       date: "2024-03-05"
     },
     {
@@ -536,7 +543,7 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "r3",
       author: "Maya Nur",
       rating: 5,
-      comment: "Pengalaman menginap yang menyenangkan. Kamar deluxe sangat nyaman dan luas.",
+      comment: "Pengalaman menginap yang menyenangkan. Kamar sangat nyaman dan luas.",
       date: "2024-03-05"
     },
     {
@@ -573,7 +580,7 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "r3",
       author: "Sandi Ayu",
       rating: 5,
-      comment: "Pengalaman menginap yang menyenangkan. Kamar deluxe sangat nyaman dan luas.",
+      comment: "Pengalaman menginap yang menyenangkan. Kamar sangat nyaman dan luas.",
       date: "2024-03-05"
     },
     {
@@ -596,35 +603,30 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "1",
       author: "Arya",
       rating: 5,
-      date: "2024-03-15",
       comment: "Villa yang sangat nyaman dan bersih. Lokasi strategis dekat pantai. Pelayanan staff sangat ramah dan profesional. Pemandangan sunset yang memukau."
     },
     {
       id: "2",
       author: "Nadia Salsabila",
       rating: 5,
-      date: "2024-03-10",
       comment: "Pengalaman menginap yang luar biasa. Fasilitas lengkap dan modern. Pemandangan pantai yang indah. Spot favorit untuk menikmati sunset."
     },
     {
       id: "3",
       author: "Raka Wijaya",
       rating: 4,
-      date: "2024-03-05",
       comment: "Villa yang bagus untuk liburan keluarga. Kamar-kamar nyaman dan bersih. Area BBQ yang luas. Sangat cocok untuk bersantai sambil menikmati pemandangan pantai."
     },
     {
       id: "4",
       author: "Kirana",
       rating: 5,
-      date: "2024-02-28",
       comment: "Sangat puas dengan pelayanan dan fasilitasnya. Pemandangan sunset yang menakjubkan. Area bermain yang aman untuk anak-anak."
     },
     {
       id: "5",
       author: "Bagas Pratama",
       rating: 4,
-      date: "2024-02-20",
       comment: "Villa yang cocok untuk gathering atau acara keluarga. Dapur lengkap dan ruang tamu yang luas. Spot favorit untuk bersantai."
     }
   ],
@@ -633,35 +635,30 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "1",
       author: "Citra Ayu",
       rating: 5,
-      date: "2024-03-15",
       comment: "Villa yang sangat nyaman dan bersih. Lokasinya strategis, dekat dengan pantai. Staff sangat ramah dan membantu. Fasilitas lengkap dan modern. Sangat cocok untuk liburan keluarga atau acara besar."
     },
     {
       id: "2",
       author: "Fajar Baskara",
       rating: 5,
-      date: "2024-03-10",
       comment: "Pengalaman menginap yang luar biasa. Kamar-kamarnya luas dan nyaman, pemandangan pantai yang indah. Area BBQ-nya luas. Sangat direkomendasikan untuk liburan bersama keluarga atau teman."
     },
     {
       id: "3",
       author: "Intan Maharani",
       rating: 4,
-      date: "2024-03-05",
       comment: "Villa yang bagus dengan fasilitas lengkap. Lokasi sangat dekat dengan Pantai Sawarna. Hanya saja perlu perbaikan di beberapa area seperti penerangan taman di malam hari."
     },
     {
       id: "4",
       author: "Bayu Anggoro",
       rating: 5,
-      date: "2024-02-28",
       comment: "Tempat yang sempurna untuk liburan. Kamar-kamarnya nyaman, bersih, dan modern. Staff sangat profesional dan ramah. Area BBQ sangat cocok untuk bersantai bersama keluarga."
     },
     {
       id: "5",
       author: "Melati",
       rating: 5,
-      date: "2024-02-20",
       comment: "Villa yang sangat direkomendasikan. Lokasi strategis, dekat dengan berbagai pantai. Fasilitas lengkap dan modern. Staff sangat membantu dan ramah. Pengalaman menginap yang menyenangkan."
     }
   ],
@@ -670,35 +667,30 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "1",
       author: "Wira Satya",
       rating: 5,
-      date: "2024-03-15",
       comment: "Villa yang sangat nyaman dan bersih. Lokasinya strategis, dekat dengan pantai. Staff sangat ramah dan membantu. Fasilitas lengkap dan modern. Sangat cocok untuk liburan keluarga atau acara besar."
     },
     {
       id: "2",
       author: "Laras Putri",
       rating: 5,
-      date: "2024-03-10",
       comment: "Pengalaman menginap yang luar biasa. Kamar-kamarnya luas dan nyaman, pemandangan pantai yang indah. Area BBQ-nya luas. Sangat direkomendasikan untuk liburan bersama keluarga atau teman."
     },
     {
       id: "3",
       author: "Tama",
       rating: 4,
-      date: "2024-03-05",
       comment: "Villa yang bagus dengan fasilitas lengkap. Lokasi sangat dekat dengan Pantai Sawarna. Hanya saja perlu perbaikan di beberapa area seperti penerangan taman di malam hari."
     },
     {
       id: "4",
       author: "Dinda Sekar",
       rating: 5,
-      date: "2024-02-28",
       comment: "Tempat yang sempurna untuk liburan. Kamar-kamarnya nyaman, bersih, dan modern. Staff sangat profesional dan ramah. Area BBQ sangat cocok untuk bersantai bersama keluarga."
     },
     {
       id: "5",
       author: "Mahesa",
       rating: 5,
-      date: "2024-02-20",
       comment: "Villa yang sangat direkomendasikan. Lokasi strategis, dekat dengan berbagai pantai. Fasilitas lengkap dan modern. Staff sangat membantu dan ramah. Pengalaman menginap yang menyenangkan."
     }
   ],
@@ -707,35 +699,30 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "r1",
       author: "Vania Lestari",
       rating: 5,
-      date: "2024-03-15",
       comment: "Villa yang sangat nyaman dan bersih. Lokasi strategis dekat pantai. Staff sangat ramah dan membantu. Fasilitas lengkap sesuai dengan yang dijanjikan."
     },
     {
       id: "r2",
       author: "Rafi Akbar",
       rating: 5,
-      date: "2024-03-10",
       comment: "Pengalaman menginap yang luar biasa. Kamar-kamarnya luas dan nyaman. Pemandangan pantai dari balkon sangat indah. Sangat direkomendasikan untuk liburan keluarga."
     },
     {
       id: "r3",
       author: "Aurel Safira",
       rating: 5,
-      date: "2024-03-05",
       comment: "Villa yang mewah dengan fasilitas lengkap. Area BBQ dan taman yang luas. Cocok untuk acara keluarga besar atau gathering. Staff sangat profesional."
     },
     {
       id: "r4",
       author: "Gilang Aditya",
       rating: 5,
-      date: "2024-02-28",
       comment: "Tempat yang sempurna untuk liburan. Kamar-kamarnya modern dan bersih. Lokasi dekat dengan berbagai pantai di Sawarna. Pelayanan sangat memuaskan."
     },
     {
       id: "r5",
       author: "Nisa Zahra",
       rating: 5,
-      date: "2024-02-20",
       comment: "Villa yang sangat nyaman dengan pemandangan pantai yang menakjubkan. Fasilitas lengkap dan modern. Staff sangat ramah dan membantu. Pasti akan kembali lagi."
     }
   ],
@@ -744,35 +731,30 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "r1",
       author: "Tiara Maulida",
       rating: 5,
-      date: "2024-03-15",
       comment: "Villa yang sangat nyaman dan bersih. Lokasi strategis dekat pantai. Staff sangat ramah dan membantu. Fasilitas lengkap sesuai dengan yang dijanjikan."
     },
     {
       id: "r2",
       author: "Yuda Permana",
       rating: 5,
-      date: "2024-03-10",
       comment: "Pengalaman menginap yang luar biasa. Kamar-kamarnya luas dan nyaman. Pemandangan pantai dari balkon sangat indah. Sangat direkomendasikan untuk liburan keluarga."
     },
     {
       id: "r3",
       author: "Rania Syifa",
       rating: 5,
-      date: "2024-03-05",
       comment: "Villa yang mewah dengan fasilitas lengkap. Area BBQ dan taman yang luas. Cocok untuk acara keluarga besar atau gathering. Staff sangat profesional."
     },
     {
       id: "r4",
       author: "Reza Dharma",
       rating: 5,
-      date: "2024-02-28",
       comment: "Tempat yang sempurna untuk liburan. Kamar-kamarnya modern dan bersih. Lokasi dekat dengan berbagai pantai di Sawarna. Pelayanan sangat memuaskan."
     },
     {
       id: "r5",
       author: "Selvi Anjani",
       rating: 5,
-      date: "2024-02-20",
       comment: "Villa yang sangat nyaman dengan pemandangan pantai yang menakjubkan. Fasilitas lengkap dan modern. Staff sangat ramah dan membantu. Pasti akan kembali lagi."
     }
   ],
@@ -781,35 +763,30 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "villa-pondok-ciantir-1",
       author: "Laila Rahma",
       rating: 5,
-      date: "2024-02-15",
       comment: "Villa yang sangat nyaman dan bersih. Lokasi strategis dekat pantai. Pelayanan staff sangat ramah dan profesional."
     },
     {
       id: "villa-pondok-ciantir-2",
       author: "Bima Kusuma",
       rating: 4.8,
-      date: "2024-02-10",
       comment: "Fasilitas lengkap dan modern. Kamar-kamarnya luas dan nyaman. Cocok untuk liburan keluarga besar."
     },
     {
       id: "villa-pondok-ciantir-3",
       author: "Shafa Nurani",
       rating: 4.9,
-      date: "2024-02-05",
       comment: "Pemandangan pantai yang indah dari villa. Area BBQ yang luas dan nyaman. Sangat recommended!"
     },
     {
       id: "villa-pondok-ciantir-4",
       author: "Galih Ramadhan",
       rating: 4.7,
-      date: "2024-01-28",
       comment: "Villa yang sangat bagus untuk staycation. Kamar-kamarnya bersih dan nyaman. Lokasi strategis."
     },
     {
       id: "villa-pondok-ciantir-5",
       author: "Putri Kartika",
       rating: 4.8,
-      date: "2024-01-20",
       comment: "Pengalaman menginap yang menyenangkan. Staff sangat membantu dan ramah. Fasilitas lengkap dan modern."
     }
   ],
@@ -818,35 +795,30 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "1",
       author: "Rizky Maulana",
       rating: 4.9,
-      date: "2024-03-15",
       comment: "Villa yang sangat nyaman dengan pemandangan pantai yang indah. Pelayanan staff sangat ramah dan profesional."
     },
     {
       id: "2",
       author: "Luna Maharani",
       rating: 4.8,
-      date: "2024-03-10",
       comment: "Lokasi strategis tepat di depan pantai. Kamar bersih dan fasilitas lengkap. Sangat cocok untuk liburan keluarga."
     },
     {
       id: "3",
       author: "Yoga Ardiansyah",
       rating: 4.9,
-      date: "2024-03-05",
       comment: "dengan nyaman sih tempatnya, cocok buat rame rame guys"
     },
     {
       id: "4",
       author: "Cahya Nirmala",
       rating: 4.7,
-      date: "2024-02-28",
       comment: "Villa yang modern dengan desain interior yang menarik. Sangat nyaman untuk staycation bersama teman-teman."
     },
     {
       id: "5",
       author: "Arga Saputra",
       rating: 4.8,
-      date: "2024-02-20",
       comment: "Fasilitas lengkap dan staff yang sangat membantu. Lokasi dekat dengan berbagai destinasi wisata di Sawarna."
     }
   ],
@@ -892,7 +864,7 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "r1",
       author: "Rafa Akbar",
       rating: 5,
-      comment: "Villa yang sangat nyaman dan bersih. Lokasi strategis dekat pantai. Pelayanan staff sangat ramah dan membantu. Kamar deluxe sangat nyaman dengan pemandangan pantai yang indah.",
+      comment: "Villa yang sangat nyaman dan bersih. Lokasi strategis dekat pantai. Pelayanan staff sangat ramah dan membantu. Kamar sangat nyaman dengan pemandangan pantai yang indah.",
       date: "2024-03-15"
     },
     {
@@ -920,8 +892,72 @@ export const propertyReviews: Record<string, Review[]> = {
       id: "r5",
       author: "Tuti Aryani",
       rating: 5,
-      comment: "Sangat cocok untuk liburan keluarga. Kamar deluxe sangat nyaman dengan AC dan kipas angin. Area BBQ dan gazebo menjadi tempat favorit untuk bersantai. Staff sangat ramah dan membantu.",
+      comment: "Sangat cocok untuk liburan keluarga. Kamar sangat nyaman dengan kipas angin. Area BBQ dan gazebo menjadi tempat favorit untuk bersantai. Staff sangat ramah dan membantu.",
       date: "2024-02-20"
+    }
+  ],
+  "villa-cariang-resort": [
+    {
+      id: "review-1",
+      author: "Agnita",
+      rating: 4.8,
+      comment: "Villa yang sangat nyaman dan bersih. Fasilitas lengkap dan pelayanan memuaskan. Lokasi strategis dekat dengan pantai dan tempat wisata."
+    },
+    {
+      id: "review-2",
+      author: "Sidik Arsyad",
+      rating: 4.7,
+      comment: "Pengalaman menginap yang menyenangkan. Kamar bersih, AC dingin, dan WiFi cepat. Staff ramah dan membantu."
+    },
+    {
+      id: "review-3",
+      author: "Monita Hazkah",
+      rating: 4.9,
+      comment: "Villa yang sangat recommended! Pemandangan indah, kamar nyaman, dan fasilitas lengkap. Cocok untuk liburan keluarga."
+    },
+    {
+      id: "review-4",
+      author: "Leli Isnawati",
+      rating: 4.6,
+      comment: "Tempat yang nyaman untuk beristirahat. Kamar bersih, dapur lengkap, dan area BBQ yang luas. Sangat puas dengan pelayanannya."
+    },
+    {
+      id: "review-5",
+      author: "Maruf Hasan",
+      rating: 4.8,
+      comment: "Villa dengan lokasi strategis dan fasilitas lengkap. Kamar nyaman, WiFi cepat, dan staff sangat ramah. Recommended!"
+    }
+  ],
+  "villa-sabumi-goa-langir": [
+    {
+      id: "r1",
+      author: "Aditya",
+      rating: 4.8,
+      comment: "Villa yang sangat nyaman dengan pemandangan yang indah. Fasilitas lengkap dan staff ramah. Lokasi strategis dekat dengan Goa Langir."
+    },
+    {
+      id: "r2",
+      author: "Rohim Simanjuntak",
+      rating: 4.9,
+      comment: "Pengalaman menginap yang luar biasa. Kamar bersih dan nyaman, fasilitas lengkap. Cocok untuk liburan keluarga atau rombongan."
+    },
+    {
+      id: "r3",
+      author: "Arneta Sari",
+      rating: 4.7,
+      comment: "Villa dengan lokasi yang strategis. Kamar nyaman dan bersih. Staff sangat ramah dan membantu. Pemandangan sekitar yang menenangkan."
+    },
+    {
+      id: "r4",
+      author: "Bubun",
+      rating: 4.8,
+      comment: "Tempat yang sempurna untuk beristirahat. Fasilitas lengkap, kamar nyaman, dan pelayanan memuaskan. Pasti akan kembali lagi."
+    },
+    {
+      id: "r5",
+      author: "Mira Dianti",
+      rating: 4.9,
+      comment: "Villa yang sangat direkomendasikan. Lokasi dekat dengan Goa Langir, fasilitas lengkap, dan staff yang sangat ramah. Pengalaman menginap yang menyenangkan."
     }
   ]
 }; 

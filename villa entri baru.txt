@@ -1,0 +1,22 @@
+Data villa :
+Nama: vila cariang resort
+Tipe: villa
+Lokasi:goa langir
+Tags: villa, goa langir
+Kapasitas: 60 tamu
+
+fasilitas :
+14 Kamar Tidur Nyaman
+14 Kamar Mandi Dalam
+AC 
+TV LED 
+WiFi 
+Dapur umum
+Area BBQ
+Gazebo
+
+tipe kamar :
+buatkan 3 tab: 
+standar room:fasilitas kipas angin, kamar mandi di dalam,
+deluxe room:fasilitas kipas angin, AC, kamar mandi di dalam
+family room: fasilitas kipas angin, AC, 2kamar tidur, ruang tamu, dapur, kamar mandi di dalam

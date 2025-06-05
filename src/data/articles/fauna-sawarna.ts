@@ -22,7 +22,7 @@ export const faunaSawarna: Article = {
 
 <p class="" data-end="3314" data-start="3086"><strong data-end="3749" data-start="3707">Siap untuk berlibur ke Sawarna?</strong><br data-end="3752" data-start="3749" />
 👉 Temukan villa impian Anda di <a class="" data-end="3826" data-start="3782" href="https://villasawarna.com" rel="noopener" target="_new">VillaSawarna.com</a> dan nikmati liburan tak terlupakan bersama orang-orang tersayang!</p>`,
-  category: "Alam",
+  category: "Wisata",
   image: "https://i.imgur.com/IbKyWNU.jpeg",
   author: "Tim Villa Sawarna",
   date: "2024-03-20",
@@ -31,12 +31,12 @@ export const faunaSawarna: Article = {
     title: "Fauna Sawarna",
     description: "Jelajahi keanekaragaman fauna yang hidup di kawasan Sawarna.",
     keywords: "Alam, Wisata Banten, Pantai Sawarna, Fauna",
-    ogTitle: "Fauna Sawarna",
-    ogDescription: "Jelajahi keanekaragaman fauna yang hidup di kawasan Sawarna.",
+    ogTitle: "Fauna Sawarna: Keanekaragaman Hayati yang Menakjubkan",
+    ogDescription: "Jelajahi keanekaragaman fauna di Sawarna, dari burung-burung langka hingga satwa laut yang memukau. Temukan habitat alami dan kehidupan liar yang menakjubkan di destinasi wisata Banten ini.",
     ogImage: "https://i.imgur.com/IbKyWNU.jpeg",
     twitterCard: "summary_large_image",
-    twitterTitle: "Fauna Sawarna",
-    twitterDescription: "Jelajahi keanekaragaman fauna yang hidup di kawasan Sawarna.",
+    twitterTitle: "Fauna Sawarna: Keanekaragaman Hayati yang Menakjubkan",
+    twitterDescription: "Jelajahi keanekaragaman fauna di Sawarna, dari burung-burung langka hingga satwa laut yang memukau. Temukan habitat alami dan kehidupan liar yang menakjubkan di destinasi wisata Banten ini.",
     twitterImage: "https://i.imgur.com/IbKyWNU.jpeg"
   }
 };

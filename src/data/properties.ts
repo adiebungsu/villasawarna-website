@@ -116,9 +116,9 @@ const villasData: ExtendedPropertyCardProps[] = [
       }
     ],
     nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "5 menit jalan kaki" },
-      { name: "Goa Langir", distance: "4 menit jalan kaki" },
-      { name: "Legon Pari", distance: "9 menit berkendara" },
+      { name: "Pantai Sawarna", distance: "4-6 menit jalan kaki" },
+      { name: "Goa Langir", distance: "8 menit berkendara" },
+      { name: "Legon Pari", distance: "9-10 menit berkendara" },
       { name: "Tanjung Layar", distance: "4 menit berkendara" }
     ],
     ratingSummary: {
@@ -475,23 +475,28 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     price: 200000,
     rating: 4.8,
     location: "Pantai Sawarna",
-    capacity: 8,
+    capacity: 40,
     reviews: 12,
-    bedrooms: 4,
+    bedrooms: 10,
     bathrooms: 4,
     amenities: [
-      "AC",
-      "WiFi",
-      "TV",
+      "Kipas Angin",
+      "10 Kamar Tidur",
+      "24/7 Security",
       "Dapur",
       "Parkir",
-      "Pemandangan Pantai",
+      "Halaman Luas",
       "Teras",
-      "Ruang Tamu",
       "Kamar Mandi Dalam"
     ],
-    description: "Villa Sinar Pelangi adalah villa eksklusif dengan 4 kamar tidur yang menawarkan pemandangan pantai yang menakjubkan. Terletak di Pantai Sawarna, villa ini dilengkapi dengan  dapur lengkap, dan teras yang luas. Cocok untuk liburan keluarga atau rombongan besar.",
-    tags: ["Pantai", "4 Kamar", "Eksklusif"],
+    description: "Villa Sinar Pelangi adalah villa eksklusif dengan 10 kamar tidur yang menawarkan halaman luas. Terletak di Pantai Sawarna, villa ini dilengkapi dengan dapur lengkap, dan teras yang luas. Cocok untuk liburan keluarga atau rombongan besar.",
+    tags: ["Pantai", "10 Kamar", "Eksklusif"],
+    nearbyAttractions: [
+      { name: "Pantai Sawarna", distance: "4-6 menit jalan kaki" },
+      { name: "Goa Langir", distance: "8 menit berkendara" },
+      { name: "Legon Pari", distance: "9-10 menit berkendara" },
+      { name: "Tanjung Layar", distance: "4 menit berkendara" }
+    ],
     roomTypes: [
       {
         id: "standar-room",
@@ -508,31 +513,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
           "https://i.imgur.com/9cttGSs.jpeg",
           "https://i.imgur.com/0aMZ0iY.jpeg"
         ],
-        amenities: ["AC", "TV", "Kamar Mandi Dalam", "WiFi"]
-      },
-      {
-        id: "deluxe-room",
-        name: "Deluxe Room",
-        description: "Kamar deluxe dengan pemandangan pantai",
-        price: 200000,
-        capacity: 2,
-        beds: "1 King Bed",
-        bathrooms: 1,
-        images: [
-          "https://i.imgur.com/lNcydX5.jpeg",
-          "https://i.imgur.com/wZ0cSjQ.jpeg",
-          "https://i.imgur.com/WhBRfqs.jpeg",
-          "https://i.imgur.com/Nh6XLTg.jpeg",
-          "https://i.imgur.com/7EnCW0d.jpeg"
-        ],
-        amenities: ["AC", "TV", "Kamar Mandi Dalam", "WiFi", "Balkon", "Pemandangan Pantai"]
+        amenities: ["Kipas Angin", "10 Kamar Tidur", "24/7 Security", "Kamar Mandi Dalam"]
       }
-    ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "100m" },
-      { name: "Tanjung Layar", distance: "2km" },
-      { name: "Goa Langir", distance: "3km" },
-      { name: "Karang Bokor", distance: "4km" }
     ],
     ratingSummary: {
       score: 4.8,
@@ -1081,7 +1063,12 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-0db183ec3cca5b93438c55385855a91e.jpeg",
       "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-e5966fec054c219cd6b107026fe6d9eb.jpeg",
       "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-875177727d31c57de10a84766703d5a5.jpeg",
-      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-6597508a2db43a122832fd27725e8a66.jpeg"
+      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-6597508a2db43a122832fd27725e8a66.jpeg",
+      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-342f3e22a4a85a464c05616ad17382da.jpeg",
+      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-bbcd75583c72e71b8cb5916f70a4d2da.jpeg",
+      "https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/20036564-cabd871a11a7062ab3b6c9c682b69a9d.jpeg",
+      "https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/54000000/53360000/53350100/53350031/d91b99ab_z.jpg",
+      "https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20036564-dcc2eec2553d85f7c8cab346dfa460a1.jpeg"
     ],
     tags: ["villa", "goa langir sawarna", "premium", "ruang meeting"],
     roomTypes: [
@@ -1319,16 +1306,16 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     name: "Villa Sinar Matahari Resort",
     type: "villa" as const,
     location: "Pantai Sawarna",
-    description: `Villa Sinar Matahari Resort adalah villa nyaman yang terletak di kawasan Pantai Sawarna. Dengan pemandangan matahari terbit yang menakjubkan dan desain arsitektur modern, villa ini menawarkan pengalaman menginap yang tak terlupakan.
+    description: `Villa Sinar Matahari Resort adalah villa mewah yang terletak di kawasan Pantai Sawarna. Dengan pemandangan matahari terbit yang menakjubkan dan desain arsitektur modern, villa ini menawarkan pengalaman menginap yang tak terlupakan.
 
-Fasilitas utama villa ini meliputi 6 kamar tidur nyaman yang masing-masing dilengkapi AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan gazebo menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan matahari terbit.
+Fasilitas utama villa ini meliputi 18 kamar tidur mewah yang masing-masing dilengkapi AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas. Area outdoor yang luas dengan gazebo menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan matahari terbit.
 
 Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda untuk memasak sendiri, sementara area BBQ di taman belakang menjadi tempat yang ideal untuk gathering keluarga atau teman. Villa ini juga dilengkapi dengan WiFi berkecepatan tinggi, ruang meeting yang nyaman, dan area parkir yang luas.`,
     price: 450000,
-    rating: 4.8,
+    rating: 4.7,
     reviews: 189,
-    capacity: 50,
-    bedrooms: 6,
+    capacity: 100,
+    bedrooms: 18,
     bathrooms: 6,
     image: "https://i.imgur.com/nalEe4n.jpeg",
     mainImages: [
@@ -2576,6 +2563,381 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "0838-4134-8177" },
+    coordinates: [-6.983539105798058, 106.30959983031511]
+  },
+  {
+    id: "villa-cariang-resort",
+    name: "Vila Cariang Resort",
+    type: "villa",
+    location: "Goa Langir, Sawarna",
+    description: "Villa mewah dengan pemandangan yang menakjubkan dan arsitektur modern. Menawarkan berbagai fasilitas dan tipe kamar untuk kenyamanan maksimal.",
+    price: 354000,
+    rating: 4.8,
+    reviews: 173,
+    capacity: 60,
+    bedrooms: 8,
+    bathrooms: 8,
+    image: "https://i.imgur.com/DZUDP0B.jpeg",
+    mainImages: [
+      "https://i.imgur.com/DZUDP0B.jpeg",
+      "https://i.imgur.com/fcXMylc.jpeg",
+      "https://i.imgur.com/j6DVFuR.jpeg",
+      "https://i.imgur.com/ElZhSYF.jpeg",
+      "https://i.imgur.com/tEHYq0T.jpeg",
+      "https://i.imgur.com/kT0WXmy.jpeg",
+      "https://i.imgur.com/9x03WMf.jpeg",
+      "https://i.imgur.com/d3uH6hO.jpeg",
+      "https://i.imgur.com/PJt26cy.jpeg",
+      "https://i.imgur.com/swSUfVW.jpeg"
+    ],
+    tags: ["villa", "goa langir sawarna"],
+    amenities: [
+      "8 Kamar Tidur Nyaman",
+      "8 Kamar Mandi Dalam",
+      "AC di Semua Kamar",
+      "TV LED 43 inch",
+      "WiFi Fiber Optic",
+      "Dapur Modern Premium",
+      "Area BBQ",
+      "Gazebo",
+      "Taman",
+      "Parkir Luas",
+      "Ruang Meeting",
+      "24/7 Security",
+      "Ruang Tamu",
+      "Ruang Makan",
+      "Kulkas",
+      "Mesin Cuci",
+      "Setrika",
+      "Perlengkapan Mandi",
+      "Handuk",
+      "Kasur Premium",
+      "Air Panas"
+    ],
+    roomTypes: [
+      {
+        id: "standard",
+        name: "Standard Room",
+        description: "Kamar standar yang nyaman dengan fasilitas AC dan kamar mandi dalam.",
+        price: 354000,
+        capacity: 2,
+        beds: "1 Double Bed",
+        bathrooms: 1,
+        amenities: ["AC", "Kamar Mandi Dalam"],
+        images: [
+          "https://i.imgur.com/eLftu5p.jpeg",
+          "https://i.imgur.com/cZCBWWP.jpeg",
+          "https://i.imgur.com/KWvn7pD.jpeg",
+          "https://i.imgur.com/qjfb0FI.jpeg",
+          "https://i.imgur.com/47HmoZt.jpeg"
+        ]
+      },
+      {
+        id: "deluxe",
+        name: "Deluxe Room",
+        description: "Kamar deluxe yang nyaman dengan fasilitas AC, kamar mandi dalam, dan balkon pribadi.",
+        price: 376000,
+        capacity: 2,
+        beds: "1 Double Bed",
+        bathrooms: 1,
+        amenities: ["AC", "Kamar Mandi Dalam", "Balkon Pribadi"],
+        images: [
+          "https://i.imgur.com/eLftu5p.jpeg",
+          "https://i.imgur.com/cZCBWWP.jpeg",
+          "https://i.imgur.com/KWvn7pD.jpeg",
+          "https://i.imgur.com/qjfb0FI.jpeg",
+          "https://i.imgur.com/47HmoZt.jpeg"
+        ]
+      },
+      {
+        id: "twin",
+        name: "Twin Bed Room",
+        description: "Kamar dengan dua tempat tidur single yang nyaman, dilengkapi AC dan kamar mandi dalam.",
+        price: 445000,
+        capacity: 2,
+        beds: "2 Single Beds",
+        bathrooms: 1,
+        amenities: ["AC", "Kamar Mandi Dalam"],
+        images: [
+          "https://i.imgur.com/eLftu5p.jpeg",
+          "https://i.imgur.com/cZCBWWP.jpeg",
+          "https://i.imgur.com/KWvn7pD.jpeg",
+          "https://i.imgur.com/qjfb0FI.jpeg",
+          "https://i.imgur.com/47HmoZt.jpeg"
+        ]
+      },
+      {
+        id: "family",
+        name: "Family Room",
+        description: "Kamar luas dengan fasilitas AC, 2 kamar tidur, ruang tamu, dapur, dan kamar mandi dalam.",
+        price: 750000,
+        capacity: 6,
+        beds: "2 Double Beds",
+        bathrooms: 1,
+        amenities: ["AC", "2 Kamar Tidur", "Ruang Tamu", "Dapur", "Kamar Mandi Dalam"],
+        images: [
+          "https://i.imgur.com/kT0WXmy.jpeg",
+          "https://i.imgur.com/9ZvRSD8.jpeg",
+          "https://i.imgur.com/qBmhiTV.jpeg",
+          "https://i.imgur.com/dK0peaP.jpeg",
+          "https://i.imgur.com/5pcAm7v.jpeg"
+        ]
+      }
+    ],
+    nearbyAttractions: [
+      { name: "Pantai Sawarna", distance: "5 menit jalan kaki" },
+      { name: "Goa Langir", distance: "7 menit berkendara" },
+      { name: "Legon Pari", distance: "12 menit berkendara" },
+      { name: "Tanjung Layar", distance: "6 menit berkendara" }
+    ],
+    ratingSummary: {
+      score: 8.9,
+      totalReviews: 156,
+      breakdown: [
+        { label: "Kebersihan", value: 8.8 },
+        { label: "Kenyamanan Kamar", value: 8.7 },
+        { label: "Makanan", value: 8.6 },
+        { label: "Lokasi", value: 8.9 },
+        { label: "Pelayanan dan Fasilitas", value: 8.7 }
+      ]
+    },
+    contact: { phone: "083877080088" },
+    coordinates: [-6.975702407092274, 106.30000198769226]
+  },
+  {
+    id: "villa-mang-engkos-goa-langir",
+    name: "Vila Mang Engkos Goa Langir",
+    type: "villa",
+    location: "Goa Langir",
+    description: "Villa nyaman dengan pemandangan pantai yang menakjubkan. Dilengkapi dengan fasilitas lengkap dan tipe kamar yang beragam untuk kenyamanan maksimal.",
+    price: 356000,
+    rating: 4.7,
+    reviews: 183,
+    capacity: 80,
+    bedrooms: 12,
+    bathrooms: 10,
+    image: "https://i.imgur.com/r6953wc.jpeg",
+    mainImages: [
+      "https://i.imgur.com/r6953wc.jpeg",
+      "https://i.imgur.com/ooxKkwj.jpeg",
+      "https://i.imgur.com/SZQ72c4.jpeg",
+      "https://i.imgur.com/Whd3LQg.jpeg",
+      "https://i.imgur.com/wAh3bEo.jpeg",
+      "https://i.imgur.com/BNzthL3.jpeg",
+      "https://i.imgur.com/The9oct.jpeg",
+      "https://i.imgur.com/aqjPwEF.jpeg",
+      "https://i.imgur.com/dZFW7en.jpeg",
+      "https://i.imgur.com/U5Bh1XI.jpeg"
+    ],
+    tags: ["villa", "goa langir"],
+    amenities: [
+      "12 Kamar Tidur Nyaman",
+      "10 Kamar Mandi Dalam",
+      "Semi AC",
+      "24/7 Security",
+      "WiFi",
+      "Dapur Umum",
+      "Area BBQ",
+      "View Pantai"
+    ],
+    roomTypes: [
+      {
+        id: "standard",
+        name: "Standard Room",
+        description: "Kamar standar yang nyaman dengan fasilitas kipas angin dan kamar mandi dalam.",
+        price: 356000,
+        capacity: 2,
+        beds: "1 Double Bed",
+        bathrooms: 1,
+        amenities: ["Kipas Angin", "Kamar Mandi Dalam"],
+        images: [
+          "https://i.imgur.com/eLftu5p.jpeg",
+          "https://i.imgur.com/cZCBWWP.jpeg",
+          "https://i.imgur.com/KWvn7pD.jpeg",
+          "https://i.imgur.com/qjfb0FI.jpeg",
+          "https://i.imgur.com/47HmoZt.jpeg"
+        ]
+      },
+      {
+        id: "semi-ac",
+        name: "Semi AC Room",
+        description: "Kamar nyaman dengan fasilitas kipas angin, semi AC, dan kamar mandi dalam.",
+        price: 400000,
+        capacity: 2,
+        beds: "1 Double Bed",
+        bathrooms: 1,
+        amenities: ["Kipas Angin", "Semi AC", "Kamar Mandi Dalam"],
+        images: [
+          "https://i.imgur.com/4MQlbv2.jpeg",
+          "https://i.imgur.com/bDZrWsF.jpeg",
+          "https://i.imgur.com/RYXLkod.jpeg",
+          "https://i.imgur.com/2asafYP.jpeg",
+          "https://i.imgur.com/KWvn7pD.jpeg"
+        ]
+      },
+      {
+        id: "family",
+        name: "Family Room",
+        description: "Kamar luas ideal untuk keluarga dengan 2 kamar tidur, ruang tamu, dapur, dan kamar mandi dalam.",
+        price: 850000,
+        capacity: 6,
+        beds: "2 Double Beds",
+        bathrooms: 1,
+        amenities: ["Kipas Angin", "Semi AC", "2 Kamar Tidur", "Ruang Tamu", "Dapur", "Kamar Mandi Dalam"],
+        images: [
+          "https://i.imgur.com/wAh3bEo.jpeg",
+          "https://i.imgur.com/12fDKlN.jpeg",
+          "https://i.imgur.com/WXKRncI.jpeg",
+          "https://i.imgur.com/rJRJ8OB.jpeg",
+          "https://i.imgur.com/The9oct.jpeg"
+        ]
+      }
+    ],
+    nearbyAttractions: [
+      { name: "Goa Langir", distance: "2 menit jalan kaki" },
+      { name: "Pantai Sawarna", distance: "5 menit berkendara" },
+      { name: "Legon Pari", distance: "10 menit berkendara" },
+      { name: "Tanjung Layar", distance: "15 menit berkendara" }
+    ],
+    ratingSummary: {
+      score: 8.7,
+      totalReviews: 183,
+      breakdown: [
+        { label: "Kebersihan", value: 8.8 },
+        { label: "Kenyamanan Kamar", value: 8.7 },
+        { label: "Makanan", value: 8.6 },
+        { label: "Lokasi", value: 8.9 },
+        { label: "Pelayanan dan Fasilitas", value: 8.7 }
+      ]
+    },
+    reviewDetails: [
+      {
+        id: "1",
+        author: "Robby",
+        rating: 4.8,
+        comment: "Villa yang sangat nyaman dengan pemandangan pantai yang indah. Fasilitas lengkap dan staff ramah. Lokasi strategis dekat dengan Goa Langir.",
+        date: "2024-03-15"
+      },
+      {
+        id: "2",
+        author: "Nina Sari",
+        rating: 4.7,
+        comment: "Pengalaman menginap yang menyenangkan. Kamar bersih dan nyaman, fasilitas lengkap. Cocok untuk liburan keluarga atau rombongan.",
+        date: "2024-03-10"
+      },
+      {
+        id: "3",
+        author: "Asep Saepulloh",
+        rating: 4.6,
+        comment: "Villa dengan lokasi yang strategis. Kamar nyaman dan bersih. Staff sangat ramah dan membantu. Pemandangan sekitar yang menenangkan.",
+        date: "2024-03-05"
+      },
+      {
+        id: "4",
+        author: "Hakimi Fajar",
+        rating: 4.8,
+        comment: "Tempat yang sempurna untuk beristirahat. Fasilitas lengkap, kamar nyaman, dan pelayanan memuaskan. Pasti akan kembali lagi.",
+        date: "2024-02-28"
+      },
+      {
+        id: "5",
+        author: "Minarti",
+        rating: 4.7,
+        comment: "Villa yang sangat direkomendasikan. Lokasi dekat dengan Goa Langir, fasilitas lengkap, dan staff yang sangat ramah. Pengalaman menginap yang menyenangkan.",
+        date: "2024-02-20"
+      }
+    ],
+    contact: { phone: "083877080088" },
+    coordinates: [-6.983539105798058, 106.30959983031511]
+  },
+  {
+    id: "villa-pondok-indah",
+    name: "Villa Pondok Indah",
+    type: "villa",
+    location: "Goa Langir",
+    description: "Villa Pondok Indah menawarkan penginapan nyaman dengan pemandangan pantai yang memukau. Terletak di kawasan Goa Langir, villa ini dilengkapi dengan fasilitas lengkap untuk kenyamanan tamu.",
+    price: 350000,
+    rating: 4.5,
+    reviews: 45,
+    capacity: 40,
+    bedrooms: 12,
+    bathrooms: 12,
+    image: "https://i.imgur.com/UHkUCFQ.jpeg",
+    mainImages: [
+      "https://i.imgur.com/UHkUCFQ.jpeg",
+      "https://i.imgur.com/xeJBJQa.jpeg",
+      "https://i.imgur.com/FFbadDz.jpeg",
+      "https://i.imgur.com/85XT8Ee.jpeg",
+      "https://i.imgur.com/kJJniNL.jpeg",
+      "https://i.imgur.com/pAubh8Z.jpeg",
+      "https://i.imgur.com/Oz3HFDJ.jpeg",
+      "https://i.imgur.com/UQsa2E5.jpeg",
+      "https://i.imgur.com/EBDKaS8.jpeg",
+      "https://i.imgur.com/XThP3fN.jpeg"
+    ],
+    tags: ["villa", "goa langir"],
+    amenities: [
+      "12 Kamar Tidur Nyaman",
+      "12 Kamar Mandi Dalam",
+      "Kipas Angin",
+      "24/7 Security",
+      "WiFi",
+      "Dapur Umum",
+      "Area BBQ",
+      "View Pantai"
+    ],
+    roomTypes: [
+      {
+        id: "standard-room",
+        name: "Standar Room",
+        description: "Kamar nyaman dengan fasilitas lengkap untuk kenyamanan tamu.",
+        price: 350000,
+        capacity: 4,
+        beds: "1 Double Bed",
+        bathrooms: 1,
+        amenities: ["Kipas Angin", "Kamar Mandi Dalam"],
+        images: [
+          "https://i.imgur.com/kJJniNL.jpeg",
+          "https://i.imgur.com/lwogTP2.jpeg",
+          "https://i.imgur.com/9sPTMSn.jpeg",
+          "https://i.imgur.com/9sPTMSn.jpeg",
+          "https://i.imgur.com/1Ul5K84.jpeg"
+        ]
+      },
+      {
+        id: "juice-room",
+        name: "Juice Room",
+        description: "Kamar nyaman dengan fasilitas lengkap untuk kenyamanan tamu.",
+        price: 365000,
+        capacity: 4,
+        beds: "1 Double Bed",
+        bathrooms: 1,
+        amenities: ["Kipas Angin", "Kamar Mandi Dalam"],
+        images: [
+          "https://i.imgur.com/pAubh8Z.jpeg",
+          "https://i.imgur.com/amO94P7.jpeg",
+          "https://i.imgur.com/acYSGfZ.jpeg",
+          "https://i.imgur.com/1Ul5K84.jpeg",
+          "https://i.imgur.com/cfUD1ug.jpeg"
+        ]
+      }
+    ],
+    nearbyAttractions: [
+      { name: "Goa Langir", distance: "5 menit jalan kaki" },
+      { name: "Pantai Sawarna", distance: "10 menit berkendara" },
+      { name: "Legon Pari", distance: "15 menit berkendara" }
+    ],
+    ratingSummary: {
+      score: 8.5,
+      totalReviews: 45,
+      breakdown: [
+        { label: "Kebersihan", value: 8.7 },
+        { label: "Kenyamanan Kamar", value: 8.6 },
+        { label: "Lokasi", value: 8.8 },
+        { label: "Pelayanan dan Fasilitas", value: 8.5 }
+      ]
+    },
+    contact: { phone: "083877080088" },
     coordinates: [-6.983539105798058, 106.30959983031511]
   }
 ];
