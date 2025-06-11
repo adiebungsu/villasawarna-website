@@ -877,6 +877,23 @@ export const propertyRoomTypes: Record<string, RoomType[]> = {
         "https://i.imgur.com/YjosayP.jpeg"
       ],
       price: 800000
+    },
+    {
+      id: "deluxe",
+      name: "Deluxe Room",
+      description: "Kamar deluxe yang luas dengan king bed premium dan balkon pribadi. Dilengkapi dengan pemandangan pantai yang menakjubkan dan fasilitas modern untuk kenyamanan maksimal.",
+      price: 375000,
+      capacity: 3,
+      beds: "1 King Bed Premium",
+      bathrooms: 1,
+      images: [
+        "https://i.imgur.com/nsx2JLR.jpeg",
+        "https://i.imgur.com/lldZEVy.jpeg",
+        "https://i.imgur.com/NVXagNT.jpeg",
+        "https://i.imgur.com/PMg49CZ.jpeg",
+        "https://i.imgur.com/agy9av5.jpeg"
+      ],
+      amenities: ["AC", "TV LED 55 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kulkas", "Setrika", "Perlengkapan Mandi", "View Pantai"]
     }
   ],
   "villa-matahari": [

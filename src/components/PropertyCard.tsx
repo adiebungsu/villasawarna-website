@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Star, MapPin, Users, BedDouble, Bath, Snowflake, Fan, Eye } from "lucide-react";
+import { Star, MapPin, Users, BedDouble, Bath, Snowflake, Fan, Eye, Wifi, Tv, Car, Utensils, Waves, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { propertyRoomTypes } from "../data/roomTypes";
 import { getLowestRoomPrice } from '@/utils/price';
@@ -31,6 +31,29 @@ const PropertyCard = ({
     e.preventDefault();
     setIsQuickViewOpen(true);
   };
+
+  // Fungsi untuk mendapatkan ikon fasilitas
+  const getAmenityIcon = (amenity: string) => {
+    if (amenity.toLowerCase().includes('wifi')) return <Wifi size={14} />;
+    if (amenity.toLowerCase().includes('ac')) return <Snowflake size={14} />;
+    if (amenity.toLowerCase().includes('tv')) return <Tv size={14} />;
+    if (amenity.toLowerCase().includes('parkir')) return <Car size={14} />;
+    if (amenity.toLowerCase().includes('dapur')) return <Utensils size={14} />;
+    if (amenity.toLowerCase().includes('pantai')) return <Waves size={14} />;
+    return <CheckCircle size={14} />;
+  };
+
+  // Filter dan format fasilitas yang akan ditampilkan
+  const filteredAmenities = amenities?.filter(amenity => 
+    !amenity.toLowerCase().includes('mandi') && 
+    !amenity.toLowerCase().includes('kamar tidur')
+  ).map(amenity => {
+    // Sederhanakan tampilan TV
+    if (amenity.toLowerCase().includes('tv')) {
+      return 'TV';
+    }
+    return amenity;
+  });
 
   return (
     <>
@@ -95,19 +118,13 @@ const PropertyCard = ({
             <span className="text-[10px] md:text-xs text-gray-600 dark:text-gray-300">{capacity} tamu</span>
           </div>
           
-          <div className="flex items-center gap-2 md:gap-3 mb-2">
-            <div className="flex items-center text-ocean dark:text-ocean-light">
-              <Snowflake size={14} className="mr-1 flex-shrink-0" />
-              <span className="text-[10px] md:text-xs">AC</span>
-            </div>
-            <div className="flex items-center text-ocean dark:text-ocean-light">
-              <Fan size={14} className="mr-1 flex-shrink-0" />
-              <span className="text-[10px] md:text-xs">Kipas</span>
-            </div>
-            <div className="flex items-center text-ocean dark:text-ocean-light">
-              <Bath size={14} className="mr-1 flex-shrink-0" />
-              <span className="text-[10px] md:text-xs line-clamp-1">Kamar Mandi</span>
-            </div>
+          <div className="flex flex-wrap gap-2 mb-2">
+            {filteredAmenities?.slice(0, 3).map((amenity, idx) => (
+              <div key={idx} className="flex items-center text-ocean dark:text-ocean-light">
+                {getAmenityIcon(amenity)}
+                <span className="text-[10px] md:text-xs ml-1 line-clamp-1">{amenity}</span>
+              </div>
+            ))}
           </div>
           
           <div className="border-b border-gray-200 dark:border-gray-700 mb-2"></div>

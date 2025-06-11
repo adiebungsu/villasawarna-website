@@ -1500,7 +1500,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     price: 400000,
     rating: 4.5,
     reviews: 178,
-    capacity: 12,
+    capacity: 32,
     bedrooms: 4,
     bathrooms: 4,
     image: "https://i.imgur.com/ac6qcyq.jpeg",
@@ -1509,9 +1509,14 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       "https://i.imgur.com/bsoX9Sb.jpeg",
       "https://i.imgur.com/17cGCvg.jpeg",
       "https://i.imgur.com/ksFgVJL.jpeg",
-      "https://i.imgur.com/0eAobNP.jpeg"
+      "https://i.imgur.com/0eAobNP.jpeg",
+      "https://i.imgur.com/bsoX9Sb.jpeg",
+      "https://i.imgur.com/jmiTW7d.jpeg",
+      "https://i.imgur.com/xLSh7cH.jpeg",
+      "https://i.imgur.com/0eAobNP.jpeg",
+      "https://i.imgur.com/ac6qcyq.jpeg"
     ],
-    tags: ["villa", "pantai sawarna", "view pantai"],
+    tags: ["villa", "pantai sawarna"],
     amenities: [
       "4 Kamar Tidur Nyaman",
       "4 Kamar Mandi Dalam",
@@ -1730,7 +1735,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     price: 375000,
     rating: 4.8,
     reviews: 245,
-    capacity: 15,
+    capacity: 30,
     bedrooms: 6,
     bathrooms: 6,
     image: "https://i.imgur.com/uttvn6n.jpeg",
@@ -2910,6 +2915,184 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         { label: "Kenyamanan Kamar", value: 8.6 },
         { label: "Lokasi", value: 8.8 },
         { label: "Pelayanan dan Fasilitas", value: 8.5 }
+      ]
+    },
+    contact: { phone: "083877080088" },
+    coordinates: [-6.983539105798058, 106.30959983031511]
+  },
+  {
+    id: "villa-amira-sawana",
+    name: "Villa Amira Sawana",
+    type: "villa" as const,
+    location: "Pantai Sawarna",
+    description: `Villa Amira Sawana adalah villa nyaman yang terletak di kawasan Pantai Sawarna. Dengan pemandangan pantai yang menakjubkan dan desain arsitektur modern, villa ini menawarkan pengalaman menginap yang tak terlupakan.
+
+Fasilitas utama villa ini meliputi 5 kamar tidur nyaman yang masing-masing dilengkapi kipas angin dan kamar mandi dalam. Area outdoor yang luas dengan area BBQ menjadi tempat yang sempurna untuk bersantai sambil menikmati pemandangan pantai.
+
+Dapur umum yang lengkap dengan peralatan memasak memungkinkan Anda untuk memasak sendiri, sementara area BBQ menjadi tempat yang ideal untuk gathering keluarga atau teman. Villa ini juga dilengkapi dengan WiFi dan keamanan 24/7.
+
+Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer di Sawarna, seperti Pantai Sawarna (depan pantai), Goa Langir (8 menit berkendara), Legon Pari (9-10 menit berkendara), dan Tanjung Layar (4 menit berkendara).`,
+    price: 375000,
+    rating: 4.5,
+    reviews: 0,
+    capacity: 40,
+    bedrooms: 5,
+    bathrooms: 5,
+    image: "https://i.imgur.com/74dBeW4.jpeg",
+    mainImages: [
+      "https://i.imgur.com/74dBeW4.jpeg",
+      "https://i.imgur.com/SJGWPBK.jpeg",
+      "https://i.imgur.com/o43oCkS.jpeg",
+      "https://i.imgur.com/ai9PQ8Y.jpeg",
+      "https://i.imgur.com/9BPqPK1.jpeg",
+      "https://i.imgur.com/wBRZvCh.jpeg",
+      "https://i.imgur.com/ooE1s3Y.jpeg",
+      "https://i.imgur.com/H9q2pTd.jpeg",
+      "https://i.imgur.com/5ll8Fr6.jpeg",
+      "https://i.imgur.com/60c1VMQ.jpeg",
+      "https://i.imgur.com/nPvazMy.jpeg"
+    ],
+    tags: ["villa", "pantai sawarna"],
+    amenities: [
+      "5 Kamar Tidur Nyaman",
+      "5 Kamar Mandi Dalam",
+      "Kipas Angin",
+      "24/7 Security",
+      "WiFi",
+      "Dapur Umum",
+      "Area BBQ",
+      "Dekat Pantai"
+    ],
+    roomTypes: [
+      {
+        id: "deluxe-room",
+        name: "Deluxe Room",
+        description: "Kamar nyaman dengan AC, kamar mandi dalam, WiFi, dan akses ke dapur umum.",
+        price: 375000,
+        capacity: 2,
+        beds: "1 Double Bed",
+        bathrooms: 1,
+        amenities: ["AC", "Kamar Mandi Dalam", "WiFi", "Dapur Umum"],
+        images: [
+          "https://i.imgur.com/u0SNRX7.jpeg",
+          "https://i.imgur.com/TLgEOiR.jpeg",
+          "https://i.imgur.com/60c1VMQ.jpeg",
+          "https://i.imgur.com/nPvazMy.jpeg",
+          "https://i.imgur.com/WblAz6v.jpeg"
+        ]
+      },
+      {
+        id: "family-room",
+        name: "Family Room",
+        description: "Kamar luas untuk keluarga dengan 3 king bed, kamar mandi dalam, dapur umum, dan WiFi.",
+        price: 654000,
+        capacity: 6,
+        beds: "3 King Bed",
+        bathrooms: 1,
+        amenities: ["AC", "3 King Bed", "Kamar Mandi Dalam", "Dapur Umum", "WiFi"],
+        images: [
+          "https://i.imgur.com/SJGWPBK.jpeg",
+          "https://i.imgur.com/YYNU69S.jpeg",
+          "https://i.imgur.com/5ll8Fr6.jpeg",
+          "https://i.imgur.com/ZEhEBEA.jpeg",
+          "https://i.imgur.com/H9q2pTd.jpeg"
+        ]
+      }
+    ],
+    nearbyAttractions: [
+      { name: "Pantai Sawarna", distance: "Depan pantai" },
+      { name: "Goa Langir", distance: "8 menit berkendara" },
+      { name: "Legon Pari", distance: "9-10 menit berkendara" },
+      { name: "Tanjung Layar", distance: "4 menit berkendara" }
+    ],
+    ratingSummary: {
+      score: 0,
+      totalReviews: 0,
+      breakdown: [
+        { label: "Kebersihan", value: 0 },
+        { label: "Kenyamanan Kamar", value: 0 },
+        { label: "Makanan", value: 0 },
+        { label: "Lokasi", value: 0 },
+        { label: "Pelayanan dan Fasilitas", value: 0 }
+      ]
+    },
+    contact: { phone: "083877080088" },
+    coordinates: [-6.983539105798058, 106.30959983031511]
+  },
+  {
+    id: "villa-ablo-sawarna",
+    name: "Villa Ablo Sawarna",
+    type: "villa",
+    location: "Pantai Sawarna",
+    description: "Villa nyaman dengan pemandangan sawah yang menakjubkan. Menawarkan berbagai fasilitas untuk kenyamanan maksimal tamu.",
+    price: 302000,
+    rating: 4.5,
+    reviews: 0,
+    capacity: 35,
+    bedrooms: 5,
+    bathrooms: 5,
+    image: "https://i.imgur.com/YPIK3qY.jpeg",
+    mainImages: [
+      "https://i.imgur.com/YPIK3qY.jpeg",
+      "https://i.imgur.com/z3PxvX6.jpeg",
+      "https://i.imgur.com/8Y6K1al.jpeg",
+      "https://i.imgur.com/VFLW55i.jpeg",
+      "https://i.imgur.com/L7FqHP5.jpeg",
+      "https://i.imgur.com/YAz8Xiz.jpeg",
+      "https://i.imgur.com/BOSz0fW.jpeg",
+      "https://i.imgur.com/M3nQjw1.jpeg"
+    ],
+    tags: ["villa", "pantai sawarna"],
+    amenities: [
+      "5 Kamar Tidur Nyaman",
+      "5 Kamar Mandi Dalam",
+      "Kipas Angin",
+      "24/7 Security",
+      "WiFi",
+      "Dapur Umum",
+      "Area BBQ",
+      "Dekat Pantai"
+    ],
+    roomTypes: [
+      {
+        id: "standard-room",
+        name: "Standard Room",
+        description: "Kamar nyaman dengan kipas angin dan kamar mandi dalam. Ideal untuk 4-6 orang per kamar.",
+        price: 302000,
+        capacity: 6,
+        beds: "Multiple Beds",
+        bathrooms: 1,
+        amenities: [
+          "Kipas Angin",
+          "Kamar Mandi Dalam",
+          "WiFi",
+          "Dapur Umum",
+          "View Sawah"
+        ],
+        images: [
+          "https://i.imgur.com/YAz8Xiz.jpeg",
+          "https://i.imgur.com/L7FqHP5.jpeg",
+          "https://i.imgur.com/q3ilivO.jpeg",
+          "https://i.imgur.com/0ZzqdTA.jpeg",
+          "https://i.imgur.com/q4R8LuS.jpeg"
+        ]
+      }
+    ],
+    nearbyAttractions: [
+      { name: "Pantai Sawarna", distance: "5 menit jalan kaki" },
+      { name: "Goa Langir", distance: "8 menit berkendara" },
+      { name: "Legon Pari", distance: "10 menit berkendara" },
+      { name: "Tanjung Layar", distance: "5 menit berkendara" }
+    ],
+    ratingSummary: {
+      score: 0,
+      totalReviews: 0,
+      breakdown: [
+        { label: "Kebersihan", value: 0 },
+        { label: "Kenyamanan Kamar", value: 0 },
+        { label: "Makanan", value: 0 },
+        { label: "Lokasi", value: 0 },
+        { label: "Pelayanan dan Fasilitas", value: 0 }
       ]
     },
     contact: { phone: "083877080088" },
