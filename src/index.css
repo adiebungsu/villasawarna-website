@@ -381,3 +381,13 @@ html,
 .leaflet-control-attribution {
   display: none !important;
 }
+
+html, body, #root, #__next, main, .App {
+  height: 100% !important;
+  width: 100% !important;
+  min-height: 100% !important;
+  min-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}

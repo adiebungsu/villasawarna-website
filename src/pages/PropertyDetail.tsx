@@ -1,5 +1,7 @@
 import { useState, useMemo, useEffect, lazy, Suspense } from "react";
 import { useParams, Link } from "react-router-dom";
+import { destinationsData } from '@/data/destinations';
+import { haversineDistance } from '@/utils/index';
 import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -36,6 +38,7 @@ import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { Marker, Tooltip } from 'react-leaflet';
 
 // Ganti dynamic import dengan React.lazy
 const MapComponent = lazy(() => import('../components/MapComponent'));
@@ -942,54 +945,62 @@ const PropertyDetail: React.FC = () => {
                 <h2 className="text-xl font-bold mb-4 dark:text-white">Lokasi</h2>
                 {/* Layout vertikal: Info di atas, Peta di bawah */}
                 <div className="space-y-4 rounded-xl overflow-hidden shadow-lg dark:shadow-gray-800/50 p-4 bg-white dark:bg-gray-900">
-                  {/* Info Lokasi & Jarak */}
+                  {/* Info Lokasi & Wisata Terdekat */}
                   <div>
-                    <div className="font-semibold text-lg mb-1">Jarak ke Pantai</div>
+                    <div className="font-semibold text-lg mb-1">Area Wisata Terdekat</div>
                     <ul className="mb-3 text-sm text-gray-700 dark:text-gray-300 space-y-1">
                       <li className="flex items-center justify-between py-1">
                         <span className="flex items-center gap-1">🚗 <span>Parkir</span></span>
                         <span className="bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded text-xs">GRATIS</span>
                       </li>
-                      {/* Tampilkan daftar destinasi secara langsung */}
-                      {property.nearbyAttractions && property.nearbyAttractions.length > 0 ? (
-                        property.nearbyAttractions.map((item, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap"
-                          >
-                            <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300">🌊 <span>{item.name}</span></span>
-                            <span className="bg-ocean/10 dark:bg-ocean-dark/20 text-ocean dark:text-ocean-light font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">{item.distance}</span>
-                          </li>
-                        ))
-                      ) : (
-                        <>
-                          <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap">
-                            <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300">🌊 <span>Jarak ke Pantai</span></span>
-                            <span className="bg-ocean/10 dark:bg-ocean-dark/20 text-ocean dark:text-ocean-light font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">7,57 km</span>
-                          </li>
-                          <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap">
-                            <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300">🌊 <span>Pantai Kuta</span></span>
-                            <span className="bg-ocean/10 dark:bg-ocean-dark/20 text-ocean dark:text-ocean-light font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">9,02 km</span>
-                          </li>
-                          <li className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap">
-                            <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300">🌊 <span>Pantai Sanur</span></span>
-                            <span className="bg-ocean/10 dark:bg-ocean-dark/20 text-ocean dark:text-ocean-light font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">9,19 km</span>
-                          </li>
-                        </>
+                      {/* Otomatis wisata terdekat */}
+                      {property.coordinates && destinationsData.length > 0 && (
+                        [...destinationsData]
+                          .map(dest => ({
+                            ...dest,
+                            distanceKm: haversineDistance(property.coordinates!, dest.coordinates)
+                          }))
+                          .filter(dest => typeof dest.distanceKm === 'number' && !isNaN(dest.distanceKm))
+                          .sort((a, b) => a.distanceKm - b.distanceKm)
+                          .slice(0, 5)
+                          .map((dest, idx) => (
+                            <li
+                              key={dest.id}
+                              className="flex items-center justify-between py-1 px-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 whitespace-nowrap"
+                            >
+                              <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300">
+                                {dest.types.includes('beach') ? '🏖️' : dest.types.includes('cave') ? '🕳️' : dest.types.includes('waterfall') ? '💧' : '📍'}
+                                <span>{dest.name}</span>
+                              </span>
+                              <span className="bg-ocean/10 dark:bg-ocean-dark/20 text-ocean dark:text-ocean-light font-semibold px-2 py-0.5 rounded text-xs sm:text-xs text-[11px] whitespace-nowrap">
+                                {dest.distanceKm.toFixed(2)} km
+                              </span>
+                            </li>
+                          ))
                       )}
                     </ul>
                     <a href="#" className="text-blue-600 text-sm underline mt-2">Lihat sekitar</a>
                   </div>
-
                   {/* Peta */}
-                  <div className="w-full h-[150px] md:h-[250px] rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300">
+                  <div className="w-full h-[150px] md:h-[250px] rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300 relative group cursor-pointer">
+                    <a href={`/map?id=${property.id}`} className="absolute inset-0 z-10 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors duration-200 group cursor-pointer">
+                      <span className="text-white font-bold text-base md:text-lg bg-ocean/90 px-4 py-2 rounded-lg shadow-lg border-2 border-white/60 group-hover:scale-105 transition-transform">Lihat Peta Lengkap</span>
+                    </a>
                     <MapComponent
-                      key={showDownloadDialog ? 'map-dialog-open' : 'map-dialog-closed'}
                       center={property.coordinates}
-                      propertyName={property.name}
-                      propertyLocation={property.location}
-                      height="100%"
-                    />
+                      zoom={16}
+                      scrollWheelZoom={false}
+                      dragging={false}
+                      doubleClickZoom={false}
+                      zoomControl={true}
+                      className="w-full h-full"
+                    >
+                      <Marker position={property.coordinates}>
+                        <Tooltip direction="top" offset={[0, -10]} permanent>
+                          <span className="font-semibold text-xs md:text-sm text-ocean-700 dark:text-ocean-200 bg-white/90 dark:bg-gray-900/90 px-2 py-1 rounded shadow">{property.name}</span>
+                        </Tooltip>
+                      </Marker>
+                    </MapComponent>
                   </div>
                 </div>
 

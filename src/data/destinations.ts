@@ -3,6 +3,7 @@ export interface Destination {
   name: string;
   types: ('beach' | 'waterfall' | 'cave' | 'rock')[];
   location: string;
+  coordinates: [number, number];
   description: string;
   mainImage: string;
   images: string[];
@@ -26,6 +27,7 @@ export const destinationsData: Destination[] = [
     name: "Pantai Ciantir",
     types: ["beach"],
     location: "Pantai Ciantir, Sawarna",
+    coordinates: [-6.987, 106.305],
     description: "Pantai Ciantir adalah salah satu destinasi wisata unggulan di Desa Sawarna, Kecamatan Bayah, Kabupaten Lebak, Banten. Pantai ini menawarkan keindahan alami yang masih terjaga dengan baik. Hamparan pasir putih yang luas, laut biru yang jernih, dan ombak yang cukup besar menjadikan Pantai Ciantir sebagai tempat favorit bagi wisatawan yang ingin menikmati ketenangan alam atau aktivitas seru di tepi laut. Keunikan pantai ini terletak pada suasananya yang masih alami, jauh dari hiruk-pikuk kota, serta didukung oleh lingkungan masyarakat lokal yang ramah. Pantai Ciantir juga sering disebut sebagai surga tersembunyi di selatan Banten karena keindahannya yang belum terlalu banyak diketahui orang.",
     mainImage: "https://i.imgur.com/DJDoU8x.jpeg",
     images: [
@@ -71,6 +73,7 @@ export const destinationsData: Destination[] = [
     name: "Karang Bokor",
     types: ["rock"],
     location: "Karang Bokor, Sawarna",
+    coordinates: [-6.995, 106.295],
     description: `
 Karang Bokor Sawarna: Surga Tersembunyi di Pesisir Selatan Banten
 
@@ -155,6 +158,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     name: "Pulo Manuk",
     types: ["beach"],
     location: "Pulo Manuk, Sawarna",
+    coordinates: [-6.980, 106.320],
     description: "Pantai Pulo Manuk terletak di Desa Sawarna, Kecamatan Bayah, Kabupaten Lebak, Banten. Pantai ini menyuguhkan pemandangan alam yang unik karena berada di antara hutan dan laut, dengan pulau kecil yang berada tak jauh dari bibir pantai—yang menjadi asal-usul namanya: Pulo Manuk (Pulau Burung). Keindahan panorama laut biru, ombak yang lebih tenang dibanding Pantai Ciantir, serta udara sejuk dari hutan sekitar menjadikan Pantai Pulo Manuk sebagai tempat yang ideal untuk bersantai dan menyatu dengan alam. Selain keindahan pantainya, kawasan ini juga memiliki keunikan ekosistem karena berada di dekat kawasan konservasi hutan. Suara burung dan hewan liar dari hutan sekitar sering terdengar, memberikan pengalaman wisata yang berbeda dari pantai pada umumnya.",
     mainImage: "https://i.imgur.com/iC3XmMQ.png",
     images: [
@@ -200,6 +204,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     name: "Curug Sangko",
     types: ["waterfall"],
     location: "Curug Sangko, Sawarna",
+    coordinates: [-6.970, 106.310],
     description: "Curug Sangko adalah air terjun yang tersembunyi di tengah hutan Sawarna. Dengan ketinggian sekitar 25 meter, air terjun ini menawarkan suasana sejuk dan damai yang sempurna untuk melepas penat.",
     mainImage: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=80&w=800",
     images: [
@@ -242,6 +247,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     name: "Goa Langir",
     types: ["cave"],
     location: "Goa Langir, Sawarna",
+    coordinates: [-6.984, 106.299],
     description: "Goa Langir adalah salah satu destinasi wisata alam yang terletak di kawasan Desa Sawarna, Kecamatan Bayah, Kabupaten Lebak, Banten. Goa ini menyimpan keindahan alami yang unik dan menarik, dengan suasana sunyi, dikelilingi oleh pepohonan tropis, dan formasi batu kapur yang memukau. Nama \"Langir\" sendiri berasal dari legenda masyarakat setempat, dan goa ini sering dikaitkan dengan cerita rakyat dan aura mistis yang menambah daya tariknya. Terletak tidak jauh dari Pantai Sawarna, Goa Langir menawarkan perpaduan antara petualangan dan ketenangan. Saat memasuki goa, pengunjung akan disambut dengan hawa sejuk, tetesan air dari stalaktit, serta gemericik air yang mengalir di beberapa bagian goa. Selain keindahan goa, kawasan ini juga memiliki pantai kecil yang tenang dengan pasir putih dan air jernih, menjadikannya destinasi yang sempurna untuk menikmati keindahan alam baik di darat maupun di laut.",
     mainImage: "https://i.imgur.com/wuumijw.jpeg",
     images: [
@@ -287,6 +293,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     name: "Karang Berem",
     types: ["rock"],
     location: "Karang Berem, Sawarna",
+    coordinates: [-6.990, 106.297],
     description: "Karang Berem adalah formasi batuan karang yang unik dengan pemandangan laut lepas. Tempat ini terkenal dengan spot fotografi yang menakjubkan dan pemandangan matahari terbenam yang memukau.",
     mainImage: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&q=80&w=800",
     images: [
@@ -329,6 +336,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     name: "Karang Taraje",
     types: ["rock"],
     location: "Karang Taraje, Sawarna",
+    coordinates: [-6.991, 106.298],
     description: "Karang Taraje adalah formasi batuan karang yang menyerupai tangga alami. Tempat ini menawarkan pemandangan laut yang menakjubkan dan spot fotografi yang unik.",
     mainImage: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&q=80&w=800",
     images: [
@@ -371,6 +379,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     name: "Legon Pari",
     types: ["beach"],
     location: "Legon Pari, Sawarna",
+    coordinates: [-6.978, 106.312],
     description: "Legon Pari adalah pantai yang tersembunyi dengan pasir putih dan air jernih. Pantai ini menawarkan ketenangan dan keindahan alam yang masih alami.",
     mainImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800",
     images: [
@@ -413,6 +422,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     name: "Pantai Pasput",
     types: ["beach"],
     location: "Pantai Pasput, Sawarna",
+    coordinates: [-6.976, 106.314],
     description: "Pantai Pasput adalah pantai yang terkenal dengan pasir putihnya yang halus dan air jernih. Pantai ini cocok untuk berenang dan menikmati matahari terbenam.",
     mainImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800",
     images: [
@@ -455,6 +465,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     name: "Pasir Kolecer",
     types: ["beach"],
     location: "Pasir Kolecer, Sawarna",
+    coordinates: [-6.975, 106.316],
     description: "Pasir Kolecer adalah pantai yang terkenal dengan ombaknya yang cocok untuk berselancar. Pantai ini menawarkan pemandangan yang menakjubkan dan suasana yang tenang.",
     mainImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800",
     images: [
@@ -497,6 +508,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     name: "Pantai Sepang",
     types: ["beach"],
     location: "Pantai Sepang, Sawarna",
+    coordinates: [-6.974, 106.318],
     description: "Pantai Sepang adalah pantai yang terkenal dengan pasir putihnya dan air jernih. Pantai ini cocok untuk berenang dan menikmati matahari terbenam.",
     mainImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800",
     images: [
@@ -539,6 +551,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     name: "Goa Lalay",
     types: ["cave"],
     location: "Goa Lalay, Sawarna",
+    coordinates: [-6.973, 106.320],
     description: "Goa Lalay adalah gua yang terkenal dengan kelelawar yang menghuninya. Gua ini menawarkan pengalaman petualangan yang unik dan pemandangan yang menakjubkan.",
     mainImage: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&q=80&w=800",
     images: [
@@ -581,6 +594,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     name: "Tanjung Layar",
     types: ["rock"],
     location: "Tanjung Layar, Sawarna",
+    coordinates: [-6.99370748590788, 106.30716527698226],
     description: "Tanjung Layar adalah formasi batuan karang yang menjorok ke laut, menyerupai layar kapal. Tempat ini menawarkan pemandangan laut lepas yang menakjubkan dan spot fotografi yang unik.",
     mainImage: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&q=80&w=800",
     images: [
@@ -617,6 +631,257 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
       { name: "Pantai Ciantir", distance: "10 menit berkendara" },
       { name: "Goa Langir", distance: "10 menit berkendara" }
     ]
+  },
+  {
+    id: "pantai-sawarna",
+    name: "Pantai Sawarna",
+    types: ["beach"],
+    location: "Pantai Sawarna, Sawarna",
+    coordinates: [-6.985187179644954, 106.30819408276759],
+    description: "Pantai Sawarna adalah pantai yang terkenal dengan pasir putihnya dan air jernih. Pantai ini cocok untuk berenang dan menikmati matahari terbenam.",
+    mainImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800"
+    ],
+    rating: 4.6,
+    reviews: 176,
+    openingHours: "24 jam",
+    bestTimeToVisit: "April - Oktober",
+    facilities: [
+      "Parkir",
+      "Warung Makan",
+      "Toilet Umum",
+      "Tempat Ganti",
+      "Gazebo"
+    ],
+    activities: [
+      "Berenang",
+      "Fotografi",
+      "Matahari Terbenam",
+      "Camping",
+      "Picnic"
+    ],
+    tips: [
+      "Bawa tabir surya dan air minum",
+      "Kunjungi saat pagi atau sore hari",
+      "Bawa bekal makanan",
+      "Perhatikan kondisi ombak"
+    ],
+    nearbyAttractions: [
+      { name: "Pasir Kolecer", distance: "10 menit berkendara" },
+      { name: "Goa Lalay", distance: "15 menit berkendara" }
+    ]
+  },
+  {
+    id: "karang-berem",
+    name: "Pantai Karang Beurem",
+    types: ["beach"],
+    location: "Pantai Karang Beurem, Sawarna",
+    coordinates: [-6.991218423760266, 106.31957524695663],
+    description: "Pantai Karang Beurem adalah destinasi wisata di Sawarna.",
+    mainImage: "",
+    images: [],
+    rating: 0,
+    reviews: 0,
+    facilities: [],
+    activities: [],
+    tips: [],
+    nearbyAttractions: []
+  },
+  {
+    id: "legon-pari",
+    name: "Pantai Legon Pari",
+    types: ["beach"],
+    location: "Pantai Legon Pari, Sawarna",
+    coordinates: [-6.987546019364885, 106.32349562922836],
+    description: "Pantai Legon Pari adalah destinasi wisata di Sawarna.",
+    mainImage: "",
+    images: [],
+    rating: 0,
+    reviews: 0,
+    facilities: [],
+    activities: [],
+    tips: [],
+    nearbyAttractions: []
+  },
+  {
+    id: "karang-taraje",
+    name: "Pantai Karang Taraje",
+    types: ["beach"],
+    location: "Pantai Karang Taraje, Sawarna",
+    coordinates: [-6.9899738877176505, 106.32635893528031],
+    description: "Pantai Karang Taraje adalah destinasi wisata di Sawarna.",
+    mainImage: "",
+    images: [],
+    rating: 0,
+    reviews: 0,
+    facilities: [],
+    activities: [],
+    tips: [],
+    nearbyAttractions: []
+  },
+  {
+    id: "goa-langir",
+    name: "Pantai Goa Langir",
+    types: ["beach"],
+    location: "Pantai Goa Langir, Sawarna",
+    coordinates: [-6.97519875756555, 106.29202254149106],
+    description: "Pantai Goa Langir adalah destinasi wisata di Sawarna.",
+    mainImage: "",
+    images: [],
+    rating: 0,
+    reviews: 0,
+    facilities: [],
+    activities: [],
+    tips: [],
+    nearbyAttractions: []
+  },
+  {
+    id: "pantai-ciantir",
+    name: "Pantai Ciantir",
+    types: ["beach"],
+    location: "Pantai Ciantir, Sawarna",
+    coordinates: [-6.986112613568672, 106.3086441853749],
+    description: "Pantai Ciantir adalah destinasi wisata di Sawarna.",
+    mainImage: "",
+    images: [],
+    rating: 0,
+    reviews: 0,
+    facilities: [],
+    activities: [],
+    tips: [],
+    nearbyAttractions: []
+  },
+  {
+    id: "karang-bokor",
+    name: "Pantai Karang Bokor",
+    types: ["beach"],
+    location: "Pantai Karang Bokor, Sawarna",
+    coordinates: [-6.978932473733607, 106.27983762274829],
+    description: "Pantai Karang Bokor adalah destinasi wisata di Sawarna.",
+    mainImage: "",
+    images: [],
+    rating: 0,
+    reviews: 0,
+    facilities: [],
+    activities: [],
+    tips: [],
+    nearbyAttractions: []
+  },
+  {
+    id: "pulo-manuk",
+    name: "Pantai Pulo Manuk",
+    types: ["beach"],
+    location: "Pantai Pulo Manuk, Sawarna",
+    coordinates: [-6.969486433223623, 106.26511283946034],
+    description: "Pantai Pulo Manuk adalah destinasi wisata di Sawarna.",
+    mainImage: "",
+    images: [],
+    rating: 0,
+    reviews: 0,
+    facilities: [],
+    activities: [],
+    tips: [],
+    nearbyAttractions: []
+  },
+  {
+    id: "pantai-karang-urug",
+    name: "Pantai Karang Urug",
+    types: ["beach"],
+    location: "Pantai Karang Urug, Sawarna",
+    coordinates: [-6.9759008261138336, 106.28144513178788],
+    description: "Pantai Karang Urug adalah destinasi wisata di Sawarna.",
+    mainImage: "",
+    images: [],
+    rating: 0,
+    reviews: 0,
+    facilities: [],
+    activities: [],
+    tips: [],
+    nearbyAttractions: []
+  },
+  {
+    id: "pantai-pulo-manuk-2",
+    name: "Pantai Pulo Manuk 2",
+    types: ["beach"],
+    location: "Pantai Pulo Manuk 2, Sawarna",
+    coordinates: [-6.966710027020968, 106.26257297517778],
+    description: "Pantai Pulo Manuk 2 adalah destinasi wisata di Sawarna.",
+    mainImage: "",
+    images: [],
+    rating: 0,
+    reviews: 0,
+    facilities: [],
+    activities: [],
+    tips: [],
+    nearbyAttractions: []
+  },
+  {
+    id: "pantai-sedong-abu",
+    name: "Pantai Sedong Abu",
+    types: ["beach"],
+    location: "Pantai Sedong Abu, Sawarna",
+    coordinates: [-6.990857404280575, 106.33029786381513],
+    description: "Pantai Sedong Abu adalah destinasi wisata di Sawarna.",
+    mainImage: "",
+    images: [],
+    rating: 0,
+    reviews: 0,
+    facilities: [],
+    activities: [],
+    tips: [],
+    nearbyAttractions: []
+  },
+  {
+    id: "pantai-seupang",
+    name: "Pantai Seupang",
+    types: ["beach"],
+    location: "Pantai Seupang, Sawarna",
+    coordinates: [-6.986738314811417, 106.33815120018642],
+    description: "Pantai Seupang adalah destinasi wisata di Sawarna.",
+    mainImage: "",
+    images: [],
+    rating: 0,
+    reviews: 0,
+    facilities: [],
+    activities: [],
+    tips: [],
+    nearbyAttractions: []
+  },
+  {
+    id: "goa-arca",
+    name: "Wisata Goa Arca",
+    types: ["cave"],
+    location: "Wisata Goa Arca, Sawarna",
+    coordinates: [-6.977559713156136, 106.32666254467904],
+    description: "Wisata Goa Arca adalah destinasi wisata di Sawarna.",
+    mainImage: "",
+    images: [],
+    rating: 0,
+    reviews: 0,
+    facilities: [],
+    activities: [],
+    tips: [],
+    nearbyAttractions: []
+  },
+  {
+    id: "curug-tujuh",
+    name: "Curug Tujuh",
+    types: ["waterfall"],
+    location: "Curug Tujuh, Sawarna",
+    coordinates: [-6.974240977757274, 106.33563874128828],
+    description: "Curug Tujuh adalah destinasi wisata di Sawarna.",
+    mainImage: "",
+    images: [],
+    rating: 0,
+    reviews: 0,
+    facilities: [],
+    activities: [],
+    tips: [],
+    nearbyAttractions: []
   }
 ];
 

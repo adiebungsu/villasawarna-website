@@ -46,6 +46,7 @@ const PropertyEditor = lazy(() => import(/* webpackChunkName: "admin-property-ed
 const DestinationList = lazy(() => import(/* webpackChunkName: "admin-destinations" */ '@/pages/admin/DestinationList'));
 const BookingList = lazy(() => import(/* webpackChunkName: "admin-bookings" */ '@/pages/admin/BookingList'));
 const PartnershipPage = lazy(() => import(/* webpackChunkName: "partnership" */ './pages/PartnershipPage'));
+const MapPage = lazy(() => import(/* webpackChunkName: "map" */ "./pages/Map"));
 
 // Preload komponen yang sering diakses
 const preloadComponents = () => {
@@ -190,6 +191,7 @@ const App = () => {
                                 <Route path="/admin/properties/edit/:id" element={<AuthGuard><PropertyEditor /></AuthGuard>} />
                                 <Route path="/admin/destinations" element={<AuthGuard><DestinationList /></AuthGuard>} />
                                 <Route path="/admin/bookings" element={<AuthGuard><BookingList /></AuthGuard>} />
+                                <Route path="/map" element={<MapPage />} />
                                 <Route path="*" element={<NotFound />} />
                               </Routes>
                             </Layout>

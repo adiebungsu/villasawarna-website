@@ -18,13 +18,12 @@ L.Icon.Default.mergeOptions({
 
 interface MapComponentProps {
   center: [number, number];
-  propertyName: string;
-  propertyLocation: string;
   height: string;
   shouldUpdateSize?: boolean;
+  children?: React.ReactNode;
 }
 
-const MapComponent: FC<MapComponentProps> = ({ center, propertyName, propertyLocation, height, shouldUpdateSize }) => {
+const MapComponent: FC<MapComponentProps> = ({ center, height, shouldUpdateSize, children }) => {
   const mapRef = useRef<L.Map | null>(null);
 
   useEffect(() => {
@@ -43,18 +42,12 @@ const MapComponent: FC<MapComponentProps> = ({ center, propertyName, propertyLoc
         zoom={15} 
         style={{ height: '100%', width: '100%' }}
         scrollWheelZoom={false}
-        whenReady={(map) => { mapRef.current = map; }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={center}>
-          <Popup>
-            {propertyName}<br />
-            {propertyLocation}
-          </Popup>
-        </Marker>
+        {children}
       </MapContainer>
     </div>
   );

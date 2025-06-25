@@ -115,12 +115,6 @@ const villasData: ExtendedPropertyCardProps[] = [
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "4-6 menit jalan kaki" },
-      { name: "Goa Langir", distance: "8 menit berkendara" },
-      { name: "Legon Pari", distance: "9-10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "4 menit berkendara" }
-    ],
     ratingSummary: {
       score: 8.5,
       totalReviews: 178,
@@ -133,7 +127,8 @@ const villasData: ExtendedPropertyCardProps[] = [
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.983313138494551, 106.3100191399096],
+    nearbyAttractions: []
   },
   {
     id: "villa-dua-putri",
@@ -224,12 +219,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "6 menit jalan kaki" },
-      { name: "Goa Langir", distance: "4 menit jalan kaki" },
-      { name: "Legon Pari", distance: "10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "5 menit berkendara" }
-    ],
     ratingSummary: {
       score: 8.7,
       totalReviews: 120,
@@ -242,7 +231,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.981214793297297, 106.30974981409561],
+    nearbyAttractions: []
   },
   {
     id: "villa-deka-sawarna",
@@ -310,12 +300,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Goa Langir", distance: "4 menit jalan kaki" },
-      { name: "Pantai Sawarna", distance: "2 menit berkendara" },
-      { name: "Legon Pari", distance: "10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "5 menit berkendara" }
-    ],
     ratingSummary: {
       score: 8.7,
       totalReviews: 163,
@@ -328,7 +312,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.979094466326558, 106.30727668986445],
+    nearbyAttractions: []
   },
   {
     id: "villa-sawarna-resort",
@@ -435,12 +420,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Goa Langir", distance: "4 menit jalan kaki" },
-      { name: "Pantai Sawarna", distance: "2 menit berkendara" },
-      { name: "Legon Pari", distance: "10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "5 menit berkendara" }
-    ],
     ratingSummary: {
       score: 8.7,
       totalReviews: 163,
@@ -453,7 +432,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.974810518892521, 106.29812614079675],
+    nearbyAttractions: []
   },
   {
     id: "villa-sinar-pelangi",
@@ -475,6 +455,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     price: 200000,
     rating: 4.8,
     location: "Pantai Sawarna",
+    coordinates: [-6.97947898229436, 106.30604074263614],
     capacity: 40,
     reviews: 12,
     bedrooms: 10,
@@ -491,12 +472,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     ],
     description: "Villa Sinar Pelangi adalah villa eksklusif dengan 10 kamar tidur yang menawarkan halaman luas. Terletak di Pantai Sawarna, villa ini dilengkapi dengan dapur lengkap, dan teras yang luas. Cocok untuk liburan keluarga atau rombongan besar.",
     tags: ["Pantai", "10 Kamar", "Eksklusif"],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "4-6 menit jalan kaki" },
-      { name: "Goa Langir", distance: "8 menit berkendara" },
-      { name: "Legon Pari", distance: "9-10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "4 menit berkendara" }
-    ],
     roomTypes: [
       {
         id: "standar-room",
@@ -542,7 +517,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         comment: "Fasilitas lengkap dan bersih. Lokasi strategis dekat pantai. Hanya saja harga sedikit mahal.",
         date: "2024-02-10"
       }
-    ]
+    ],
+    nearbyAttractions: []
   },
   {
     id: "villa-aki-nini",
@@ -651,23 +627,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "6 menit jalan kaki" },
-      { name: "Goa Langir", distance: "5 menit berkendara" },
-      { name: "Legon Pari", distance: "9 menit berkendara" },
-      { name: "Tanjung Layar", distance: "4 menit berkendara" }
-    ],
-    ratingSummary: {
-      score: 8.7,
-      totalReviews: 120,
-      breakdown: [
-        { label: "Kebersihan", value: 8.6 },
-        { label: "Kenyamanan Kamar", value: 8.5 },
-        { label: "Makanan", value: 8.4 },
-        { label: "Lokasi", value: 8.7 },
-        { label: "Pelayanan dan Fasilitas", value: 8.5 }
-      ]
-    },
     reviewDetails: [
       {
         id: "1",
@@ -692,7 +651,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.978853212418463, 106.30729082671174],
+    nearbyAttractions: []
   },
   {
     id: "villa-mutiara-sawarna",
@@ -807,23 +767,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         amenities: ["AC", "TV LED 55 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Jacuzzi", "Balkon Pribadi", "Mini Bar", "Setrika", "Perlengkapan Mandi", "View Pantai"]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Legon Pari", distance: "5 menit jalan kaki" },
-      { name: "Pantai Goa Langir", distance: "10 menit berkendara" },
-      { name: "Pantai Karang Taraje", distance: "7 menit berkendara" },
-      { name: "Tanjung Layar", distance: "15 menit berkendara" }
-    ],
-    ratingSummary: {
-      score: 8.8,
-      totalReviews: 269,
-      breakdown: [
-        { label: "Kebersihan", value: 8.7 },
-        { label: "Kenyamanan Kamar", value: 8.6 },
-        { label: "Makanan", value: 8.5 },
-        { label: "Lokasi", value: 8.8 },
-        { label: "Pelayanan dan Fasilitas", value: 8.6 }
-      ]
-    },
     reviewDetails: [
       {
         id: "1",
@@ -848,7 +791,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: [-6.978249058445284, 106.30597263278183]
+    coordinates: [-6.978365247307664, 106.30587655192137],
+    nearbyAttractions: []
   },
   {
     id: "villa-regin-sawarna",
@@ -973,12 +917,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         amenities: ["AC", "TV LED 55 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Jacuzzi", "Balkon Pribadi", "Mini Bar", "Setrika", "Perlengkapan Mandi", "View Pesawahan"]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Legon Pari", distance: "9-10 menit berkendara" },
-      { name: "Pantai Goa Langir", distance: "5 menit berkendara" },
-      { name: "Pantai Sawarna", distance: "3 menit berkendara" },
-      { name: "Tanjung Layar", distance: "7 menit berkendara" }
-    ],
     ratingSummary: {
       score: 8.4,
       totalReviews: 175,
@@ -1014,7 +952,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: [-6.978786683942936, 106.30640702985548]
+    coordinates: [-6.978777224525033, 106.30637610022279],
+    nearbyAttractions: []
   },
   {
     id: "villa-little-hula-hula",
@@ -1141,12 +1080,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "5 menit jalan kaki" },
-      { name: "Goa Langir", distance: "7 menit berkendara" },
-      { name: "Legon Pari", distance: "12 menit berkendara" },
-      { name: "Tanjung Layar", distance: "6 menit berkendara" }
-    ],
     reviewDetails: [
       {
         id: "1",
@@ -1182,7 +1115,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.975702407092274, 106.30000198769226]
+    coordinates: [-6.975719846392589, 106.30001354457787],
+    nearbyAttractions: []
   },
   {
     id: "villa-arizky-sawarna",
@@ -1266,11 +1200,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "9 menit berkendara" },
-      { name: "Goa Langir", distance: "10 menit berkendara" },
-      { name: "Legon Pari", distance: "Depan villa" }
-    ],
     ratingSummary: {
       score: 8.8,
       totalReviews: 145,
@@ -1283,7 +1212,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511],
+    coordinates: [-6.987974982122312, 106.32601831796161],
     reviewDetails: [
       {
         id: "1",
@@ -1299,7 +1228,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         comment: "Fasilitas lengkap, bersih, dan pelayanan ramah.",
         date: "2024-03-10"
       }
-    ]
+    ],
+    nearbyAttractions: []
   },
   {
     id: "villa-sinar-matahari-resort",
@@ -1430,12 +1360,6 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
         amenities: ["AC", "WiFi", "2 Kamar Mandi Dalam", "TV", "Mini Kulkas", "Ruang Tamu"]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "depan pantai" },
-      { name: "Goa Langir", distance: "8 menit berkendara" },
-      { name: "Legon Pari", distance: "9-10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "4 menit berkendara" }
-    ],
     ratingSummary: {
       score: 8.7,
       totalReviews: 189,
@@ -1483,7 +1407,8 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
         comment: "Cocok untuk liburan keluarga. Pemandangan pantai yang menakjubkan.",
         date: "2024-02-20"
       }
-    ]
+    ],
+    nearbyAttractions: []
   },
   {
     id: "villa-putri-asih",
@@ -1576,12 +1501,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Balkon", "Mini Kulkas", "Setrika", "Perlengkapan Mandi", "View Pantai"]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "6 menit jalan kaki" },
-      { name: "Goa Langir", distance: "5 menit berkendara" },
-      { name: "Legon Pari", distance: "9 menit berkendara" },
-      { name: "Tanjung Layar", distance: "4 menit berkendara" }
-    ],
     ratingSummary: {
       score: 8.8,
       totalReviews: 178,
@@ -1617,7 +1536,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: [-6.98382227227367, 106.31032309995304]
+    coordinates: [-6.982508012805922, 106.30846527931784],
+    nearbyAttractions: []
   },
   {
     id: "villa-widi",
@@ -1684,12 +1604,6 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
         amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas", "Setrika", "Perlengkapan Mandi", "View Pantai"]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "3 menit jalan kaki" },
-      { name: "Goa Langir", distance: "8 menit berkendara" },
-      { name: "Legon Pari", distance: "9-10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "4 menit berkendara" }
-    ],
     ratingSummary: {
       score: 8.5,
       totalReviews: 25,
@@ -1718,7 +1632,8 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.983433239060691, 106.30965162602301],
+    nearbyAttractions: []
   },
   {
     id: "villa-batara",
@@ -1835,7 +1750,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: [-6.98382227227367, 106.31032309995304]
+    coordinates: [-6.983534406852092, 106.30965564933643],
+    nearbyAttractions: []
   },
   {
     id: "villa-andrew-pasput",
@@ -1936,7 +1852,8 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       }
     ],
     contact: { phone: "087820952251" },
-    coordinates: [-6.982431685908441, 106.30955879500338]
+    coordinates: [-6.982214529616017, 106.3096083872957],
+    nearbyAttractions: []
   },
   {
     id: "villa-cempaka",
@@ -2022,11 +1939,6 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "9 menit berkendara" },
-      { name: "Goa Langir", distance: "10 menit berkendara" },
-      { name: "Legon Pari", distance: "Depan villa" }
-    ],
     ratingSummary: {
       score: 8.7,
       totalReviews: 163,
@@ -2039,7 +1951,8 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.987281692878949, 106.32599122186257],
+    nearbyAttractions: []
   },
   {
     id: "villa-family-sawarna",
@@ -2148,12 +2061,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "depan pantai" },
-      { name: "Goa Langir", distance: "8 menit berkendara" },
-      { name: "Legon Pari", distance: "9-10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "4 menit berkendara" }
-    ],
     ratingSummary: {
       score: 9.0,
       totalReviews: 156,
@@ -2189,106 +2096,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: [-6.984472686767081, 106.31050607162815]
-  },
-  {
-    id: "villa-regin",
-    name: "Villa Regin",
-    type: "villa" as const,
-    location: "Pantai Sawarna",
-    description: "Villa nyaman dengan pemandangan pantai yang menakjubkan. Dilengkapi dengan dapur modern, ruang meeting, dan area BBQ. Lokasi strategis dekat dengan pantai dan atraksi lokal.",
-    price: 320000,
-    rating: 4.4,
-    reviews: 163,
-    capacity: 40,
-    bedrooms: 10,
-    bathrooms: 4,
-    image: "https://i.imgur.com/XG2ijrp.jpeg",
-    tags: ["villa", "pantai sawarna"],
-    amenities: [
-      "10 Kamar Tidur Nyaman",
-      "4 Kamar Mandi Dalam",
-      "AC di Semua Kamar",
-      "TV LED 43 inch",
-      "WiFi",
-      "Dapur Modern Premium",
-      "Area BBQ Luas",
-      "Gazebo",
-      "Taman",
-      "Parkir Luas",
-      "Ruang Meeting",
-      "24/7 Security",
-      "Ruang Tamu",
-      "Ruang Makan",
-      "Kulkas",
-      "Mesin Cuci",
-      "Setrika",
-      "Perlengkapan Mandi",
-      "Handuk",
-      "Kasur Premium",
-      "Air Panas"
-    ],
-    mainImages: [
-      "https://i.imgur.com/XG2ijrp.jpeg",
-      "https://i.imgur.com/aMC3EHU.jpeg",
-      "https://i.imgur.com/l19FLfr.jpeg",
-      "https://i.imgur.com/MsdVlnL.jpeg",
-      "https://i.imgur.com/eOA7T0V.jpeg"
-    ],
-    roomTypes: [
-      {
-        id: "deluxe-room",
-        name: "Deluxe Room",
-        description: "Kamar nyaman dengan double bed, ideal untuk berdua. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
-        price: 450000,
-        capacity: 2,
-        beds: "1 Double Bed",
-        bathrooms: 1,
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
-        images: [
-          "https://i.imgur.com/ChtRatA.jpeg",
-          "https://i.imgur.com/cjihL8w.jpeg",
-          "https://i.imgur.com/55sNE5Y.jpeg",
-          "https://i.imgur.com/vZbdMVZ.jpeg",
-          "https://i.imgur.com/eOA7T0V.jpeg"
-        ]
-      },
-      {
-        id: "family-room",
-        name: "Family Room",
-        description: "Kamar keluarga yang luas dengan 2 double bed, ideal untuk keluarga kecil. Dilengkapi dengan AC, TV LED 43 inch, dan kamar mandi dalam dengan air panas.",
-        price: 750000,
-        capacity: 4,
-        beds: "2 Double Beds",
-        bathrooms: 1,
-        amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas"],
-        images: [
-          "https://i.imgur.com/Orlvd5N.jpeg",
-          "https://i.imgur.com/XG2ijrp.jpeg",
-          "https://i.imgur.com/NAy81RD.jpeg",
-          "https://i.imgur.com/JWs3N0w.jpeg",
-          "https://i.imgur.com/Lv5XWtE.jpeg"
-        ]
-      }
-    ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "5 menit jalan kaki" },
-      { name: "Goa Langir", distance: "10 menit berkendara" },
-      { name: "Legon Pari", distance: "15 menit berkendara" }
-    ],
-    ratingSummary: {
-      score: 8.7,
-      totalReviews: 163,
-      breakdown: [
-        { label: "Kebersihan", value: 8.5 },
-        { label: "Kenyamanan Kamar", value: 8.8 },
-        { label: "Makanan", value: 8.6 },
-        { label: "Lokasi", value: 8.9 },
-        { label: "Pelayanan dan Fasilitas", value: 8.7 }
-      ]
-    },
-    contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.984509398549827, 106.31045079908536],
+    nearbyAttractions: []
   },
   {
     id: "villa-muara-legon-pari",
@@ -2389,7 +2198,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511],
+    coordinates: [-6.987766614844215, 106.32177456451163],
     reviewDetails: [
       {
         id: "1",
@@ -2405,7 +2214,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         comment: "Fasilitas lengkap, bersih, dan pelayanan ramah.",
         date: "2024-03-10"
       }
-    ]
+    ],
+    nearbyAttractions: []
   },
   {
     id: "villa-sabumi-goa-langir",
@@ -2543,7 +2353,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "0838-4134-8177" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.974516327669769, 106.29791816930964],
+    nearbyAttractions: []
   },
   {
     id: "villa-cariang-resort",
@@ -2682,7 +2493,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.975702407092274, 106.30000198769226]
+    coordinates: [-6.97445948392045, 106.29753739059582],
+    nearbyAttractions: []
   },
   {
     id: "villa-mang-engkos-goa-langir",
@@ -2828,7 +2640,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.975993908906087, 106.29566972542729],
+    nearbyAttractions: []
   },
   {
     id: "villa-pondok-indah",
@@ -2918,11 +2731,12 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.975869538611312, 106.29469129667444],
+    nearbyAttractions: []
   },
   {
     id: "villa-amira-sawana",
-    name: "Villa Amira Sawana",
+    name: "Villa Amira Sawarna",
     type: "villa" as const,
     location: "Pantai Sawarna",
     description: `Villa Amira Sawana adalah villa nyaman yang terletak di kawasan Pantai Sawarna. Dengan pemandangan pantai yang menakjubkan dan desain arsitektur modern, villa ini menawarkan pengalaman menginap yang tak terlupakan.
@@ -3017,7 +2831,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.983452322598835, 106.30962763855953],
+    nearbyAttractions: []
   },
   {
     id: "villa-ablo-sawarna",
@@ -3096,7 +2911,8 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.983452322598835, 106.30962763855953],
+    nearbyAttractions: []
   }
 ];
 
@@ -3181,7 +2997,8 @@ Lokasi strategis homestay ini memudahkan akses ke berbagai destinasi wisata popu
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.98115695793151, 106.31023098316602],
+    nearbyAttractions: []
   },
   {
     id: "homestay-putri-asih",
@@ -3264,7 +3081,8 @@ Lokasi strategis homestay ini memudahkan akses ke berbagai destinasi wisata popu
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983539105798058, 106.30959983031511]
+    coordinates: [-6.982424222247813, 106.30858813014812],
+    nearbyAttractions: []
   }
 ];
 
@@ -3380,3 +3198,22 @@ export const getCheapestVillas = (): Property[] => {
     .sort((a, b) => a.minPrice - b.minPrice)
     .slice(0, 8); // Ambil 8 villa termurah
 }; 
+
+// Data wisata sekitar terbaru dengan koordinat
+export const nearbyAttractionsData = [
+  { name: 'Tanjung Layar', coordinates: [-6.99370748590788, 106.30716527698226] },
+  { name: 'Pantai Sawarna', coordinates: [-6.985187179644954, 106.30819408276759] },
+  { name: 'Pantai Karang Beurem', coordinates: [-6.991218423760266, 106.31957524695663] },
+  { name: 'Pantai Legon Pari', coordinates: [-6.987546019364885, 106.32349562922836] },
+  { name: 'Pantai Karang Taraje', coordinates: [-6.9899738877176505, 106.32635893528031] },
+  { name: 'Pantai Goa Langir', coordinates: [-6.97519875756555, 106.29202254149106] },
+  { name: 'Pantai Ciantir', coordinates: [-6.986112613568672, 106.3086441853749] },
+  { name: 'Pantai Karang Bokor', coordinates: [-6.978932473733607, 106.27983762274829] },
+  { name: 'Pantai Karang Urug', coordinates: [-6.9759008261138336, 106.28144513178788] },
+  { name: 'Pantai Pulo Manuk', coordinates: [-6.969486433223623, 106.26511283946034] },
+  { name: 'Pantai Pulo Manuk 2', coordinates: [-6.966710027020968, 106.26257297517778] },
+  { name: 'Pantai Sedong Abu', coordinates: [-6.990857404280575, 106.33029786381513] },
+  { name: 'Pantai Seupang', coordinates: [-6.986738314811417, 106.33815120018642] },
+  { name: 'Wisata Goa Arca', coordinates: [-6.977559713156136, 106.32666254467904] },
+  { name: 'Curug Tujuh', coordinates: [-6.974240977757274, 106.33563874128828] },
+];
