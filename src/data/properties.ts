@@ -2596,23 +2596,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     ],
     roomTypes: [
       {
-        id: "standard",
-        name: "Standard Room",
-        description: "Kamar standar yang nyaman dengan fasilitas AC dan kamar mandi dalam.",
-        price: 354000,
-        capacity: 2,
-        beds: "1 Double Bed",
-        bathrooms: 1,
-        amenities: ["AC", "Kamar Mandi Dalam"],
-        images: [
-          "https://i.imgur.com/eLftu5p.jpeg",
-          "https://i.imgur.com/cZCBWWP.jpeg",
-          "https://i.imgur.com/KWvn7pD.jpeg",
-          "https://i.imgur.com/qjfb0FI.jpeg",
-          "https://i.imgur.com/47HmoZt.jpeg"
-        ]
-      },
-      {
         id: "deluxe",
         name: "Deluxe Room",
         description: "Kamar deluxe yang nyaman dengan fasilitas AC, kamar mandi dalam, dan balkon pribadi.",
@@ -2622,11 +2605,28 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         bathrooms: 1,
         amenities: ["AC", "Kamar Mandi Dalam", "Balkon Pribadi"],
         images: [
-          "https://i.imgur.com/eLftu5p.jpeg",
-          "https://i.imgur.com/cZCBWWP.jpeg",
-          "https://i.imgur.com/KWvn7pD.jpeg",
-          "https://i.imgur.com/qjfb0FI.jpeg",
-          "https://i.imgur.com/47HmoZt.jpeg"
+          "https://i.imgur.com/ElZhSYF.jpeg",
+          "https://i.imgur.com/nb3Fxcf.jpeg",
+          "https://i.imgur.com/VcikUed.jpeg",
+          "https://i.imgur.com/eIpU58u.jpeg",
+          "https://i.imgur.com/3O7Gpww.jpeg"
+        ]
+      },
+      {
+        id: "standard",
+        name: "Standard Room",
+        description: "Kamar standar yang nyaman dengan fasilitas AC dan kamar mandi dalam.",
+        price: 354000,
+        capacity: 2,
+        beds: "1 Double Bed",
+        bathrooms: 1,
+        amenities: ["AC", "Kamar Mandi Dalam"],
+        images: [
+          "https://i.imgur.com/d3uH6hO.jpeg",
+          "https://i.imgur.com/XmAZJ8l.jpeg",
+          "https://i.imgur.com/thRorLX.jpeg",
+          "https://i.imgur.com/qBmhiTV.jpeg",
+          "https://i.imgur.com/Qa2Grm5.jpeg"
         ]
       },
       {
@@ -2639,11 +2639,11 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         bathrooms: 1,
         amenities: ["AC", "Kamar Mandi Dalam"],
         images: [
-          "https://i.imgur.com/eLftu5p.jpeg",
-          "https://i.imgur.com/cZCBWWP.jpeg",
-          "https://i.imgur.com/KWvn7pD.jpeg",
-          "https://i.imgur.com/qjfb0FI.jpeg",
-          "https://i.imgur.com/47HmoZt.jpeg"
+          "https://i.imgur.com/j6DVFuR.jpeg",
+          "https://i.imgur.com/1GSrovx.jpeg",
+          "https://i.imgur.com/SfJpzyz.jpeg",
+          "https://i.imgur.com/c9jqfTs.jpeg",
+          "https://i.imgur.com/kfq3Ovl.jpeg"
         ]
       },
       {
