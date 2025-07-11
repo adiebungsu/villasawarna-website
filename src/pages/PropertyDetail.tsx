@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, lazy, Suspense } from "react";
+import { useState, useMemo, useEffect, useLayoutEffect, lazy, Suspense } from "react";
 import { useParams, Link } from "react-router-dom";
 import { destinationsData } from '@/data/destinations';
 import { haversineDistance } from '@/utils/index';
@@ -384,7 +384,13 @@ const FAQAccordion: React.FC<{ items: FAQItem[] }> = ({ items }) => {
 };
 
 const PropertyDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
+  useLayoutEffect(() => {
+    const el = document.getElementById('property-title');
+    if (el) el.scrollIntoView({ behavior: 'auto' });
+    else window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    console.log('[PropertyDetail] useLayoutEffect ScrollTo property-title on id change:', id);
+  }, [id]);
   const [isMobile, setIsMobile] = useState(false);
   const [isAndroid, setIsAndroid] = useState(false);
   const [showDownloadDialog, setShowDownloadDialog] = useState(false);
@@ -850,31 +856,39 @@ const PropertyDetail: React.FC = () => {
               {/* Galeri Gambar Utama */}
               {mainImages && mainImages.length > 0 ? (
                 <div className="mb-8">
-                  <div className="mb-2 overflow-hidden rounded-xl shadow-xl aspect-[16/9] relative dark:shadow-gray-800/50">
-                    <OptimizedImage 
-                      src={mainImages[selectedMainImage]} 
-                      alt={`${property?.name} - tampilan utama`}
-                      className="w-full h-full object-cover object-center"
-                      quality={90}
-                      priority={true}
-                      sizes="(min-width: 1024px) 66vw, 100vw"
-                    />
-                  </div>
-                  <div className="flex flex-nowrap overflow-x-auto gap-2 mt-4 pb-2">
+                  {/* Judul Properti */}
+                  <h2 id="property-title" className="text-lg md:text-xl font-bold text-black dark:text-white mb-2 flex items-center gap-2">
+                    {property.name}
+                  </h2>
+                  {/* Gambar besar utama */}
+                  {mainImages.length > 0 && (
+                    <div className="w-full flex justify-center items-center mb-2">
+                      <OptimizedImage
+                        src={mainImages[selectedMainImage]}
+                        alt={`${property.name} - tampilan utama`}
+                        className="rounded-lg object-cover w-full h-56 md:h-96"
+                        quality={80}
+                        sizes="100vw"
+                        priority
+                      />
+                    </div>
+                  )}
+                  {/* Galeri thumbnail */}
+                  <div id="gallery" className="flex flex-nowrap overflow-x-auto gap-2 mt-2 pb-2">
                     {mainImages.map((img, idx) => (
-                      <div 
+                      <div
                         key={idx}
                         onClick={() => setSelectedMainImage(idx)}
                         className={`cursor-pointer flex-shrink-0 aspect-[4/3] overflow-hidden rounded-lg transition duration-200 border-2 ${
-                          selectedMainImage === idx 
-                            ? 'border-ocean scale-105 opacity-100 dark:border-ocean-light' 
+                          selectedMainImage === idx
+                            ? 'border-ocean scale-105 opacity-100 dark:border-ocean-light'
                             : 'border-transparent opacity-70 hover:opacity-100'
                         }`}
                         style={{ width: 80, height: 60 }}
                       >
-                        <OptimizedImage 
-                          src={img} 
-                          alt={`${property?.name} - tampilan ${idx + 1}`} 
+                        <OptimizedImage
+                          src={img}
+                          alt={`${property?.name} - tampilan ${idx + 1}`}
                           className="w-full h-full object-cover"
                           quality={70}
                           sizes="80px"
