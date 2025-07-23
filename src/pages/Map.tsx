@@ -56,7 +56,7 @@ function MapResizeFixer() {
   return null;
 }
 
-export default function MapPage() {
+export default function MapPage(props) {
   const [search, setSearch] = useState('');
   const [activePropertyId, setActivePropertyId] = useState<string | null>(null);
   const [activeWisataIdx, setActiveWisataIdx] = useState<number | null>(null);
@@ -169,6 +169,11 @@ export default function MapPage() {
     }, [latlng, wisataIdx, map]);
     return null;
   }
+
+  // Scroll ke atas saat halaman ini dibuka
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
 
   return (
     <div

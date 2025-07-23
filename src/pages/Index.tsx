@@ -685,7 +685,6 @@ const Index = () => {
         </section>
 
         <WhyChooseUs />
-        <GoFoodSawarna />
 
         {/* Partnership Call to Action Section */}
         <section className="py-12 bg-white dark:bg-gray-900">
@@ -1059,108 +1058,6 @@ const WhyChooseUs = () => {
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{feature.description}</p>
             </div>
           ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const GoFoodSawarna = () => {
-  return (
-    <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="order-2 lg:order-1">
-            <div className="mb-8">
-              <span className="inline-block px-4 py-1.5 mb-3 text-sm font-semibold bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 rounded-full shadow-sm">
-                Layanan Pengantaran Makanan
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">GoFoodSawarna</h2>
-              <div className="w-20 h-1 bg-purple-600 dark:bg-purple-500 mb-6 rounded-full"></div>
-              <p className="text-gray-700 dark:text-gray-300 mb-8 text-lg leading-relaxed">
-                Nikmati kemudahan memesan makanan lezat dari lokal yang diantarkan langsung ke lokasi Anda di area Sawarna.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
-              <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
-                <div className="flex items-start gap-4">
-                  <div className="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-lg">
-                    <Utensils className="h-6 w-6 text-purple-700 dark:text-purple-300" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Pilihan Beragam</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Berbagai menu makanan lokal dan internasional</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
-                <div className="flex items-start gap-4">
-                  <div className="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-lg">
-                    <Clock className="h-6 w-6 text-purple-700 dark:text-purple-300" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Cepat & Tepat</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Pengantaran cepat ke lokasi anda</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
-                <div className="flex items-start gap-4">
-                  <div className="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-lg">
-                    <MapPinHouse className="h-6 w-6 text-purple-700 dark:text-purple-300" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Di Mana Saja</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Melayani semua lokasi wisata di Sawarna</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
-                <div className="flex items-start gap-4">
-                  <div className="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-lg">
-                    <Truck className="h-6 w-6 text-purple-700 dark:text-purple-300" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Tanpa Minimum</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Tidak ada pesanan minimum</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <Button asChild className="bg-purple-700 hover:bg-purple-800 dark:bg-purple-600 dark:hover:bg-purple-700 text-white px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-              <a href="https://gofood.villasawarna.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3">
-                <Pizza className="h-6 w-6" />
-                Pesan Makanan Sekarang
-              </a>
-            </Button>
-          </div>
-          
-          <div className="order-1 lg:order-2 relative">
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
-              <div className="relative mx-auto w-full h-80 md:h-96 overflow-hidden rounded-xl mb-6">
-                <OptimizedImage 
-                  src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&q=80&w=1000" 
-                  alt="Makanan Lezat" 
-                  className="w-full h-full object-cover"
-                  quality={85}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  width={800}
-                  height={600}
-                />
-                <div className="absolute top-4 left-4 bg-purple-700 dark:bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
-                  GoFoodSawarna
-                </div>
-              </div>
-              <div className="text-center">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Layanan pengantaran makanan terbaik di Sawarna</h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">Nikmati berbagai pilihan makanan lezat dari restoran dan warung lokal favorit yang diantarkan langsung ke lokasi anda!</p>
-              </div>
-            </div>
-            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-200 dark:bg-purple-900/30 rounded-full -z-10"></div>
-            <div className="absolute -top-6 -right-6 w-24 h-24 bg-purple-100 dark:bg-purple-900/20 rounded-full -z-10"></div>
-          </div>
         </div>
       </div>
     </section>

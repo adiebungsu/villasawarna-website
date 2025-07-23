@@ -135,19 +135,6 @@ const Home = () => {
             </div>
           </section>
 
-          {/* GoFood Sawarna Section */}
-          <section className="bg-white py-16">
-            <div className="container-custom">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold mb-4">GoFood Sawarna</h2>
-                <p className="text-gray-600 max-w-2xl mx-auto">
-                  Nikmati berbagai kuliner lezat di Sawarna dengan layanan pengiriman GoFood
-                </p>
-              </div>
-              {/* GoFood content */}
-            </div>
-          </section>
-
           <FeaturedProperties />
           
           <FeaturedDestinations />
@@ -162,7 +149,7 @@ const Home = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {villasData.slice(0, 6).map((villa) => (
-                <PropertyCard key={villa.id} {...villa} />
+                <PropertyCard key={villa.id} {...villa} propertyReviews={[]} />
               ))}
             </div>
           </div>

@@ -1,0 +1,110 @@
+{
+  "name": "Villa Sawarna",
+  "short_name": "VillaSawarna",
+  "description": "Temukan villa terbaik di Pantai Sawarna dengan pemandangan laut yang menakjubkan",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0ea5e9",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Villa",
+      "short_name": "Villa",
+      "description": "Lihat daftar villa",
+      "url": "/villas",
+      "icons": [{ "src": "/icons/villa.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Homestay",
+      "short_name": "Homestay",
+      "description": "Lihat daftar homestay",
+      "url": "/homestays",
+      "icons": [{ "src": "/icons/homestay.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Destinasi",
+      "short_name": "Destinasi",
+      "description": "Lihat destinasi wisata",
+      "url": "/destinations",
+      "icons": [{ "src": "/icons/destination.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Halaman Utama Villa Sawarna"
+    },
+    {
+      "src": "/screenshots/villa.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Daftar Villa"
+    },
+    {
+      "src": "/screenshots/destination.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Destinasi Wisata"
+    }
+  ],
+  "categories": ["travel", "lifestyle", "business"],
+  "lang": "id-ID",
+  "dir": "ltr",
+  "prefer_related_applications": false
+} 

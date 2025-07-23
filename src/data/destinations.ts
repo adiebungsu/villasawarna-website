@@ -676,28 +676,12 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     ]
   },
   {
-    id: "karang-berem",
-    name: "Pantai Karang Beurem",
-    types: ["beach"],
-    location: "Pantai Karang Beurem, Sawarna",
-    coordinates: [-6.991218423760266, 106.31957524695663],
-    description: "Pantai Karang Beurem adalah destinasi wisata di Sawarna.",
-    mainImage: "",
-    images: [],
-    rating: 0,
-    reviews: 0,
-    facilities: [],
-    activities: [],
-    tips: [],
-    nearbyAttractions: []
-  },
-  {
     id: "legon-pari",
-    name: "Pantai Legon Pari",
+    name: "Legon Pari",
     types: ["beach"],
-    location: "Pantai Legon Pari, Sawarna",
+    location: "Legon Pari, Sawarna",
     coordinates: [-6.987546019364885, 106.32349562922836],
-    description: "Pantai Legon Pari adalah destinasi wisata di Sawarna.",
+    description: "Legon Pari adalah destinasi wisata di Sawarna.",
     mainImage: "",
     images: [],
     rating: 0,
@@ -724,7 +708,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     nearbyAttractions: []
   },
   {
-    id: "goa-langir",
+    id: "pantai-goa-langir",
     name: "Pantai Goa Langir",
     types: ["beach"],
     location: "Pantai Goa Langir, Sawarna",

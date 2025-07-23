@@ -1,10 +1,11 @@
 "use client";
+import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
-import "leaflet/dist/leaflet.css";
 import { properties } from "../data/dummyData";
 import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
 import { useEffect } from "react";
+import { destinationsData } from "../src/data/destinations";
 
 function FlyToMarker({ position }: { position: [number, number] | null }) {
   const map = useMap();
@@ -49,6 +50,24 @@ function createPhotoIcon(imageUrl: string) {
   });
 }
 
+function WisataPopup({ name, imageUrl, type, description }: { name: string, imageUrl: string | null, type: string, description: string }) {
+  const [imgError, setImgError] = useState(false);
+  return (
+    <>
+      <div className="font-bold mb-1 text-base">{name}</div>
+      {imageUrl && !imgError ? (
+        <img src={imageUrl} alt={name} className="w-32 h-20 object-cover rounded mb-2" onError={() => setImgError(true)} />
+      ) : (
+        <div style={{fontSize:'2.5rem', textAlign:'center', marginBottom:'0.5rem'}}>🏝️</div>
+      )}
+      <div className="text-xs text-gray-500 mt-1">{type}</div>
+      {description && (
+        <div className="text-xs text-gray-600 mt-1">{description}</div>
+      )}
+    </>
+  );
+}
+
 export default function MapView({
   center,
   filteredMarkers,
@@ -66,12 +85,17 @@ export default function MapView({
   setActiveMarker: (id: string | null) => void,
   markerRefs: React.MutableRefObject<{ [key: string]: any }>,
 }) {
+  console.log("filteredWisata", filteredWisata);
   return (
-    <MapContainer center={center} zoom={15} style={{ height: "100vh", width: "100%" }} key="main-map">
+    <MapContainer center={center} zoom={15} style={{ height: "100vh", width: "100vw", background: "red" }} key="main-map">
       <AutoZoomToCenter center={center} />
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://carto.com/attributions">CARTO</a> contributors'
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+      />
+      <TileLayer
+        attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>'
+        url="https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png"
       />
       {/* Fly to marker jika ada yang aktif */}
       <FlyToMarker position={activePosition} />
@@ -128,54 +152,35 @@ export default function MapView({
         })}
       </MarkerClusterGroup>
       {/* Marker wisata */}
-      {filteredWisata.map((w) => (
-        <Marker
-          key={w.id}
-          position={[w.lat, w.lng] as [number, number]}
-          icon={wisataIcon}
-          ref={(ref) => { markerRefs.current[w.id] = ref; }}
-          eventHandlers={{
-            popupclose: () => setActiveMarker(null),
-          }}
-        >
-          {/* Tooltip hanya muncul saat hover di desktop, tidak permanent */}
-          <Tooltip
-            direction="top"
-            offset={[0, -20]}
-            interactive
-            permanent={false}
-            className="hidden md:block"
-            opacity={1}
-          >
-            <div className="bg-yellow-100 border border-orange-400 text-orange-700 font-semibold px-2 py-1 rounded shadow text-xs flex flex-col gap-1 min-w-40">
-              <div className="flex items-center gap-1">
-                <span role="img" aria-label="wisata">🏝️</span>
-                <span>{w.name}</span>
-              </div>
-              <div className="text-[10px] text-gray-500">{w.type}</div>
-              {w.description && (
-                <div className="text-[10px] text-gray-600 mt-1 line-clamp-2">{w.description}</div>
-              )}
-            </div>
-          </Tooltip>
-          <Popup>
-            <div className="font-bold mb-1 text-base">{w.name}</div>
-            <img src={w.image} alt={w.name} className="w-32 h-20 object-cover rounded mb-2" />
-            <div className="text-xs text-gray-500 mt-1">{w.type}</div>
-            {w.description && (
-              <div className="text-xs text-gray-600 mt-1">{w.description}</div>
-            )}
-            <a
-              href={`https://www.google.com/maps/dir/?api=1&destination=${w.lat},${w.lng}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-block bg-green-600 hover:bg-green-700 text-white text-xs font-semibold px-3 py-1 rounded shadow"
+      {filteredWisata.map((w) => {
+        try {
+          if (!w || typeof w.lat !== "number" || typeof w.lng !== "number") {
+            return null;
+          }
+          const name = w.name || "Wisata Tanpa Nama";
+          const id = w.id || `${w.lat},${w.lng}`;
+          const type = w.type || "Wisata";
+          const description = w.description || "";
+          // Cari gambar dari data destinasi
+          const destinasi = destinationsData.find(d => d.id === w.id || d.name === w.name);
+          const imageUrl = destinasi?.mainImage || null;
+          return (
+            <Marker
+              key={id}
+              position={[w.lat, w.lng]}
+              eventHandlers={{
+                popupclose: () => setActiveMarker(null),
+              }}
             >
-              Arahkan ke sini
-            </a>
-          </Popup>
-        </Marker>
-      ))}
+              <Popup>
+                <WisataPopup name={name} imageUrl={imageUrl} type={type} description={description} />
+              </Popup>
+            </Marker>
+          );
+        } catch (err) {
+          return null;
+        }
+      })}
     </MapContainer>
   );
 } 

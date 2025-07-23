@@ -55,6 +55,15 @@ const PropertyCard = ({
     return amenity;
   });
 
+  // Tambahkan fungsi scrollToTopOrGallery
+  const scrollToTopOrGallery = () => {
+    setTimeout(() => {
+      const el = document.getElementById('gallery');
+      if (el) el.scrollIntoView({ behavior: 'auto' });
+      else window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }, 200);
+  };
+
   return (
     <>
       <div className="overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white dark:bg-gray-800 h-full flex flex-col group">
@@ -142,7 +151,7 @@ const PropertyCard = ({
               className="text-xs md:text-sm font-medium text-ocean hover:text-ocean-dark dark:text-ocean-light dark:hover:text-ocean hover:underline p-0 h-auto"
               asChild
             >
-              <Link to={`/${type}s/${id}`}>
+              <Link to={`/${type}s/${id}`} onClick={scrollToTopOrGallery}>
                 Lihat detail
               </Link>
             </Button>

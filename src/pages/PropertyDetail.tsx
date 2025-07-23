@@ -998,15 +998,15 @@ const PropertyDetail: React.FC = () => {
                   {/* Peta */}
                   <div className="w-full h-[150px] md:h-[250px] rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300 relative group cursor-pointer">
                     <a href={`/map?id=${property.id}`} className="absolute inset-0 z-10 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors duration-200 group cursor-pointer">
-                      <span className="text-white font-bold text-base md:text-lg bg-ocean/90 px-4 py-2 rounded-lg shadow-lg border-2 border-white/60 group-hover:scale-105 transition-transform">Lihat Peta Lengkap</span>
+                      <span className="text-white font-bold text-base md:text-lg bg-ocean/90 px-4 py-2 rounded-lg shadow-lg border-2 border-white/60 group-hover:scale-105 transition-transform text-center">
+                        Lihat Peta<br/>
+                        <span className="block text-xs md:text-sm font-normal mt-1">{property.name}</span>
+                      </span>
                     </a>
                     <MapComponent
                       center={property.coordinates}
-                      zoom={16}
-                      scrollWheelZoom={false}
-                      dragging={false}
-                      doubleClickZoom={false}
-                      zoomControl={true}
+                      height="250px"
+                      shouldUpdateSize={false}
                       className="w-full h-full"
                     >
                       <Marker position={property.coordinates}>

@@ -309,7 +309,7 @@ export default function PetaPage() {
         />
       )}
       {/* Peta */}
-      <main className="flex-1 min-h-screen">
+      <main className="flex-1 min-h-screen w-screen" style={{ minHeight: '100vh', width: '100vw' }}>
         <MapView
           key="main-map"
           center={center}

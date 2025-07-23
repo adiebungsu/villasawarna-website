@@ -1709,12 +1709,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         amenities: ["AC", "TV", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Setrika", "Perlengkapan Mandi", "dekat Pantai"]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "3 menit berjalan kaki" },
-      { name: "Goa Langir", distance: "4 menit berkendara" },
-      { name: "Legon Pari", distance: "7 menit berkendara" },
-      { name: "Tanjung Layar", distance: "9 menit berkendara" }
-    ],
+    nearbyAttractions: [],
     ratingSummary: {
       score: 9.0,
       totalReviews: 245,
@@ -1818,12 +1813,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
         amenities: ["AC", "TV LED 43 inch", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Mini Kulkas", "Setrika", "Perlengkapan Mandi", "View Pantai"]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "3 menit jalan kaki" },
-      { name: "Goa Langir", distance: "8 menit berkendara" },
-      { name: "Legon Pari", distance: "9-10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "4 menit berkendara" }
-    ],
+    nearbyAttractions: [],
     ratingSummary: {
       score: 8.6,
       totalReviews: 32,
@@ -2181,11 +2171,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Legon Pari", distance: "Depan villa" },
-      { name: "Goa Langir", distance: "10 menit berkendara" },
-      { name: "Pantai Sawarna", distance: "15 menit berkendara" }
-    ],
+    nearbyAttractions: [],
     ratingSummary: {
       score: 9.0,
       totalReviews: 120,
@@ -2335,12 +2321,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Goa Langir", distance: "5 menit jalan kaki" },
-      { name: "Pantai Sawarna", distance: "10 menit berkendara" },
-      { name: "Legon Pari", distance: "15 menit berkendara" },
-      { name: "Tanjung Layar", distance: "10 menit berkendara" }
-    ],
+    nearbyAttractions: [],
     ratingSummary: {
       score: 8.6,
       totalReviews: 201,
@@ -2475,12 +2456,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "5 menit jalan kaki" },
-      { name: "Goa Langir", distance: "7 menit berkendara" },
-      { name: "Legon Pari", distance: "12 menit berkendara" },
-      { name: "Tanjung Layar", distance: "6 menit berkendara" }
-    ],
+    nearbyAttractions: [],
     ratingSummary: {
       score: 8.9,
       totalReviews: 156,
@@ -2585,12 +2561,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Goa Langir", distance: "2 menit jalan kaki" },
-      { name: "Pantai Sawarna", distance: "5 menit berkendara" },
-      { name: "Legon Pari", distance: "10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "15 menit berkendara" }
-    ],
+    nearbyAttractions: [],
     ratingSummary: {
       score: 8.7,
       totalReviews: 183,
@@ -2715,11 +2686,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Goa Langir", distance: "5 menit jalan kaki" },
-      { name: "Pantai Sawarna", distance: "10 menit berkendara" },
-      { name: "Legon Pari", distance: "15 menit berkendara" }
-    ],
+    nearbyAttractions: [],
     ratingSummary: {
       score: 8.5,
       totalReviews: 45,
@@ -2813,12 +2780,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "Depan pantai" },
-      { name: "Goa Langir", distance: "8 menit berkendara" },
-      { name: "Legon Pari", distance: "9-10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "4 menit berkendara" }
-    ],
+    nearbyAttractions: [],
     ratingSummary: {
       score: 0,
       totalReviews: 0,
@@ -2893,12 +2855,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "5 menit jalan kaki" },
-      { name: "Goa Langir", distance: "8 menit berkendara" },
-      { name: "Legon Pari", distance: "10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "5 menit berkendara" }
-    ],
+    nearbyAttractions: [],
     ratingSummary: {
       score: 0,
       totalReviews: 0,
@@ -2979,12 +2936,7 @@ Lokasi strategis homestay ini memudahkan akses ke berbagai destinasi wisata popu
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "3 menit jalan kaki" },
-      { name: "Goa Langir", distance: "5 menit berkendara" },
-      { name: "Legon Pari", distance: "10 menit berkendara" },
-      { name: "Tanjung Layar", distance: "5 menit berkendara" }
-    ],
+    nearbyAttractions: [],
     ratingSummary: {
       score: 8.5,
       totalReviews: 85,
@@ -3063,12 +3015,7 @@ Lokasi strategis homestay ini memudahkan akses ke berbagai destinasi wisata popu
         ]
       }
     ],
-    nearbyAttractions: [
-      { name: "Pantai Sawarna", distance: "2 menit jalan kaki" },
-      { name: "Goa Langir", distance: "4 menit berkendara" },
-      { name: "Legon Pari", distance: "9 menit berkendara" },
-      { name: "Tanjung Layar", distance: "4 menit berkendara" }
-    ],
+    nearbyAttractions: [],
     ratingSummary: {
       score: 8.4,
       totalReviews: 75,

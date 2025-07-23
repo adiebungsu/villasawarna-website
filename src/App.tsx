@@ -1,8 +1,8 @@
-import 'leaflet/dist/leaflet.css';
+import "leaflet/dist/leaflet.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useState, Suspense, lazy, useEffect } from "react";
 import ScrollToTop from "./components/ScrollToTop";
@@ -154,6 +154,7 @@ const App = () => {
                 <TooltipProvider>
                   <ThemeProvider>
                     <Router>
+                      <ScrollToTop />
                       <FontLoader 
                         fonts={[
                           { family: 'Inter', weight: [400, 500, 600, 700] },
@@ -162,7 +163,6 @@ const App = () => {
                       />
                       <Toaster />
                       <Sonner />
-                      <ScrollToTop />
                       <ErrorBoundary>
                         <Suspense fallback={<PageLoader />}>
                           <AnimatePresence mode="wait">
@@ -171,8 +171,8 @@ const App = () => {
                                 <Route path="/" element={<Index />} />
                                 <Route path="/villas" element={<Villas />} />
                                 <Route path="/homestays" element={<Homestays />} />
-                                <Route path="/villas/:id" element={<PropertyDetail />} />
-                                <Route path="/homestays/:id" element={<PropertyDetail />} />
+                                <Route path="/villas/:id" element={<PropertyDetail key={window.location.pathname} />} />
+                                <Route path="/homestays/:id" element={<PropertyDetail key={window.location.pathname} />} />
                                 <Route path="/articles" element={<Articles />} />
                                 <Route path="/article/:id" element={<ArticleDetail />} />
                                 <Route path="/about" element={<About />} />
