@@ -8,40 +8,254 @@
     <loc>https://villasawarna.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <lastmod>2024-08-02</lastmod>
   </url>
   <url>
     <loc>https://villasawarna.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
   </url>
   <url>
     <loc>https://villasawarna.com/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
   </url>
   <url>
     <loc>https://villasawarna.com/villas</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+    <lastmod>2024-08-02</lastmod>
   </url>
   <url>
     <loc>https://villasawarna.com/homestays</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+    <lastmod>2024-08-02</lastmod>
   </url>
   <url>
     <loc>https://villasawarna.com/destinations</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+    <lastmod>2024-08-02</lastmod>
   </url>
   <url>
     <loc>https://villasawarna.com/articles</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <lastmod>2024-08-02</lastmod>
   </url>
   <url>
     <loc>https://villasawarna.com/terms-and-conditions</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  
+  <!-- Villa Pages -->
+  <url>
+    <loc>https://villasawarna.com/villas/villa-aliya-sawarna</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-andrew-pasput</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-arizky-sawarna</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-batara</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-cempaka</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-deka-sawarna</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-family-sawarna</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-little-hula-hula</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-matahari</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-mega-aura</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-muara-legon-pari</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-mutiara-sawarna</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-pondok-ciantir</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-putri-asih</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-regin-sawarna</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-sawarna-resort</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-sawarna-resort-t</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-sinar-matahari-resort</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-sinar-pelangi</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-srikandi</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/villas/villa-widi</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  
+  <!-- Homestay Pages -->
+  <url>
+    <loc>https://villasawarna.com/homestays/homestay-melati</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/homestays/homestay-widadana</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  
+  <!-- Destination Pages -->
+  <url>
+    <loc>https://villasawarna.com/destinations/pantai-sawarna</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/destinations/goa-langir</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/destinations/legon-pari</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/destinations/tanjung-layar</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  
+  <!-- Article Pages -->
+  <url>
+    <loc>https://villasawarna.com/articles/10-villa-murah-sawarna</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/articles/akses-transportasi-sawarna</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/articles/cerita-nelayan-sawarna</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/articles/goa-langir</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/articles/kuliner-khas-sawarna</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2024-08-02</lastmod>
+  </url>
+  <url>
+    <loc>https://villasawarna.com/articles/panduan-wisata-sawarna</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2024-08-02</lastmod>
   </url>
 </urlset> 

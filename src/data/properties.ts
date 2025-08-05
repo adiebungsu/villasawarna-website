@@ -1745,8 +1745,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: [-6.983534406852092, 106.30965564933643],
-    nearbyAttractions: []
+    coordinates: [-6.983534406852092, 106.30965564933643]
   },
   {
     id: "villa-andrew-pasput",
