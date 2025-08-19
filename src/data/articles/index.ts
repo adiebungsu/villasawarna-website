@@ -42,8 +42,24 @@ import { villasawarnaPilihanFavorit } from './villasawarna-pilihan-favorit';
 import { checklistLiburanSawarna } from './checklist-liburan-sawarna';
 import { menginapMusimSepi } from './menginap-musim-sepi';
 import { hargaTiket } from './harga-tiket';
+import legonPariKarangTaraje from './panduan-legon-pari-karang-taraje';
+import villaDekatPantai from './villa-dekat-pantai-sawarna';
+import panduanLiburanPantai from './panduan-liburan-pantai-sawarna';
+import penginapanMurahDekatPantai from './penginapan-sawarna-murah-dekat-pantai';
+import villaKeluargaRombongan from './villa-sawarna-untuk-keluarga-dan-rombongan';
+import villaViewPantai from './rekomendasi-villa-sawarna-dengan-view-pantai';
+import penginapanSawarnaRekomendasi from './penginapan-sawarna-rekomendasi';
+import panduanLegonKarangTanjung from './panduan-legon-pari-karang-taraje-tanjung-layar';
 
 export const articleData: Article[] = [
+  legonPariKarangTaraje,
+  panduanLegonKarangTanjung,
+  panduanLiburanPantai,
+  villaDekatPantai,
+  penginapanMurahDekatPantai,
+  villaKeluargaRombongan,
+  villaViewPantai,
+  penginapanSawarnaRekomendasi,
   hargaTiket,
   menginapMusimSepi,
   checklistLiburanSawarna,

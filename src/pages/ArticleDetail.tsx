@@ -187,6 +187,32 @@ const ArticleDetail = () => {
             <ChevronLeft size={16} className="mr-1" />
             Kembali ke daftar artikel
           </Link>
+
+          {/* Optional Hero for guide-style article */}
+          {article.slug === 'panduan-legon-pari-karang-taraje' && (
+            <section className="mb-8 rounded-2xl p-6 md:p-8" style={{background: 'linear-gradient(180deg, #e0f2fe, #ffffff)'}}>
+              <div className="grid gap-6 md:grid-cols-[1.3fr,1fr] items-center">
+                <div>
+                  <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3 text-slate-900">
+                    {article.title}
+                  </h1>
+                  <p className="text-slate-600 mb-4 max-w-2xl">{article.excerpt}</p>
+                  <Link to="/kontak" className="inline-block bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2.5 px-4 rounded-xl">Cek Ketersediaan Villa</Link>
+                </div>
+                <figure className="bg-white border border-slate-200 rounded-2xl p-3">
+                  <OptimizedImage 
+                    src={article.image || '/images/hero-sawarna.jpg'} 
+                    alt={article.title} 
+                    className="w-full h-auto rounded-xl"
+                    width={1200}
+                    height={800}
+                    quality={85}
+                  />
+                  <figcaption className="text-sm text-slate-500 mt-2">Sunrise Legon Pari & ombak Karang Taraje – dua rasa dalam satu perjalanan.</figcaption>
+                </figure>
+              </div>
+            </section>
+          )}
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Main Content */}

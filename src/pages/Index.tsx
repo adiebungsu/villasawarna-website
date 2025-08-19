@@ -168,9 +168,9 @@ const Index = () => {
   return (
     <>
       <SEO 
-        title="Beranda"
-        description="Temukan villa dan homestay terbaik di Pantai Sawarna, Goa Langir, dan Legon Pari. Penginapan terbaik dengan harga terjangkau untuk liburan pantai impian Anda."
-        keywords="villa sawarna, homestay sawarna, penginapan sawarna, wisata sawarna, liburan sawarna, pantai sawarna"
+        title="Penginapan Sawarna – Villa Nyaman & Murah Dekat Pantai"
+        description="Temukan penginapan Sawarna terbaik, villa murah dekat pantai, cocok untuk keluarga maupun rombongan."
+        keywords="penginapan sawarna, villa sawarna, homestay sawarna, villa di sawarna, penginapan sawarna beach, villa mutiara sawarna, penginapan sawarna untuk rombongan, penginapan sawarna untuk 2 orang, villa sawarna murah, harga villa sawarna, villa sawarna resort, villa pantai sawarna banten, penginapan sawarna banten"
         structuredData={structuredData}
       />
       <div className="hero-section">
@@ -217,6 +217,13 @@ const Index = () => {
                   <img src="/images/villa mewah.png" alt="Villa Icon" className="w-10 h-10 mx-auto mb-2" />
                   <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Villa</h3>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Penginapan Premium</p>
+                </div>
+              </Link>
+              <Link to="/penginapan-sawarna">
+                <div className="group bg-gradient-to-br from-green-600/5 to-green-600/10 dark:from-green-600/20 dark:to-green-600/30 rounded-xl p-3 text-center transition-all duration-300 hover:shadow-lg hover:scale-105">
+                  <img src="/images/homestay.png" alt="Penginapan Sawarna" className="w-10 h-10 mx-auto mb-2" />
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Penginapan</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Sawarna</p>
                 </div>
               </Link>
               <Link to="/homestays">

@@ -210,6 +210,56 @@
   color: #475569;
 }
 
+/* --- Article layout helpers to mimic preferred style --- */
+.prose .grid {
+  display: grid;
+  gap: 18px;
+}
+.prose .grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.prose .grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.prose .card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 18px;
+}
+.prose .info {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px;
+}
+.prose .toc {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 12px;
+}
+.prose figure { margin: 0; }
+.prose figcaption {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 8px;
+}
+.prose .faq details {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #fff;
+}
+.prose .faq details + details { margin-top: 10px; }
+.prose .muted { color: #64748b; }
+
+@media (max-width: 900px) {
+  .prose .grid-2, .prose .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ===== Layout Villa Dua Kolom ===== */
 .villa-row {
   display: flex;

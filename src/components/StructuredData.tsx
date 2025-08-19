@@ -113,7 +113,7 @@ const StructuredData = ({ type, data }: StructuredDataProps) => {
 
   if (!structuredData) return null;
 
-  return (
+    return (
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

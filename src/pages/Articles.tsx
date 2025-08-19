@@ -25,6 +25,23 @@ const Articles = () => {
   const searchTerm = searchParams.get('search') || '';
   const categoryParam = searchParams.get('category');
   
+  // Force scroll to top on first mount and on pathname change
+  useEffect(() => {
+    try {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+    } catch {}
+    // Scroll immediately and also after paint to prevent preserved scroll
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    const raf = requestAnimationFrame(() => window.scrollTo(0, 0));
+    const t = setTimeout(() => window.scrollTo(0, 0), 0);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+    };
+  }, [location.pathname]);
+
   // Set category from URL parameter
   useEffect(() => {
     if (categoryParam) {

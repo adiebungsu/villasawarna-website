@@ -3,8 +3,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        function rejected(value) { try { step(generator["throw"](e)); } catch (e) { reject(e); } }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -44,12 +43,15 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var sitemap_1 = require("sitemap");
-var fs_1 = require("fs");
-var stream_1 = require("stream");
+
+// Import data
+var properties_1 = require("../src/data/properties");
+var destinations_1 = require("../src/data/destinations");
+var articles_1 = require("../src/data/articles");
+
 // Base URL website
 var SITE_URL = 'https://villasawarna.com';
+
 // Daftar halaman statis
 var staticPages = [
     { url: '/', changefreq: 'daily', priority: 1.0 },
@@ -61,16 +63,32 @@ var staticPages = [
     { url: '/articles', changefreq: 'weekly', priority: 0.7 },
     { url: '/terms-and-conditions', changefreq: 'yearly', priority: 0.3 },
 ];
+
 // Fungsi untuk generate sitemap
 function generateSitemap() {
     return __awaiter(this, void 0, void 0, function () {
-        var stream, links, readableStream, data, writeStream, error_1;
+        var stream, villas, destinations, articles, dynamicPages, links, readableStream, data, writeStream, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     stream = new sitemap_1.SitemapStream({ hostname: SITE_URL });
-                    links = __spreadArray([], staticPages, true);
+                    
+                    // Ambil data dinamis
+                    villas = properties_1.getVillasData();
+                    destinations = destinations_1.getAllDestinations();
+                    articles = articles_1.articleData;
+                    
+                    // Buat daftar URL dinamis
+                    dynamicPages = [
+                        ...villas.map(function(villa) { return ({ url: "/villas/" + villa.id, changefreq: 'daily', priority: 0.8 }); }),
+                        ...destinations.map(function(dest) { return ({ url: "/destinations/" + dest.id, changefreq: 'daily', priority: 0.8 }); }),
+                        ...articles.map(function(article) { return ({ url: "/articles/" + article.slug, changefreq: 'weekly', priority: 0.6 }); }),
+                    ];
+                    
+                    // Gabungkan halaman statis dan dinamis
+                    links = __spreadArray(__spreadArray([], staticPages, true), dynamicPages, true);
+                    
                     readableStream = stream_1.Readable.from(links);
                     // Pipe ke sitemap stream
                     readableStream.pipe(stream);
@@ -80,7 +98,7 @@ function generateSitemap() {
                     writeStream = (0, fs_1.createWriteStream)('./public/sitemap.xml');
                     writeStream.write(data.toString());
                     writeStream.end();
-                    console.log('Sitemap generated successfully!');
+                    console.log('Sitemap generated successfully with ' + links.length + ' URLs!');
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _a.sent();
@@ -91,5 +109,6 @@ function generateSitemap() {
         });
     });
 }
+
 // Jalankan generate sitemap
 generateSitemap();

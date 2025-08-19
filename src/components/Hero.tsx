@@ -33,10 +33,10 @@ const Hero = () => {
       <div className="relative z-10 container-custom py-16 md:py-24">
         <div className="max-w-3xl">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 animate-fade-in-slide-from-bottom">
-            Temukan Surga di Pantai Sawarna
+            Penginapan dan Villa di Sawarna untuk Liburan Nyaman
           </h1>
           <p className="text-base md:text-xl text-white/90 dark:text-white/95 mb-8 animate-fade-in-delay">
-            Temukan villa atau homestay sempurna untuk liburan pantai impian Anda di salah satu destinasi pantai terindah di Indonesia
+            Temukan penginapan Sawarna terbaik: villa nyaman dekat pantai, cocok untuk keluarga maupun rombongan.
           </p>
           
           <div className="mt-8 flex flex-wrap gap-4 animate-fade-in-delay-2">

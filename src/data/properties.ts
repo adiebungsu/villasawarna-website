@@ -1841,8 +1841,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
       }
     ],
     contact: { phone: "087820952251" },
-    coordinates: [-6.982214529616017, 106.3096083872957],
-    nearbyAttractions: []
+    coordinates: [-6.982214529616017, 106.3096083872957]
   },
   {
     id: "villa-cempaka",

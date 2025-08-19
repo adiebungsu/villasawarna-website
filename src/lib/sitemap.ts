@@ -10,6 +10,7 @@ export async function generateSitemap() {
   smStream.write({ url: '/villas', changefreq: 'daily', priority: 0.9 });
   smStream.write({ url: '/homestays', changefreq: 'daily', priority: 0.9 });
   smStream.write({ url: '/articles', changefreq: 'weekly', priority: 0.8 });
+  smStream.write({ url: '/penginapan-sawarna', changefreq: 'weekly', priority: 0.9 });
   smStream.write({ url: '/about', changefreq: 'monthly', priority: 0.7 });
   smStream.write({ url: '/contact', changefreq: 'monthly', priority: 0.7 });
   
