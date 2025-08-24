@@ -24,7 +24,7 @@ import { MapPin, Users, Wifi, Utensils, Car, Bath, BedDouble, Star, Heart, Share
 import { WishlistButton } from '@/components/WishlistButton';
 import PropertyCard from "@/components/PropertyCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger, RoomTabsList, RoomTabsTrigger, SimpleRoomTabsList, SimpleRoomTabsTrigger } from "@/components/ui/tabs";
-import { getAllProperties, getPropertiesByLocation, extractMainLocation } from "@/data/properties";
+import { getAllProperties, getPropertiesByLocation, extractMainLocation, incrementPropertyVisit } from "@/data/properties";
 import { format } from "date-fns";
 import { toast } from "@/components/ui/use-toast";
 import { propertyRoomTypes, RoomType } from "@/data/roomTypes";
@@ -455,6 +455,13 @@ const PropertyDetail: React.FC = () => {
 
   const allProperties = useMemo(() => getAllProperties(), []);
   const property = useMemo(() => allProperties.find((p) => p.id === id), [allProperties, id]);
+  
+  // Track visit when property is found
+  useEffect(() => {
+    if (property && id) {
+      incrementPropertyVisit(id);
+    }
+  }, [property, id]);
   // Ganti inisialisasi roomTypes agar mengambil dari property.roomTypes jika ada
   const roomTypes = useMemo(() => property?.roomTypes || propertyRoomTypes[id || ''] || [], [property, id]);
   const activeRoomType = useMemo(() => roomTypes.find(room => room.id === selectedRoomType) || roomTypes[0], [roomTypes, selectedRoomType]);
@@ -860,8 +867,8 @@ const PropertyDetail: React.FC = () => {
                   {/* Judul Properti */}
                   <div className="flex items-center justify-between mb-2">
                     <h2 id="property-title" className="text-lg md:text-xl font-bold text-black dark:text-white flex items-center gap-2">
-                      {property.name}
-                    </h2>
+                    {property.name}
+                  </h2>
                     <WishlistButton
                       propertyId={property.id}
                       propertyName={property.name}

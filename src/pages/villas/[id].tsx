@@ -1,7 +1,8 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { getVillasData } from '@/data/properties';
+import { useEffect } from 'react';
+import { getVillasData, incrementPropertyVisit } from '@/data/properties';
 import { propertyRoomTypes } from '@/data/roomTypes';
 import VillaSchema from '@/components/VillaSchema';
 import OptimizedImage from '@/components/OptimizedImage';
@@ -15,6 +16,13 @@ const VillaDetail: NextPage = () => {
   const villasData = getVillasData();
   const villa = villasData.find(v => v.id === id) as Property;
   const roomTypes = propertyRoomTypes[id as string] || [];
+
+  // Track visit when component mounts
+  useEffect(() => {
+    if (villa && id) {
+      incrementPropertyVisit(id as string);
+    }
+  }, [villa, id]);
 
   if (!villa) {
     return <div>Villa tidak ditemukan</div>;

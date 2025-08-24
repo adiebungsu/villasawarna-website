@@ -251,32 +251,33 @@ const NotificationSystem: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-4 md:py-8">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
+        <div className="mb-6 md:mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
                 Notifikasi
               </h1>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-sm md:text-base text-gray-600 dark:text-gray-300">
                 Kelola notifikasi dan preferensi pengiriman
               </p>
             </div>
             
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 md:gap-4">
               {unreadCount > 0 && (
-                <Badge variant="destructive" className="text-sm">
+                <Badge variant="destructive" className="text-xs md:text-sm">
                   {unreadCount} baru
                 </Badge>
               )}
               
               <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
                 <DialogTrigger asChild>
-                  <Button variant="outline">
-                    <Settings className="w-4 h-4 mr-2" />
-                    Pengaturan
+                  <Button variant="outline" size="sm" className="text-xs md:text-sm">
+                    <Settings className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
+                    <span className="hidden sm:inline">Pengaturan</span>
+                    <span className="sm:hidden">Set</span>
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-md">
@@ -381,50 +382,52 @@ const NotificationSystem: React.FC = () => {
 
         {/* Notifications List */}
         <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
+          <CardHeader className="pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <CardTitle>Daftar Notifikasi</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-lg md:text-xl">Daftar Notifikasi</CardTitle>
+                <CardDescription className="text-sm">
                   {filteredNotifications.length} notifikasi
                 </CardDescription>
               </div>
               
               {unreadCount > 0 && (
-                <Button variant="outline" onClick={handleMarkAllAsRead}>
+                <Button variant="outline" size="sm" onClick={handleMarkAllAsRead} className="text-xs md:text-sm">
                   Tandai Semua Dibaca
                 </Button>
               )}
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-4 md:p-6">
             {filteredNotifications.length === 0 ? (
-              <div className="text-center py-12 text-gray-500 dark:text-gray-400">
-                <Bell className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                <p className="text-lg font-medium mb-2">Tidak Ada Notifikasi</p>
-                <p>Semua notifikasi telah dibaca atau tidak ada notifikasi baru</p>
+              <div className="text-center py-8 md:py-12 text-gray-500 dark:text-gray-400">
+                <Bell className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 opacity-50" />
+                <p className="text-base md:text-lg font-medium mb-2">Tidak Ada Notifikasi</p>
+                <p className="text-sm">Semua notifikasi telah dibaca atau tidak ada notifikasi baru</p>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3 md:space-y-4">
                 {filteredNotifications.map((notification) => (
                   <div
                     key={notification.id}
-                    className={`border rounded-lg p-4 transition-colors ${
+                    className={`border rounded-lg p-3 md:p-4 transition-colors ${
                       notification.isRead 
                         ? 'bg-gray-50 dark:bg-gray-800' 
                         : 'bg-white dark:bg-gray-900 border-ocean/20'
                     }`}
                   >
-                    <div className="flex items-start gap-4">
+                    <div className="flex items-start gap-3 md:gap-4">
                       <div className="flex-shrink-0 mt-1">
-                        {getNotificationIcon(notification.type)}
+                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                          {getNotificationIcon(notification.type)}
+                        </div>
                       </div>
                       
-                      <div className="flex-1">
-                        <div className="flex items-start justify-between mb-2">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-1">
-                              <h3 className={`font-medium ${
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex flex-wrap items-center gap-2 mb-1">
+                              <h3 className={`font-medium text-sm md:text-base truncate ${
                                 notification.isRead 
                                   ? 'text-gray-700 dark:text-gray-300' 
                                   : 'text-gray-900 dark:text-white'
@@ -436,10 +439,12 @@ const NotificationSystem: React.FC = () => {
                                   Baru
                                 </Badge>
                               )}
-                              {getPriorityBadge(notification.priority)}
+                              <div className="hidden sm:block">
+                                {getPriorityBadge(notification.priority)}
+                              </div>
                             </div>
                             
-                            <p className={`text-sm ${
+                            <p className={`text-xs md:text-sm line-clamp-2 ${
                               notification.isRead 
                                 ? 'text-gray-600 dark:text-gray-400' 
                                 : 'text-gray-700 dark:text-gray-300'
@@ -447,21 +452,26 @@ const NotificationSystem: React.FC = () => {
                               {notification.message}
                             </p>
                             
-                            <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mt-2 text-xs text-gray-500">
                               <span>{formatTimestamp(notification.timestamp)}</span>
-                              <span>•</span>
+                              <span className="hidden sm:inline">•</span>
                               <span className="capitalize">{getNotificationTypeLabel(notification.type)}</span>
+                              <div className="sm:hidden">
+                                {getPriorityBadge(notification.priority)}
+                              </div>
                             </div>
                           </div>
                           
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1 sm:gap-2">
                             {!notification.isRead && (
                               <Button
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => handleMarkAsRead(notification.id)}
+                                className="text-xs h-7 px-2"
                               >
-                                Tandai Dibaca
+                                <span className="hidden sm:inline">Tandai Dibaca</span>
+                                <span className="sm:hidden">Dibaca</span>
                               </Button>
                             )}
                             
@@ -469,15 +479,16 @@ const NotificationSystem: React.FC = () => {
                               variant="ghost"
                               size="sm"
                               onClick={() => handleDeleteNotification(notification.id)}
+                              className="text-xs h-7 px-2"
                             >
-                              <X className="w-4 h-4" />
+                              <X className="w-3 h-3 md:w-4 md:h-4" />
                             </Button>
                           </div>
                         </div>
                         
                         {notification.actionUrl && (
                           <div className="mt-3">
-                            <Button variant="outline" size="sm" asChild>
+                            <Button variant="outline" size="sm" asChild className="text-xs">
                               <a href={notification.actionUrl}>
                                 Lihat Detail
                               </a>

@@ -5,6 +5,9 @@ export interface AuthUser {
   name: string;
   email: string;
   profileImage?: string;
+  createdAt?: string;
+  phoneNumber?: string;
+  loginMethod?: 'google' | 'email' | 'whatsapp';
 }
 
 export interface AuthContextType {

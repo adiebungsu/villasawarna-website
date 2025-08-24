@@ -8,3 +8,4 @@ export const useWishlist = (): WishlistContextType => {
   }
   return context;
 };
+

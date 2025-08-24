@@ -66,16 +66,16 @@ const WishlistSystem: React.FC = () => {
     
     if (window.confirm(`Apakah Anda yakin ingin menghapus "${item?.propertyName}" dari wishlist?`)) {
       // Remove from the specific folder
-      setWishlistFolders(prev => prev.map(f => 
-        f.id === folderId 
-          ? { ...f, items: f.items.filter(item => item.id !== itemId) }
-          : f
-      ));
+    setWishlistFolders(prev => prev.map(f => 
+      f.id === folderId 
+        ? { ...f, items: f.items.filter(item => item.id !== itemId) }
+        : f
+    ));
 
-      toast({
-        title: "Berhasil Dihapus",
+    toast({
+      title: "Berhasil Dihapus",
         description: `${item?.propertyName} telah dihapus dari wishlist.`,
-      });
+    });
     }
   };
 
@@ -176,11 +176,11 @@ const WishlistSystem: React.FC = () => {
               </div>
               <div>
                 <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
-                  Wishlist Saya
-                </h1>
+            Wishlist Saya
+          </h1>
                 <p className="text-sm md:text-base text-gray-600 dark:text-gray-300">
-                  Kelola properti favorit dan buat folder wishlist pribadi
-                </p>
+            Kelola properti favorit dan buat folder wishlist pribadi
+          </p>
               </div>
             </div>
             
@@ -346,11 +346,11 @@ const WishlistSystem: React.FC = () => {
                     <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
                       <Heart className="w-5 h-5 text-white" />
                     </div>
-                    <div>
+                  <div>
                       <CardTitle className="text-lg md:text-xl">{currentFolder?.name || 'Semua Item'}</CardTitle>
                       <CardDescription className="text-sm">
-                        {currentItems.length} properti dalam wishlist
-                      </CardDescription>
+                      {currentItems.length} properti dalam wishlist
+                    </CardDescription>
                     </div>
                   </div>
                   {currentFolder && (
@@ -381,8 +381,8 @@ const WishlistSystem: React.FC = () => {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                       <Button asChild size="lg" className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white">
-                        <Link to="/villas">Jelajahi Properti</Link>
-                      </Button>
+                      <Link to="/villas">Jelajahi Properti</Link>
+                    </Button>
                       <Button variant="outline" size="lg" onClick={() => setIsCreateFolderOpen(true)}>
                         Buat Folder Baru
                       </Button>
@@ -418,28 +418,28 @@ const WishlistSystem: React.FC = () => {
                           {/* Title and Location */}
                           <div className="mb-4">
                             <h3 className="font-bold text-lg md:text-xl text-gray-900 dark:text-white mb-2 line-clamp-2">
-                              {item.propertyName}
-                            </h3>
-                            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                              <MapPin className="w-4 h-4" />
+                                  {item.propertyName}
+                                </h3>
+                                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                  <MapPin className="w-4 h-4" />
                               <span className="truncate">{item.location}</span>
-                            </div>
-                          </div>
-                          
+                                </div>
+                              </div>
+                              
                           {/* Price - Prominent Display */}
                           <div className="mb-4">
                             <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-3 rounded-lg border border-green-200 dark:border-green-800">
                               <div className="text-center">
                                 <div className="font-bold text-xl md:text-2xl text-green-600 dark:text-green-400">
-                                  {formatCurrency(item.price)}
-                                </div>
+                                    {formatCurrency(item.price)}
+                                  </div>
                                 <div className="text-sm text-green-600/70 dark:text-green-400/70">
-                                  per malam
+                                    per malam
+                                </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          
+                            
                           {/* Key Stats - Grid Layout */}
                           <div className="grid grid-cols-3 gap-3 mb-4">
                             <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-3 text-center border border-yellow-200 dark:border-yellow-800">
@@ -468,11 +468,11 @@ const WishlistSystem: React.FC = () => {
                               <div className="text-xs text-purple-600 dark:text-purple-400">
                                 Kamar tidur
                               </div>
+                              </div>
                             </div>
-                          </div>
-                          
+                            
                           {/* Notes Section */}
-                          {item.notes && (
+                            {item.notes && (
                             <div className="mb-4 p-3 bg-gradient-to-r from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
                               <div className="flex items-start gap-2">
                                 <div className="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -485,38 +485,38 @@ const WishlistSystem: React.FC = () => {
                                   </p>
                                 </div>
                               </div>
-                            </div>
-                          )}
-                          
+                              </div>
+                            )}
+                            
                           {/* Added Date */}
                           <div className="mb-4">
                             <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                               <div className="w-2 h-2 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
                               <span>Ditambahkan {formatDate(item.addedAt)}</span>
                             </div>
-                          </div>
-                          
+                            </div>
+                            
                           {/* Action Buttons */}
                           <div className="flex flex-col sm:flex-row gap-3">
                             <Button asChild size="sm" className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium flex-1">
-                              <Link to={`/villas/${item.propertyId}`}>
+                                <Link to={`/villas/${item.propertyId}`}>
                                 <span className="hidden sm:inline">Lihat Detail</span>
                                 <span className="sm:hidden">Detail</span>
-                              </Link>
-                            </Button>
-                            
-                            {currentFolder && (
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => handleRemoveFromWishlist(item.id, currentFolder.id)}
+                                </Link>
+                              </Button>
+                              
+                              {currentFolder && (
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => handleRemoveFromWishlist(item.id, currentFolder.id)}
                                 className="text-red-600 border-red-200 hover:bg-red-50 dark:text-red-400 dark:border-red-800 dark:hover:bg-red-900/20 flex-1"
-                              >
-                                <Trash2 className="w-4 h-4 mr-1" />
+                                >
+                                  <Trash2 className="w-4 h-4 mr-1" />
                                 <span className="hidden sm:inline">Hapus dari Wishlist</span>
                                 <span className="sm:hidden">Hapus</span>
-                              </Button>
-                            )}
+                                </Button>
+                              )}
                           </div>
                         </div>
                       </div>

@@ -25,6 +25,7 @@ import AuthGuard from './components/AuthGuard';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { AuthProvider } from '@/context/AuthContext';
 import { WishlistProvider } from '@/context/wishlist-provider';
+import { UserDataProvider } from '@/context/user-data-provider';
 import GoogleAnalytics from './components/GoogleAnalytics';
 
 // Lazy load pages dengan chunk naming
@@ -54,6 +55,7 @@ const PenginapanSawarna = lazy(() => import(/* webpackChunkName: "penginapan-saw
 const UserDashboardPage = lazy(() => import(/* webpackChunkName: "user-dashboard" */ './pages/UserDashboardPage'));
 const ReviewDemoPage = lazy(() => import(/* webpackChunkName: "review-demo" */ './pages/ReviewDemoPage'));
 const LoginPage = lazy(() => import(/* webpackChunkName: "login" */ './pages/LoginPage'));
+const LogoutPage = lazy(() => import(/* webpackChunkName: "logout" */ './pages/LogoutPage'));
 const RegisterPage = lazy(() => import(/* webpackChunkName: "register" */ './pages/RegisterPage'));
 const HelpPage = lazy(() => import(/* webpackChunkName: "help" */ './pages/HelpPage'));
 
@@ -164,7 +166,8 @@ const App = () => {
                                       <ThemeProvider>
                       <AuthProvider>
                         <WishlistProvider>
-                          <Router>
+                          <UserDataProvider>
+                            <Router>
                         <GoogleAnalytics />
                         <ScrollToTop />
                         <FontLoader 
@@ -180,6 +183,7 @@ const App = () => {
                             <AnimatePresence mode="wait">
                               <Routes>
                                 <Route path="/login" element={<LoginPage />} />
+                                <Route path="/logout" element={<LogoutPage />} />
                                 <Route path="/register" element={<RegisterPage />} />
                                 <Route path="*" element={
                                   <Layout>
@@ -222,6 +226,7 @@ const App = () => {
                       </ErrorBoundary>
                       {updateAvailable && <UpdateNotification onUpdate={update} />}
                                             </Router>
+                            </UserDataProvider>
                         </WishlistProvider>
                       </AuthProvider>
                     </ThemeProvider>

@@ -42,3 +42,4 @@ export const WishlistContext = createContext<WishlistContextType>({
   isInWishlist: () => false,
   getWishlistItem: () => null
 });
+

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Menu, X, Home, Building2, Hotel, Newspaper, Info, Phone, Settings, User, Shield } from 'lucide-react';
+import { Menu, X, Home, Building2, Hotel, Newspaper, Info, Phone, Settings, User, Shield, LogOut, MapPin } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import GoogleAuth from './GoogleAuth';
 import { useAuth } from "@/context/use-auth";
@@ -30,7 +30,7 @@ const Logo = () => {
 
 // Main Navbar component
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
@@ -50,9 +50,16 @@ const Navbar = () => {
   const isAdmin = user && adminEmails.includes(user.email);
 
   // Perbaikan logika pengecekan halaman detail
-  const isDetailPage = /^\/property\/[^/]+$/.test(location.pathname) || /^\/destination\/[^/]+$/.test(location.pathname);
+  const isDetailPage = /^\/villas\/[^/]+$/.test(location.pathname) || 
+                      /^\/property\/[^/]+$/.test(location.pathname) || 
+                      /^\/destination\/[^/]+$/.test(location.pathname) ||
+                      /^\/hotels\/[^/]+$/.test(location.pathname) ||
+                      /^\/homestays\/[^/]+$/.test(location.pathname) ||
+                      /^\/article\/[^/]+$/.test(location.pathname);
 
-  // Navigation links with icons
+
+
+  // Navigation links with icons - untuk desktop navbar
   const navLinks = [
     { name: 'Beranda', path: '/', icon: Home },
     { name: 'Villa', path: '/villas', icon: Building2 },
@@ -140,40 +147,190 @@ const Navbar = () => {
       {!isDetailPage && (
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] dark:shadow-[0_-4px_6px_-1px_rgba(255,255,255,0.05)] z-[9999] border-t border-gray-200/20 dark:border-gray-800/20">
           <div className="container-custom">
-            <nav className="flex justify-between py-2">
-              {navLinks.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <Link 
-                    key={link.path} 
-                    to={link.path}
-                    className={cn(
-                      'flex flex-col items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-coral dark:hover:text-coral-light transition-colors px-2 py-1.5 rounded-lg hover:bg-sand-light/50 dark:hover:bg-gray-800',
+            <nav className="flex justify-around py-3 overflow-x-auto">
+              {/* Beranda */}
+              <Link 
+                to="/"
+                className={cn(
+                  'flex flex-col items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-coral dark:hover:text-coral-light transition-colors px-2 py-1.5 rounded-lg hover:bg-sand-light/50 dark:hover:bg-gray-800 min-w-0 flex-shrink-0',
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/')
+                  }
+                )}
+              >
+                <Home size={18} className={cn(
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/'),
+                    'text-gray-400 dark:text-gray-500': !isActivePath('/')
+                  }
+                )} />
+                <span className="text-[9px] font-medium">Beranda</span>
+              </Link>
+
+              {/* Villa */}
+              <Link 
+                to="/villas"
+                className={cn(
+                  'flex flex-col items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-coral dark:hover:text-coral-light transition-colors px-2 py-1.5 rounded-lg hover:bg-sand-light/50 dark:hover:bg-gray-800 min-w-0 flex-shrink-0',
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/villas')
+                  }
+                )}
+              >
+                <Building2 size={18} className={cn(
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/villas'),
+                    'text-gray-400 dark:text-gray-500': !isActivePath('/villas')
+                  }
+                )} />
+                <span className="text-[9px] font-medium">Villa</span>
+              </Link>
+
+              {/* Destinations */}
+              <Link 
+                to="/destinations"
+                className={cn(
+                  'flex flex-col items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-coral dark:hover:text-coral-light transition-colors px-2 py-1.5 rounded-lg hover:bg-sand-light/50 dark:hover:bg-gray-800 min-w-0 flex-shrink-0',
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/destinations')
+                  }
+                )}
+              >
+                <MapPin size={18} className={cn(
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/destinations'),
+                    'text-gray-400 dark:text-gray-500': !isActivePath('/destinations')
+                  }
+                )} />
+                <span className="text-[9px] font-medium">Destinasi</span>
+              </Link>
+
+              {/* Dashboard - Profil Bulat di Tengah */}
+              <Link 
+                to={user ? "/dashboard" : "/login"}
+                className={cn(
+                  'flex flex-col items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-coral dark:hover:text-coral-light transition-colors px-2 py-1.5 rounded-lg hover:bg-sand-light/50 dark:hover:bg-gray-800 min-w-0 flex-shrink-0',
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/dashboard') || isActivePath('/login')
+                  }
+                )}
+              >
+                <div className={cn(
+                  'w-8 h-8 rounded-full overflow-hidden transition-all duration-200 shadow-lg border-2',
+                  {
+                    'border-coral scale-110': isActivePath('/dashboard') || isActivePath('/login'),
+                    'border-gray-200 dark:border-gray-700': !isActivePath('/dashboard') && !isActivePath('/login')
+                  }
+                )}>
+                  {user ? (
+                    user.profileImage ? (
+                      <img 
+                        src={user.profileImage} 
+                        alt={user.name || 'User'} 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className={cn(
+                        'w-full h-full flex items-center justify-center text-white font-semibold text-sm',
+                        {
+                          'bg-coral': isActivePath('/dashboard'),
+                          'bg-gradient-to-br from-ocean to-coral': !isActivePath('/dashboard')
+                        }
+                      )}>
+                        {user.name?.charAt(0).toUpperCase() || 'U'}
+                      </div>
+                    )
+                  ) : (
+                    // Ikon profil ketika logout
+                    <div className={cn(
+                      'w-full h-full flex items-center justify-center text-white',
                       {
-                        'text-coral dark:text-coral-light': isActivePath(link.path)
+                        'bg-coral': isActivePath('/login'),
+                        'bg-gradient-to-br from-ocean to-coral': !isActivePath('/login')
                       }
-                    )}
-                  >
-                    <Icon size={20} className={cn(
-                      {
-                        'text-coral dark:text-coral-light': isActivePath(link.path),
-                        'text-gray-400 dark:text-gray-500': !isActivePath(link.path)
-                      }
-                    )} />
-                    <span className="text-[10px] font-medium">{link.name}</span>
-                  </Link>
-                );
-              })}
-              {/* Mobile Login Button */}
-              {!user && (
-                <Link 
-                  to="/login"
-                  className="flex flex-col items-center gap-1 text-ocean hover:text-ocean-dark transition-colors px-2 py-1.5 rounded-lg hover:bg-ocean/10"
-                >
-                  <Shield className="w-5 h-5" />
-                  <span className="text-xs font-medium">Login</span>
-                </Link>
-              )}
+                    )}>
+                      <User size={16} />
+                    </div>
+                  )}
+                </div>
+                <span className="text-[9px] font-medium">{user ? 'Profil' : 'Login'}</span>
+              </Link>
+
+              {/* Penginapan */}
+              <Link 
+                to="/penginapan-sawarna"
+                className={cn(
+                  'flex flex-col items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-coral dark:hover:text-coral-light transition-colors px-2 py-1.5 rounded-lg hover:bg-sand-light/50 dark:hover:bg-gray-800 min-w-0 flex-shrink-0',
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/penginapan-sawarna')
+                  }
+                )}
+              >
+                <Hotel size={18} className={cn(
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/penginapan-sawarna'),
+                    'text-gray-400 dark:text-gray-500': !isActivePath('/penginapan-sawarna')
+                  }
+                )} />
+                <span className="text-[9px] font-medium">Penginapan</span>
+              </Link>
+
+              {/* Artikel */}
+              <Link 
+                to="/articles"
+                className={cn(
+                  'flex flex-col items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-coral dark:hover:text-coral-light transition-colors px-2 py-1.5 rounded-lg hover:bg-sand-light/50 dark:hover:bg-gray-800 min-w-0 flex-shrink-0',
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/articles')
+                  }
+                )}
+              >
+                <Newspaper size={18} className={cn(
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/articles'),
+                    'text-gray-400 dark:text-gray-500': !isActivePath('/articles')
+                  }
+                )} />
+                <span className="text-[9px] font-medium">Artikel</span>
+              </Link>
+
+              {/* About */}
+              <Link 
+                to="/about"
+                className={cn(
+                  'flex flex-col items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-coral dark:hover:text-coral-light transition-colors px-2 py-1.5 rounded-lg hover:bg-sand-light/50 dark:hover:bg-gray-800 min-w-0 flex-shrink-0',
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/about')
+                  }
+                )}
+              >
+                <Info size={18} className={cn(
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/about'),
+                    'text-gray-400 dark:text-gray-500': !isActivePath('/about')
+                  }
+                )} />
+                <span className="text-[9px] font-medium">Tentang</span>
+              </Link>
+
+              {/* Contact */}
+              <Link 
+                to="/contact"
+                className={cn(
+                  'flex flex-col items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-coral dark:hover:text-coral-light transition-colors px-2 py-1.5 rounded-lg hover:bg-sand-light/50 dark:hover:bg-gray-800 min-w-0 flex-shrink-0',
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/contact')
+                  }
+                )}
+              >
+                <Phone size={18} className={cn(
+                  {
+                    'text-coral dark:text-coral-light': isActivePath('/contact'),
+                    'text-gray-400 dark:text-gray-500': !isActivePath('/contact')
+                  }
+                )} />
+                <span className="text-[9px] font-medium">Kontak</span>
+              </Link>
             </nav>
           </div>
         </div>

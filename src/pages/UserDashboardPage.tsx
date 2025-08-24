@@ -59,11 +59,14 @@ import {
   LogOut
 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SEO from '@/components/SEO';
 import WishlistSystem from '@/components/WishlistSystem';
 import NotificationSystem from '@/components/NotificationSystem';
 import EnhancedSearchFilter from '@/components/EnhancedSearchFilter';
+import { useVisitHistory, VisitHistoryItem } from '@/context/use-visit-history';
+import { useUserData } from '@/context/user-data-provider';
+import { addDemoVisits, clearDemoVisits, viewCurrentVisits } from '@/utils/visit-demo';
 
 interface DashboardStats {
   totalBookings: number;
@@ -74,6 +77,7 @@ interface DashboardStats {
   wishlistItems: number;
   savedSearches: number;
   unreadNotifications: number;
+  totalSpent: number; // Added for new badge
 }
 
 interface RecentActivity {
@@ -133,217 +137,28 @@ interface VisitHistory {
 const UserDashboardPage: React.FC = () => {
   const { user, setUser } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const [activeTab, setActiveTab] = useState('overview');
 
-  // Sample dashboard statistics
-  const [stats] = useState<DashboardStats>({
-    totalBookings: 12,
-    completedBookings: 8,
-    pendingBookings: 2,
-    totalReviews: 6,
-    averageRating: 4.7,
-    wishlistItems: 15,
-    savedSearches: 4,
-    unreadNotifications: 3
-  });
 
-  // Sample recent activities
-  const [recentActivities] = useState<RecentActivity[]>([
-    {
-      id: '1',
-      type: 'booking',
-      title: 'Booking Dikonfirmasi',
-      description: 'Villa Sinar Pelangi untuk 20-22 Maret 2024',
-      timestamp: '2 jam yang lalu',
-      icon: <Calendar className="w-4 h-4 text-blue-500" />,
-      status: 'success'
-    },
-    {
-      id: '2',
-      type: 'review',
-      title: 'Review Dikirim',
-      description: 'Memberikan review 5 bintang untuk Villa Arizky',
-      timestamp: '1 hari yang lalu',
-      icon: <Star className="w-4 h-4 text-yellow-500" />,
-      status: 'success'
-    },
-    {
-      id: '3',
-      type: 'payment',
-      title: 'Pembayaran Berhasil',
-      description: 'Pembayaran Rp 2.500.000 untuk Villa Cempaka',
-      timestamp: '2 hari yang lalu',
-      icon: <CreditCard className="w-4 h-4 text-green-500" />,
-      status: 'success'
-    },
-    {
-      id: '4',
-      type: 'wishlist',
-      title: 'Wishlist Diperbarui',
-      description: 'Menambahkan Villa Mega Aura ke wishlist',
-      timestamp: '3 hari yang lalu',
-      icon: <Heart className="w-4 h-4 text-red-500" />,
-      status: 'success'
-    },
-    {
-      id: '5',
-      type: 'support',
-      title: 'Tiket Support Dibuat',
-      description: 'Pertanyaan tentang fasilitas villa',
-      timestamp: '4 hari yang lalu',
-      icon: <MessageSquare className="w-4 h-4 text-purple-500" />,
-      status: 'pending'
-    }
-  ]);
 
-  // Sample bookings
-  const [bookings] = useState<Booking[]>([
-    {
-      id: '1',
-      propertyName: 'Villa Sinar Pelangi',
-      propertyImage: '/images/villas/villa-sinar-pelangi-1.jpg',
-      checkIn: '2024-03-20',
-      checkOut: '2024-03-22',
-      guests: 8,
-      totalPrice: 2500000,
-      status: 'confirmed',
-      bookingDate: '2024-03-15'
-    },
-    {
-      id: '2',
-      propertyName: 'Villa Arizky Sawarna',
-      propertyImage: '/images/villas/villa-arizky-1.jpg',
-      checkIn: '2024-02-15',
-      checkOut: '2024-02-17',
-      guests: 6,
-      totalPrice: 1800000,
-      status: 'completed',
-      bookingDate: '2024-02-10'
-    },
-    {
-      id: '3',
-      propertyName: 'Villa Cempaka',
-      propertyImage: '/images/villas/villa-cempaka-1.jpg',
-      checkIn: '2024-04-10',
-      checkOut: '2024-04-12',
-      guests: 10,
-      totalPrice: 3200000,
-      status: 'pending',
-      bookingDate: '2024-03-18'
-    }
-  ]);
+  // Use real data from UserDataProvider
+  const { 
+    bookings, 
+    reviews, 
+    notifications, 
+    stats, 
+    recentActivities,
+    searchFilters,
+    addBooking,
+    addReview,
+    saveSearchFilter,
+    clearDemoData
+  } = useUserData();
 
-  // Sample reviews
-  const [reviews] = useState<Review[]>([
-    {
-      id: '1',
-      propertyName: 'Villa Arizky Sawarna',
-      propertyImage: '/images/villas/villa-arizky-1.jpg',
-      rating: 5,
-      comment: 'Villa yang sangat nyaman dan bersih. Staff ramah dan lokasi strategis dekat pantai.',
-      reviewDate: '2024-02-18',
-      helpful: 12
-    },
-    {
-      id: '2',
-      propertyName: 'Villa Sinar Pelangi',
-      propertyImage: '/images/villas/villa-sinar-pelangi-1.jpg',
-      rating: 4,
-      comment: 'Fasilitas lengkap dan view yang indah. Hanya sedikit masalah dengan AC di kamar utama.',
-      reviewDate: '2024-01-25',
-      helpful: 8
-    }
-  ]);
-
-  // Sample notifications
-  const [notifications] = useState<Notification[]>([
-    {
-      id: '1',
-      title: 'Booking Dikonfirmasi',
-      message: 'Booking Anda untuk Villa Sinar Pelangi telah dikonfirmasi',
-      type: 'success',
-      timestamp: '2 jam yang lalu',
-      isRead: false,
-      action: 'Lihat Detail'
-    },
-    {
-      id: '2',
-      title: 'Promo Spesial',
-      message: 'Dapatkan diskon 20% untuk booking minimal 3 hari',
-      type: 'info',
-      timestamp: '1 hari yang lalu',
-      isRead: true,
-      action: 'Lihat Promo'
-    },
-    {
-      id: '3',
-      title: 'Review Anda Membantu',
-      message: 'Review Anda untuk Villa Arizky telah membantu 5 traveler lain',
-      type: 'success',
-      timestamp: '2 hari yang lalu',
-      isRead: true
-    }
-  ]);
-
-  // Sample visit history
-  const [visitHistory] = useState<VisitHistory[]>([
-    {
-      id: '1',
-      villaName: 'Villa Sinar Pelangi',
-      villaImage: '/images/villas/villa-sinar-pelangi-1.jpg',
-      villaUrl: '/villas/villa-sinar-pelangi',
-      visitDate: '2024-03-20',
-      visitDuration: '5 menit',
-      lastViewed: '2 jam yang lalu',
-      viewCount: 3,
-      isBookmarked: true
-    },
-    {
-      id: '2',
-      villaName: 'Villa Arizky Sawarna',
-      villaImage: '/images/villas/villa-arizky-1.jpg',
-      villaUrl: '/villas/villa-arizky-sawarna',
-      visitDate: '2024-03-19',
-      visitDuration: '8 menit',
-      lastViewed: '1 hari yang lalu',
-      viewCount: 5,
-      isBookmarked: false
-    },
-    {
-      id: '3',
-      villaName: 'Villa Cempaka',
-      villaImage: '/images/villas/villa-cempaka-1.jpg',
-      villaUrl: '/villas/villa-cempaka',
-      visitDate: '2024-03-18',
-      visitDuration: '3 menit',
-      lastViewed: '2 hari yang lalu',
-      viewCount: 2,
-      isBookmarked: true
-    },
-    {
-      id: '4',
-      villaName: 'Villa Mega Aura',
-      villaImage: '/images/villas/villa-mega-aura-1.jpg',
-      villaUrl: '/villas/villa-mega-aura',
-      visitDate: '2024-03-17',
-      visitDuration: '12 menit',
-      lastViewed: '3 hari yang lalu',
-      viewCount: 1,
-      isBookmarked: false
-    },
-    {
-      id: '5',
-      villaName: 'Villa Sunset Beach',
-      villaImage: '/images/villas/villa-sunset-beach-1.jpg',
-      villaUrl: '/villas/villa-sunset-beach',
-      visitDate: '2024-03-16',
-      visitDuration: '6 menit',
-      lastViewed: '4 hari yang lalu',
-      viewCount: 4,
-      isBookmarked: true
-    }
-  ]);
+  // Use real visit history data
+  const { visitHistory, totalVisits, uniquePropertiesVisited } = useVisitHistory();
 
   const handleSearch = (filters: any) => {
     // Handle search functionality
@@ -394,7 +209,7 @@ const UserDashboardPage: React.FC = () => {
       
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-4 md:py-8 pb-20 md:pb-8">
         <div className="container mx-auto px-3 md:px-4">
-          {/* Header */}
+                     {/* Header */}
            <div className="mb-6 md:mb-8">
              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                <div className="flex-1">
@@ -412,18 +227,24 @@ const UserDashboardPage: React.FC = () => {
                    </div>
                  </div>
                  <div className="flex flex-wrap items-center gap-2 md:gap-4 text-xs md:text-sm text-gray-500 dark:text-gray-400">
-                   <span>Member sejak Maret 2024</span>
+                   <span>Member sejak {new Date(stats.memberSince).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</span>
                    <span className="hidden md:inline">•</span>
-                   <span>Level: Gold Member</span>
+                   <span>Level: {stats.memberLevel} Member</span>
                    <span className="hidden md:inline">•</span>
-                   <span>Poin: 1,250</span>
+                   <span>Poin: {stats.loyaltyPoints.toLocaleString()}</span>
                  </div>
                </div>
                
                <div className="flex items-center gap-3 md:gap-4">
                  <div className="text-right">
                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">Terakhir login</p>
-                   <p className="text-xs md:text-sm font-medium text-gray-900 dark:text-white">Hari ini, 14:30</p>
+                   <p className="text-xs md:text-sm font-medium text-gray-900 dark:text-white">
+                     {new Date().toLocaleDateString('id-ID', { 
+                       weekday: 'long', 
+                       hour: '2-digit', 
+                       minute: '2-digit' 
+                     })}
+                   </p>
                  </div>
                  <Avatar className="w-12 h-12 md:w-14 md:h-14 border-2 md:border-4 border-white dark:border-gray-800 shadow-lg">
                    <AvatarImage src={user?.profileImage || undefined} alt={user?.name || 'User'} />
@@ -439,22 +260,32 @@ const UserDashboardPage: React.FC = () => {
                    onClick={() => {
                      localStorage.removeItem('user');
                      setUser(null);
-                     toast({
-                       title: "Logout Berhasil",
-                       description: "Anda telah berhasil logout.",
-                     });
+                     navigate('/logout');
                    }}
                    className="md:hidden text-red-600 hover:text-red-700 border-red-200 hover:bg-red-50"
                  >
                    <LogOut className="w-4 h-4 mr-1" />
                    Logout
                  </Button>
+
+                 {/* Clear Demo Data Button - Show only if there's demo data */}
+                 {(bookings.length > 0 || reviews.length > 0) && (
+                   <Button 
+                     variant="outline" 
+                     size="sm" 
+                     onClick={clearDemoData}
+                     className="md:hidden text-orange-600 hover:text-orange-700 border-orange-200 hover:bg-orange-50"
+                   >
+                     <XCircle className="w-4 h-4 mr-1" />
+                     Hapus Demo
+                   </Button>
+                 )}
                </div>
              </div>
            </div>
 
                      {/* Quick Stats */}
-           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-6 md:mb-8">
+           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-6 mb-6 md:mb-8">
             <Card className="relative overflow-hidden">
               <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500/10 to-blue-600/10 rounded-full -translate-y-10 translate-x-10"></div>
                              <CardContent className="p-4 md:p-6 relative">
@@ -543,38 +374,60 @@ const UserDashboardPage: React.FC = () => {
                  </div>
                </CardContent>
              </Card>
+
+             {/* Visit History Stats */}
+             <Card className="relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-green-500/10 to-green-600/10 rounded-full -translate-y-10 translate-x-10"></div>
+               <CardContent className="p-4 md:p-6 relative">
+                 <div className="flex items-center justify-between">
+                   <div>
+                     <p className="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400">Total View</p>
+                     <p className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{totalVisits}</p>
+                   </div>
+                   <div className="w-10 h-10 md:w-12 md:h-12 bg-green-500/10 rounded-xl flex items-center justify-center">
+                     <Eye className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
+                   </div>
+                 </div>
+                 <div className="mt-3 md:mt-4 flex items-center gap-1 md:gap-2 text-xs md:text-sm">
+                   <div className="flex items-center gap-1">
+                     <MapPin className="w-3 h-3 md:w-4 md:h-4 text-blue-500" />
+                     <span className="text-gray-600 dark:text-gray-400">{uniquePropertiesVisited} properti</span>
+                   </div>
+                 </div>
+               </CardContent>
+             </Card>
           </div>
 
           {/* Main Dashboard Tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               {/* Mobile Tab Navigation - Horizontal Scroll */}
               <div className="md:hidden w-full overflow-x-auto">
                 <TabsList className="flex w-max bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
                   <TabsTrigger value="overview" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <TrendingUp className="w-3 h-3" />
                     <span>Overview</span>
-                  </TabsTrigger>
+                 </TabsTrigger>
                   <TabsTrigger value="profile" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <User className="w-3 h-3" />
                     <span>Profil</span>
-                  </TabsTrigger>
+                 </TabsTrigger>
                   <TabsTrigger value="bookings" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <Calendar className="w-3 h-3" />
                     <span>Booking</span>
-                  </TabsTrigger>
+                 </TabsTrigger>
                   <TabsTrigger value="wishlist" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <Heart className="w-3 h-3" />
                     <span>Wishlist</span>
-                  </TabsTrigger>
+                 </TabsTrigger>
                   <TabsTrigger value="notifications" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <Bell className="w-3 h-3" />
                     <span>Notif</span>
-                  </TabsTrigger>
+                 </TabsTrigger>
                   <TabsTrigger value="visits" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <Eye className="w-3 h-3" />
                     <span>Riwayat</span>
-                  </TabsTrigger>
+                 </TabsTrigger>
                   <TabsTrigger value="search" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <Search className="w-3 h-3" />
                     <span>Cari</span>
@@ -611,8 +464,8 @@ const UserDashboardPage: React.FC = () => {
                 <TabsTrigger value="search" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
                   <Search className="w-4 h-4" />
                   <span>Pencarian</span>
-                </TabsTrigger>
-              </TabsList>
+                 </TabsTrigger>
+               </TabsList>
                
                <div className="flex items-center gap-2">
                  <Button variant="outline" size="sm" className="hidden md:flex">
@@ -627,6 +480,55 @@ const UserDashboardPage: React.FC = () => {
 
             {/* Overview Tab */}
             <TabsContent value="overview">
+              {/* Demo Data Notice */}
+              {(bookings.length > 0 || reviews.length > 0) && (
+                <Card className="mb-6 border-orange-200 bg-orange-50 dark:border-orange-800 dark:bg-orange-900/20">
+                  <CardContent className="p-4">
+                    <div className="flex items-start gap-3">
+                      <AlertCircle className="w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" />
+                      <div className="flex-1">
+                        <h4 className="font-medium text-orange-800 dark:text-orange-200 mb-1">
+                          Data Demo Ditemukan
+                        </h4>
+                        <p className="text-sm text-orange-700 dark:text-orange-300 mb-3">
+                          Dashboard saat ini menampilkan data demo untuk tujuan testing. 
+                          Klik tombol di bawah untuk menghapus data demo dan mulai dengan data real Anda.
+                        </p>
+                        <div className="flex gap-2">
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            onClick={clearDemoData}
+                            className="text-orange-600 hover:text-orange-700 border-orange-200 hover:bg-orange-50"
+                          >
+                            <XCircle className="w-4 h-4 mr-2" />
+                            Hapus Data Demo
+                          </Button>
+                          
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            onClick={() => {
+                              console.log('📊 Current state:', {
+                                bookings: bookings.length,
+                                reviews: reviews.length,
+                                notifications: notifications.length,
+                                recentActivities: recentActivities.length,
+                                stats
+                              });
+                            }}
+                            className="text-blue-600 hover:text-blue-700 border-blue-200 hover:bg-blue-50"
+                          >
+                            <Eye className="w-4 h-4 mr-2" />
+                            Debug State
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Recent Activities */}
                 <div className="lg:col-span-2">
@@ -645,7 +547,8 @@ const UserDashboardPage: React.FC = () => {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
-                        {recentActivities.map((activity) => (
+                        {recentActivities.length > 0 ? (
+                          recentActivities.map((activity) => (
                           <div key={activity.id} className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border border-transparent hover:border-gray-200 dark:hover:border-gray-700">
                             <div className="flex-shrink-0 mt-1">
                               <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
@@ -670,7 +573,13 @@ const UserDashboardPage: React.FC = () => {
                                 {activity.description}
                               </p>
                               <div className="flex items-center gap-4 text-xs text-gray-500">
-                                <span>{activity.timestamp}</span>
+                                  <span>{new Date(activity.timestamp).toLocaleDateString('id-ID', { 
+                                    day: 'numeric', 
+                                    month: 'short', 
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                  })}</span>
                                 <Button variant="ghost" size="sm" className="h-auto p-0 text-xs">
                                   <Eye className="w-3 h-3 mr-1" />
                                   Lihat Detail
@@ -678,7 +587,14 @@ const UserDashboardPage: React.FC = () => {
                               </div>
                             </div>
                           </div>
-                        ))}
+                          ))
+                        ) : (
+                          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                            <Clock className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+                            <p className="text-sm font-medium">Belum ada aktivitas</p>
+                            <p className="text-xs">Mulai beraktivitas untuk melihat riwayat di sini</p>
+                          </div>
+                        )}
                       </div>
                     </CardContent>
                   </Card>
@@ -725,45 +641,216 @@ const UserDashboardPage: React.FC = () => {
                     </CardContent>
                   </Card>
 
-                  {/* Achievement Badges */}
+                  {/* Real-time Data Summary */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Ringkasan Data</CardTitle>
+                      <CardDescription>
+                        Data real-time dari aktivitas Anda
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {/* Recent Bookings */}
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Booking Terbaru</span>
+                          <Badge variant="outline" className="text-xs">
+                            {bookings.length} total
+                          </Badge>
+                        </div>
+                        {bookings.length > 0 ? (
+                          <div className="space-y-2">
+                            {bookings.slice(0, 2).map((booking) => (
+                              <div key={booking.id} className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                                  <Calendar className="w-4 h-4 text-blue-600" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-xs font-medium text-gray-900 dark:text-white truncate">
+                                    {booking.propertyName}
+                                  </p>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                                    {new Date(booking.checkIn).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })} - {new Date(booking.checkOut).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
+                                  </p>
+                                </div>
+                                <Badge 
+                                  variant={booking.status === 'confirmed' ? 'default' : booking.status === 'pending' ? 'secondary' : 'destructive'}
+                                  className="text-xs"
+                                >
+                                  {booking.status === 'confirmed' ? 'Konfirmasi' : booking.status === 'pending' ? 'Pending' : booking.status === 'completed' ? 'Selesai' : 'Batal'}
+                                </Badge>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="text-center py-3 text-gray-400 text-xs">
+                            Belum ada booking
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Recent Reviews */}
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Review Terbaru</span>
+                          <Badge variant="outline" className="text-xs">
+                            {reviews.length} total
+                          </Badge>
+                        </div>
+                        {reviews.length > 0 ? (
+                          <div className="space-y-2">
+                            {reviews.slice(0, 2).map((review) => (
+                              <div key={review.id} className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                <div className="w-8 h-8 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center">
+                                  <Star className="w-4 h-4 text-yellow-600 fill-yellow-600" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-xs font-medium text-gray-900 dark:text-white truncate">
+                                    {review.propertyName}
+                                  </p>
+                                  <div className="flex items-center gap-1">
+                                    {[...Array(5)].map((_, i) => (
+                                      <Star 
+                                        key={i} 
+                                        className={`w-3 h-3 ${i < review.rating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'}`} 
+                                      />
+                                    ))}
+                                  </div>
+                                </div>
+                                <span className="text-xs text-gray-500">
+                                  {new Date(review.reviewDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="text-center py-3 text-gray-400 text-xs">
+                            Belum ada review
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Visit History Summary */}
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Riwayat Kunjungan</span>
+                          <Badge variant="outline" className="text-xs">
+                            {totalVisits} total
+                          </Badge>
+                        </div>
+                        {visitHistory.length > 0 ? (
+                          <div className="space-y-2">
+                            {visitHistory.slice(0, 2).map((visit) => (
+                              <div key={visit.id} className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                <div className="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+                                  <Eye className="w-4 h-4 text-green-600" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-xs font-medium text-gray-900 dark:text-white truncate">
+                                    {visit.villaName}
+                                  </p>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                                    {visit.viewCount}x dilihat
+                                  </p>
+                                </div>
+                                <span className="text-xs text-gray-500">
+                                  {new Date(visit.visitDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="text-center py-3 text-gray-400 text-xs">
+                            Belum ada kunjungan
+                          </div>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Achievement Badges - Dynamic based on real data */}
                   <Card>
                     <CardHeader>
                       <CardTitle>Pencapaian</CardTitle>
                       <CardDescription>
-                        Badge yang telah Anda dapatkan
+                        Badge yang telah Anda dapatkan berdasarkan aktivitas
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-3">
+                        {/* Reviewer Badge - Dynamic */}
+                        {stats.totalReviews >= 5 && (
                         <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
                           <div className="w-10 h-10 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center">
                             <Award className="w-5 h-5 text-yellow-600" />
                           </div>
                           <div>
                             <p className="font-medium text-yellow-800 dark:text-yellow-200">Reviewer Aktif</p>
-                            <p className="text-sm text-yellow-600 dark:text-yellow-300">Memberikan 5+ review</p>
+                              <p className="text-sm text-yellow-600 dark:text-yellow-300">{stats.totalReviews} review diberikan</p>
                           </div>
                         </div>
+                        )}
                         
+                        {/* Loyal Guest Badge - Dynamic */}
+                        {stats.completedBookings >= 3 && (
                         <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
                           <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
                             <Building2 className="w-5 h-5 text-blue-600" />
                           </div>
                           <div>
                             <p className="font-medium text-blue-800 dark:text-blue-200">Tamu Setia</p>
-                            <p className="text-sm text-blue-600 dark:text-blue-300">10+ booking selesai</p>
+                              <p className="text-sm text-blue-600 dark:text-blue-300">{stats.completedBookings} booking selesai</p>
                           </div>
                         </div>
+                        )}
                         
+                        {/* Collector Badge - Dynamic */}
+                        {stats.wishlistItems >= 5 && (
                         <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg border border-green-200 dark:border-green-800">
                           <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
                             <Heart className="w-5 h-5 text-green-600" />
                           </div>
                           <div>
                             <p className="font-medium text-green-800 dark:text-green-200">Kolektor</p>
-                            <p className="text-sm text-green-600 dark:text-green-300">15+ item wishlist</p>
+                              <p className="text-sm text-green-600 dark:text-green-300">{stats.wishlistItems} item wishlist</p>
                           </div>
                         </div>
+                        )}
+
+                        {/* Explorer Badge - Dynamic */}
+                        {uniquePropertiesVisited >= 10 && (
+                          <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
+                            <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
+                              <MapPin className="w-5 h-5 text-purple-600" />
+                            </div>
+                            <div>
+                              <p className="font-medium text-purple-800 dark:text-purple-200">Penjelajah</p>
+                              <p className="text-sm text-purple-600 dark:text-purple-300">{uniquePropertiesVisited} properti dikunjungi</p>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* High Spender Badge - Dynamic */}
+                        {stats.totalSpent >= 5000000 && (
+                          <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
+                            <div className="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center">
+                              <CreditCard className="w-5 h-5 text-amber-600" />
+                            </div>
+                            <div>
+                              <p className="font-medium text-amber-800 dark:text-amber-200">High Spender</p>
+                              <p className="text-sm text-amber-600 dark:text-amber-300">Total Rp {(stats.totalSpent / 1000000).toFixed(1)}M</p>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* No badges yet message */}
+                        {stats.totalReviews < 5 && stats.completedBookings < 3 && stats.wishlistItems < 5 && uniquePropertiesVisited < 10 && stats.totalSpent < 5000000 && (
+                          <div className="text-center py-6 text-gray-500 dark:text-gray-400">
+                            <Award className="w-8 h-8 mx-auto mb-2 text-gray-300" />
+                            <p className="text-sm">Belum ada badge yang didapat</p>
+                            <p className="text-xs">Mulai beraktivitas untuk mendapatkan badge!</p>
+                          </div>
+                        )}
                       </div>
                     </CardContent>
                   </Card>
@@ -1068,7 +1155,7 @@ const UserDashboardPage: React.FC = () => {
                          <div>
                            <p className="text-sm text-gray-600 dark:text-gray-400">Total View</p>
                            <p className="text-xl font-bold text-gray-900 dark:text-white">
-                             {visitHistory.reduce((sum, v) => sum + v.viewCount, 0)}
+                             {totalVisits}
                            </p>
                          </div>
                        </div>
@@ -1094,6 +1181,23 @@ const UserDashboardPage: React.FC = () => {
                          <SortAsc className="w-4 h-4 mr-2" />
                          Urutkan
                        </Button>
+                       {/* Demo buttons - hapus setelah testing */}
+                       <Button 
+                         variant="outline" 
+                         size="sm" 
+                         onClick={addDemoVisits}
+                         className="bg-green-100 text-green-700 border-green-300 hover:bg-green-200"
+                       >
+                         + Demo Data
+                       </Button>
+                       <Button 
+                         variant="outline" 
+                         size="sm" 
+                         onClick={clearDemoVisits}
+                         className="bg-red-100 text-red-700 border-red-300 hover:bg-red-200"
+                       >
+                         Clear Data
+                       </Button>
                      </div>
                    </CardHeader>
                    <CardContent>
@@ -1102,26 +1206,26 @@ const UserDashboardPage: React.FC = () => {
                          <div key={visit.id} className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-200 bg-white dark:bg-gray-800">
                            {/* Image Section - Full Width */}
                            <div className="relative w-full h-48 md:h-56">
-                             <img 
-                               src={visit.villaImage} 
-                               alt={visit.villaName}
+                           <img 
+                             src={visit.villaImage} 
+                             alt={visit.villaName}
                                className="w-full h-full object-cover"
-                               onError={(e) => {
+                             onError={(e) => {
                                  e.currentTarget.src = 'https://i.imgur.com/KNZs2rS.jpeg';
                                }}
                              />
                              {/* Bookmark Badge */}
-                             {visit.isBookmarked && (
+                               {visit.isBookmarked && (
                                <div className="absolute top-3 right-3 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-medium shadow-sm">
                                  <Heart className="w-3 h-3 mr-1 inline" />
-                                 Bookmark
+                                   Bookmark
                                </div>
-                             )}
+                               )}
                              {/* Visit Count Badge */}
                              <div className="absolute top-3 left-3 bg-blue-500/90 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-medium shadow-sm">
                                {visit.viewCount}x dilihat
                              </div>
-                           </div>
+                               </div>
                            
                            {/* Content Section */}
                            <div className="p-4 md:p-6">
@@ -1130,7 +1234,7 @@ const UserDashboardPage: React.FC = () => {
                                <h4 className="font-bold text-lg md:text-xl text-gray-900 dark:text-white mb-2 line-clamp-2">
                                  {visit.villaName}
                                </h4>
-                             </div>
+                               </div>
                              
                              {/* Visit Information - Grid Layout */}
                              <div className="grid grid-cols-2 gap-3 mb-4">
@@ -1140,18 +1244,18 @@ const UserDashboardPage: React.FC = () => {
                                    <span className="font-bold text-blue-700 dark:text-blue-300">
                                      {new Date(visit.visitDate).toLocaleDateString('id-ID')}
                                    </span>
-                                 </div>
+                               </div>
                                  <div className="text-xs text-blue-600 dark:text-blue-400">
                                    Tanggal Kunjungan
-                                 </div>
                                </div>
+                             </div>
                                <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 text-center border border-green-200 dark:border-green-800">
                                  <div className="flex items-center justify-center gap-1 mb-1">
                                    <Clock className="w-4 h-4 text-green-500" />
                                    <span className="font-bold text-green-700 dark:text-green-300">
                                      {visit.visitDuration}
                                    </span>
-                                 </div>
+                           </div>
                                  <div className="text-xs text-green-600 dark:text-green-400">
                                    Durasi Kunjungan
                                  </div>
@@ -1172,21 +1276,21 @@ const UserDashboardPage: React.FC = () => {
                              {/* Action Buttons */}
                              <div className="flex flex-col sm:flex-row gap-3">
                                <Button variant="outline" size="sm" asChild className="flex-1">
-                                 <Link to={visit.villaUrl}>
+                               <Link to={visit.villaUrl}>
                                    <Eye className="w-4 h-4 mr-2" />
                                    <span className="hidden sm:inline">Lihat Detail</span>
                                    <span className="sm:hidden">Detail</span>
-                                 </Link>
-                               </Button>
-                               <Button 
-                                 variant="outline" 
-                                 size="sm"
-                                 onClick={() => {
-                                   toast({
-                                     title: visit.isBookmarked ? "Dihapus dari Bookmark" : "Ditambahkan ke Bookmark",
-                                     description: `${visit.villaName} ${visit.isBookmarked ? 'dihapus dari' : 'ditambahkan ke'} bookmark Anda.`,
-                                   });
-                                 }}
+                               </Link>
+                             </Button>
+                             <Button 
+                               variant="outline" 
+                               size="sm"
+                               onClick={() => {
+                                 toast({
+                                   title: visit.isBookmarked ? "Dihapus dari Bookmark" : "Ditambahkan ke Bookmark",
+                                   description: `${visit.villaName} ${visit.isBookmarked ? 'dihapus dari' : 'ditambahkan ke'} bookmark Anda.`,
+                                 });
+                               }}
                                  className="flex-1"
                                >
                                  <Heart className={`w-4 h-4 mr-2 ${visit.isBookmarked ? 'fill-red-500 text-red-500' : ''}`} />
@@ -1196,7 +1300,7 @@ const UserDashboardPage: React.FC = () => {
                                  <span className="sm:hidden">
                                    {visit.isBookmarked ? 'Hapus' : 'Simpan'}
                                  </span>
-                               </Button>
+                             </Button>
                              </div>
                            </div>
                          </div>
