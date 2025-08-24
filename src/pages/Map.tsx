@@ -495,7 +495,7 @@ export default function MapPage(props) {
                           }}
                         >Arahkan ke sini</a>
                         <a
-                          href={property.type === 'villa' ? `/villas/${property.id}` : `/homestays/${property.id}`}
+                          href={property.type === 'villa' ? `/villas/${property.id}` : `/penginapan-sawarna`}
                           style={{
                             flex: 1,
                             background: isDark

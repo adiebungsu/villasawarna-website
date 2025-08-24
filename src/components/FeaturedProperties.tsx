@@ -171,7 +171,7 @@ const FeaturedProperties = () => {
               className="border-ocean text-ocean hover:bg-ocean hover:text-white dark:border-ocean-light dark:text-ocean-light dark:hover:bg-ocean-dark dark:hover:text-white m-1"
               asChild
             >
-              <Link to="/homestays">Lihat Semua Homestay</Link>
+                              <Link to="/penginapan-sawarna">Lihat Semua Penginapan</Link>
             </Button>
           </div>
         </div>

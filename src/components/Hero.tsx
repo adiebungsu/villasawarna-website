@@ -46,8 +46,8 @@ const Hero = () => {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="bg-white/20 text-white border-white hover:bg-white/30 dark:bg-white/10 dark:hover:bg-white/20 transition-transform hover:scale-105">
-              <Link to="/homestays" className="flex items-center gap-2">
-                Lihat Homestay <ArrowRight size={18} />
+                              <Link to="/penginapan-sawarna" className="flex items-center gap-2">
+                                  Lihat Penginapan <ArrowRight size={18} />
               </Link>
             </Button>
             <Button asChild size="lg" variant="ghost" className="text-white hover:bg-white/10 dark:hover:bg-white/20 transition-transform hover:scale-105">

@@ -39,7 +39,7 @@ const Search = () => {
     let score = 0;
     if (!searchLower) return 1; // Beri skor minimal jika query kosong
 
-    // Penilaian untuk Properti (Villa/Homestay) - menggunakan PropertyCardProps
+    // Penilaian untuk Properti (Villa/Penginapan) - menggunakan PropertyCardProps
     if ('name' in item && typeof item.name === 'string' && item.name.toLowerCase().includes(searchLower)) score += 10;
     if ('location' in item && typeof item.location === 'string' && item.location.toLowerCase().includes(searchLower)) score += 8;
     // Memeriksa tags hanya jika property tersebut ada dan array string
@@ -171,7 +171,7 @@ const Search = () => {
     getVillasData().some(v => 'id' in item && v.id === item.id)
   ) as (PropertyCardProps & { score: number })[];
 
-  const homestaysResults = filteredResults.filter((item): item is PropertyCardProps & { score: number } => 
+  const penginapanResults = filteredResults.filter((item): item is PropertyCardProps & { score: number } => 
     getHomestaysData().some(h => 'id' in item && h.id === item.id)
   ) as (PropertyCardProps & { score: number })[];
 
@@ -185,7 +185,7 @@ const Search = () => {
   const articlesResults = articlesAndDestinationsResults.filter((item): item is Article & { score: number } => scoredArticles.some(a => 'id' in item && a.id === item.id)) as (Article & { score: number })[];
   const destinationsResults = articlesAndDestinationsResults.filter((item): item is Destination & { score: number } => scoredDestinations.some(d => 'id' in item && d.id === item.id)) as (Destination & { score: number })[];
 
-  const metaDescription = `Hasil pencarian untuk "${searchQuery}" di Sawarna. Temukan villa, homestay, destinasi wisata, dan artikel terkait.`;
+  const metaDescription = `Hasil pencarian untuk "${searchQuery}" di Sawarna. Temukan villa, penginapan, destinasi wisata, dan artikel terkait.`;
 
   // Render section berdasarkan tipe pencarian (ini perlu disesuaikan lagi dengan scoring)
   // Kita bisa membagi allResults berdasarkan tipe untuk ditampilkan di section terpisah
@@ -240,20 +240,20 @@ const Search = () => {
           </div>
         </section>
 
-        {/* Akomodasi Section (Villa & Homestay) */}
+        {/* Akomodasi Section (Villa & Penginapan) */}
         <section className="mb-8">
           <div className="flex items-center gap-2 mb-4">
             <Hotel className="h-5 w-5 text-ocean" />
             <h2 className="text-xl font-semibold">Akomodasi</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-            {(villasResults.length > 0 || homestaysResults.length > 0) ? (
+            {(villasResults.length > 0 || penginapanResults.length > 0) ? (
               <>
                 {villasResults.map((villa) => (
                   <PropertyCard key={villa.id} {...villa} />
                 ))}
-                {homestaysResults.map((homestay) => (
-                  <PropertyCard key={homestay.id} {...homestay} />
+                {penginapanResults.map((penginapan) => (
+                  <PropertyCard key={penginapan.id} {...penginapan} />
                 ))}
               </>
             ) : (
@@ -305,7 +305,7 @@ const Search = () => {
       <SEO 
         title={`Hasil Pencarian: ${searchQuery} | Villa Sawarna`}
         description={metaDescription}
-        keywords={`${searchQuery}, villa sawarna, homestay sawarna, destinasi sawarna, artikel sawarna`}
+        keywords={`${searchQuery}, villa sawarna, penginapan sawarna, destinasi sawarna, artikel sawarna`}
       />
       
       <div className="container-custom py-8">

@@ -1,73 +1,68 @@
-# Welcome to your Lovable project
+# Villa Sawarna Website
 
-## Project info
+Website resmi Villa Sawarna yang menampilkan berbagai pilihan penginapan di kawasan Pantai Sawarna, Banten.
 
-**URL**: https://lovable.dev/projects/da584104-d7a2-4fa4-b413-513512cf4366
+## Fitur Utama
 
-## How can I edit this code?
+### 🏠 Penginapan Sawarna
+- Daftar lengkap villa dan homestay di Sawarna
+- Filter berdasarkan kategori (budget, premium, keluarga, rombongan)
+- Sorting berdasarkan popularitas dan harga
+- **Quick View** - Lihat detail villa tanpa meninggalkan halaman
 
-There are several ways of editing your application.
+### 🎯 Quick View Feature
+Fitur Quick View memungkinkan pengguna untuk melihat detail villa dengan cepat:
+- **Klik gambar villa** - Hover effect dengan label "Quick View"
+- **Klik tombol "Quick View"** pada setiap villa card
+- Modal popup dengan informasi lengkap villa
+- Responsive design untuk desktop dan mobile
+- Informasi yang ditampilkan:
+  - Gambar villa
+  - Rating dan ulasan
+  - Lokasi dan harga
+  - Kapasitas, kamar tidur, kamar mandi
+  - Fasilitas utama
+  - Tombol untuk melihat detail lengkap
 
-**Use Lovable**
+### 📱 Responsive Design
+- Optimized untuk desktop dan mobile
+- Quick View yang berbeda untuk desktop dan mobile
+- UI yang konsisten dengan design system
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/da584104-d7a2-4fa4-b413-513512cf4366) and start prompting.
+## Teknologi
 
-Changes made via Lovable will be committed automatically to this repo.
+- React + TypeScript
+- Tailwind CSS
+- Radix UI Components
+- Vite
 
-**Use your preferred IDE**
+## Cara Menjalankan
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Buka http://localhost:5173/penginapan-sawarna untuk melihat halaman dengan fitur Quick View.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Struktur Komponen
 
-**Use GitHub Codespaces**
+- `PenginapanSawarna.tsx` - Halaman utama penginapan
+- `QuickView.tsx` - Komponen utama Quick View
+- `QuickViewDesktop.tsx` - Quick View untuk desktop
+- `QuickViewMobile.tsx` - Quick View untuk mobile
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Penggunaan Quick View
 
-## What technologies are used for this project?
+1. Buka halaman `/penginapan-sawarna`
+2. Scroll ke bagian "Rekomendasi Penginapan"
+3. **Klik gambar villa** atau **klik tombol "Quick View"** pada villa yang ingin dilihat
+4. Modal akan muncul dengan informasi lengkap villa
+5. Klik "Lihat Detail" untuk membuka halaman detail lengkap
+6. Klik "Tutup" atau klik di luar modal untuk menutup Quick View
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/da584104-d7a2-4fa4-b413-513512cf4366) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### 💡 Tips Penggunaan:
+- **Hover pada gambar** - Akan muncul label "Quick View" dengan efek transparansi
+- **Klik gambar** - Langsung membuka Quick View modal
+- **Klik tombol Quick View** - Alternatif untuk membuka Quick View
+- **Klik Lihat Detail** - Untuk melihat halaman detail lengkap villa

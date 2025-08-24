@@ -4,6 +4,31 @@ import SEO from '@/components/SEO';
 import OptimizedImage from '@/components/OptimizedImage';
 import { Button } from '@/components/ui/button';
 import { getVillasData } from '@/data/properties';
+import QuickView from '@/components/QuickView';
+
+// CSS untuk line-clamp dan optimasi mobile
+const mobileStyles = `
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  @media (max-width: 768px) {
+    .villa-card-mobile {
+      min-height: auto;
+    }
+    .villa-card-mobile .aspect-ratio {
+      aspect-ratio: 16/9;
+    }
+  }
+`;
 
 const structuredData = [
   {
@@ -61,10 +86,22 @@ const PenginapanSawarna = () => {
   const [activeFilter, setActiveFilter] = useState<'semua' | 'dekat-pantai' | 'keluarga' | 'rombongan' | 'budget' | 'premium'>('semua');
   const [sortBy, setSortBy] = useState<'populer' | 'harga-asc' | 'harga-desc'>('populer');
   const [visible, setVisible] = useState(9);
+  const [quickViewVilla, setQuickViewVilla] = useState<any>(null);
+  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
   const getCapacity = (v: any) => v?.capacity ?? 0;
   const getBedrooms = (v: any) => v?.bedrooms ?? 0;
   const getPrice = (v: any) => v?.price ?? v?.originalPrice ?? 0;
+
+  const handleQuickView = (villa: any) => {
+    setQuickViewVilla(villa);
+    setIsQuickViewOpen(true);
+  };
+
+  const closeQuickView = () => {
+    setIsQuickViewOpen(false);
+    setQuickViewVilla(null);
+  };
 
   const filtered = allVillas.filter((v: any) => {
     if (activeFilter === 'semua') return true;
@@ -102,6 +139,7 @@ const PenginapanSawarna = () => {
         url="https://www.villasawarna.com/penginapan-sawarna"
         structuredData={structuredData}
       />
+      <style dangerouslySetInnerHTML={{ __html: mobileStyles }} />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
@@ -181,30 +219,50 @@ const PenginapanSawarna = () => {
               </select>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {villas.map((villa) => (
-              <div key={villa.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-700">
-                <Link to={`/villas/${villa.id}`} className="block">
-                  <div className="relative aspect-[16/9]">
-                    <OptimizedImage
-                      src={villa.image}
-                      alt={villa.name}
-                      className="w-full h-full object-cover"
-                      quality={85}
-                    />
-                  </div>
-                </Link>
-                <div className="p-4">
-                  <h3 className="text-lg font-bold mb-1 dark:text-white">{villa.name}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{villa.location}</p>
-                  <div className="flex items-end gap-2 mb-3">
+              <div key={villa.id} className="villa-card-mobile bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-700">
+                                 <div 
+                   className="relative aspect-[16/9] cursor-pointer group"
+                   onClick={() => handleQuickView(villa)}
+                 >
+                   <OptimizedImage
+                     src={villa.image}
+                     alt={villa.name}
+                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                     quality={85}
+                   />
+                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white px-3 py-1.5 rounded-full text-sm font-medium shadow-lg">
+                       Quick View
+                     </div>
+                   </div>
+                 </div>
+                <div className="p-2 md:p-4">
+                  <h3 className="text-sm md:text-lg font-bold mb-1 dark:text-white line-clamp-2">{villa.name}</h3>
+                  <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300 mb-2 line-clamp-1">{villa.location}</p>
+                  <div className="flex items-end gap-1 md:gap-2 mb-2 md:mb-3">
                     {villa.originalPrice && (
-                      <span className="line-through text-gray-400 text-sm">Rp {villa.originalPrice.toLocaleString('id-ID')}</span>
+                      <span className="line-through text-gray-400 text-xs md:text-sm">Rp {villa.originalPrice.toLocaleString('id-ID')}</span>
                     )}
-                    <span className="text-red-600 dark:text-red-400 text-xl font-bold">Rp {villa.price?.toLocaleString('id-ID') ?? '-'}</span>
+                    <span className="text-red-600 dark:text-red-400 text-base md:text-xl font-bold">Rp {villa.price?.toLocaleString('id-ID') ?? '-'}</span>
                     <span className="text-xs text-gray-500">/ malam</span>
                   </div>
-                  <Link to={`/villas/${villa.id}`} className="text-coral dark:text-coral-light font-semibold">Lihat Detail</Link>
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                    <Link to={`/villas/${villa.id}`} className="text-coral dark:text-coral-light font-semibold text-xs md:text-sm">Lihat Detail</Link>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleQuickView(villa);
+                      }}
+                      className="text-xs px-2 md:px-3 py-1 h-auto"
+                    >
+                      Quick View
+                    </Button>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2 text-center hidden md:block">💡 Klik gambar untuk Quick View</p>
                 </div>
               </div>
             ))}
@@ -314,6 +372,26 @@ const PenginapanSawarna = () => {
           </Button>
         </div>
       </section>
+
+      {/* Quick View Modal */}
+      {isQuickViewOpen && quickViewVilla && (
+        <QuickView
+          id={quickViewVilla.id}
+          name={quickViewVilla.name}
+          type={quickViewVilla.type || 'villa'}
+          image={quickViewVilla.image}
+          price={quickViewVilla.price || 0}
+          rating={quickViewVilla.rating || 0}
+          location={quickViewVilla.location}
+          capacity={quickViewVilla.capacity || 0}
+          reviews={quickViewVilla.reviews || 0}
+          bedrooms={quickViewVilla.bedrooms || 0}
+          bathrooms={quickViewVilla.bathrooms || 0}
+          amenities={quickViewVilla.amenities || []}
+          isOpen={isQuickViewOpen}
+          onClose={closeQuickView}
+        />
+      )}
     </div>
   );
 };

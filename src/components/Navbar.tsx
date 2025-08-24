@@ -56,7 +56,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Beranda', path: '/', icon: Home },
     { name: 'Villa', path: '/villas', icon: Building2 },
-    { name: 'Homestay', path: '/homestays', icon: Hotel },
+    { name: 'Penginapan', path: '/penginapan-sawarna', icon: Hotel },
     { name: 'Artikel', path: '/articles', icon: Newspaper },
     { name: 'Tentang', path: '/about', icon: Info },
     { name: 'Kontak', path: '/contact', icon: Phone },

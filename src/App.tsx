@@ -23,6 +23,7 @@ import { Layout } from '@/components/Layout';
 import LoadingScreen from './components/LoadingScreen';
 import AuthGuard from './components/AuthGuard';
 import { ThemeProvider } from '@/context/ThemeContext';
+import GoogleAnalytics from './components/GoogleAnalytics';
 
 // Lazy load pages dengan chunk naming
 const Index = lazy(() => import(/* webpackChunkName: "home" */ "./pages/Index"));
@@ -155,6 +156,7 @@ const App = () => {
                 <TooltipProvider>
                   <ThemeProvider>
                     <Router>
+                      <GoogleAnalytics />
                       <ScrollToTop />
                       <FontLoader 
                         fonts={[

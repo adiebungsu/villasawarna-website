@@ -25,8 +25,8 @@ const categories = [
     icon: <Building2 className="w-5 h-5" />
   },
   {
-    id: 'homestay',
-    name: 'Homestay',
+    id: 'penginapan',
+    name: 'Penginapan',
     icon: <Tent className="w-5 h-5" />
   }
 ];
