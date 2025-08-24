@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import FeaturedProperties from "@/components/FeaturedProperties";
 import FeaturedDestinations from "@/components/FeaturedDestinations";
 import FavoriteLocations from "@/components/FavoriteLocations";
-import { Hotel, MapPin, Umbrella, Wifi, Star, TreePalm, Utensils, Clock, Pizza, MapPinHouse, Truck, Calendar, User, Shield, MessageSquare, Percent, Icon, Building2, Home, Newspaper } from "lucide-react";
+import { Hotel, MapPin, Umbrella, Wifi, Star, TreePalm, Utensils, Clock, Pizza, MapPinHouse, Truck, Calendar, User, Shield, MessageSquare, Percent, Icon, Building2, Home, Newspaper, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SEO from '@/components/SEO';
 import OptimizedImage from '@/components/OptimizedImage';
@@ -225,7 +225,7 @@ const Index = () => {
         {/* Quick Links Section */}
         <section className="py-8 bg-white dark:bg-gray-900">
           <div className="container-custom">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
               <Link to="/villas">
                 <div className="group bg-gradient-to-br from-ocean/5 to-ocean/10 dark:from-ocean-dark/20 dark:to-ocean-dark/30 rounded-xl p-3 text-center transition-all duration-300 hover:shadow-lg hover:scale-105">
                   <img src="/images/villa mewah.png" alt="Villa Icon" className="w-10 h-10 mx-auto mb-2" />
@@ -259,6 +259,13 @@ const Index = () => {
                   <img src="/images/artikel.png" alt="Artikel Icon" className="w-10 h-10 mx-auto mb-2" />
                   <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Artikel</h3>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Tips & Info</p>
+                </div>
+              </Link>
+              <Link to="/map">
+                <div className="group bg-gradient-to-br from-blue-500/5 to-blue-500/10 dark:from-blue-500/20 dark:to-blue-500/30 rounded-xl p-3 text-center transition-all duration-300 hover:shadow-lg hover:scale-105">
+                  <img src="/images/lokasi.png" alt="Maps Icon" className="w-10 h-10 mx-auto mb-2" />
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Maps</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Peta Lokasi</p>
                 </div>
               </Link>
             </div>
@@ -1219,11 +1226,13 @@ const AboutSawarna = () => {
             {/* Image Counter */}
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/50 text-white px-2 py-0.5 rounded-full text-xs">
               {emblaApi ? `${emblaApi.selectedScrollSnap() + 1} / ${sawarnaImages.length}` : ''}
-        </div>
-      </div>
+            </div>
+          </div>
         </div>
       )}
     </section>
+
+
   );
 };
 
