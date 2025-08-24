@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Star, MapPin, Users, BedDouble, Bath, X, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import OptimizedImage from './OptimizedImage';
+import { WishlistButton } from './WishlistButton';
 
 interface QuickViewMobileProps {
   id: string;
@@ -80,6 +81,25 @@ export default function QuickViewMobile(props: QuickViewMobileProps) {
         >
           <X className="w-4 h-4" />
         </button>
+
+        {/* Wishlist Button */}
+        <div className="absolute top-2 right-12 z-50">
+          <WishlistButton
+            propertyId={id}
+            propertyName={name}
+            propertyImage={image}
+            propertyType={type}
+            location={location}
+            price={price}
+            rating={rating}
+            reviews={reviews}
+            capacity={capacity}
+            bedrooms={bedrooms}
+            size="icon"
+            className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm 
+              hover:bg-white dark:hover:bg-gray-800 shadow-sm"
+          />
+        </div>
 
         {/* Main Container */}
         <div className="flex flex-col h-full">

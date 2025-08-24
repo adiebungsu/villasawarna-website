@@ -21,6 +21,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { MapPin, Users, Wifi, Utensils, Car, Bath, BedDouble, Star, Heart, Share2, ArrowLeft, Home, Phone, Waves, Footprints, Bike, Tv, CheckCircle, Mail, Clock, Info, MessageCircle, ChevronDown, HelpCircle, Plus, Minus, CreditCard } from "lucide-react";
+import { WishlistButton } from '@/components/WishlistButton';
 import PropertyCard from "@/components/PropertyCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger, RoomTabsList, RoomTabsTrigger, SimpleRoomTabsList, SimpleRoomTabsTrigger } from "@/components/ui/tabs";
 import { getAllProperties, getPropertiesByLocation, extractMainLocation } from "@/data/properties";
@@ -857,9 +858,26 @@ const PropertyDetail: React.FC = () => {
               {mainImages && mainImages.length > 0 ? (
                 <div className="mb-8">
                   {/* Judul Properti */}
-                  <h2 id="property-title" className="text-lg md:text-xl font-bold text-black dark:text-white mb-2 flex items-center gap-2">
-                    {property.name}
-                  </h2>
+                  <div className="flex items-center justify-between mb-2">
+                    <h2 id="property-title" className="text-lg md:text-xl font-bold text-black dark:text-white flex items-center gap-2">
+                      {property.name}
+                    </h2>
+                    <WishlistButton
+                      propertyId={property.id}
+                      propertyName={property.name}
+                      propertyImage={property.image}
+                      propertyType={property.type}
+                      location={property.location}
+                      price={property.price}
+                      rating={property.rating}
+                      reviews={property.reviews}
+                      capacity={property.capacity}
+                      bedrooms={property.bedrooms || 0}
+                      size="sm"
+                      showText={true}
+                      className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-sm hover:shadow-md"
+                    />
+                  </div>
                   {/* Gambar besar utama */}
                   {mainImages.length > 0 && (
                     <div className="w-full flex justify-center items-center mb-2">

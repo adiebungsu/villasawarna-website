@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Hero from "@/components/Hero";
 import FeaturedProperties from "@/components/FeaturedProperties";
 import FeaturedDestinations from "@/components/FeaturedDestinations";
+import FavoriteLocations from "@/components/FavoriteLocations";
 import { Hotel, MapPin, Umbrella, Wifi, Star, TreePalm, Utensils, Clock, Pizza, MapPinHouse, Truck, Calendar, User, Shield, MessageSquare, Percent, Icon, Building2, Home, Newspaper } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SEO from '@/components/SEO';
 import OptimizedImage from '@/components/OptimizedImage';
 import SearchBar from "@/components/SearchBar";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { articleData } from '../data/articles';
 import { Badge } from "@/components/ui/badge";
 import useEmblaCarousel from 'embla-carousel-react';
@@ -21,6 +22,7 @@ import { cn } from '@/lib/utils';
 import WelcomeModal from '@/components/WelcomeModal';
 import ArticlesSection from '@/components/ArticlesSection';
 import { getLowestRoomPrice } from '@/utils/price';
+import { useAuth } from '@/context/use-auth';
 
 // Data testimonial
 const testimonialData = [
@@ -63,6 +65,18 @@ const testimonialData = [
 ];
 
 const Index = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect user yang sudah login ke dashboard jika mengakses halaman beranda
+  useEffect(() => {
+    if (user) {
+      // Optional: redirect ke dashboard setelah beberapa detik
+      // Uncomment baris di bawah jika ingin redirect otomatis
+      // navigate('/dashboard');
+    }
+  }, [user, navigate]);
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "TravelAgency",
@@ -484,6 +498,7 @@ const Index = () => {
 
         <PromoSection />
         <FeaturedDestinations />
+        <FavoriteLocations />
 
         {/* Popular Articles Section */}
         <section className="py-10 bg-white dark:bg-gray-900">

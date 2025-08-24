@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Menu, X, Home, Building2, Hotel, Newspaper, Info, Phone, Settings } from 'lucide-react';
+import { Menu, X, Home, Building2, Hotel, Newspaper, Info, Phone, Settings, User, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import GoogleAuth from './GoogleAuth';
 import { useAuth } from "@/context/use-auth";
@@ -60,6 +60,7 @@ const Navbar = () => {
     { name: 'Artikel', path: '/articles', icon: Newspaper },
     { name: 'Tentang', path: '/about', icon: Info },
     { name: 'Kontak', path: '/contact', icon: Phone },
+    ...(user ? [{ name: 'Dashboard', path: '/dashboard', icon: User }] : []),
     ...(isAdmin ? [{ name: 'Admin', path: '/admin/articles', icon: Settings }] : [])
   ];
 
@@ -123,7 +124,13 @@ const Navbar = () => {
 
             {/* Google Auth */}
             <div className="hidden md:flex">
-              <GoogleAuth />
+              {user ? (
+                <GoogleAuth />
+              ) : (
+                <Button asChild variant="outline">
+                  <Link to="/login">Login</Link>
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -157,6 +164,16 @@ const Navbar = () => {
                   </Link>
                 );
               })}
+              {/* Mobile Login Button */}
+              {!user && (
+                <Link 
+                  to="/login"
+                  className="flex flex-col items-center gap-1 text-ocean hover:text-ocean-dark transition-colors px-2 py-1.5 rounded-lg hover:bg-ocean/10"
+                >
+                  <Shield className="w-5 h-5" />
+                  <span className="text-xs font-medium">Login</span>
+                </Link>
+              )}
             </nav>
           </div>
         </div>

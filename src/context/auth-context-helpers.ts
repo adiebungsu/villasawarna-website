@@ -10,9 +10,11 @@ export interface AuthUser {
 export interface AuthContextType {
   user: AuthUser | null;
   setUser: (user: AuthUser | null) => void;
+  isLoading: boolean;
 }
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
-  setUser: () => {}
+  setUser: () => {},
+  isLoading: true
 }); 

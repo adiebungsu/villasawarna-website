@@ -6,6 +6,7 @@ import { propertyRoomTypes } from '@/data/roomTypes';
 import VillaSchema from '@/components/VillaSchema';
 import OptimizedImage from '@/components/OptimizedImage';
 import { Property } from '@/types';
+import { WishlistButton } from '@/components/WishlistButton';
 
 const VillaDetail: NextPage = () => {
   const router = useRouter();
@@ -84,7 +85,24 @@ const VillaDetail: NextPage = () => {
         {/* Informasi Villa */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2">
-            <h1 className="text-3xl font-bold mb-4">{villa.name}</h1>
+            <div className="flex items-center justify-between mb-4">
+              <h1 className="text-3xl font-bold">{villa.name}</h1>
+              <WishlistButton
+                propertyId={villa.id}
+                propertyName={villa.name}
+                propertyImage={villa.mainImages[0]}
+                propertyType={villa.type}
+                location={villa.location}
+                price={villa.price}
+                rating={villa.rating}
+                reviews={villa.reviews}
+                capacity={villa.capacity}
+                bedrooms={villa.bedrooms || 0}
+                size="sm"
+                showText={true}
+                className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-sm hover:shadow-md"
+              />
+            </div>
             <div className="flex items-center gap-4 mb-4">
               <span className="text-yellow-500">★ {villa.rating}</span>
               <span className="text-gray-600">({villa.reviews} review)</span>

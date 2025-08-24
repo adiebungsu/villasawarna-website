@@ -6,6 +6,7 @@ import { getLowestRoomPrice } from '@/utils/price';
 import OptimizedImage from './OptimizedImage';
 import QuickView from './QuickView';
 import { Button } from "@/components/ui/button";
+import { WishlistButton } from './WishlistButton';
 
 // Import types from @/types
 import { PropertyCardProps, Review, NearbyAttraction, RatingBreakdown, RatingSummary, StarRatingBreakdown, RoomType } from '@/types';
@@ -105,6 +106,26 @@ const PropertyCard = ({
             <span className="hidden sm:inline">Quick View</span>
             <span className="sm:hidden">Lihat</span>
           </Button>
+
+          {/* Wishlist Button */}
+          <WishlistButton
+            propertyId={id}
+            propertyName={name}
+            propertyImage={image}
+            propertyType={type}
+            location={location}
+            price={displayPrice}
+            rating={rating}
+            reviews={reviews}
+            capacity={capacity}
+            bedrooms={bedrooms || 0}
+            size="icon"
+            className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 
+              bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm
+              shadow-sm hover:shadow-md transition-all duration-200
+              opacity-100 sm:opacity-0 sm:group-hover:opacity-100
+              z-10"
+          />
         </div>
         
         {/* Property Information */}

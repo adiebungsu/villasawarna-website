@@ -5,20 +5,7 @@ import { toast } from "@/components/ui/use-toast";
 import { useAuth } from "@/context/use-auth";
 import OptimizedImage from './OptimizedImage';
 import { Loader2 } from 'lucide-react';
-
-export interface AuthUser {
-  id: string;
-  name: string;
-  email: string;
-  profileImage?: string;
-}
-
-export interface AuthContextValue {
-  user: AuthUser | null;
-  isLoading: boolean;
-  login: (credential: string) => void;
-  logout: () => void;
-}
+import { useNavigate } from 'react-router-dom';
 
 interface DecodedToken {
   sub: string;
@@ -27,7 +14,7 @@ interface DecodedToken {
   picture?: string;
 }
 
-const handleCredentialLoginSuccess = (credentialResponse: CredentialResponse) => {
+const handleCredentialLoginSuccess = (credentialResponse: CredentialResponse, setUser: (user: AuthUser | null) => void, navigate: any) => {
   if (!credentialResponse.credential) {
     toast({
       title: "Login gagal",
@@ -50,10 +37,13 @@ const handleCredentialLoginSuccess = (credentialResponse: CredentialResponse) =>
       profileImage: decodedToken.picture
     };
     localStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData); // Update context state
     toast({
       title: "Login berhasil!",
       description: `Selamat datang, ${userData.name}`,
     });
+    // Redirect ke dashboard setelah login berhasil
+    navigate('/dashboard');
   } catch (error) {
     console.error("Failed to decode credential", error);
     toast({
@@ -73,6 +63,7 @@ const handleTokenLoginSuccess = (tokenResponse: TokenResponse) => {
 
 const GoogleAuth = () => {
   const { user, setUser } = useAuth();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleScriptLoaded, setIsGoogleScriptLoaded] = useState(false);
 
@@ -166,7 +157,7 @@ const GoogleAuth = () => {
         </div>
       ) : (
         <GoogleLogin
-          onSuccess={handleCredentialLoginSuccess}
+          onSuccess={(credentialResponse) => handleCredentialLoginSuccess(credentialResponse, setUser, navigate)}
           onError={() => {
             toast({
               title: "Login gagal",
