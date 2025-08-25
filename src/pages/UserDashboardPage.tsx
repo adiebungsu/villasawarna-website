@@ -56,7 +56,9 @@ import {
   Wind,
   ArrowLeft,
   Loader2,
-  LogOut
+  LogOut,
+  X,
+  Sparkles
 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -101,6 +103,8 @@ interface Booking {
   totalPrice: number;
   status: 'confirmed' | 'pending' | 'completed' | 'cancelled';
   bookingDate: string;
+  paymentStatus?: 'paid' | 'pending';
+  propertyId?: string;
 }
 
 interface Review {
@@ -140,8 +144,569 @@ const UserDashboardPage: React.FC = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   
-  const [activeTab, setActiveTab] = useState('overview');
+  // Get user data first
+  const {
+    bookings,
+    reviews,
+    notifications,
+    stats,
+    recentActivities,
+    searchFilters,
+    conversations,
+    supportTickets,
+    travelPlans,
+    addBooking,
+    addReview,
+    addTravelPlan,
+    saveSearchFilter,
+    clearDemoData,
+    emergencyCleanup,
+    addSupportTicket,
+    addTicketMessage
+  } = useUserData();
+  
+  const [activeTab, setActiveTab] = useState(() => {
+    if (typeof window === 'undefined') return 'overview';
+    return localStorage.getItem('user_dashboard_active_tab') || 'overview';
+  });
+
+  const handleUserTabChange = (val: string) => {
+    setActiveTab(val);
+    try {
+      localStorage.setItem('user_dashboard_active_tab', val);
+    } catch (error) {
+      console.warn('Failed to save active tab to localStorage:', error);
+    }
+    try {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      console.warn('Failed to scroll to top:', error);
+    }
+  };
   const [isTourOpen, setIsTourOpen] = useState(false);
+  const [showCreateTravelPlan, setShowCreateTravelPlan] = useState(false);
+  const [showViewTravelPlan, setShowViewTravelPlan] = useState(false);
+  const [showEditTravelPlan, setShowEditTravelPlan] = useState(false);
+  const [selectedTravelPlan, setSelectedTravelPlan] = useState<any>(null);
+  const [showNewChat, setShowNewChat] = useState(false);
+  // Support tickets state
+  const [showNewTicket, setShowNewTicket] = useState(false);
+  const [showTicketDetail, setShowTicketDetail] = useState(false);
+  const [selectedTicket, setSelectedTicket] = useState<any>(null);
+  const [newTicketData, setNewTicketData] = useState({
+    category: 'general' as 'booking' | 'payment' | 'technical' | 'general',
+    priority: 'medium' as 'low' | 'medium' | 'high' | 'urgent',
+    status: 'open' as 'open' | 'in_progress' | 'resolved' | 'closed',
+    subject: '',
+    description: ''
+  });
+  const [newChatData, setNewChatData] = useState({
+    recipientType: 'villa' as 'villa' | 'support',
+    selectedVilla: '',
+    subject: '',
+    message: '',
+    priority: 'normal' as 'low' | 'normal' | 'high'
+  });
+  const [newTravelPlan, setNewTravelPlan] = useState({
+    title: '',
+    description: '',
+    destination: '',
+    startDate: '',
+    endDate: '',
+    budgetMin: '',
+    budgetMax: '',
+    currency: 'IDR' as 'IDR' | 'USD',
+    adults: 1,
+    children: 0,
+    infants: 0
+  });
+
+  // Booking state and filters
+  const [bookingFilter, setBookingFilter] = useState<'all' | 'confirmed' | 'pending' | 'completed' | 'cancelled'>('all');
+  const [bookingSort, setBookingSort] = useState<'date' | 'price' | 'status'>('date');
+  const [showBookingFilters, setShowBookingFilters] = useState(false);
+
+  // Loyalty & Rewards state
+  const [showReferralModal, setShowReferralModal] = useState(false);
+  const [referralCode, setReferralCode] = useState('');
+  const [referralEmail, setReferralEmail] = useState('');
+  const [showRewardsHistory, setShowRewardsHistory] = useState(false);
+  const [showRedemptionModal, setShowRedemptionModal] = useState(false);
+  const [showPromotionsModal, setShowPromotionsModal] = useState(false);
+
+  // Available rewards for redemption
+  const availableRewards = useMemo(() => [
+    {
+      id: 'voucher-10',
+      name: 'Voucher 10% Off',
+      description: 'Diskon 10% untuk booking villa manapun',
+      pointsCost: 500,
+      type: 'voucher',
+      validUntil: '2024-12-31'
+    },
+    {
+      id: 'voucher-20',
+      name: 'Voucher 20% Off',
+      description: 'Diskon 20% untuk booking minimal 3 hari',
+      pointsCost: 1000,
+      type: 'voucher',
+      validUntil: '2024-12-31'
+    },
+    {
+      id: 'free-breakfast',
+      name: 'Free Breakfast',
+      description: 'Sarapan gratis untuk 2 orang',
+      pointsCost: 300,
+      type: 'amenity',
+      validUntil: '2024-12-31'
+    },
+    {
+      id: 'late-checkout',
+      name: 'Late Check-out',
+      description: 'Check-out hingga jam 2 siang',
+      pointsCost: 200,
+      type: 'amenity',
+      validUntil: '2024-12-31'
+    },
+    {
+      id: 'villa-upgrade',
+      name: 'Villa Upgrade',
+      description: 'Upgrade ke villa yang lebih besar (subject to availability)',
+      pointsCost: 1500,
+      type: 'upgrade',
+      validUntil: '2024-12-31'
+    }
+  ], []);
+
+
+
+
+
+
+
+  // Calculate loyalty points and tier
+  const loyaltyData = useMemo(() => {
+    const totalSpent = stats.totalSpent || 0;
+    const totalBookings = stats.totalBookings || 0;
+    const totalReviews = stats.totalReviews || 0;
+    
+    // Points calculation: 1 point per 10,000 IDR spent
+    const pointsEarned = Math.floor(totalSpent / 10000);
+    
+    // Bonus points for reviews
+    const reviewBonus = totalReviews * 50;
+    
+    // Birthday bonus points (if birthday is within 7 days)
+    const today = new Date();
+    const userBirthday = user?.birthday ? new Date(user.birthday) : null;
+    let birthdayBonus = 0;
+    let isBirthdayWeek = false;
+    
+    if (userBirthday) {
+      const birthdayThisYear = new Date(today.getFullYear(), userBirthday.getMonth(), userBirthday.getDate());
+      const daysUntilBirthday = Math.ceil((birthdayThisYear.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+      
+      if (daysUntilBirthday >= -7 && daysUntilBirthday <= 7) {
+        birthdayBonus = 200; // Bonus 200 points during birthday week
+        isBirthdayWeek = true;
+      }
+    }
+    
+    // Total points
+    const totalPoints = pointsEarned + reviewBonus + birthdayBonus;
+    
+    // Tier calculation
+    let tier = 'Bronze';
+    let nextTierPoints = 1000;
+    let tierBenefits = ['5% off on first booking', 'Priority support'];
+    
+    if (totalPoints >= 5000) {
+      tier = 'Platinum';
+      nextTierPoints = null;
+      tierBenefits = ['15% off all bookings', 'Free late check-out', 'VIP support', 'Exclusive events'];
+    } else if (totalPoints >= 3000) {
+      tier = 'Gold';
+      nextTierPoints = 5000;
+      tierBenefits = ['12% off all bookings', 'Free early check-in', 'Priority support', 'Birthday rewards'];
+    } else if (totalPoints >= 1000) {
+      tier = 'Silver';
+      nextTierPoints = 3000;
+      tierBenefits = ['8% off all bookings', 'Priority support', 'Birthday rewards'];
+    }
+    
+    // Progress to next tier
+    const progressToNextTier = nextTierPoints ? Math.min((totalPoints / nextTierPoints) * 100, 100) : 100;
+    
+    return {
+      tier,
+      totalPoints,
+      pointsEarned,
+      reviewBonus,
+      birthdayBonus,
+      isBirthdayWeek,
+      nextTierPoints,
+      progressToNextTier,
+      tierBenefits,
+      totalSpent,
+      totalBookings
+    };
+  }, [stats.totalSpent, stats.totalBookings, stats.totalReviews, user?.birthday]);
+
+  // Seasonal promotions based on current date and tier
+  const seasonalPromotions = useMemo(() => {
+    const today = new Date();
+    const month = today.getMonth() + 1; // 1-12
+    const currentPromotions = [];
+
+    // Summer promotions (June-August)
+    if (month >= 6 && month <= 8) {
+      currentPromotions.push({
+        id: 'summer-special',
+        title: '🌞 Summer Special',
+        description: 'Diskon 15% untuk semua villa di musim panas',
+        discount: 15,
+        validUntil: '2024-08-31',
+        tier: 'all'
+      });
+    }
+
+    // Holiday season (December)
+    if (month === 12) {
+      currentPromotions.push({
+        id: 'holiday-season',
+        title: '🎄 Holiday Season',
+        description: 'Promo spesial liburan akhir tahun',
+        discount: 20,
+        validUntil: '2024-12-31',
+        tier: 'all'
+      });
+    }
+
+    // Tier-specific promotions
+    if (loyaltyData.tier === 'Platinum') {
+      currentPromotions.push({
+        id: 'platinum-exclusive',
+        title: '👑 Platinum Exclusive',
+        description: 'Free airport transfer untuk Platinum members',
+        discount: 0,
+        validUntil: '2024-12-31',
+        tier: 'platinum'
+      });
+    }
+
+    if (loyaltyData.tier === 'Gold' || loyaltyData.tier === 'Platinum') {
+      currentPromotions.push({
+        id: 'gold-plus-special',
+        title: '⭐ Gold+ Special',
+        description: 'Early check-in 2 jam lebih awal',
+        discount: 0,
+        validUntil: '2024-12-31',
+        tier: 'gold-plus'
+      });
+    }
+
+    return currentPromotions;
+  }, [loyaltyData.tier, loyaltyData.totalPoints]);
+
+  // Handle reward redemption
+  const handleRewardRedemption = (reward: any) => {
+    if (loyaltyData.totalPoints < reward.pointsCost) {
+      toast({
+        title: "Points Tidak Cukup",
+        description: `Anda membutuhkan ${reward.pointsCost} points untuk menukar reward ini`,
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Simulate redemption
+    toast({
+      title: "🎉 Reward Berhasil Ditukar!",
+      description: `${reward.name} telah ditambahkan ke akun Anda`,
+    });
+
+    setShowRedemptionModal(false);
+  };
+
+  // AI Recommendations System
+  const aiRecommendations = useMemo(() => {
+    const recommendations = [];
+    
+    // Tier-based recommendations
+    if (loyaltyData.tier === 'Platinum') {
+      recommendations.push({
+        id: 'platinum-luxury',
+        title: '🏰 Luxury Villa Experience',
+        description: 'Nikmati villa premium dengan butler service dan private pool',
+        reason: 'Platinum members exclusive',
+        priority: 'high',
+        estimatedPrice: 'Rp 5.000.000 - 8.000.000',
+        image: 'https://i.imgur.com/KNZs2rS.jpeg'
+      });
+    }
+    
+    if (loyaltyData.tier === 'Gold' || loyaltyData.tier === 'Platinum') {
+      recommendations.push({
+        id: 'gold-comfort',
+        title: '⭐ Comfort Plus Villa',
+        description: 'Villa dengan fasilitas lengkap dan view terbaik',
+        reason: 'Gold+ members recommendation',
+        priority: 'medium',
+        estimatedPrice: 'Rp 3.000.000 - 5.000.000',
+        image: 'https://i.imgur.com/KNZs2rS.jpeg'
+      });
+    }
+    
+    // Seasonal recommendations
+    const currentMonth = new Date().getMonth() + 1;
+    if (currentMonth >= 6 && currentMonth <= 8) {
+      recommendations.push({
+        id: 'summer-beach',
+        title: '🌊 Beachfront Summer Villa',
+        description: 'Villa tepi pantai dengan akses langsung ke laut',
+        reason: 'Perfect for summer vacation',
+        priority: 'high',
+        estimatedPrice: 'Rp 2.500.000 - 4.000.000',
+        image: 'https://i.imgur.com/KNZs2rS.jpeg'
+      });
+    }
+    
+    if (currentMonth === 12) {
+      recommendations.push({
+        id: 'holiday-special',
+        title: '🎄 Holiday Special Villa',
+        description: 'Villa dengan dekorasi natal dan promo liburan',
+        reason: 'Holiday season special',
+        priority: 'high',
+        estimatedPrice: 'Rp 3.500.000 - 6.000.000',
+        image: 'https://i.imgur.com/KNZs2rS.jpeg'
+      });
+    }
+    
+    // Budget-based recommendations
+    if (loyaltyData.totalPoints >= 2000) {
+      recommendations.push({
+        id: 'budget-friendly',
+        title: '💰 Budget-Friendly Villa',
+        description: 'Villa berkualitas dengan harga terjangkau',
+        reason: 'Based on your spending pattern',
+        priority: 'medium',
+        estimatedPrice: 'Rp 1.500.000 - 2.500.000',
+        image: 'https://i.imgur.com/KNZs2rS.jpeg'
+      });
+    }
+    
+    return recommendations.sort((a, b) => {
+      const priorityOrder = { 'high': 3, 'medium': 2, 'low': 1 };
+      return priorityOrder[b.priority] - priorityOrder[a.priority];
+    });
+  }, [loyaltyData.tier, loyaltyData.totalPoints]);
+
+  // Check-in Reminders System
+  const checkInReminders = useMemo(() => {
+    const reminders = [];
+    const today = new Date();
+    
+    // Check upcoming bookings for reminders
+    bookings.forEach(booking => {
+      if (booking.status === 'confirmed') {
+        const checkInDate = new Date(booking.checkIn);
+        const daysUntilCheckIn = Math.ceil((checkInDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+        
+        if (daysUntilCheckIn === 1) {
+          reminders.push({
+            id: `reminder-${booking.id}`,
+            type: 'checkin-tomorrow',
+            title: '🚨 Check-in Besok!',
+            description: `Villa ${booking.propertyName} - Check-in besok`,
+            booking: booking,
+            priority: 'high',
+            action: 'View Details'
+          });
+        } else if (daysUntilCheckIn === 3) {
+          reminders.push({
+            id: `reminder-${booking.id}`,
+            type: 'checkin-soon',
+            title: '📅 Check-in 3 Hari Lagi',
+            description: `Villa ${booking.propertyName} - Siapkan dokumen perjalanan`,
+            booking: booking,
+            priority: 'medium',
+            action: 'Prepare'
+          });
+        } else if (daysUntilCheckIn === 7) {
+          reminders.push({
+            id: `reminder-${booking.id}`,
+            type: 'checkin-week',
+            title: '📋 Check-in 1 Minggu Lagi',
+            description: `Villa ${booking.propertyName} - Waktunya packing!`,
+            booking: booking,
+            priority: 'low',
+            action: 'Start Packing'
+          });
+        }
+      }
+    });
+    
+    return reminders;
+  }, [bookings]);
+
+  // Weather simulation for destinations (in real app, this would call weather API)
+  const getDestinationWeather = (destination: string) => {
+    const weatherData = {
+      'Sawarna': { temp: '28°C', condition: '☀️ Cerah', humidity: '75%' },
+      'Pelabuhan Ratu': { temp: '27°C', condition: '⛅ Berawan', humidity: '80%' },
+      'Cisolok': { temp: '26°C', condition: '🌧️ Hujan Ringan', humidity: '85%' }
+    };
+    
+    return weatherData[destination as keyof typeof weatherData] || { temp: '25°C', condition: '🌤️', humidity: '70%' };
+  };
+
+  // Loading states
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDataLoading, setIsDataLoading] = useState(true);
+
+  // Simulate data loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsDataLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Mobile optimization
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Smooth scroll to top for mobile
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Loading skeleton components
+  const LoadingSkeleton = () => (
+    <div className="space-y-4 animate-pulse">
+      <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/3"></div>
+      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+      <div className="h-32 bg-gray-200 dark:bg-gray-700 rounded"></div>
+      <div className="h-24 bg-gray-200 dark:bg-gray-700 rounded"></div>
+    </div>
+  );
+
+  const CardSkeleton = () => (
+    <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg animate-pulse">
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+        <div className="flex-1">
+          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
+          <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-4/5"></div>
+      </div>
+    </div>
+  );
+
+  // Referral system
+  const handleReferralSubmit = () => {
+    if (!referralEmail || !referralEmail.includes('@')) {
+      toast({
+        title: "Email Tidak Valid",
+        description: "Mohon masukkan email yang valid",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    // Generate referral code
+    const newReferralCode = `REF${user?.id?.slice(-6) || 'USER'}${Date.now().toString().slice(-4)}`;
+    setReferralCode(newReferralCode);
+    
+    toast({
+      title: "Referral Code Dibuat!",
+      description: `Kode referral Anda: ${newReferralCode}`,
+    });
+    
+    setShowReferralModal(false);
+  };
+
+  // Social sharing functions
+  const shareToSocialMedia = (platform: 'facebook' | 'twitter' | 'instagram' | 'whatsapp') => {
+    const shareText = `🎉 Saya sudah mencapai tier ${loyaltyData.tier} di Villa Sawarna! 
+    
+🏆 Total Points: ${loyaltyData.totalPoints.toLocaleString()}
+⭐ Tier: ${loyaltyData.tier}
+🎁 Benefits: ${loyaltyData.tierBenefits.slice(0, 2).join(', ')}
+    
+Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
+
+#VillaSawarna #LoyaltyRewards #TravelIndonesia`;
+    
+    const shareUrl = window.location.origin;
+    
+    let shareLink = '';
+    switch (platform) {
+      case 'facebook':
+        shareLink = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+        break;
+      case 'twitter':
+        shareLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+        break;
+      case 'whatsapp':
+        shareLink = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
+        break;
+      case 'instagram':
+        // Instagram doesn't support direct sharing, copy to clipboard
+        navigator.clipboard.writeText(shareText + ' ' + shareUrl);
+        toast({
+          title: "Text Disalin!",
+          description: "Text sudah disalin ke clipboard. Paste di Instagram story Anda!",
+        });
+        return;
+    }
+    
+    if (shareLink) {
+      window.open(shareLink, '_blank', 'width=600,height=400');
+    }
+  };
+
+  // Birthday notification effect
+  useEffect(() => {
+    if (loyaltyData.isBirthdayWeek && user?.birthday) {
+      const birthday = new Date(user.birthday);
+      const today = new Date();
+      const isToday = today.getDate() === birthday.getDate() && today.getMonth() === birthday.getMonth();
+      
+      if (isToday) {
+        toast({
+          title: "🎉 Selamat Ulang Tahun!",
+          description: "Anda mendapatkan bonus 200 points hari ini! Nikmati rewards spesial ulang tahun.",
+          duration: 10000,
+        });
+      } else {
+        const daysUntilBirthday = Math.ceil((new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate()).getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+        if (daysUntilBirthday > 0 && daysUntilBirthday <= 7) {
+          toast({
+            title: "🎂 Ulang Tahun Mendekati!",
+            description: `${daysUntilBirthday} hari lagi ulang tahun Anda! Dapatkan bonus points spesial.`,
+            duration: 8000,
+          });
+        }
+      }
+    }
+  }, [loyaltyData.isBirthdayWeek, user?.birthday]);
 
   const tourSteps = useMemo(() => [
     {
@@ -201,22 +766,36 @@ const UserDashboardPage: React.FC = () => {
     }
   }, [activeTab]);
 
-  // Use real data from UserDataProvider
-  const { 
-    bookings, 
-    reviews, 
-    notifications, 
-    stats, 
-    recentActivities,
-    searchFilters,
-    addBooking,
-    addReview,
-    saveSearchFilter,
-    clearDemoData
-  } = useUserData();
-
   // Use real visit history data
   const { visitHistory, totalVisits, uniquePropertiesVisited } = useVisitHistory();
+
+  // Filter and sort bookings
+  const filteredBookings = useMemo(() => {
+    let filtered = bookings;
+    
+    // Apply status filter
+    if (bookingFilter !== 'all') {
+      filtered = filtered.filter(booking => booking.status === bookingFilter);
+    }
+    
+    // Apply sorting
+    filtered = [...filtered].sort((a, b) => {
+      switch (bookingSort) {
+        case 'date':
+          return new Date(b.bookingDate).getTime() - new Date(a.bookingDate).getTime();
+        case 'price':
+          return b.totalPrice - a.totalPrice;
+        case 'status': {
+          const statusOrder = { 'pending': 0, 'confirmed': 1, 'completed': 2, 'cancelled': 3 };
+          return statusOrder[a.status] - statusOrder[b.status];
+        }
+        default:
+          return 0;
+      }
+    });
+    
+    return filtered;
+  }, [bookings, bookingFilter, bookingSort]);
 
   const handleSearch = (filters: Record<string, unknown>) => {
     // Handle search functionality
@@ -230,6 +809,215 @@ const UserDashboardPage: React.FC = () => {
   const handleFiltersChange = (filters: Record<string, unknown>) => {
     // Handle filter changes
     console.log('Filters changed:', filters);
+  };
+
+  const handleCreateTravelPlan = () => {
+    if (!newTravelPlan.title || !newTravelPlan.destination || !newTravelPlan.startDate || !newTravelPlan.endDate) {
+      toast({
+        title: "Data Tidak Lengkap",
+        description: "Mohon isi semua field yang wajib diisi",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const startDate = new Date(newTravelPlan.startDate);
+    const endDate = new Date(newTravelPlan.endDate);
+    const totalDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (totalDays <= 0) {
+      toast({
+        title: "Tanggal Tidak Valid",
+        description: "Tanggal selesai harus setelah tanggal mulai",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const plan = {
+      title: newTravelPlan.title,
+      description: newTravelPlan.description,
+      destination: newTravelPlan.destination,
+      startDate: newTravelPlan.startDate,
+      endDate: newTravelPlan.endDate,
+      totalDays,
+      budget: {
+        min: parseInt(newTravelPlan.budgetMin) || 0,
+        max: parseInt(newTravelPlan.budgetMax) || 0,
+        currency: newTravelPlan.currency
+      },
+      travelers: {
+        adults: newTravelPlan.adults,
+        children: newTravelPlan.children,
+        infants: newTravelPlan.infants
+      },
+      status: 'planning' as const,
+      accommodations: [],
+      activities: [],
+      transportation: [],
+      notes: [],
+      isPublic: false,
+      sharedWith: []
+    };
+
+    // Add travel plan using context
+    addTravelPlan(plan);
+
+    // Reset form
+    setNewTravelPlan({
+      title: '',
+      description: '',
+      destination: '',
+      startDate: '',
+      endDate: '',
+      budgetMin: '',
+      budgetMax: '',
+      currency: 'IDR',
+      adults: 1,
+      children: 0,
+      infants: 0
+    });
+
+    setShowCreateTravelPlan(false);
+
+    toast({
+      title: "Travel Plan Berhasil Dibuat",
+      description: `Plan "${plan.title}" telah dibuat dan siap untuk dikelola`,
+    });
+  };
+
+  const handleViewTravelPlan = (plan: any) => {
+    setSelectedTravelPlan(plan);
+    setShowViewTravelPlan(true);
+  };
+
+  const handleEditTravelPlan = (plan: any) => {
+    setSelectedTravelPlan(plan);
+    setNewTravelPlan({
+      title: plan.title,
+      description: plan.description,
+      destination: plan.destination,
+      startDate: plan.startDate,
+      endDate: plan.endDate,
+      budgetMin: plan.budget.min.toString(),
+      budgetMax: plan.budget.max.toString(),
+      currency: plan.budget.currency,
+      adults: plan.travelers.adults,
+      children: plan.travelers.children,
+      infants: plan.travelers.infants
+    });
+    setShowEditTravelPlan(true);
+  };
+
+  const handleUpdateTravelPlan = () => {
+    if (!newTravelPlan.title || !newTravelPlan.destination || !newTravelPlan.startDate || !newTravelPlan.endDate) {
+      toast({
+        title: "Data Tidak Lengkap",
+        description: "Mohon isi semua field yang wajib diisi",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const startDate = new Date(newTravelPlan.startDate);
+    const endDate = new Date(newTravelPlan.endDate);
+    const totalDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (totalDays <= 0) {
+      toast({
+        title: "Tanggal Tidak Valid",
+        description: "Tanggal selesai harus setelah tanggal mulai",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const updatedPlan = {
+      ...selectedTravelPlan,
+      title: newTravelPlan.title,
+      description: newTravelPlan.description,
+      destination: newTravelPlan.destination,
+      startDate: newTravelPlan.startDate,
+      endDate: newTravelPlan.endDate,
+      totalDays,
+      budget: {
+        min: parseInt(newTravelPlan.budgetMin) || 0,
+        max: parseInt(newTravelPlan.budgetMax) || 0,
+        currency: newTravelPlan.currency
+      },
+      travelers: {
+        adults: newTravelPlan.adults,
+        children: newTravelPlan.children,
+        infants: newTravelPlan.infants
+      }
+    };
+
+    // Update travel plan using context (you'll need to implement this function)
+    // updateTravelPlan(updatedPlan);
+
+    setShowEditTravelPlan(false);
+    setSelectedTravelPlan(null);
+
+    toast({
+      title: "Travel Plan Berhasil Diperbarui",
+      description: `Plan "${updatedPlan.title}" telah diperbarui`,
+    });
+  };
+
+  const handleStartNewChat = () => {
+    if (!newChatData.subject || !newChatData.message) {
+      toast({
+        title: "Data Tidak Lengkap",
+        description: "Mohon isi subject dan pesan",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (newChatData.recipientType === 'villa' && !newChatData.selectedVilla) {
+      toast({
+        title: "Villa Belum Dipilih",
+        description: "Mohon pilih villa yang ingin dihubungi",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Create new conversation
+    const newConversation = {
+      id: `conv_${Date.now()}`,
+      propertyName: newChatData.recipientType === 'villa' ? newChatData.selectedVilla : 'Tim Support',
+      propertyImage: newChatData.recipientType === 'villa' ? '/images/placeholder-villa.jpg' : '/images/support-team.jpg',
+      lastMessage: {
+        senderName: user?.name || 'User',
+        message: newChatData.message,
+        timestamp: new Date().toISOString()
+      },
+      unreadCount: 0,
+      isActive: true,
+      priority: newChatData.priority,
+      subject: newChatData.subject,
+      createdAt: new Date().toISOString()
+    };
+
+    // Add conversation to context (you'll need to implement this function)
+    // addConversation(newConversation);
+
+    // Reset form
+    setNewChatData({
+      recipientType: 'villa',
+      selectedVilla: '',
+      subject: '',
+      message: '',
+      priority: 'normal'
+    });
+
+    setShowNewChat(false);
+
+    toast({
+      title: "Chat Baru Dibuat",
+      description: `Percakapan dengan ${newConversation.propertyName} telah dimulai`,
+    });
   };
 
   if (!user) {
@@ -457,7 +1245,7 @@ const UserDashboardPage: React.FC = () => {
           </div>
 
           {/* Main Dashboard Tabs */}
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <Tabs value={activeTab} onValueChange={handleUserTabChange} className="space-y-6">
                          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               {/* Mobile Tab Navigation - Horizontal Scroll */}
               <div className="md:hidden w-full overflow-x-auto scrollbar-hide" id="mobile-tab-navigation">
@@ -482,9 +1270,21 @@ const UserDashboardPage: React.FC = () => {
                     <Bell className="w-3 h-3" />
                     <span>Notif</span>
                   </TabsTrigger>
+                  <TabsTrigger value="messages" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
+                    <MessageSquare className="w-3 h-3" />
+                    <span>Pesan</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="travel-plans" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
+                    <MapPin className="w-3 h-3" />
+                    <span>Travel</span>
+                  </TabsTrigger>
                   <TabsTrigger value="visits" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <Eye className="w-3 h-3" />
                     <span>Riwayat</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="loyalty" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
+                    <Award className="w-3 h-3" />
+                    <span>Rewards</span>
                   </TabsTrigger>
                   <TabsTrigger value="search" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <Search className="w-3 h-3" />
@@ -514,6 +1314,14 @@ const UserDashboardPage: React.FC = () => {
                 <TabsTrigger data-tour="tab-notifications" value="notifications" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
                   <Bell className="w-4 h-4" />
                   <span>Notifikasi</span>
+                </TabsTrigger>
+                <TabsTrigger value="messages" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
+                  <MessageSquare className="w-4 h-4" />
+                  <span>Pesan</span>
+                </TabsTrigger>
+                <TabsTrigger value="travel-plans" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
+                  <MapPin className="w-4 h-4" />
+                  <span>Travel Plans</span>
                 </TabsTrigger>
                 <TabsTrigger value="visits" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
                   <Eye className="w-4 h-4" />
@@ -561,6 +1369,16 @@ const UserDashboardPage: React.FC = () => {
                           >
                             <XCircle className="w-4 h-4 mr-2" />
                             Hapus Data Demo
+                          </Button>
+                          
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            onClick={emergencyCleanup}
+                            className="text-red-600 hover:text-red-700 border-red-200 hover:bg-red-50"
+                          >
+                            <AlertCircle className="w-4 h-4 mr-2" />
+                            Emergency Cleanup
                           </Button>
                           
                           <Button 
@@ -909,6 +1727,274 @@ const UserDashboardPage: React.FC = () => {
                             <p className="text-xs">Mulai beraktivitas untuk mendapatkan badge!</p>
                           </div>
                         )}
+
+                        {/* Quick Actions */}
+                        <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                          <h4 className="font-medium text-blue-800 dark:text-blue-200 mb-3">Aksi Cepat</h4>
+                          <div className="grid grid-cols-2 gap-3">
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              asChild
+                              className="border-blue-200 hover:bg-blue-100 dark:border-blue-700 dark:hover:bg-blue-800/30"
+                            >
+                              <Link to="/villas">
+                                <Building2 className="w-4 h-4 mr-2" />
+                                Jelajahi Villa
+                              </Link>
+                            </Button>
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              asChild
+                              className="border-blue-200 hover:bg-blue-100 dark:border-blue-700 dark:hover:bg-blue-800/30"
+                            >
+                              <Link to="/search">
+                                <Search className="w-4 h-4 mr-2" />
+                                Cari Properti
+                              </Link>
+                            </Button>
+                          </div>
+                        </div>
+
+                        {/* AI Recommendations */}
+                        {aiRecommendations.length > 0 && (
+                          <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
+                            <h4 className="font-medium text-purple-800 dark:text-purple-200 mb-3 flex items-center gap-2">
+                              <Sparkles className="w-5 h-5" />
+                              Rekomendasi AI untuk Anda
+                            </h4>
+                            <div className="space-y-3">
+                              {aiRecommendations.slice(0, 2).map((rec) => (
+                                <div key={rec.id} className="p-3 bg-white/50 dark:bg-gray-800/50 rounded-lg hover:bg-white/70 dark:hover:bg-gray-800/70 transition-colors cursor-pointer">
+                                  <div className="flex items-start gap-3">
+                                    <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-800/30 dark:to-pink-800/30 rounded-lg flex items-center justify-center">
+                                      <span className="text-lg">{rec.title.split(' ')[0]}</span>
+                                    </div>
+                                    <div className="flex-1">
+                                      <h5 className="font-medium text-purple-900 dark:text-purple-100 mb-1">
+                                        {rec.title}
+                                      </h5>
+                                      <p className="text-sm text-purple-700 dark:text-purple-300 mb-2">
+                                        {rec.description}
+                                      </p>
+                                      <div className="flex items-center justify-between">
+                                        <span className="text-xs text-purple-600 dark:text-purple-400 font-medium">
+                                          {rec.reason}
+                                        </span>
+                                        <span className="text-sm font-medium text-purple-900 dark:text-purple-100">
+                                          {rec.estimatedPrice}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Check-in Reminders */}
+                        {checkInReminders.length > 0 && (
+                          <div className="mt-6 p-4 bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
+                            <h4 className="font-medium text-orange-800 dark:text-orange-200 mb-3 flex items-center gap-2">
+                              <Bell className="w-5 h-5" />
+                              Check-in Reminders
+                            </h4>
+                            <div className="space-y-3">
+                              {checkInReminders.slice(0, 3).map((reminder) => (
+                                <div key={reminder.id} className={`p-3 bg-white/50 dark:bg-gray-800/50 rounded-lg border-l-4 ${
+                                  reminder.priority === 'high' ? 'border-l-red-500' : 
+                                  reminder.priority === 'medium' ? 'border-l-orange-500' : 'border-l-blue-500'
+                                }`}>
+                                  <div className="flex items-start justify-between">
+                                    <div className="flex-1">
+                                      <h5 className="font-medium text-orange-900 dark:text-orange-100 mb-1">
+                                        {reminder.title}
+                                      </h5>
+                                      <p className="text-sm text-orange-700 dark:text-orange-300 mb-2">
+                                        {reminder.description}
+                                      </p>
+                                      <div className="flex items-center gap-4">
+                                        <span className="text-xs text-orange-600 dark:text-orange-400">
+                                          {reminder.booking.propertyName}
+                                        </span>
+                                        {reminder.booking.destination && (
+                                          <div className="flex items-center gap-1 text-xs text-orange-600 dark:text-orange-400">
+                                            <span>🌤️</span>
+                                            <span>{getDestinationWeather(reminder.booking.destination).temp}</span>
+                                          </div>
+                                        )}
+                                      </div>
+                                    </div>
+                                    <Button variant="outline" size="sm" className="border-orange-200 text-orange-700 hover:bg-orange-100 dark:border-orange-700 dark:text-orange-300 dark:hover:bg-orange-800/30">
+                                      {reminder.action}
+                                    </Button>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Loyalty & Rewards Card */}
+                        <div className="mt-6 p-4 bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
+                          <div className="flex items-center justify-between mb-4">
+                            <h4 className="font-medium text-amber-800 dark:text-amber-200">Loyalty & Rewards</h4>
+                            <div className="flex items-center gap-2">
+                              <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-800/30 dark:text-amber-200">
+                                {loyaltyData.tier}
+                              </Badge>
+                              {loyaltyData.isBirthdayWeek && (
+                                <Badge variant="default" className="bg-pink-100 text-pink-800 dark:bg-pink-800/30 dark:text-pink-200">
+                                  🎂 Birthday Week!
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                          
+                          {/* Birthday Bonus Alert */}
+                          {loyaltyData.isBirthdayWeek && (
+                            <div className="mb-4 p-3 bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 rounded-lg border border-pink-200 dark:border-pink-800">
+                              <div className="flex items-center gap-2">
+                                <span className="text-2xl">🎉</span>
+                                <div>
+                                  <p className="text-sm font-medium text-pink-800 dark:text-pink-200">
+                                    Birthday Bonus Active!
+                                  </p>
+                                  <p className="text-xs text-pink-600 dark:text-pink-400">
+                                    +{loyaltyData.birthdayBonus} points selama birthday week
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                          
+                          {/* Points Display */}
+                          <div className="mb-4">
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-sm text-amber-700 dark:text-amber-300">Total Points</span>
+                              <span className="text-lg font-bold text-amber-800 dark:text-amber-200">
+                                {loyaltyData.totalPoints.toLocaleString()}
+                              </span>
+                            </div>
+                            
+                            {/* Progress Bar */}
+                            {loyaltyData.nextTierPoints && (
+                              <div className="space-y-2">
+                                <div className="flex items-center justify-between text-xs text-amber-600 dark:text-amber-400">
+                                  <span>Progress ke {loyaltyData.tier === 'Bronze' ? 'Silver' : loyaltyData.tier === 'Silver' ? 'Gold' : 'Platinum'}</span>
+                                  <span>{loyaltyData.progressToNextTier.toFixed(0)}%</span>
+                                </div>
+                                <div className="w-full bg-amber-200 dark:bg-amber-800/30 rounded-full h-2">
+                                  <div 
+                                    className="bg-amber-500 h-2 rounded-full transition-all duration-300"
+                                    style={{ width: `${loyaltyData.progressToNextTier}%` }}
+                                  ></div>
+                                </div>
+                                <p className="text-xs text-amber-600 dark:text-amber-400">
+                                  {loyaltyData.nextTierPoints - loyaltyData.totalPoints} points lagi untuk naik tier
+                                </p>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Tier Benefits */}
+                          <div className="mb-4">
+                            <h5 className="text-sm font-medium text-amber-800 dark:text-amber-200 mb-2">Benefit {loyaltyData.tier}:</h5>
+                            <ul className="space-y-1">
+                              {loyaltyData.tierBenefits.map((benefit, index) => (
+                                <li key={index} className="flex items-center text-xs text-amber-700 dark:text-amber-300">
+                                  <CheckCircle className="w-3 h-3 mr-2 text-amber-500" />
+                                  {benefit}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          {/* Action Buttons */}
+                          <div className="grid grid-cols-2 gap-2 mb-3">
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => setShowReferralModal(true)}
+                              className="border-amber-200 hover:bg-amber-100 dark:border-amber-700 dark:hover:bg-amber-800/30 text-amber-700 dark:text-amber-300"
+                            >
+                              <Gift className="w-4 h-4 mr-1" />
+                              Referral
+                            </Button>
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => setShowRewardsHistory(true)}
+                              className="border-amber-200 hover:bg-amber-100 dark:border-amber-700 dark:hover:bg-amber-800/30 text-amber-700 dark:text-amber-300"
+                            >
+                              <Award className="w-4 h-4 mr-1" />
+                              History
+                            </Button>
+                          </div>
+
+                          {/* Additional Action Buttons */}
+                          <div className="grid grid-cols-2 gap-2 mb-3">
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => setShowRedemptionModal(true)}
+                              className="border-green-200 hover:bg-green-100 dark:border-green-700 dark:hover:bg-green-800/30 text-green-700 dark:text-green-300"
+                            >
+                              <Star className="w-4 h-4 mr-1" />
+                              Tukar Points
+                            </Button>
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => setShowPromotionsModal(true)}
+                              className="border-purple-200 hover:bg-purple-100 dark:border-purple-700 dark:hover:bg-purple-800/30 text-purple-700 dark:text-purple-300"
+                            >
+                              <TrendingUp className="w-4 h-4 mr-1" />
+                              Promo
+                            </Button>
+                          </div>
+
+                          {/* Social Sharing */}
+                          <div className="border-t border-amber-200 dark:border-amber-800 pt-3">
+                            <p className="text-xs text-amber-600 dark:text-amber-400 mb-2 text-center">Bagikan Achievement Anda</p>
+                            <div className="flex justify-center gap-2">
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                onClick={() => shareToSocialMedia('facebook')}
+                                className="w-8 h-8 p-0 bg-blue-100 hover:bg-blue-200 text-blue-600 dark:bg-blue-800/30 dark:hover:bg-blue-800/50"
+                              >
+                                <span className="text-sm">f</span>
+                              </Button>
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                onClick={() => shareToSocialMedia('twitter')}
+                                className="w-8 h-8 p-0 bg-sky-100 hover:bg-sky-200 text-sky-600 dark:bg-sky-800/30 dark:hover:bg-sky-800/50"
+                              >
+                                <span className="text-sm">𝕏</span>
+                              </Button>
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                onClick={() => shareToSocialMedia('whatsapp')}
+                                className="w-8 h-8 p-0 bg-green-100 hover:bg-green-200 text-green-600 dark:bg-green-800/30 dark:hover:bg-green-800/50"
+                              >
+                                <span className="text-sm">📱</span>
+                              </Button>
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                onClick={() => shareToSocialMedia('instagram')}
+                                className="w-8 h-8 p-0 bg-pink-100 hover:bg-pink-200 text-pink-600 dark:bg-pink-800/30 dark:hover:bg-pink-800/50"
+                              >
+                                <span className="text-sm">📷</span>
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
@@ -1068,75 +2154,178 @@ const UserDashboardPage: React.FC = () => {
                     <div>
                       <CardTitle>Riwayat Booking</CardTitle>
                       <CardDescription>
-                        Kelola semua booking dan reservasi Anda
+                        {bookings.length > 0 
+                          ? `Anda memiliki ${bookings.length} booking` 
+                          : 'Belum ada booking'
+                        }
                       </CardDescription>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => setShowBookingFilters(!showBookingFilters)}
+                      >
                         <Filter className="w-4 h-4 mr-2" />
-                        Filter
+                        Filter ({filteredBookings.length})
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => {
+                          const sorts = ['date', 'price', 'status'];
+                          const currentIndex = sorts.indexOf(bookingSort);
+                          const nextSort = sorts[(currentIndex + 1) % sorts.length];
+                          setBookingSort(nextSort as any);
+                        }}
+                      >
                         <SortAsc className="w-4 h-4 mr-2" />
-                        Urutkan
+                        {bookingSort === 'date' ? 'Tanggal' : 
+                         bookingSort === 'price' ? 'Harga' : 'Status'}
                       </Button>
                     </div>
                   </CardHeader>
+                  
+                  {/* Filter Panel */}
+                  {showBookingFilters && (
+                    <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Filter Status:</span>
+                        {(['all', 'confirmed', 'pending', 'completed', 'cancelled'] as const).map((status) => (
+                          <Button
+                            key={status}
+                            variant={bookingFilter === status ? 'default' : 'outline'}
+                            size="sm"
+                            onClick={() => setBookingFilter(status)}
+                            className="text-xs"
+                          >
+                            {status === 'all' ? 'Semua' : 
+                             status === 'confirmed' ? 'Dikonfirmasi' : 
+                             status === 'pending' ? 'Menunggu' : 
+                             status === 'completed' ? 'Selesai' : 'Dibatalkan'}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
                   <CardContent>
                     <div className="space-y-4">
-                      {bookings.map((booking) => (
-                        <div key={booking.id} className="flex items-center gap-4 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                          <img 
-                            src={booking.propertyImage} 
-                            alt={booking.propertyName}
-                            className="w-16 h-16 rounded-lg object-cover"
-                            onError={(e) => {
-                              e.currentTarget.src = '/images/placeholder-villa.jpg';
-                            }}
-                          />
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1">
-                              <h4 className="font-medium text-gray-900 dark:text-white truncate">
-                                {booking.propertyName}
-                              </h4>
-                              <Badge 
-                                variant={
-                                  booking.status === 'confirmed' ? 'default' : 
-                                  booking.status === 'completed' ? 'secondary' : 
-                                  booking.status === 'pending' ? 'outline' : 'destructive'
-                                }
-                                className="text-xs"
-                              >
-                                {booking.status === 'confirmed' ? 'Dikonfirmasi' : 
-                                 booking.status === 'completed' ? 'Selesai' : 
-                                 booking.status === 'pending' ? 'Menunggu' : 'Dibatalkan'}
-                              </Badge>
+                      {filteredBookings.length > 0 ? (
+                        filteredBookings.map((booking) => (
+                          <div key={booking.id} className="flex items-center gap-4 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                            <img 
+                              src={booking.propertyImage} 
+                              alt={booking.propertyName}
+                              className="w-16 h-16 rounded-lg object-cover"
+                              onError={(e) => {
+                                e.currentTarget.src = '/images/placeholder-villa.jpg';
+                              }}
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 mb-1">
+                                <h4 className="font-medium text-gray-900 dark:text-white truncate">
+                                  {booking.propertyName}
+                                </h4>
+                                <Badge 
+                                  variant={
+                                    booking.status === 'confirmed' ? 'default' : 
+                                    booking.status === 'completed' ? 'secondary' : 
+                                    booking.status === 'pending' ? 'outline' : 'destructive'
+                                  }
+                                  className="text-xs"
+                                >
+                                  {booking.status === 'confirmed' ? 'Dikonfirmasi' : 
+                                   booking.status === 'pending' ? 'Menunggu' : 
+                                   booking.status === 'completed' ? 'Selesai' : 'Dibatalkan'}
+                                </Badge>
+                                {booking.paymentStatus && (
+                                  <Badge 
+                                    variant={booking.paymentStatus === 'paid' ? 'secondary' : 'outline'}
+                                    className="text-xs ml-2"
+                                  >
+                                    {booking.paymentStatus === 'paid' ? 'Lunas' : 'Pending'}
+                                  </Badge>
+                                )}
+                              </div>
+                              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600 dark:text-gray-400">
+                                <div>
+                                  <span className="font-medium">Check-in:</span> {new Date(booking.checkIn).toLocaleDateString('id-ID')}
+                                </div>
+                                <div>
+                                  <span className="font-medium">Check-out:</span> {new Date(booking.checkOut).toLocaleDateString('id-ID')}
+                                </div>
+                                <div>
+                                  <span className="font-medium">Tamu:</span> {booking.guests} orang
+                                </div>
+                                <div>
+                                  <span className="font-medium">Total:</span> Rp {booking.totalPrice.toLocaleString('id-ID')}
+                                </div>
+                              </div>
+                              <div className="mt-2 text-xs text-gray-500">
+                                <span className="font-medium">Booking Date:</span> {new Date(booking.bookingDate).toLocaleDateString('id-ID')}
+                              </div>
                             </div>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600 dark:text-gray-400">
-                              <div>
-                                <span className="font-medium">Check-in:</span> {new Date(booking.checkIn).toLocaleDateString('id-ID')}
-                              </div>
-                              <div>
-                                <span className="font-medium">Check-out:</span> {new Date(booking.checkOut).toLocaleDateString('id-ID')}
-                              </div>
-                              <div>
-                                <span className="font-medium">Tamu:</span> {booking.guests} orang
-                              </div>
-                              <div>
-                                <span className="font-medium">Total:</span> Rp {booking.totalPrice.toLocaleString('id-ID')}
-                              </div>
+                            <div className="flex items-center gap-2">
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => {
+                                  // Navigate to property detail
+                                  navigate(`/villas/${booking.propertyId}`);
+                                }}
+                              >
+                                <Eye className="w-4 h-4" />
+                                Detail
+                              </Button>
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => {
+                                  // Show booking actions menu
+                                  toast({
+                                    title: "Aksi Booking",
+                                    description: "Fitur aksi booking akan segera tersedia",
+                                  });
+                                }}
+                              >
+                                <MoreHorizontal className="w-4 h-4" />
+                                Aksi
+                              </Button>
                             </div>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm">
-                              <Eye className="w-4 h-4" />
-                            </Button>
-                            <Button variant="outline" size="sm">
-                              <MoreHorizontal className="w-4 h-4" />
+                        ))
+                      ) : (
+                        <div className="text-center py-12">
+                          <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                            <Calendar className="w-8 h-8 text-gray-400" />
+                          </div>
+                          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                            {bookingFilter === 'all' ? 'Belum Ada Booking' : 'Tidak Ada Booking dengan Status Ini'}
+                          </h3>
+                          <p className="text-gray-500 dark:text-gray-400 mb-4">
+                            {bookingFilter === 'all' 
+                              ? 'Mulai jelajahi villa dan buat booking pertama Anda'
+                              : 'Coba ubah filter atau lihat semua booking'
+                            }
+                          </p>
+                          <div className="flex gap-2 justify-center">
+                            {bookingFilter !== 'all' && (
+                              <Button 
+                                variant="outline" 
+                                onClick={() => setBookingFilter('all')}
+                              >
+                                Lihat Semua
+                              </Button>
+                            )}
+                            <Button asChild>
+                              <Link to="/villas">
+                                Jelajahi Villa
+                              </Link>
                             </Button>
                           </div>
                         </div>
-                      ))}
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -1369,6 +2558,124 @@ const UserDashboardPage: React.FC = () => {
                </div>
              </TabsContent>
 
+             {/* Loyalty & Rewards Tab */}
+             <TabsContent value="loyalty">
+               <div className="space-y-6">
+                 {/* Loyalty Overview */}
+                 <Card>
+                   <CardHeader>
+                     <CardTitle>Loyalty & Rewards</CardTitle>
+                     <CardDescription>
+                       Kelola points, tier, dan rewards Anda
+                     </CardDescription>
+                   </CardHeader>
+                   <CardContent>
+                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                       {/* Current Tier */}
+                       <div className="text-center p-6 bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
+                         <div className="w-16 h-16 mx-auto mb-4 bg-amber-100 dark:bg-amber-800/30 rounded-full flex items-center justify-center">
+                           <Award className="w-8 h-8 text-amber-600" />
+                         </div>
+                         <h3 className="text-lg font-bold text-amber-800 dark:text-amber-200 mb-2">
+                           {loyaltyData.tier}
+                         </h3>
+                         <p className="text-sm text-amber-600 dark:text-amber-400">
+                           Tier Saat Ini
+                         </p>
+                       </div>
+
+                       {/* Total Points */}
+                       <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                         <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 dark:bg-blue-800/30 rounded-full flex items-center justify-center">
+                           <Star className="w-8 h-8 text-blue-600" />
+                         </div>
+                         <h3 className="text-lg font-bold text-blue-800 dark:text-blue-200 mb-2">
+                           {loyaltyData.totalPoints.toLocaleString()}
+                         </h3>
+                         <p className="text-sm text-blue-600 dark:text-blue-400">
+                           Total Points
+                         </p>
+                       </div>
+
+                       {/* Next Tier Progress */}
+                       <div className="text-center p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                         <div className="w-16 h-16 mx-auto mb-4 bg-green-100 dark:bg-green-800/30 rounded-full flex items-center justify-center">
+                           <TrendingUp className="w-8 h-8 text-green-600" />
+                         </div>
+                         <h3 className="text-lg font-bold text-green-800 dark:text-green-200 mb-2">
+                           {loyaltyData.nextTierPoints ? `${loyaltyData.progressToNextTier.toFixed(0)}%` : 'Max'}
+                         </h3>
+                         <p className="text-sm text-green-600 dark:text-green-400">
+                           {loyaltyData.nextTierPoints ? 'Progress Tier' : 'Tier Tertinggi'}
+                         </p>
+                       </div>
+                     </div>
+                   </CardContent>
+                 </Card>
+
+                 {/* Tier Benefits */}
+                 <Card>
+                   <CardHeader>
+                     <CardTitle>Benefit Tier {loyaltyData.tier}</CardTitle>
+                     <CardDescription>
+                       Nikmati benefit eksklusif sesuai tier Anda
+                     </CardDescription>
+                   </CardHeader>
+                   <CardContent>
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                       {loyaltyData.tierBenefits.map((benefit, index) => (
+                         <div key={index} className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                           <CheckCircle className="w-5 h-5 text-green-500" />
+                           <span className="text-sm font-medium">{benefit}</span>
+                         </div>
+                       ))}
+                     </div>
+                   </CardContent>
+                 </Card>
+
+                 {/* Actions */}
+                 <Card>
+                   <CardHeader>
+                     <CardTitle>Aksi Loyalty</CardTitle>
+                     <CardDescription>
+                       Kelola program referral dan lihat riwayat rewards
+                     </CardDescription>
+                   </CardHeader>
+                   <CardContent>
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                       <Button 
+                         variant="outline" 
+                         className="h-auto py-6"
+                         onClick={() => setShowReferralModal(true)}
+                       >
+                         <div className="text-center">
+                           <Gift className="w-8 h-8 mx-auto mb-2 text-amber-600" />
+                           <h4 className="font-medium">Program Referral</h4>
+                           <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                             Ajak teman dan dapatkan points
+                           </p>
+                         </div>
+                       </Button>
+                       
+                       <Button 
+                         variant="outline" 
+                         className="h-auto py-6"
+                         onClick={() => setShowRewardsHistory(true)}
+                       >
+                         <div className="text-center">
+                           <Award className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+                           <h4 className="font-medium">Riwayat Rewards</h4>
+                           <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                             Lihat detail points dan tier
+                           </p>
+                         </div>
+                       </Button>
+                     </div>
+                   </CardContent>
+                 </Card>
+               </div>
+             </TabsContent>
+
              {/* Search Tab */}
              <TabsContent value="search">
                <Card>
@@ -1387,7 +2694,363 @@ const UserDashboardPage: React.FC = () => {
                  </CardContent>
                </Card>
              </TabsContent>
-          </Tabs>
+
+             {/* Messages Tab */}
+             <TabsContent value="messages">
+               <div className="space-y-6">
+                 {/* Messages Overview */}
+                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                   <Card>
+                     <CardContent className="p-4">
+                       <div className="flex items-center justify-between">
+                         <div>
+                           <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Pesan</p>
+                           <p className="text-2xl font-bold text-gray-900 dark:text-white">{conversations.length}</p>
+                         </div>
+                         <div className="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center">
+                           <MessageSquare className="w-5 h-5 text-blue-600" />
+                         </div>
+                       </div>
+                     </CardContent>
+                   </Card>
+
+                   <Card>
+                     <CardContent className="p-4">
+                       <div className="flex items-center justify-between">
+                         <div>
+                           <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Belum Dibaca</p>
+                           <p className="text-2xl font-bold text-gray-900 dark:text-white">{conversations.reduce((total, conv) => total + conv.unreadCount, 0)}</p>
+                         </div>
+                         <div className="w-10 h-10 bg-red-500/10 rounded-xl flex items-center justify-center">
+                           <Bell className="w-5 h-5 text-red-600" />
+                         </div>
+                       </div>
+                     </CardContent>
+                   </Card>
+
+                   <Card>
+                     <CardContent className="p-4">
+                       <div className="flex items-center justify-between">
+                         <div>
+                           <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Chat Aktif</p>
+                           <p className="text-2xl font-bold text-gray-900 dark:text-white">{conversations.filter(conv => conv.isActive).length}</p>
+                         </div>
+                         <div className="w-10 h-10 bg-green-500/10 rounded-xl flex items-center justify-center">
+                           <Users className="w-5 h-5 text-green-600" />
+                         </div>
+                       </div>
+                     </CardContent>
+                   </Card>
+
+                   <Card>
+                     <CardContent className="p-4">
+                       <div className="flex items-center justify-between">
+                         <div>
+                           <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Support Tickets</p>
+                           <p className="text-2xl font-bold text-gray-900 dark:text-white">{supportTickets.length}</p>
+                         </div>
+                         <div className="w-10 h-10 bg-purple-500/10 rounded-xl flex items-center justify-center">
+                           <FileText className="w-5 h-5 text-purple-600" />
+                         </div>
+                       </div>
+                     </CardContent>
+                   </Card>
+                 </div>
+
+                 {/* Recent Conversations */}
+                 <Card>
+                   <CardHeader>
+                     <CardTitle>Percakapan Terbaru</CardTitle>
+                     <CardDescription>
+                       Chat dengan pemilik villa dan tim support
+                     </CardDescription>
+                   </CardHeader>
+                   <CardContent>
+                     <div className="space-y-4">
+                       {conversations.length > 0 ? (
+                         conversations.map((conversation) => (
+                           <div key={conversation.id} className="flex items-center gap-4 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border border-transparent hover:border-gray-200 dark:hover:border-gray-700">
+                             <Avatar className="w-12 h-12">
+                               <AvatarImage src={conversation.propertyImage || "https://i.imgur.com/KNZs2rS.jpeg"} alt={conversation.propertyName || conversation.lastMessage.senderName} />
+                               <AvatarFallback>
+                                 {conversation.propertyName ? conversation.propertyName.split(' ').map(word => word[0]).join('').toUpperCase() : conversation.lastMessage.senderName.split(' ').map(word => word[0]).join('').toUpperCase()}
+                               </AvatarFallback>
+                             </Avatar>
+                             <div className="flex-1 min-w-0">
+                               <div className="flex items-center justify-between mb-1">
+                                 <h4 className="font-medium text-gray-900 dark:text-white truncate">
+                                   {conversation.propertyName || conversation.lastMessage.senderName}
+                                 </h4>
+                                 <span className="text-xs text-gray-500 dark:text-gray-400">
+                                   {new Date(conversation.lastMessage.timestamp).toLocaleDateString('id-ID', { 
+                                     day: 'numeric', 
+                                     month: 'short',
+                                     hour: '2-digit',
+                                     minute: '2-digit'
+                                   })}
+                                 </span>
+                               </div>
+                               <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
+                                 {conversation.lastMessage.message}
+                               </p>
+                             </div>
+                             <div className="flex flex-col items-end gap-1">
+                               {conversation.unreadCount > 0 && (
+                                 <Badge variant="destructive" className="text-xs">{conversation.unreadCount}</Badge>
+                               )}
+                               <div className={`w-2 h-2 rounded-full ${conversation.isActive ? 'bg-green-500' : 'bg-gray-400'}`}></div>
+                             </div>
+                           </div>
+                         ))
+                       ) : (
+                         <div className="text-center py-8">
+                           <MessageSquare className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+                           <p className="text-gray-500 dark:text-gray-400">Belum ada percakapan</p>
+                         </div>
+                       )}
+                     </div>
+
+                     <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                       <Button 
+                         className="w-full" 
+                         variant="outline"
+                         onClick={() => setShowNewChat(true)}
+                       >
+                         <MessageSquare className="w-4 h-4 mr-2" />
+                         Mulai Chat Baru
+                       </Button>
+                     </div>
+                   </CardContent>
+                 </Card>
+
+                 {/* Support Tickets */}
+                 <Card>
+                   <CardHeader>
+                     <CardTitle>Support Tickets</CardTitle>
+                     <CardDescription>
+                       Kelola tiket dukungan dan bantuan
+                     </CardDescription>
+                   </CardHeader>
+                   <CardContent>
+                     <div className="space-y-4">
+                       {supportTickets.length > 0 ? (
+                         supportTickets.map((ticket) => (
+                           <div key={ticket.id} className="flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                             <div className="flex items-center gap-4">
+                               <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center">
+                                 <FileText className="w-5 h-5 text-blue-600" />
+                               </div>
+                               <div>
+                                 <h4 className="font-medium text-gray-900 dark:text-white">
+                                   {ticket.subject}
+                                 </h4>
+                                 <p className="text-sm text-gray-600 dark:text-gray-400">
+                                   Ticket #{ticket.id} • Dibuat {new Date(ticket.createdAt).toLocaleDateString('id-ID', { 
+                                     day: 'numeric', 
+                                     month: 'short',
+                                     year: 'numeric'
+                                   })}
+                                 </p>
+                               </div>
+                             </div>
+                             <div className="flex items-center gap-2">
+                               <Badge variant={ticket.status === 'resolved' ? 'outline' : ticket.status === 'open' ? 'destructive' : 'secondary'}>
+                                 {ticket.status === 'resolved' ? 'Resolved' : ticket.status === 'open' ? 'Open' : ticket.status === 'in_progress' ? 'In Progress' : 'Closed'}
+                               </Badge>
+                               <Button size="sm" variant="outline" onClick={() => { setSelectedTicket(ticket); setShowTicketDetail(true); }}>
+                                 Lihat Detail
+                               </Button>
+                             </div>
+                           </div>
+                         ))
+                       ) : (
+                         <div className="text-center py-8">
+                           <FileText className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+                           <p className="text-gray-500 dark:text-gray-400">Belum ada support tickets</p>
+                         </div>
+                       )}
+                     </div>
+
+                     <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                       <Button className="w-full" variant="outline" onClick={() => setShowNewTicket(true)}>
+                         <Plus className="w-4 h-4 mr-2" />
+                         Buat Ticket Baru
+                       </Button>
+                     </div>
+                   </CardContent>
+                 </Card>
+                                </div>
+               </TabsContent>
+
+               {/* Travel Plans Tab */}
+               <TabsContent value="travel-plans">
+                 <div className="space-y-6">
+                   {/* Travel Plans Overview */}
+                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                     <Card>
+                       <CardContent className="p-4">
+                         <div className="flex items-center justify-between">
+                           <div>
+                             <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Plans</p>
+                             <p className="text-2xl font-bold text-gray-900 dark:text-white">{travelPlans.length}</p>
+                           </div>
+                           <div className="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center">
+                             <MapPin className="w-5 h-5 text-blue-600" />
+                           </div>
+                         </div>
+                       </CardContent>
+                     </Card>
+
+                     <Card>
+                       <CardContent className="p-4">
+                         <div className="flex items-center justify-between">
+                           <div>
+                             <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Planning</p>
+                             <p className="text-2xl font-bold text-gray-900 dark:text-white">{travelPlans.filter(plan => plan.status === 'planning').length}</p>
+                           </div>
+                           <div className="w-10 h-10 bg-yellow-500/10 rounded-xl flex items-center justify-center">
+                             <Calendar className="w-5 h-5 text-yellow-600" />
+                           </div>
+                         </div>
+                       </CardContent>
+                     </Card>
+
+                     <Card>
+                       <CardContent className="p-4">
+                         <div className="flex items-center justify-between">
+                           <div>
+                             <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Booked</p>
+                             <p className="text-2xl font-bold text-gray-900 dark:text-white">{travelPlans.filter(plan => plan.status === 'booked').length}</p>
+                           </div>
+                           <div className="w-10 h-10 bg-green-500/10 rounded-xl flex items-center justify-center">
+                             <CheckCircle className="w-5 h-5 text-green-600" />
+                           </div>
+                         </div>
+                       </CardContent>
+                     </Card>
+
+                     <Card>
+                       <CardContent className="p-4">
+                         <div className="flex items-center justify-between">
+                           <div>
+                             <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed</p>
+                             <p className="text-2xl font-bold text-gray-900 dark:text-white">{travelPlans.filter(plan => plan.status === 'completed').length}</p>
+                           </div>
+                           <div className="w-10 h-10 bg-purple-500/10 rounded-xl flex items-center justify-center">
+                             <Award className="w-5 h-5 text-purple-600" />
+                           </div>
+                         </div>
+                       </CardContent>
+                     </Card>
+                   </div>
+
+                   {/* Travel Plans List */}
+                   <Card>
+                     <CardHeader>
+                       <CardTitle>Travel Plans</CardTitle>
+                       <CardDescription>
+                         Kelola rencana perjalanan Anda
+                       </CardDescription>
+                     </CardHeader>
+                     <CardContent>
+                       <div className="space-y-4">
+                         {travelPlans.length > 0 ? (
+                           travelPlans.map((plan) => (
+                             <div key={plan.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                               <div className="flex items-start justify-between mb-3">
+                                 <div className="flex-1">
+                                   <div className="flex items-center gap-2 mb-1">
+                                     <h4 className="font-semibold text-gray-900 dark:text-white">{plan.title}</h4>
+                                     <Badge variant={
+                                       plan.status === 'planning' ? 'secondary' :
+                                       plan.status === 'booked' ? 'default' :
+                                       plan.status === 'completed' ? 'outline' : 'destructive'
+                                     }>
+                                       {plan.status === 'planning' ? 'Planning' :
+                                        plan.status === 'booked' ? 'Booked' :
+                                        plan.status === 'completed' ? 'Completed' : 'Cancelled'}
+                                     </Badge>
+                                   </div>
+                                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{plan.description}</p>
+                                   <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                                     <span className="flex items-center gap-1">
+                                       <MapPin className="w-3 h-3" />
+                                       {plan.destination}
+                                     </span>
+                                     <span className="flex items-center gap-1">
+                                       <Calendar className="w-3 h-3" />
+                                       {new Date(plan.startDate).toLocaleDateString('id-ID')} - {new Date(plan.endDate).toLocaleDateString('id-ID')}
+                                     </span>
+                                     <span className="flex items-center gap-1">
+                                       <Users className="w-3 h-3" />
+                                       {plan.travelers.adults + plan.travelers.children} travelers
+                                     </span>
+                                   </div>
+                                 </div>
+                                 <div className="text-right">
+                                   <p className="text-sm font-medium text-gray-900 dark:text-white">
+                                     {plan.budget.currency === 'IDR' ? 'Rp' : '$'}{plan.budget.min.toLocaleString()} - {plan.budget.currency === 'IDR' ? 'Rp' : '$'}{plan.budget.max.toLocaleString()}
+                                   </p>
+                                   <p className="text-xs text-gray-500 dark:text-gray-400">{plan.totalDays} days</p>
+                                 </div>
+                               </div>
+                               
+                               {/* Plan Summary */}
+                               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                                 <div className="bg-gray-50 dark:bg-gray-800 rounded p-2">
+                                   <p className="font-medium text-gray-700 dark:text-gray-300 mb-1">Accommodations</p>
+                                   <p className="text-gray-600 dark:text-gray-400">{plan.accommodations.length} booked</p>
+                                 </div>
+                                 <div className="bg-gray-50 dark:bg-gray-800 rounded p-2">
+                                   <p className="font-medium text-gray-700 dark:text-gray-300 mb-1">Activities</p>
+                                   <p className="text-gray-600 dark:text-gray-400">{plan.activities.length} planned</p>
+                                 </div>
+                                 <div className="bg-gray-50 dark:bg-gray-800 rounded p-2">
+                                   <p className="font-medium text-gray-700 dark:text-gray-300 mb-1">Transportation</p>
+                                   <p className="text-gray-600 dark:text-gray-400">{plan.transportation.length} arranged</p>
+                                 </div>
+                               </div>
+                               
+                               <div className="flex gap-2 mt-4">
+                                 <Button 
+                                   size="sm" 
+                                   variant="outline"
+                                   onClick={() => handleViewTravelPlan(plan)}
+                                 >
+                                   <Eye className="w-4 h-4 mr-2" />
+                                   View Details
+                                 </Button>
+                                 <Button 
+                                   size="sm" 
+                                   variant="outline"
+                                   onClick={() => handleEditTravelPlan(plan)}
+                                 >
+                                   <Edit className="w-4 h-4 mr-2" />
+                                   Edit Plan
+                                 </Button>
+                                 <Button size="sm" variant="outline">
+                                   <Share2 className="w-4 h-4 mr-2" />
+                                   Share
+                                 </Button>
+                               </div>
+                             </div>
+                           ))
+                         ) : (
+                           <div className="text-center py-8">
+                             <MapPin className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+                             <p className="text-gray-500 dark:text-gray-400 mb-4">Belum ada travel plans</p>
+                             <Button onClick={() => setShowCreateTravelPlan(true)}>
+                               <Plus className="w-4 h-4 mr-2" />
+                               Buat Travel Plan Baru
+                             </Button>
+                           </div>
+                         )}
+                       </div>
+                     </CardContent>
+                   </Card>
+                 </div>
+               </TabsContent>
+            </Tabs>
         </div>
       </div>
 
@@ -1397,6 +3060,1068 @@ const UserDashboardPage: React.FC = () => {
         steps={tourSteps}
         onTabChange={setActiveTab}
       />
+
+      {/* Create Travel Plan Modal */}
+      {showCreateTravelPlan && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Buat Travel Plan Baru</h2>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowCreateTravelPlan(false)}
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+
+              <div className="space-y-6">
+                {/* Basic Information */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Informasi Dasar</h3>
+                  
+                  <div>
+                    <Label htmlFor="plan-title">Judul Travel Plan *</Label>
+                    <Input
+                      id="plan-title"
+                      value={newTravelPlan.title}
+                      onChange={(e) => setNewTravelPlan({ ...newTravelPlan, title: e.target.value })}
+                      placeholder="Contoh: Liburan Pantai Sawarna"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="plan-description">Deskripsi</Label>
+                    <Textarea
+                      id="plan-description"
+                      value={newTravelPlan.description}
+                      onChange={(e) => setNewTravelPlan({ ...newTravelPlan, description: e.target.value })}
+                      placeholder="Jelaskan rencana perjalanan Anda..."
+                      rows={3}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="plan-destination">Destinasi *</Label>
+                    <Input
+                      id="plan-destination"
+                      value={newTravelPlan.destination}
+                      onChange={(e) => setNewTravelPlan({ ...newTravelPlan, destination: e.target.value })}
+                      placeholder="Contoh: Sawarna, Banten"
+                    />
+                  </div>
+                </div>
+
+                {/* Travel Dates */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Tanggal Perjalanan</h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="start-date">Tanggal Mulai *</Label>
+                      <Input
+                        id="start-date"
+                        type="date"
+                        value={newTravelPlan.startDate}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, startDate: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="end-date">Tanggal Selesai *</Label>
+                      <Input
+                        id="end-date"
+                        type="date"
+                        value={newTravelPlan.endDate}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, endDate: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Budget */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Budget</h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <Label htmlFor="budget-min">Budget Minimum</Label>
+                      <Input
+                        id="budget-min"
+                        type="number"
+                        value={newTravelPlan.budgetMin}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, budgetMin: e.target.value })}
+                        placeholder="0"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="budget-max">Budget Maksimum</Label>
+                      <Input
+                        id="budget-max"
+                        type="number"
+                        value={newTravelPlan.budgetMax}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, budgetMax: e.target.value })}
+                        placeholder="0"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="currency">Mata Uang</Label>
+                      <select
+                        id="currency"
+                        value={newTravelPlan.currency}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, currency: e.target.value as 'IDR' | 'USD' })}
+                        className="w-full p-2 border rounded-md"
+                      >
+                        <option value="IDR">IDR (Rupiah)</option>
+                        <option value="USD">USD (Dollar)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Travelers */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Jumlah Traveler</h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <Label htmlFor="adults">Dewasa</Label>
+                      <Input
+                        id="adults"
+                        type="number"
+                        min="1"
+                        value={newTravelPlan.adults}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, adults: parseInt(e.target.value) || 1 })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="children">Anak-anak</Label>
+                      <Input
+                        id="children"
+                        type="number"
+                        min="0"
+                        value={newTravelPlan.children}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, children: parseInt(e.target.value) || 0 })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="infants">Bayi</Label>
+                      <Input
+                        id="infants"
+                        type="number"
+                        min="0"
+                        value={newTravelPlan.infants}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, infants: parseInt(e.target.value) || 0 })}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4 mt-8">
+                <Button onClick={handleCreateTravelPlan} className="flex-1">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Buat Travel Plan
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowCreateTravelPlan(false)}
+                  className="flex-1"
+                >
+                  Batal
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* View Travel Plan Modal */}
+      {showViewTravelPlan && selectedTravelPlan && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Detail Travel Plan</h2>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowViewTravelPlan(false)}
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+
+              <div className="space-y-6">
+                {/* Basic Information */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Informasi Dasar</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <Label className="text-sm font-medium text-gray-600 dark:text-gray-400">Judul</Label>
+                        <p className="text-lg font-semibold text-gray-900 dark:text-white">{selectedTravelPlan.title}</p>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium text-gray-600 dark:text-gray-400">Deskripsi</Label>
+                        <p className="text-gray-700 dark:text-gray-300">{selectedTravelPlan.description}</p>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium text-gray-600 dark:text-gray-400">Destinasi</Label>
+                        <p className="text-gray-700 dark:text-gray-300">{selectedTravelPlan.destination}</p>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium text-gray-600 dark:text-gray-400">Status</Label>
+                        <Badge variant={
+                          selectedTravelPlan.status === 'planning' ? 'secondary' :
+                          selectedTravelPlan.status === 'booked' ? 'default' :
+                          selectedTravelPlan.status === 'completed' ? 'outline' : 'destructive'
+                        }>
+                          {selectedTravelPlan.status === 'planning' ? 'Planning' :
+                           selectedTravelPlan.status === 'booked' ? 'Booked' :
+                           selectedTravelPlan.status === 'completed' ? 'Completed' : 'Cancelled'}
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Detail Perjalanan</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <Label className="text-sm font-medium text-gray-600 dark:text-gray-400">Tanggal</Label>
+                        <p className="text-gray-700 dark:text-gray-300">
+                          {new Date(selectedTravelPlan.startDate).toLocaleDateString('id-ID')} - {new Date(selectedTravelPlan.endDate).toLocaleDateString('id-ID')}
+                        </p>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium text-gray-600 dark:text-gray-400">Durasi</Label>
+                        <p className="text-gray-700 dark:text-gray-300">{selectedTravelPlan.totalDays} hari</p>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium text-gray-600 dark:text-gray-400">Traveler</Label>
+                        <p className="text-gray-700 dark:text-gray-300">
+                          {selectedTravelPlan.travelers.adults} dewasa, {selectedTravelPlan.travelers.children} anak-anak, {selectedTravelPlan.travelers.infants} bayi
+                        </p>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium text-gray-600 dark:text-gray-400">Budget</Label>
+                        <p className="text-gray-700 dark:text-gray-300">
+                          {selectedTravelPlan.budget.currency === 'IDR' ? 'Rp' : '$'}{selectedTravelPlan.budget.min.toLocaleString()} - {selectedTravelPlan.budget.currency === 'IDR' ? 'Rp' : '$'}{selectedTravelPlan.budget.max.toLocaleString()}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Plan Summary */}
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Ringkasan Plan</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Building2 className="w-5 h-5 text-blue-600" />
+                        <span className="font-medium text-gray-900 dark:text-white">Accommodations</span>
+                      </div>
+                      <p className="text-2xl font-bold text-blue-600">{selectedTravelPlan.accommodations.length}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">booked</p>
+                    </div>
+                    <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <MapPin className="w-5 h-5 text-green-600" />
+                        <span className="font-medium text-gray-900 dark:text-white">Activities</span>
+                      </div>
+                      <p className="text-2xl font-bold text-green-600">{selectedTravelPlan.activities.length}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">planned</p>
+                    </div>
+                    <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Car className="w-5 h-5 text-purple-600" />
+                        <span className="font-medium text-gray-900 dark:text-white">Transportation</span>
+                      </div>
+                      <p className="text-2xl font-bold text-purple-600">{selectedTravelPlan.transportation.length}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">arranged</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <Button 
+                    onClick={() => {
+                      setShowViewTravelPlan(false);
+                      handleEditTravelPlan(selectedTravelPlan);
+                    }}
+                    className="flex-1"
+                  >
+                    <Edit className="w-4 h-4 mr-2" />
+                    Edit Plan
+                  </Button>
+                  <Button variant="outline" className="flex-1">
+                    <Share2 className="w-4 h-4 mr-2" />
+                    Share Plan
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setShowViewTravelPlan(false)}
+                    className="flex-1"
+                  >
+                    Tutup
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Travel Plan Modal */}
+      {showEditTravelPlan && selectedTravelPlan && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Edit Travel Plan</h2>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowEditTravelPlan(false)}
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+
+              <div className="space-y-6">
+                {/* Basic Information */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Informasi Dasar</h3>
+                  
+                  <div>
+                    <Label htmlFor="edit-plan-title">Judul Travel Plan *</Label>
+                    <Input
+                      id="edit-plan-title"
+                      value={newTravelPlan.title}
+                      onChange={(e) => setNewTravelPlan({ ...newTravelPlan, title: e.target.value })}
+                      placeholder="Contoh: Liburan Pantai Sawarna"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="edit-plan-description">Deskripsi</Label>
+                    <Textarea
+                      id="edit-plan-description"
+                      value={newTravelPlan.description}
+                      onChange={(e) => setNewTravelPlan({ ...newTravelPlan, description: e.target.value })}
+                      placeholder="Jelaskan rencana perjalanan Anda..."
+                      rows={3}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="edit-plan-destination">Destinasi *</Label>
+                    <Input
+                      id="edit-plan-destination"
+                      value={newTravelPlan.destination}
+                      onChange={(e) => setNewTravelPlan({ ...newTravelPlan, destination: e.target.value })}
+                      placeholder="Contoh: Sawarna, Banten"
+                    />
+                  </div>
+                </div>
+
+                {/* Travel Dates */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Tanggal Perjalanan</h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="edit-start-date">Tanggal Mulai *</Label>
+                      <Input
+                        id="edit-start-date"
+                        type="date"
+                        value={newTravelPlan.startDate}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, startDate: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="edit-end-date">Tanggal Selesai *</Label>
+                      <Input
+                        id="edit-end-date"
+                        type="date"
+                        value={newTravelPlan.endDate}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, endDate: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Budget */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Budget</h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <Label htmlFor="edit-budget-min">Budget Minimum</Label>
+                      <Input
+                        id="edit-budget-min"
+                        type="number"
+                        value={newTravelPlan.budgetMin}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, budgetMin: e.target.value })}
+                        placeholder="0"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="edit-budget-max">Budget Maksimum</Label>
+                      <Input
+                        id="edit-budget-max"
+                        type="number"
+                        value={newTravelPlan.budgetMax}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, budgetMax: e.target.value })}
+                        placeholder="0"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="edit-currency">Mata Uang</Label>
+                      <select
+                        id="edit-currency"
+                        value={newTravelPlan.currency}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, currency: e.target.value as 'IDR' | 'USD' })}
+                        className="w-full p-2 border rounded-md"
+                      >
+                        <option value="IDR">IDR (Rupiah)</option>
+                        <option value="USD">USD (Dollar)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Travelers */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Jumlah Traveler</h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <Label htmlFor="edit-adults">Dewasa</Label>
+                      <Input
+                        id="edit-adults"
+                        type="number"
+                        min="1"
+                        value={newTravelPlan.adults}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, adults: parseInt(e.target.value) || 1 })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="edit-children">Anak-anak</Label>
+                      <Input
+                        id="edit-children"
+                        type="number"
+                        min="0"
+                        value={newTravelPlan.children}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, children: parseInt(e.target.value) || 0 })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="edit-infants">Bayi</Label>
+                      <Input
+                        id="edit-infants"
+                        type="number"
+                        min="0"
+                        value={newTravelPlan.infants}
+                        onChange={(e) => setNewTravelPlan({ ...newTravelPlan, infants: parseInt(e.target.value) || 0 })}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4 mt-8">
+                <Button onClick={handleUpdateTravelPlan} className="flex-1">
+                  <Edit className="w-4 h-4 mr-2" />
+                  Update Travel Plan
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowEditTravelPlan(false)}
+                  className="flex-1"
+                >
+                  Batal
+                </Button>
+                             </div>
+             </div>
+           </div>
+         </div>
+       )}
+
+      {/* New Chat Modal */}
+      {showNewChat && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Mulai Chat Baru</h2>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowNewChat(false)}
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+
+              <div className="space-y-6">
+                {/* Recipient Type */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Pilih Penerima</h3>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <Button
+                      variant={newChatData.recipientType === 'villa' ? 'default' : 'outline'}
+                      onClick={() => setNewChatData({ ...newChatData, recipientType: 'villa' })}
+                      className="h-auto p-4 flex-col gap-2"
+                    >
+                      <Building2 className="w-6 h-6" />
+                      <span>Villa</span>
+                      <span className="text-xs text-gray-500">Chat dengan pemilik villa</span>
+                    </Button>
+                    
+                    <Button
+                      variant={newChatData.recipientType === 'support' ? 'default' : 'outline'}
+                      onClick={() => setNewChatData({ ...newChatData, recipientType: 'support' })}
+                      className="h-auto p-4 flex-col gap-2"
+                    >
+                      <MessageSquare className="w-6 h-6" />
+                      <span>Support</span>
+                      <span className="text-xs text-gray-500">Chat dengan tim support</span>
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Villa Selection (if recipient type is villa) */}
+                {newChatData.recipientType === 'villa' && (
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Pilih Villa</h3>
+                    
+                    <div>
+                      <Label htmlFor="villa-select">Villa yang Dihubungi *</Label>
+                      <select
+                        id="villa-select"
+                        value={newChatData.selectedVilla}
+                        onChange={(e) => setNewChatData({ ...newChatData, selectedVilla: e.target.value })}
+                        className="w-full p-3 border rounded-md bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
+                      >
+                        <option value="">Pilih villa...</option>
+                        <option value="Villa Sawarna Resort">Villa Sawarna Resort</option>
+                        <option value="Villa Sinar Matahari">Villa Sinar Matahari</option>
+                        <option value="Villa Sinar Pelangi">Villa Sinar Pelangi</option>
+                        <option value="Villa Cempaka">Villa Cempaka</option>
+                        <option value="Villa Mutiara Sawarna">Villa Mutiara Sawarna</option>
+                        <option value="Villa Batara">Villa Batara</option>
+                        <option value="Villa Regin Sawarna">Villa Regin Sawarna</option>
+                        <option value="Villa Widi">Villa Widi</option>
+                        <option value="Villa Srikandi">Villa Srikandi</option>
+                        <option value="Villa Putri Asih">Villa Putri Asih</option>
+                        <option value="Villa Pondok Ciantir">Villa Pondok Ciantir</option>
+                        <option value="Villa Mega Aura">Villa Mega Aura</option>
+                        <option value="Villa Muara Legon Pari">Villa Muara Legon Pari</option>
+                        <option value="Villa Little Hula Hula">Villa Little Hula Hula</option>
+                        <option value="Villa Deka Sawarna">Villa Deka Sawarna</option>
+                        <option value="Villa Family Sawarna">Villa Family Sawarna</option>
+                        <option value="Villa Andrew">Villa Andrew</option>
+                        <option value="Villa Andrew Pasput">Villa Andrew Pasput</option>
+                        <option value="Villa Arizky Sawarna">Villa Arizky Sawarna</option>
+                        <option value="Villa Aki Nini">Villa Aki Nini</option>
+                      </select>
+                    </div>
+                  </div>
+                )}
+
+                {/* Subject */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Informasi Chat</h3>
+                  
+                  <div>
+                    <Label htmlFor="chat-subject">Subject *</Label>
+                    <Input
+                      id="chat-subject"
+                      value={newChatData.subject}
+                      onChange={(e) => setNewChatData({ ...newChatData, subject: e.target.value })}
+                      placeholder="Contoh: Tanya tentang booking, Info villa, dll"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="chat-message">Pesan *</Label>
+                    <Textarea
+                      id="chat-message"
+                      value={newChatData.message}
+                      onChange={(e) => setNewChatData({ ...newChatData, message: e.target.value })}
+                      placeholder="Tulis pesan Anda di sini..."
+                      rows={4}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="chat-priority">Prioritas</Label>
+                    <select
+                      id="chat-priority"
+                      value={newChatData.priority}
+                      onChange={(e) => setNewChatData({ ...newChatData, priority: e.target.value as 'low' | 'normal' | 'high' })}
+                      className="w-full p-3 border rounded-md bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
+                    >
+                      <option value="low">Rendah</option>
+                      <option value="normal">Normal</option>
+                      <option value="high">Tinggi</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4 mt-8">
+                <Button onClick={handleStartNewChat} className="flex-1">
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  Mulai Chat
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowNewChat(false)}
+                  className="flex-1"
+                >
+                  Batal
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* New Support Ticket Modal */}
+      {showNewTicket && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Buat Ticket Support</h2>
+                <Button variant="ghost" size="sm" onClick={() => setShowNewTicket(false)} className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+
+              <div className="space-y-5">
+                <div>
+                  <Label htmlFor="ticket-subject">Subject *</Label>
+                  <Input id="ticket-subject" value={newTicketData.subject} onChange={(e) => setNewTicketData({ ...newTicketData, subject: e.target.value })} placeholder="Contoh: Kendala pembayaran / Pertanyaan booking" />
+                </div>
+
+                <div>
+                  <Label htmlFor="ticket-category">Kategori</Label>
+                  <select id="ticket-category" value={newTicketData.category} onChange={(e) => setNewTicketData({ ...newTicketData, category: e.target.value as any })} className="w-full p-2 border rounded-md">
+                    <option value="general">Umum</option>
+                    <option value="booking">Booking</option>
+                    <option value="payment">Pembayaran</option>
+                    <option value="technical">Teknis</option>
+                  </select>
+                </div>
+
+                <div>
+                  <Label htmlFor="ticket-priority">Prioritas</Label>
+                  <select id="ticket-priority" value={newTicketData.priority} onChange={(e) => setNewTicketData({ ...newTicketData, priority: e.target.value as any })} className="w-full p-2 border rounded-md">
+                    <option value="low">Rendah</option>
+                    <option value="medium">Sedang</option>
+                    <option value="high">Tinggi</option>
+                    <option value="urgent">Mendesak</option>
+                  </select>
+                </div>
+
+                <div>
+                  <Label htmlFor="ticket-desc">Deskripsi *</Label>
+                  <Textarea id="ticket-desc" rows={5} value={newTicketData.description} onChange={(e) => setNewTicketData({ ...newTicketData, description: e.target.value })} placeholder="Jelaskan masalah atau pertanyaan Anda dengan detail" />
+                </div>
+              </div>
+
+              <div className="flex gap-3 mt-6">
+                <Button onClick={() => {
+                  if (!newTicketData.subject || !newTicketData.description) return;
+                  addSupportTicket({
+                    category: newTicketData.category,
+                    priority: newTicketData.priority,
+                    status: newTicketData.status,
+                    subject: newTicketData.subject,
+                    description: newTicketData.description
+                  });
+                  setNewTicketData({ category: 'general', priority: 'medium', status: 'open', subject: '', description: '' });
+                  setShowNewTicket(false);
+                  toast({ title: 'Ticket dibuat', description: 'Tim kami akan segera merespons ticket Anda.' });
+                }} className="flex-1">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Buat Ticket
+                </Button>
+                <Button variant="outline" className="flex-1" onClick={() => setShowNewTicket(false)}>Batal</Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Support Ticket Detail Modal */}
+      {showTicketDetail && selectedTicket && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Detail Ticket #{selectedTicket.id}</h2>
+                <Button variant="ghost" size="sm" onClick={() => setShowTicketDetail(false)} className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <Label>Kategori</Label>
+                    <p className="text-gray-700 dark:text-gray-300 capitalize">{selectedTicket.category}</p>
+                  </div>
+                  <div>
+                    <Label>Prioritas</Label>
+                    <p className="text-gray-700 dark:text-gray-300 capitalize">{selectedTicket.priority}</p>
+                  </div>
+                  <div>
+                    <Label>Status</Label>
+                    <p className="text-gray-700 dark:text-gray-300 capitalize">{selectedTicket.status}</p>
+                  </div>
+                </div>
+
+                <div>
+                  <Label>Subject</Label>
+                  <p className="text-gray-900 dark:text-white font-medium">{selectedTicket.subject}</p>
+                </div>
+                <div>
+                  <Label>Deskripsi</Label>
+                  <p className="text-gray-700 dark:text-gray-300 whitespace-pre-line">{selectedTicket.description}</p>
+                </div>
+
+                <div className="mt-4">
+                  <Label>Pesan</Label>
+                  <div className="space-y-2 mt-2">
+                    {selectedTicket.messages?.length ? selectedTicket.messages.map((m: any) => (
+                      <div key={m.id} className="p-3 rounded-md border text-sm">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-medium">{m.senderName || 'Anda'}</span>
+                          <span className="text-gray-500 text-xs">{new Date(m.timestamp).toLocaleString('id-ID')}</span>
+                        </div>
+                        <p className="text-gray-700 dark:text-gray-300">{m.content}</p>
+                      </div>
+                    )) : (
+                      <p className="text-sm text-gray-500">Belum ada pesan.</p>
+                    )}
+                  </div>
+
+                  <div className="mt-3 flex gap-2">
+                    <Input placeholder="Tulis pesan..." onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        const target = e.target as HTMLInputElement;
+                        if (!target.value) return;
+                        addTicketMessage(selectedTicket.id, { senderId: user?.id || 'me', senderName: user?.name || 'Anda', content: target.value });
+                        target.value = '';
+                      }
+                    }} />
+                    <Button onClick={() => setShowTicketDetail(false)} variant="outline">Tutup</Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Referral Modal */}
+      {showReferralModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Program Referral</h2>
+                <Button variant="ghost" size="sm" onClick={() => setShowReferralModal(false)}>
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="p-4 bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
+                  <h3 className="font-medium text-amber-800 dark:text-amber-200 mb-2">Bagaimana Cara Kerjanya?</h3>
+                  <ul className="text-sm text-amber-700 dark:text-amber-300 space-y-1">
+                    <li>• Kirim email referral ke teman</li>
+                    <li>• Teman booking dengan kode referral Anda</li>
+                    <li>• Dapatkan 500 points + 5% cashback</li>
+                    <li>• Teman dapat diskon 10% booking pertama</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <Label htmlFor="referral-email">Email Teman</Label>
+                  <Input 
+                    id="referral-email"
+                    type="email"
+                    value={referralEmail}
+                    onChange={(e) => setReferralEmail(e.target.value)}
+                    placeholder="teman@email.com"
+                    className="mt-1"
+                  />
+                </div>
+
+                <Button onClick={handleReferralSubmit} className="w-full">
+                  <Gift className="w-4 h-4 mr-2" />
+                  Kirim Referral
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Rewards History Modal */}
+      {showRewardsHistory && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Riwayat Rewards</h2>
+                <Button variant="ghost" size="sm" onClick={() => setShowRewardsHistory(false)}>
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+              
+              <div className="space-y-6">
+                {/* Points Summary */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Ringkasan Points</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-3 gap-4 text-center">
+                      <div>
+                        <p className="text-2xl font-bold text-amber-600">{loyaltyData.pointsEarned.toLocaleString()}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Points dari Booking</p>
+                      </div>
+                      <div>
+                        <p className="text-2xl font-bold text-green-600">{loyaltyData.reviewBonus.toLocaleString()}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Points dari Review</p>
+                      </div>
+                      <div>
+                        <p className="text-2xl font-bold text-blue-600">{loyaltyData.totalPoints.toLocaleString()}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Total Points</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Tier Progress */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Progress Tier</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="font-medium">Tier Saat Ini</span>
+                        <Badge variant="secondary" className="bg-amber-100 text-amber-800">
+                          {loyaltyData.tier}
+                        </Badge>
+                      </div>
+                      
+                      {loyaltyData.nextTierPoints && (
+                        <>
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between text-sm">
+                              <span>Progress ke {loyaltyData.tier === 'Bronze' ? 'Silver' : loyaltyData.tier === 'Silver' ? 'Gold' : 'Platinum'}</span>
+                              <span>{loyaltyData.progressToNextTier.toFixed(0)}%</span>
+                            </div>
+                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                              <div 
+                                className="bg-amber-500 h-3 rounded-full transition-all duration-300"
+                                style={{ width: `${loyaltyData.progressToNextTier}%` }}
+                              ></div>
+                            </div>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                              {loyaltyData.nextTierPoints - loyaltyData.totalPoints} points lagi untuk naik tier
+                            </p>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Available Rewards */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Rewards Tersedia</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {loyaltyData.tierBenefits.map((benefit, index) => (
+                        <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                          <CheckCircle className="w-5 h-5 text-green-500" />
+                          <span className="text-sm">{benefit}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Points Redemption Modal */}
+      {showRedemptionModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Tukar Points</h2>
+                <Button variant="ghost" size="sm" onClick={() => setShowRedemptionModal(false)}>
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+              
+              <div className="mb-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                <div className="flex items-center gap-3">
+                  <Star className="w-6 h-6 text-blue-600" />
+                  <div>
+                    <p className="font-medium text-blue-800 dark:text-blue-200">
+                      Points Anda: {loyaltyData.totalPoints.toLocaleString()}
+                    </p>
+                    <p className="text-sm text-blue-600 dark:text-blue-400">
+                      Pilih reward yang ingin ditukar dengan points
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {availableRewards.map((reward) => (
+                  <Card key={reward.id} className="hover:shadow-md transition-shadow">
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-lg">{reward.name}</CardTitle>
+                        <Badge 
+                          variant={loyaltyData.totalPoints >= reward.pointsCost ? "default" : "secondary"}
+                          className={loyaltyData.totalPoints >= reward.pointsCost ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600"}
+                        >
+                          {reward.pointsCost} points
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                        {reward.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-gray-500">
+                          Berlaku hingga: {new Date(reward.validUntil).toLocaleDateString('id-ID')}
+                        </span>
+                        <Button 
+                          size="sm"
+                          onClick={() => handleRewardRedemption(reward)}
+                          disabled={loyaltyData.totalPoints < reward.pointsCost}
+                          className={loyaltyData.totalPoints >= reward.pointsCost ? "bg-green-600 hover:bg-green-700" : ""}
+                        >
+                          {loyaltyData.totalPoints >= reward.pointsCost ? "Tukar" : "Points Kurang"}
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Seasonal Promotions Modal */}
+      {showPromotionsModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Promo & Penawaran Spesial</h2>
+                <Button variant="ghost" size="sm" onClick={() => setShowPromotionsModal(false)}>
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+              
+              <div className="space-y-4">
+                {seasonalPromotions.length > 0 ? (
+                  seasonalPromotions.map((promo) => (
+                    <Card key={promo.id} className="border-l-4 border-l-purple-500">
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-lg text-gray-900 dark:text-white mb-2">
+                              {promo.title}
+                            </h3>
+                            <p className="text-gray-600 dark:text-gray-400 mb-2">
+                              {promo.description}
+                            </p>
+                            <div className="flex items-center gap-4 text-sm text-gray-500">
+                              <span>Berlaku hingga: {new Date(promo.validUntil).toLocaleDateString('id-ID')}</span>
+                              {promo.discount > 0 && (
+                                <Badge variant="default" className="bg-purple-100 text-purple-800">
+                                  {promo.discount}% OFF
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                          <Button variant="outline" size="sm">
+                            Lihat Detail
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                ) : (
+                  <div className="text-center py-8">
+                    <TrendingUp className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                      Belum Ada Promo Aktif
+                    </h3>
+                    <p className="text-gray-500 dark:text-gray-400">
+                      Pantau terus untuk promo dan penawaran spesial berikutnya!
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Floating Action Button */}
+      {isMobile && (
+        <div className="fixed bottom-6 right-6 z-40">
+          <Button
+            onClick={scrollToTop}
+            className="w-14 h-14 rounded-full shadow-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+          >
+            <ArrowUp className="w-6 h-6" />
+          </Button>
+        </div>
+      )}
+
+      {/* Loading Overlay */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 flex flex-col items-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+            <p className="text-gray-900 dark:text-white">Loading...</p>
+          </div>
+        </div>
+      )}
     </>
   );
 };

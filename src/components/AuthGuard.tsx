@@ -32,6 +32,16 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
     setError('');
 
     try {
+      // Dev-mode shortcut: allow demo credentials without backend
+      if (import.meta.env.DEV && username === 'admin' && password === 'admin') {
+        const expiry = new Date().getTime() + 24 * 60 * 60 * 1000;
+        localStorage.setItem('admin_auth', 'true');
+        localStorage.setItem('admin_auth_expiry', expiry.toString());
+        setIsAuthenticated(true);
+        toast.success('Login berhasil (mode dev)');
+        return;
+      }
+
       const response = await fetch('/api/admin/login', {
         method: 'POST',
         headers: {

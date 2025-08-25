@@ -8,6 +8,7 @@ export interface AuthUser {
   createdAt?: string;
   phoneNumber?: string;
   loginMethod?: 'google' | 'email' | 'whatsapp';
+  birthday?: string; // ISO date string for birthday rewards
 }
 
 export interface AuthContextType {

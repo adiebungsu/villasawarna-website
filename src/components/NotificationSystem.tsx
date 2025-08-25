@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
-import { Bell, Mail, MessageSquare, Star, Gift, AlertTriangle, CheckCircle, X, Settings } from 'lucide-react';
+import { Bell, Mail, MessageSquare, Star, Gift, AlertTriangle, CheckCircle, X, Settings, Search, Trash2, PlusCircle } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/context/use-auth';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -107,6 +107,9 @@ const NotificationSystem: React.FC = () => {
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [showUnreadOnly, setShowUnreadOnly] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [typeFilter, setTypeFilter] = useState<'all' | 'booking' | 'promo' | 'review' | 'system' | 'reminder'>('all');
 
   useEffect(() => {
     setUnreadCount(notifications.filter(n => !n.isRead).length);
@@ -189,6 +192,34 @@ const NotificationSystem: React.FC = () => {
     });
   };
 
+  const handleClearAll = () => {
+    if (notifications.length === 0) return;
+    setNotifications([]);
+    setUnreadCount(0);
+    toast({
+      title: "Semua Notifikasi Dihapus",
+      description: "Kotak notifikasi Anda sekarang kosong.",
+    });
+  };
+
+  const handleAddTestNotification = () => {
+    const test: Notification = {
+      id: `${Date.now()}`,
+      type: 'system',
+      title: 'Contoh Notifikasi',
+      message: 'Ini adalah notifikasi contoh untuk pengujian tampilan dan aksi.',
+      timestamp: new Date().toISOString(),
+      isRead: false,
+      priority: 'medium',
+      actionUrl: '/'
+    };
+    setNotifications(prev => [test, ...prev]);
+    toast({
+      title: "Notifikasi Contoh Ditambahkan",
+      description: "Gunakan ini untuk menguji alur notifikasi.",
+    });
+  };
+
   const handlePreferenceChange = (key: keyof NotificationPreferences['types'], value: boolean) => {
     setPreferences(prev => ({
       ...prev,
@@ -223,9 +254,45 @@ const NotificationSystem: React.FC = () => {
     }
   };
 
-  const filteredNotifications = notifications.filter(n => 
-    preferences.types[n.type]
-  );
+  const filteredNotifications = notifications
+    .filter(n => preferences.types[n.type])
+    .filter(n => (typeFilter === 'all' ? true : n.type === typeFilter))
+    .filter(n => (showUnreadOnly ? !n.isRead : true))
+    .filter(n => {
+      if (!searchQuery) return true;
+      const q = searchQuery.toLowerCase();
+      return (
+        n.title.toLowerCase().includes(q) ||
+        n.message.toLowerCase().includes(q) ||
+        getNotificationTypeLabel(n.type).toLowerCase().includes(q)
+      );
+    });
+
+  // Pagination state
+  const [pageSize, setPageSize] = useState(10);
+  const visibleNotifications = filteredNotifications.slice(0, pageSize);
+
+  // Date grouping helpers
+  const startOfDay = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const isSameDay = (a: Date, b: Date) => startOfDay(a).getTime() === startOfDay(b).getTime();
+  const isYesterday = (d: Date) => {
+    const y = new Date();
+    y.setDate(y.getDate() - 1);
+    return isSameDay(d, y);
+  };
+  const isThisWeek = (d: Date) => {
+    const now = new Date();
+    const diffDays = Math.floor((startOfDay(now).getTime() - startOfDay(d).getTime()) / (1000 * 60 * 60 * 24));
+    return diffDays >= 2 && diffDays < 7;
+  };
+  const getGroupLabel = (ts: string) => {
+    const d = new Date(ts);
+    const today = new Date();
+    if (isSameDay(d, today)) return 'Hari ini';
+    if (isYesterday(d)) return 'Kemarin';
+    if (isThisWeek(d)) return 'Minggu ini';
+    return 'Lebih lama';
+  };
 
   if (!user) {
     return (
@@ -391,15 +458,73 @@ const NotificationSystem: React.FC = () => {
                 </CardDescription>
               </div>
               
-              {unreadCount > 0 && (
-                <Button variant="outline" size="sm" onClick={handleMarkAllAsRead} className="text-xs md:text-sm">
-                  Tandai Semua Dibaca
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="relative">
+                  <Search className="w-4 h-4 absolute left-2 top-2.5 text-gray-400" />
+                  <input
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Cari notifikasi..."
+                    className="pl-7 pr-3 py-1.5 border rounded-md text-sm bg-white dark:bg-gray-900"
+                    aria-label="Cari notifikasi"
+                  />
+                </div>
+
+                <Button
+                  variant={showUnreadOnly ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setShowUnreadOnly(v => !v)}
+                  className="text-xs md:text-sm"
+                >
+                  Hanya yang belum dibaca
                 </Button>
-              )}
+
+                {unreadCount > 0 && (
+                  <Button variant="outline" size="sm" onClick={handleMarkAllAsRead} className="text-xs md:text-sm">
+                    Tandai Semua Dibaca
+                  </Button>
+                )}
+
+                {notifications.length > 0 && (
+                  <Button variant="outline" size="sm" onClick={handleClearAll} className="text-xs md:text-sm">
+                    <Trash2 className="w-3 h-3 mr-1" />
+                    Bersihkan
+                  </Button>
+                )}
+
+                <Button variant="outline" size="sm" onClick={handleAddTestNotification} className="text-xs md:text-sm">
+                  <PlusCircle className="w-3 h-3 mr-1" />
+                  Tambah Contoh
+                </Button>
+              </div>
             </div>
           </CardHeader>
           <CardContent className="p-4 md:p-6">
-            {filteredNotifications.length === 0 ? (
+            {/* Quick type filters */}
+            <div className="mb-4 flex flex-wrap gap-2 text-xs">
+              {([
+                { key: 'all', label: 'Semua' },
+                { key: 'booking', label: 'Booking' },
+                { key: 'promo', label: 'Promo' },
+                { key: 'review', label: 'Review' },
+                { key: 'system', label: 'Sistem' },
+                { key: 'reminder', label: 'Reminder' }
+              ] as const).map(({ key, label }) => (
+                <button
+                  key={key}
+                  onClick={() => setTypeFilter(key as any)}
+                  className={`px-3 py-1 rounded-full border ${
+                    typeFilter === (key as any)
+                      ? 'bg-ocean text-white border-ocean'
+                      : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300'
+                  }`}
+                  aria-label={`Filter ${label}`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            {visibleNotifications.length === 0 ? (
               <div className="text-center py-8 md:py-12 text-gray-500 dark:text-gray-400">
                 <Bell className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 opacity-50" />
                 <p className="text-base md:text-lg font-medium mb-2">Tidak Ada Notifikasi</p>
@@ -407,9 +532,20 @@ const NotificationSystem: React.FC = () => {
               </div>
             ) : (
               <div className="space-y-3 md:space-y-4">
-                {filteredNotifications.map((notification) => (
+                {/* Grouped by date buckets */}
+                {visibleNotifications.map((notification, idx) => {
+                  const currentLabel = getGroupLabel(notification.timestamp);
+                  const prev = visibleNotifications[idx - 1];
+                  const prevLabel = prev ? getGroupLabel(prev.timestamp) : undefined;
+                  const showHeader = idx === 0 || currentLabel !== prevLabel;
+                  return (
+                    <React.Fragment key={notification.id}>
+                      {showHeader && (
+                        <div className="mt-4 mb-1 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                          {currentLabel}
+                        </div>
+                      )}
                   <div
-                    key={notification.id}
                     className={`border rounded-lg p-3 md:p-4 transition-colors ${
                       notification.isRead 
                         ? 'bg-gray-50 dark:bg-gray-800' 
@@ -498,7 +634,17 @@ const NotificationSystem: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                ))}
+                    </React.Fragment>
+                  );
+                })}
+
+                {pageSize < filteredNotifications.length && (
+                  <div className="pt-2">
+                    <Button variant="outline" className="w-full" onClick={() => setPageSize(s => s + 10)}>
+                      Muat lebih banyak ({filteredNotifications.length - pageSize} tersisa)
+                    </Button>
+                  </div>
+                )}
               </div>
             )}
           </CardContent>

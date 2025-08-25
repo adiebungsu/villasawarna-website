@@ -1709,7 +1709,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         amenities: ["AC", "TV", "Kamar Mandi Dalam", "Air Panas", "WiFi", "Setrika", "Perlengkapan Mandi", "dekat Pantai"]
       }
     ],
-    nearbyAttractions: [],
     ratingSummary: {
       score: 9.0,
       totalReviews: 245,
