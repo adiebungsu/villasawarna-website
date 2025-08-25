@@ -242,14 +242,14 @@ const Index = () => {
               </Link>
               <Link to="/penginapan-sawarna">
                 <div className="group bg-gradient-to-br from-coral/5 to-coral/10 dark:from-coral-dark/20 dark:to-coral-dark/30 rounded-xl p-3 text-center transition-all duration-300 hover:shadow-lg hover:scale-105">
-                  <img src="/images/villa mewah.png" alt="Penginapan Icon" className="w-10 h-10 mx-auto mb-2" />
+                  <img src="/images/penginapan-sawarna.webp" alt="Penginapan Icon" className="w-10 h-10 mx-auto mb-2" />
                   <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Penginapan</h3>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Villa & Homestay</p>
                 </div>
               </Link>
               <Link to="/destinations">
                 <div className="group bg-gradient-to-br from-purple-500/5 to-purple-500/10 dark:from-purple-500/20 dark:to-purple-500/30 rounded-xl p-3 text-center transition-all duration-300 hover:shadow-lg hover:scale-105">
-                  <img src="/images/lokasi.png" alt="Destinasi Icon" className="w-10 h-10 mx-auto mb-2" />
+                  <img src="/images/destinasi-sawarna.webp" alt="Destinasi Icon" className="w-10 h-10 mx-auto mb-2" />
                   <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Destinasi</h3>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Tempat Wisata</p>
                 </div>

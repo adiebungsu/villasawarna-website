@@ -74,12 +74,41 @@ const GoogleAuth = () => {
       console.log('Google script status:', !!script);
       console.log('Current domain:', window.location.origin);
       console.log('Script URL:', script?.src);
+      console.log('Environment:', import.meta.env.MODE);
       setIsGoogleScriptLoaded(!!script);
     };
 
     checkGoogleScript();
     const interval = setInterval(checkGoogleScript, 1000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Validate OAuth configuration on mount
+  useEffect(() => {
+    const currentDomain = window.location.origin;
+    const allowedDomains = [
+      'http://localhost:5173',
+      'http://localhost:3000',
+      'https://villasawarna.com',
+      'https://www.villasawarna.com',
+      'https://villasawarna.vercel.app',
+      'https://villasawarna.netlify.app'
+    ];
+    
+    console.log('🔧 OAuth Configuration Check:');
+    console.log('  - Current Domain:', currentDomain);
+    console.log('  - Environment:', import.meta.env.MODE);
+    console.log('  - Client ID:', import.meta.env.VITE_GOOGLE_CLIENT_ID);
+    console.log('  - Allowed Domains:', allowedDomains);
+    
+    if (!allowedDomains.includes(currentDomain)) {
+      console.warn(`🚨 OAuth Warning: Current domain ${currentDomain} may not be authorized in Google Cloud Console`);
+      console.warn('🔧 Please add this domain to Authorized JavaScript origins in Google Cloud Console');
+      console.warn('📋 Add this to Google Cloud Console:');
+      console.warn(`   ${currentDomain}`);
+    } else {
+      console.log('✅ Domain is in allowed list');
+    }
   }, []);
 
   // Log when component mounts

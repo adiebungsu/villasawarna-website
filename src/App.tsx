@@ -77,8 +77,10 @@ const preloadComponents = () => {
   preload(() => import('./pages/Articles'));
 };
 
-// Replace with your actual Google Client ID
-const GOOGLE_CLIENT_ID = "933733800266-pbjh3uf15g3sap2rclnfvs8r08ahmnq9.apps.googleusercontent.com";
+import { getGoogleClientId } from './config/environment';
+
+// Get Google Client ID from environment configuration
+const GOOGLE_CLIENT_ID = getGoogleClientId();
 
 const App = () => {
   const { updateAvailable, update, isInstalled } = useServiceWorker();

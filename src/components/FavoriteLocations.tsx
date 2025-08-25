@@ -108,15 +108,15 @@ const FavoriteLocations: React.FC = () => {
           </p>
         </div>
 
-        {/* Location Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        {/* Location Cards Grid - Mobile 2x2, Desktop lebih lega */}
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-12">
           {favoriteLocations.map((location) => (
             <div
               key={location.id}
-              className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 hover:-translate-y-2"
+              className="group bg-white dark:bg-gray-800 rounded-xl md:rounded-2xl shadow-md md:shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 hover:-translate-y-1 md:hover:-translate-y-2"
             >
               {/* Image Section */}
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-32 md:h-48 overflow-hidden">
                 <OptimizedImage
                   src={location.image}
                   alt={location.name}
@@ -124,23 +124,23 @@ const FavoriteLocations: React.FC = () => {
                   quality={85}
                 />
                 {/* Overlay with Icon */}
-                <div className={`absolute top-3 right-3 bg-gradient-to-r ${location.color} p-2 rounded-full text-white shadow-lg`}>
+                <div className={`absolute top-2 right-2 md:top-3 md:right-3 bg-gradient-to-r ${location.color} p-1.5 md:p-2 rounded-full text-white shadow-lg`}>
                   {location.icon}
                 </div>
                 {/* Distance Badge */}
-                <div className="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded-full text-xs font-medium">
+                <div className="absolute bottom-2 left-2 md:bottom-3 md:left-3 bg-black/70 text-white px-2 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-medium">
                   {location.distance}
                 </div>
               </div>
 
               {/* Content Section */}
-              <div className="p-5">
+              <div className="p-3 md:p-5">
                 {/* Title & Rating */}
-                <div className="mb-3">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-coral transition-colors">
+                <div className="mb-2 md:mb-3">
+                  <h3 className="text-sm md:text-lg font-bold text-gray-900 dark:text-white mb-0.5 md:mb-1 group-hover:text-coral transition-colors line-clamp-1">
                     {location.name}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                  <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-1 md:mb-2 line-clamp-1">
                     {location.subtitle}
                   </p>
                   <div className="flex items-center gap-2">
@@ -148,7 +148,7 @@ const FavoriteLocations: React.FC = () => {
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`w-4 h-4 ${
+                          className={`w-3 h-3 md:w-4 md:h-4 ${
                             i < Math.floor(location.rating)
                               ? 'text-yellow-400 fill-current'
                               : 'text-gray-300'
@@ -156,33 +156,33 @@ const FavoriteLocations: React.FC = () => {
                         />
                       ))}
                     </div>
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                       {location.rating} ({location.reviews} ulasan)
                     </span>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-3 md:mb-4 line-clamp-2">
                   {location.description}
                 </p>
 
                 {/* Best Time */}
-                <div className="flex items-center gap-2 mb-3 text-sm text-gray-600 dark:text-gray-400">
-                  <Clock className="w-4 h-4" />
+                <div className="flex items-center gap-2 mb-2 md:mb-3 text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                  <Clock className="w-3 h-3 md:w-4 md:h-4" />
                   <span>Waktu terbaik: {location.bestTime}</span>
                 </div>
 
                 {/* Activities */}
                 <div className="mb-4">
-                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  <h4 className="text-xs md:text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1 md:mb-2">
                     Aktivitas Populer:
                   </h4>
                   <div className="flex flex-wrap gap-1">
                     {location.activities.map((activity, index) => (
                       <span
                         key={index}
-                        className="bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-2 py-1 rounded-full text-xs"
+                        className="bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-1.5 md:px-2 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs"
                       >
                         {activity}
                       </span>
@@ -191,13 +191,13 @@ const FavoriteLocations: React.FC = () => {
                 </div>
 
                 {/* Highlights */}
-                <div className="mb-4">
-                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                <div className="mb-3 md:mb-4">
+                  <h4 className="text-xs md:text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1 md:mb-2">
                     Keunggulan:
                   </h4>
                   <div className="space-y-1">
                     {location.highlights.map((highlight, index) => (
-                      <div key={index} className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+                      <div key={index} className="flex items-center gap-2 text-[10px] md:text-xs text-gray-600 dark:text-gray-400">
                         <div className="w-1.5 h-1.5 bg-coral rounded-full"></div>
                         {highlight}
                       </div>
@@ -208,7 +208,7 @@ const FavoriteLocations: React.FC = () => {
                 {/* CTA Button */}
                 <Link
                   to={location.route}
-                  className="block w-full bg-gradient-to-r from-coral to-coral-dark hover:from-coral-dark hover:to-coral text-white text-center py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
+                  className="block w-full bg-gradient-to-r from-coral to-coral-dark hover:from-coral-dark hover:to-coral text-white text-center py-2 md:py-3 px-3 md:px-4 rounded-lg md:rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105 text-sm"
                 >
                   Jelajahi Sekarang
                 </Link>

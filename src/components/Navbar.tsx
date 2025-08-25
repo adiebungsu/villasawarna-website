@@ -64,7 +64,6 @@ const Navbar = () => {
     { name: 'Beranda', path: '/', icon: Home },
     { name: 'Villa', path: '/villas', icon: Building2 },
     { name: 'Penginapan', path: '/penginapan-sawarna', icon: Hotel },
-    { name: 'Artikel', path: '/articles', icon: Newspaper },
     { name: 'Tentang', path: '/about', icon: Info },
     { name: 'Kontak', path: '/contact', icon: Phone },
     ...(user ? [{ name: 'Dashboard', path: '/dashboard', icon: User }] : []),
@@ -147,7 +146,7 @@ const Navbar = () => {
       {!isDetailPage && (
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] dark:shadow-[0_-4px_6px_-1px_rgba(255,255,255,0.05)] z-[9999] border-t border-gray-200/20 dark:border-gray-800/20">
           <div className="container-custom">
-            <nav className="flex justify-around py-3 overflow-x-auto">
+            <nav className="flex justify-around py-2 overflow-x-auto">
               {/* Beranda */}
               <Link 
                 to="/"
@@ -275,24 +274,7 @@ const Navbar = () => {
                 <span className="text-[9px] font-medium">Penginapan</span>
               </Link>
 
-              {/* Artikel */}
-              <Link 
-                to="/articles"
-                className={cn(
-                  'flex flex-col items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-coral dark:hover:text-coral-light transition-colors px-2 py-1.5 rounded-lg hover:bg-sand-light/50 dark:hover:bg-gray-800 min-w-0 flex-shrink-0',
-                  {
-                    'text-coral dark:text-coral-light': isActivePath('/articles')
-                  }
-                )}
-              >
-                <Newspaper size={18} className={cn(
-                  {
-                    'text-coral dark:text-coral-light': isActivePath('/articles'),
-                    'text-gray-400 dark:text-gray-500': !isActivePath('/articles')
-                  }
-                )} />
-                <span className="text-[9px] font-medium">Artikel</span>
-              </Link>
+              
 
               {/* About */}
               <Link 
