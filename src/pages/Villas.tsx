@@ -6,7 +6,8 @@ import PropertyCard from "@/components/PropertyCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Waves } from "lucide-react";
 import { getAllProperties, getFeaturedProperties, getPopularVillas, getCheapestVillas, incrementPropertyVisit, extractMainLocation } from "@/data/properties";
-import SEO from '@/components/SEO';
+import SEO from "@/components/SEO";
+import { useLocation } from 'react-router-dom';
 
 const Villas = () => {
   const [selectedLocation, setSelectedLocation] = useState("all");
@@ -14,6 +15,17 @@ const Villas = () => {
   const [cheapestVillas, setCheapestVillas] = useState(getCheapestVillas());
   const allProperties = getAllProperties();
   const villaProperties = allProperties.filter(property => property.type === 'villa');
+  const { search } = useLocation();
+
+  // Sync selectedLocation with URL parameter `location`
+  useEffect(() => {
+    const params = new URLSearchParams(search);
+    const loc = (params.get('location') || '').toLowerCase();
+    const allowed = ['all', 'sawarna', 'goa-langir', 'legon-pari', 'tanjung-layar', 'karang-bokor', 'pulo-manuk'];
+    if (loc && allowed.includes(loc)) {
+      setSelectedLocation(loc);
+    }
+  }, [search]);
 
   // Update popular villas setiap kali halaman dimuat
   useEffect(() => {

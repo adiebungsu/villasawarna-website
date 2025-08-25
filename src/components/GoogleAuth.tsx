@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { GoogleLogin, GoogleOAuthProvider, useGoogleLogin, TokenResponse, CredentialResponse } from "@react-oauth/google";
 import { toast } from "@/components/ui/use-toast";
+import { showLoginSuccessToast } from '@/components/toasts/login-success';
 import { useAuth } from "@/context/use-auth";
 import OptimizedImage from './OptimizedImage';
 import { Loader2 } from 'lucide-react';
@@ -37,11 +38,10 @@ const handleCredentialLoginSuccess = (credentialResponse: CredentialResponse, se
       profileImage: decodedToken.picture
     };
     localStorage.setItem('user', JSON.stringify(userData));
+    // aktifkan tour singkat dashboard pada render pertama setelah login
+    try { localStorage.setItem('showDashboardTour', '1'); } catch {}
     setUser(userData); // Update context state
-    toast({
-      title: "Login berhasil!",
-      description: `Selamat datang, ${userData.name}`,
-    });
+    showLoginSuccessToast({ name: userData.name });
     // Redirect ke dashboard setelah login berhasil
     navigate('/dashboard');
   } catch (error) {

@@ -23,6 +23,8 @@ import WelcomeModal from '@/components/WelcomeModal';
 import ArticlesSection from '@/components/ArticlesSection';
 import { getLowestRoomPrice } from '@/utils/price';
 import { useAuth } from '@/context/use-auth';
+import CornerWelcome from '@/components/CornerWelcome';
+import ProfileCoachmark from '@/components/ProfileCoachmark';
 
 // Data testimonial
 const testimonialData = [
@@ -109,6 +111,8 @@ const Index = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
+  const [isCornerOpen, setIsCornerOpen] = useState(false);
+  const [isProfileCoachmarkOpen, setIsProfileCoachmarkOpen] = useState(false);
 
   // Handle resize untuk mendeteksi ukuran layar
   useEffect(() => {
@@ -177,6 +181,14 @@ const Index = () => {
 
   const handleCloseWelcomeModal = () => {
     setIsWelcomeModalOpen(false);
+    setIsCornerOpen(true);
+  };
+
+  const handleCloseCorner = () => {
+    setIsCornerOpen(false);
+    if (!user) {
+      setIsProfileCoachmarkOpen(true);
+    }
   };
 
   return (
@@ -981,6 +993,20 @@ const Index = () => {
       <WelcomeModal
         isOpen={isWelcomeModalOpen}
         onClose={handleCloseWelcomeModal}
+      />
+
+      {/* Corner Welcome Popup */}
+      <CornerWelcome
+        isOpen={isCornerOpen}
+        onClose={handleCloseCorner}
+        userName={(user as any)?.name || (user as any)?.fullName || ((user as any)?.email ? (user as any).email.split('@')[0] : undefined)}
+      />
+
+      {/* Profile Coachmark */}
+      <ProfileCoachmark
+        isOpen={isProfileCoachmarkOpen}
+        onClose={() => setIsProfileCoachmarkOpen(false)}
+        isLoggedIn={!!user}
       />
     </>
   );

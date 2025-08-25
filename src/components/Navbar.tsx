@@ -206,6 +206,7 @@ const Navbar = () => {
 
               {/* Dashboard - Profil Bulat di Tengah */}
               <Link 
+                id="nav-profile-link"
                 to={user ? "/dashboard" : "/login"}
                 className={cn(
                   'flex flex-col items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-coral dark:hover:text-coral-light transition-colors px-2 py-1.5 rounded-lg hover:bg-sand-light/50 dark:hover:bg-gray-800 min-w-0 flex-shrink-0',

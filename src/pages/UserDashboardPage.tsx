@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '@/context/use-auth';
 import { AuthUser } from '@/context/auth-context-helpers';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -67,6 +67,7 @@ import EnhancedSearchFilter from '@/components/EnhancedSearchFilter';
 import { useVisitHistory, VisitHistoryItem } from '@/context/use-visit-history';
 import { useUserData } from '@/context/user-data-provider';
 import { addDemoVisits, clearDemoVisits, viewCurrentVisits } from '@/utils/visit-demo';
+import DashboardTour from '@/components/DashboardTour';
 
 interface DashboardStats {
   totalBookings: number;
@@ -140,8 +141,47 @@ const UserDashboardPage: React.FC = () => {
   const navigate = useNavigate();
   
   const [activeTab, setActiveTab] = useState('overview');
+  const [isTourOpen, setIsTourOpen] = useState(false);
 
+  const tourSteps = useMemo(() => [
+    {
+      id: 'welcome',
+      targetSelector: '#dashboard-title',
+      title: 'Selamat datang di Dashboard',
+      description: 'Di sini Anda bisa mengelola profil, wishlist, notifikasi, dan aktivitas terbaru.'
+    },
+    {
+      id: 'tab-overview',
+      targetSelector: "[data-tour='tab-overview']",
+      title: 'Overview',
+      description: 'Ringkasan cepat statistik dan aktivitas terbaru Anda.'
+    },
+    {
+      id: 'tab-profile',
+      targetSelector: "[data-tour='tab-profile']",
+      title: 'Profil',
+      description: 'Kelola informasi akun dan preferensi Anda di sini.'
+    },
+    {
+      id: 'tab-wishlist',
+      targetSelector: "[data-tour='tab-wishlist']",
+      title: 'Wishlist',
+      description: 'Lihat dan kelola daftar properti favorit Anda.'
+    },
+    {
+      id: 'tab-notifications',
+      targetSelector: "[data-tour='tab-notifications']",
+      title: 'Notifikasi',
+      description: 'Pantau update terbaru seperti promo dan info booking.'
+    }
+  ], []);
 
+  useEffect(() => {
+    if (localStorage.getItem('showDashboardTour') === '1') {
+      localStorage.removeItem('showDashboardTour');
+      setTimeout(() => setIsTourOpen(true), 450);
+    }
+  }, []);
 
   // Use real data from UserDataProvider
   const { 
@@ -218,7 +258,7 @@ const UserDashboardPage: React.FC = () => {
                      <User className="w-4 h-4 md:w-5 md:h-5 text-white" />
                    </div>
                    <div className="flex-1 min-w-0">
-                     <h1 className="text-xl md:text-3xl font-bold text-gray-900 dark:text-white truncate">
+                     <h1 id="dashboard-title" className="text-xl md:text-3xl font-bold text-gray-900 dark:text-white truncate">
                        Dashboard Pengguna
                      </h1>
                      <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 truncate">
@@ -404,30 +444,30 @@ const UserDashboardPage: React.FC = () => {
               {/* Mobile Tab Navigation - Horizontal Scroll */}
               <div className="md:hidden w-full overflow-x-auto">
                 <TabsList className="flex w-max bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
-                  <TabsTrigger value="overview" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
+                  <TabsTrigger data-tour="tab-overview" value="overview" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <TrendingUp className="w-3 h-3" />
                     <span>Overview</span>
-                 </TabsTrigger>
-                  <TabsTrigger value="profile" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
+                  </TabsTrigger>
+                  <TabsTrigger data-tour="tab-profile" value="profile" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <User className="w-3 h-3" />
                     <span>Profil</span>
-                 </TabsTrigger>
-                  <TabsTrigger value="bookings" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
+                  </TabsTrigger>
+                  <TabsTrigger data-tour="tab-bookings" value="bookings" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <Calendar className="w-3 h-3" />
                     <span>Booking</span>
-                 </TabsTrigger>
-                  <TabsTrigger value="wishlist" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
+                  </TabsTrigger>
+                  <TabsTrigger data-tour="tab-wishlist" value="wishlist" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <Heart className="w-3 h-3" />
                     <span>Wishlist</span>
-                 </TabsTrigger>
-                  <TabsTrigger value="notifications" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
+                  </TabsTrigger>
+                  <TabsTrigger data-tour="tab-notifications" value="notifications" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <Bell className="w-3 h-3" />
                     <span>Notif</span>
-                 </TabsTrigger>
+                  </TabsTrigger>
                   <TabsTrigger value="visits" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <Eye className="w-3 h-3" />
                     <span>Riwayat</span>
-                 </TabsTrigger>
+                  </TabsTrigger>
                   <TabsTrigger value="search" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
                     <Search className="w-3 h-3" />
                     <span>Cari</span>
@@ -437,11 +477,11 @@ const UserDashboardPage: React.FC = () => {
               
               {/* Desktop Tab Navigation */}
               <TabsList className="hidden md:grid w-auto grid-cols-7 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
-                <TabsTrigger value="overview" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
+                <TabsTrigger data-tour="tab-overview" value="overview" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
                   <TrendingUp className="w-4 h-4" />
                   <span>Overview</span>
                 </TabsTrigger>
-                <TabsTrigger value="profile" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
+                <TabsTrigger data-tour="tab-profile" value="profile" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
                   <User className="w-4 h-4" />
                   <span>Profil</span>
                 </TabsTrigger>
@@ -449,11 +489,11 @@ const UserDashboardPage: React.FC = () => {
                   <Calendar className="w-4 h-4" />
                   <span>Booking</span>
                 </TabsTrigger>
-                <TabsTrigger value="wishlist" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
+                <TabsTrigger data-tour="tab-wishlist" value="wishlist" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
                   <Heart className="w-4 h-4" />
                   <span>Wishlist</span>
                 </TabsTrigger>
-                <TabsTrigger value="notifications" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
+                <TabsTrigger data-tour="tab-notifications" value="notifications" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
                   <Bell className="w-4 h-4" />
                   <span>Notifikasi</span>
                 </TabsTrigger>
@@ -1332,6 +1372,12 @@ const UserDashboardPage: React.FC = () => {
           </Tabs>
         </div>
       </div>
+
+      <DashboardTour
+        isOpen={isTourOpen}
+        onClose={() => setIsTourOpen(false)}
+        steps={tourSteps}
+      />
     </>
   );
 };

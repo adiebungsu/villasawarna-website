@@ -10,6 +10,10 @@ import SEO from '@/components/SEO';
 import GoogleAuth from '@/components/GoogleAuth';
 import { useAuth } from '@/context/use-auth';
 import { useToast } from '@/components/ui/use-toast';
+import { showLoginSuccessToast } from '@/components/toasts/login-success';
+import { Helmet } from 'react-helmet-async';
+
+const LOGIN_BG = '/images/karang-taraje-sawarna.webp';
 
 const LoginPage: React.FC = () => {
   const { user } = useAuth();
@@ -18,6 +22,7 @@ const LoginPage: React.FC = () => {
   // First-visit entrance animation
   const [mounted, setMounted] = useState(false);
   const [shouldAnimate, setShouldAnimate] = useState(false);
+  const [bgReady, setBgReady] = useState(false);
   useEffect(() => {
     const isFirstVisit = typeof window !== 'undefined' && localStorage.getItem('visitedLogin') !== '1';
     if (isFirstVisit) {
@@ -27,6 +32,20 @@ const LoginPage: React.FC = () => {
       return () => { clearTimeout(t); clearTimeout(t2); };
     }
     setMounted(true);
+  }, []);
+
+  // Preload background image to avoid first-paint blank on desktop
+  useEffect(() => {
+    const img = new Image();
+    img.src = LOGIN_BG;
+    const handleLoad = () => setBgReady(true);
+    if ((img as any).decode) {
+      (img as any).decode().then(handleLoad).catch(() => setBgReady(true));
+    } else {
+      img.onload = handleLoad;
+      img.onerror = handleLoad;
+    }
+    return () => { img.onload = null; img.onerror = null; };
   }, []);
   
   // State untuk login email
@@ -47,6 +66,15 @@ const LoginPage: React.FC = () => {
   const [generatedOtp, setGeneratedOtp] = useState('');
   const [otpAttempts, setOtpAttempts] = useState(0);
   const [maxOtpAttempts] = useState(3);
+  // Data benefits untuk hero & mobile
+  const benefits = [
+    { icon: <Heart className="w-5 h-5 text-red-400" />, text: 'Wishlist & pengingat harga' },
+    { icon: <Star className="w-5 h-5 text-yellow-300" />, text: 'Ulasan & rating terpercaya' },
+    { icon: <CheckCircle className="w-5 h-5 text-green-300" />, text: 'Proses login cepat & aman' },
+    { icon: <Globe className="w-5 h-5 text-blue-300" />, text: 'Akses dari perangkat apa pun' },
+    { icon: <Shield className="w-5 h-5 text-white/80" />, text: 'Promo eksklusif untuk member' },
+    { icon: <Users className="w-5 h-5 text-white/80" />, text: 'Dukungan pelanggan 24/7' },
+  ];
 
   // Redirect user yang sudah login ke dashboard
   useEffect(() => {
@@ -263,11 +291,9 @@ const LoginPage: React.FC = () => {
       
       // Simpan ke localStorage dan update auth context
       localStorage.setItem('user', JSON.stringify(demoUser));
+      try { localStorage.setItem('showDashboardTour', '1'); } catch {}
       
-      toast({
-        title: "Login Berhasil!",
-        description: "Selamat datang kembali!",
-      });
+      showLoginSuccessToast({ name: demoUser.name });
       
       // Trigger page reload untuk memuat user baru
       window.location.reload();
@@ -388,25 +414,38 @@ const LoginPage: React.FC = () => {
         url="https://villasawarna.com/login"
         type="website"
       />
+      <Helmet>
+        <link rel="preload" as="image" href={LOGIN_BG} imagesrcset={`${LOGIN_BG} 1920w`} fetchpriority="high" />
+        <link rel="prefetch" as="image" href={LOGIN_BG} />
+      </Helmet>
       
-      <div className="min-h-screen relative p-4 lg:p-0">
+      <div className="h-screen overflow-hidden relative p-4 lg:p-0">
         {/* Full-page background image */}
         <div 
-          className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url('/images/karang-taraje-sawarna.webp')` }}
+          className={"pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat z-0"}
+          style={{ backgroundImage: `url('${LOGIN_BG}')` }}
         />
         {/* White gradient from bottom to middle */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-white/95 via-white/70 to-transparent" />
-         <div className="relative z-10 mx-auto grid w-full max-w-6xl lg:grid-cols-2 lg:min-h-screen">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-white/95 via-white/70 to-transparent dark:from-black/70 dark:via-black/50 dark:to-transparent z-0" />
+        {/* Hidden eager img to ensure cache warm */}
+        <img src={LOGIN_BG} alt="bg-preload" className="hidden" loading="eager" fetchpriority="high" />
+        {/* Gradients sementara dinonaktifkan agar background tidak tertutup */}
+        {false && (
+          <>
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white/80 via-white/50 to-transparent dark:from-black/60 dark:via-black/40 dark:to-transparent z-0 lg:hidden" />
+            <div className="pointer-events-none absolute right-0 inset-y-0 w-1/2 bg-gradient-to-l from-white/85 via-white/60 to-transparent dark:from-gray-950/85 dark:via-gray-900/60 dark:to-transparent z-0 hidden lg:block" />
+          </>
+        )}
+        <div className="relative z-10 mx-auto grid w-full max-w-6xl lg:grid-cols-2 h-screen">
            {/* Left Hero */}
-          <div className={`relative hidden lg:flex min-h-screen ${shouldAnimate ? (mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4') : ''} transition-all duration-700`}>
+          <div className="relative hidden lg:flex h-full overflow-hidden">
             <div className="relative z-10 flex h-full flex-col justify-between p-12">
               <div>
                 
-                <h1 className="mt-8 text-4xl font-extrabold tracking-tight text-white drop-shadow-xl">
+                <h1 className={`mt-8 text-4xl font-extrabold tracking-tight text-white drop-shadow-xl ${shouldAnimate ? (mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4') : ''} transition-all duration-700`}>
                   Satu akun untuk pengalaman menginap yang lebih mudah
             </h1>
-                <p className="mt-3 text-white text-lg max-w-xl">
+                <p className={`mt-3 text-white text-lg max-w-xl ${shouldAnimate ? (mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-3') : ''} transition-all duration-700`} style={shouldAnimate ? { transitionDelay: mounted ? '120ms' : undefined } : undefined}>
                   Simpan wishlist, kelola booking, dan dapatkan promo eksklusif untuk liburan ke Sawarna.
                 </p>
               </div>
@@ -446,17 +485,17 @@ const LoginPage: React.FC = () => {
           </div>
 
           {/* Right Form column */}
-          <div className={`relative flex items-center justify-center py-10 lg:py-0 bg-gradient-to-b from-white to-white/70 dark:from-gray-950 dark:to-gray-900/80 ${shouldAnimate ? (mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4') : ''} transition-all duration-700`} style={shouldAnimate ? { transitionDelay: mounted ? '150ms' : undefined } : undefined}>
+          <div className={`relative flex items-center justify-center py-10 lg:py-0 bg-gradient-to-b from-white to-white/70 dark:from-gray-950 dark:to-gray-900/80 h-screen overflow-hidden ${shouldAnimate ? (mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4') : ''} transition-all duration-700`} style={shouldAnimate ? { transitionDelay: mounted ? '150ms' : undefined } : undefined}>
             <div className="pointer-events-none absolute -top-10 -right-10 h-56 w-56 rounded-full bg-ocean/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-16 -left-10 h-56 w-56 rounded-full bg-coral/10 blur-3xl" />
 
-            <div className="relative z-10 w-full max-w-md px-4">
+            <div className="relative z-10 w-full max-w-md px-4 h-full flex flex-col justify-center">
               <div className="mb-6 text-center lg:hidden">
-                <img 
-                  src="/images/logo-villasawarna.png" 
-                  alt="Villa Sawarna Logo" 
+              <img 
+                src="/images/logo-villasawarna.png" 
+                alt="Villa Sawarna Logo" 
                   className="h-14 mx-auto"
-                  onError={(e) => {
+                onError={(e) => {
                     (e.currentTarget as HTMLImageElement).style.display = 'none';
                     (e.currentTarget.nextElementSibling as HTMLElement | null)?.classList.remove('hidden');
                   }}
