@@ -198,54 +198,54 @@ const Articles = () => {
                 </div>
               )}
               
-              {/* Articles */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Articles - Mobile 2x2 grid */}
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
                 {isLoading ? (
-                  <div className="text-center py-10 col-span-1 md:col-span-2">
+                  <div className="text-center py-10 col-span-2 md:col-span-2 lg:col-span-3">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-coral dark:border-coral-light mx-auto"></div>
                     <p className="text-gray-500 dark:text-gray-400 mt-2">Memuat artikel...</p>
                   </div>
                 ) : displayedArticles.length > 0 ? (
                   displayedArticles.map((article) => (
-                    <div key={article.id} className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
+                    <div key={article.id} className="bg-white dark:bg-gray-800 rounded-lg md:rounded-xl overflow-hidden shadow-sm md:shadow-md hover:shadow-lg transition-all flex flex-col h-full border border-gray-100 dark:border-gray-700 hover:-translate-y-1 md:hover:-translate-y-2">
                       {/* Article Image */}
                       <Link to={`/article/${article.slug}`} className="block flex-shrink-0">
                         <OptimizedImage
                           src={article.image}
                           alt={article.title}
-                          className="w-full h-48 md:h-56 object-cover hover:opacity-90 transition-opacity"
+                          className="w-full h-32 md:h-56 object-cover transition-transform duration-300 group-hover:scale-105"
                           quality={85}
                         />
                       </Link>
                       
                       {/* Article Content */}
-                      <div className="p-4 md:p-5 flex-grow flex flex-col">
-                        <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
-                          <Calendar size={14} className="mr-1" />
+                      <div className="p-3 md:p-5 flex-grow flex flex-col">
+                        <div className="flex items-center text-[10px] md:text-sm text-gray-500 dark:text-gray-400 mb-1 md:mb-2">
+                          <Calendar size={12} className="mr-1" />
                           <span>{article.date}</span>
                           <span className="mx-2">•</span>
                           <span className="text-ocean dark:text-ocean-light">{article.category}</span>
                         </div>
                         <Link to={`/article/${article.slug}`} className="block group">
-                          <h3 className="text-lg md:text-xl font-bold mb-2 text-gray-800 dark:text-white group-hover:text-coral dark:group-hover:text-coral-light transition-colors line-clamp-2">{article.title}</h3>
+                          <h3 className="text-sm md:text-xl font-bold mb-1 md:mb-2 text-gray-800 dark:text-white group-hover:text-coral dark:group-hover:text-coral-light transition-colors line-clamp-2">{article.title}</h3>
                         </Link>
-                        <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">{article.excerpt}</p>
-                        <Link to={`/article/${article.slug}`} className="text-coral dark:text-coral-light font-medium hover:text-coral-dark dark:hover:text-coral flex items-center mt-auto">
+                        <p className="text-xs md:text-base text-gray-600 dark:text-gray-400 mb-3 md:mb-4 line-clamp-2 md:line-clamp-3">{article.excerpt}</p>
+                        <Link to={`/article/${article.slug}`} className="inline-flex items-center mt-auto bg-gradient-to-r from-coral to-coral-dark text-white px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg text-[11px] md:text-sm font-semibold hover:from-coral-dark hover:to-coral transition-colors">
                           Baca Selengkapnya
-                          <ChevronRight size={16} className="ml-1" />
+                          <ChevronRight size={14} className="ml-1" />
                         </Link>
                       </div>
                     </div>
                   ))
                 ) : (
-                  <div className="text-center py-10 col-span-1 md:col-span-2">
+                  <div className="text-center py-10 col-span-2 md:col-span-2 lg:col-span-3">
                     <p className="text-gray-500 dark:text-gray-400">Tidak ada artikel yang ditemukan.</p>
                   </div>
                 )}
                 
                 {/* Load More Button */}
                 {hasMoreArticles && !isLoading && (
-                  <div className="flex justify-center pt-6 col-span-1 md:col-span-2">
+                  <div className="flex justify-center pt-6 col-span-2 md:col-span-2 lg:col-span-3">
                     <Button 
                       onClick={handleLoadMore} 
                       variant="outline"

@@ -663,40 +663,46 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
               {articleData
                 .filter(article => activeCategory === 'semua' || article.category.toLowerCase() === activeCategory)
-                .slice(0, 3)
+                .slice(0, 6)
                 .map((article) => (
                 <Link 
                   key={article.id} 
                   to={`/article/${article.id}`}
                   className="group"
                 >
-                  <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
-                          <div className="relative aspect-[16/9] overflow-hidden">
-                            <OptimizedImage
-                              src={article.image}
-                              alt={article.title}
-                              className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                        quality={80}
+                  <div className="bg-white dark:bg-gray-800 rounded-xl md:rounded-2xl overflow-hidden shadow-md md:shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:-translate-y-1 md:hover:-translate-y-2">
+                    {/* Image */}
+                    <div className="relative h-32 md:h-40 overflow-hidden">
+                      <OptimizedImage
+                        src={article.image}
+                        alt={article.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        quality={85}
                         sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                            />
-                          </div>
-                    <div className="p-4">
-                      <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-2">
-                        <Calendar size={14} />
+                      />
+                      {/* Badge tanggal */}
+                      <div className="absolute bottom-2 left-2 bg-black/70 text-white px-2 py-0.5 rounded-full text-[10px] md:text-xs font-medium flex items-center gap-1">
+                        <Calendar size={12} />
                         <span>{article.date}</span>
                       </div>
-                      <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white group-hover:text-ocean dark:group-hover:text-ocean-light transition-colors">
-                              {article.title}
-                            </h3>
-                      <p className="text-gray-600 dark:text-gray-300 line-clamp-2 text-sm">
-                              {article.excerpt}
-                            </p>
-                          </div>
-                        </div>
-                      </Link>
+                    </div>
+                    {/* Content */}
+                    <div className="p-3 md:p-4">
+                      <h3 className="text-sm md:text-base font-bold mb-1 md:mb-2 text-gray-900 dark:text-white group-hover:text-coral transition-colors line-clamp-2">
+                        {article.title}
+                      </h3>
+                      <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+                        {article.excerpt}
+                      </p>
+                      <div className="mt-3">
+                        <span className="inline-block bg-gradient-to-r from-coral to-coral-dark text-white text-[10px] md:text-xs px-2 py-1 rounded-full group-hover:from-coral-dark group-hover:to-coral transition-colors">Baca selengkapnya</span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
               ))}
             </div>
 
@@ -1237,3 +1243,4 @@ const AboutSawarna = () => {
 };
 
 export default Index;
+

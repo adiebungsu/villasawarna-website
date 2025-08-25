@@ -15,6 +15,19 @@ const LoginPage: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  // First-visit entrance animation
+  const [mounted, setMounted] = useState(false);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+  useEffect(() => {
+    const isFirstVisit = typeof window !== 'undefined' && localStorage.getItem('visitedLogin') !== '1';
+    if (isFirstVisit) {
+      setShouldAnimate(true);
+      const t = setTimeout(() => setMounted(true), 50);
+      const t2 = setTimeout(() => localStorage.setItem('visitedLogin', '1'), 1200);
+      return () => { clearTimeout(t); clearTimeout(t2); };
+    }
+    setMounted(true);
+  }, []);
   
   // State untuk login email
   const [showEmailLogin, setShowEmailLogin] = useState(false);
@@ -376,72 +389,116 @@ const LoginPage: React.FC = () => {
         type="website"
       />
       
-      <div className="min-h-screen relative flex items-center justify-center p-4">
-        {/* Background Image */}
+      <div className="min-h-screen relative p-4 lg:p-0">
+        {/* Full-page background image */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('/images/karang-taraje-sawarna.webp')`
-          }}
+          className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url('/images/karang-taraje-sawarna.webp')` }}
         />
-        
-        {/* Overlay untuk readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/60 dark:from-black/70 dark:via-black/60 dark:to-black/80" />
-        
-        {/* Additional gradient from right corner */}
-        <div className="absolute inset-0 bg-gradient-to-l from-ocean/20 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-coral/15 via-transparent to-transparent" />
-        
-        {/* Content Container */}
-        <div className="relative z-10 w-full max-w-xs">
-          {/* Logo & Back Button */}
-          <div className="text-center mb-4">
-            <div className="mb-3">
-              <img 
-                src="/images/logo-villasawarna.png" 
-                alt="Villa Sawarna Logo" 
-                className="h-16 mx-auto"
-                onError={(e) => {
-                  // Fallback jika logo tidak ditemukan
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                }}
-              />
-              <div className="hidden inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-ocean/10 to-coral/10 dark:from-ocean/20 dark:to-coral/20 rounded-2xl">
-                <Shield className="w-12 h-12 text-ocean dark:text-ocean-light" />
+        {/* White gradient from bottom to middle */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-white/95 via-white/70 to-transparent" />
+         <div className="relative z-10 mx-auto grid w-full max-w-6xl lg:grid-cols-2 lg:min-h-screen">
+           {/* Left Hero */}
+          <div className={`relative hidden lg:flex min-h-screen ${shouldAnimate ? (mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4') : ''} transition-all duration-700`}>
+            <div className="relative z-10 flex h-full flex-col justify-between p-12">
+              <div>
+                
+                <h1 className="mt-8 text-4xl font-extrabold tracking-tight text-white drop-shadow-xl">
+                  Satu akun untuk pengalaman menginap yang lebih mudah
+            </h1>
+                <p className="mt-3 text-white text-lg max-w-xl">
+                  Simpan wishlist, kelola booking, dan dapatkan promo eksklusif untuk liburan ke Sawarna.
+                </p>
+              </div>
+              <div className="mt-10 grid grid-cols-2 gap-4 max-w-xl">
+                <div className="flex items-center gap-3 rounded-xl bg-white/95 dark:bg-gray-900/90 p-4 shadow-sm">
+                  <Heart className="w-5 h-5 text-red-400" />
+                  <span className="text-sm text-gray-900 dark:text-white">Wishlist & pengingat harga</span>
+                </div>
+                <div className="flex items-center gap-3 rounded-xl bg-white/95 dark:bg-gray-900/90 p-4 shadow-sm">
+                  <Star className="w-5 h-5 text-yellow-300" />
+                  <span className="text-sm text-gray-900 dark:text-white">Ulasan & rating terpercaya</span>
+                </div>
+                <div className="flex items-center gap-3 rounded-xl bg-white/95 dark:bg-gray-900/90 p-4 shadow-sm">
+                  <CheckCircle className="w-5 h-5 text-green-300" />
+                  <span className="text-sm text-gray-900 dark:text-white">Proses login cepat & aman</span>
+                </div>
+                <div className="flex items-center gap-3 rounded-xl bg-white/95 dark:bg-gray-900/90 p-4 shadow-sm">
+                  <Globe className="w-5 h-5 text-blue-300" />
+                  <span className="text-sm text-gray-900 dark:text-white">Akses dari perangkat apa pun</span>
+                </div>
+                <div className="flex items-center gap-3 rounded-xl bg-white/95 dark:bg-gray-900/90 p-4 shadow-sm">
+                  <Shield className="w-5 h-5 text-white/80" />
+                  <span className="text-sm text-gray-900 dark:text-white">Promo eksklusif untuk member</span>
+                </div>
+                <div className="flex items-center gap-3 rounded-xl bg-white/95 dark:bg-gray-900/90 p-4 shadow-sm">
+                  <Users className="w-5 h-5 text-white/80" />
+                  <span className="text-sm text-gray-900 dark:text-white">Dukungan pelanggan 24/7</span>
+                </div>
+              </div>
+              <div className="text-white text-xs">
+                <div className="flex items-center gap-2">
+                  <Lock className="w-3.5 h-3.5" />
+                  Data Anda aman & terenkripsi
+                </div>
               </div>
             </div>
-            <h1 className="text-2xl font-bold text-white mb-1 drop-shadow-lg">
-              Villa Sawarna
-            </h1>
-            <p className="text-white/90 text-base drop-shadow-md">
-              Login ke akun Anda
-            </p>
-            
-            {/* Status Login Info */}
-            {user && (
-              <div className="mt-4 p-3 bg-green-500/80 border border-green-400/50 rounded-lg backdrop-blur-sm">
-                <p className="text-sm text-white mb-2">
-                  Anda sudah login sebagai: <span className="font-semibold">{user.name}</span>
-                </p>
-                <p className="text-xs text-green-100 mb-2">
-                  Login via: {user.loginMethod === 'whatsapp' ? 'WhatsApp' : user.loginMethod === 'email' ? 'Email' : 'Google'}
-                  {user.phoneNumber && ` (${user.phoneNumber})`}
-                </p>
-                <Button 
-                  onClick={handleLogout}
-                  variant="outline" 
-                  size="sm"
-                  className="text-white border-white/50 hover:bg-white/20 hover:border-white"
-                >
-                  Logout
-                </Button>
-              </div>
-            )}
           </div>
 
+          {/* Right Form column */}
+          <div className={`relative flex items-center justify-center py-10 lg:py-0 bg-gradient-to-b from-white to-white/70 dark:from-gray-950 dark:to-gray-900/80 ${shouldAnimate ? (mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4') : ''} transition-all duration-700`} style={shouldAnimate ? { transitionDelay: mounted ? '150ms' : undefined } : undefined}>
+            <div className="pointer-events-none absolute -top-10 -right-10 h-56 w-56 rounded-full bg-ocean/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-16 -left-10 h-56 w-56 rounded-full bg-coral/10 blur-3xl" />
+
+            <div className="relative z-10 w-full max-w-md px-4">
+              <div className="mb-6 text-center lg:hidden">
+                <img 
+                  src="/images/logo-villasawarna.png" 
+                  alt="Villa Sawarna Logo" 
+                  className="h-14 mx-auto"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = 'none';
+                    (e.currentTarget.nextElementSibling as HTMLElement | null)?.classList.remove('hidden');
+                  }}
+                />
+                <h2 className="mt-4 text-2xl font-bold">Login ke akun Anda</h2>
+                <p className="text-gray-600 dark:text-gray-400">Nikmati fitur lengkap Villa Sawarna</p>
+
+                {/* Mobile benefits grid */}
+                <div className="mt-5 grid grid-cols-2 gap-3 text-left">
+                  <div className="flex items-center gap-2 rounded-lg bg-white/95 dark:bg-gray-900/90 p-3 shadow-sm">
+                    <Heart className="w-4 h-4 text-red-400" />
+                    <span className="text-xs text-gray-900 dark:text-white">Wishlist & pengingat harga</span>
+                  </div>
+                  <div className="flex items-center gap-2 rounded-lg bg-white/95 dark:bg-gray-900/90 p-3 shadow-sm">
+                    <Star className="w-4 h-4 text-yellow-300" />
+                    <span className="text-xs text-gray-900 dark:text-white">Ulasan & rating terpercaya</span>
+                  </div>
+                  <div className="flex items-center gap-2 rounded-lg bg-white/95 dark:bg-gray-900/90 p-3 shadow-sm">
+                    <CheckCircle className="w-4 h-4 text-green-300" />
+                    <span className="text-xs text-gray-900 dark:text-white">Login cepat & aman</span>
+                  </div>
+                  <div className="flex items-center gap-2 rounded-lg bg-white/95 dark:bg-gray-900/90 p-3 shadow-sm">
+                    <Globe className="w-4 h-4 text-blue-300" />
+                    <span className="text-xs text-gray-900 dark:text-white">Akses dari perangkat apa pun</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Desktop-only logo above login card */}
+              <div className="hidden lg:block text-center mb-6">
+                <img 
+                  src="/images/logo-villasawarna.png" 
+                  alt="Villa Sawarna Logo" 
+                  className="h-24 mx-auto"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+                />
+                <div className="mt-2 text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white">Villa Sawarna</div>
+              </div>
+              {/* Desktop: centered login card */}
+              <div className="lg:flex lg:items-center lg:justify-center">
           {/* Login Card */}
-          <Card className="shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-white/20">
+                <Card className="shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md flex-1">
             <CardContent className="p-3">
               {/* Google OAuth Login */}
               <div className="text-center mb-3">
@@ -739,6 +796,9 @@ const LoginPage: React.FC = () => {
                     </div>
                   </form>
                 )}
+                  </div>
+                  </CardContent>
+                </Card>
               </div>
 
               {/* Register Link */}
@@ -752,50 +812,7 @@ const LoginPage: React.FC = () => {
                   </Link>
                 </Button>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Quick Features */}
-          <Card className="mt-4 shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-white/20">
-            <CardHeader className="text-center pb-3">
-              <CardTitle className="text-base font-bold text-gray-900 dark:text-white">
-                Fitur Setelah Login
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="flex items-center gap-3">
-                <Users className="w-4 h-4 text-ocean dark:text-ocean-light flex-shrink-0" />
-                <span className="text-sm text-gray-700 dark:text-gray-200">Dashboard pengguna lengkap</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Star className="w-4 h-4 text-yellow-500 flex-shrink-0" />
-                <span className="text-sm text-gray-700 dark:text-gray-200">Review & rating properti</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Heart className="w-4 h-4 text-red-500 flex-shrink-0" />
-                <span className="text-sm text-gray-700 dark:text-gray-200">Wishlist pribadi</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                <span className="text-sm text-gray-700 dark:text-gray-200">Notifikasi real-time</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Back to Home */}
-          <div className="text-center mt-6">
-            <Button asChild variant="ghost" className="gap-2 text-white/80 hover:text-white hover:bg-white/10">
-              <Link to="/">
-                <ArrowLeft className="w-4 h-4" />
-                Kembali ke Beranda
-              </Link>
-            </Button>
           </div>
-
-          {/* Security Info */}
-          <div className="flex items-center justify-center gap-2 text-xs text-white/70 mt-4">
-            <Lock className="w-3 h-3" />
-            <span>Data Anda aman dan terenkripsi</span>
           </div>
         </div>
       </div>

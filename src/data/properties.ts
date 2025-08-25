@@ -2332,8 +2332,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "0838-4134-8177" },
-    coordinates: [-6.974516327669769, 106.29791816930964],
-    nearbyAttractions: []
+    coordinates: [-6.974516327669769, 106.29791816930964]
   },
   {
     id: "villa-cariang-resort",
@@ -2467,8 +2466,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.97445948392045, 106.29753739059582],
-    nearbyAttractions: []
+    coordinates: [-6.97445948392045, 106.29753739059582]
   },
   {
     id: "villa-mang-engkos-goa-langir",
@@ -2609,8 +2607,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       }
     ],
     contact: { phone: "083877080088" },
-    coordinates: [-6.975993908906087, 106.29566972542729],
-    nearbyAttractions: []
+    coordinates: [-6.975993908906087, 106.29566972542729]
   },
   {
     id: "villa-pondok-indah",
@@ -2696,8 +2693,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.975869538611312, 106.29469129667444],
-    nearbyAttractions: []
+    coordinates: [-6.975869538611312, 106.29469129667444]
   },
   {
     id: "villa-amira-sawana",
@@ -2791,8 +2787,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983452322598835, 106.30962763855953],
-    nearbyAttractions: []
+    coordinates: [-6.983452322598835, 106.30962763855953]
   },
   {
     id: "villa-ablo-sawarna",
@@ -2866,8 +2861,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.983452322598835, 106.30962763855953],
-    nearbyAttractions: []
+    coordinates: [-6.983452322598835, 106.30962763855953]
   }
 ];
 
@@ -2947,8 +2941,7 @@ Lokasi strategis homestay ini memudahkan akses ke berbagai destinasi wisata popu
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.98115695793151, 106.31023098316602],
-    nearbyAttractions: []
+    coordinates: [-6.98115695793151, 106.31023098316602]
   },
   {
     id: "homestay-putri-asih",
@@ -3026,8 +3019,7 @@ Lokasi strategis homestay ini memudahkan akses ke berbagai destinasi wisata popu
       ]
     },
     contact: { phone: "083877080088" },
-    coordinates: [-6.982424222247813, 106.30858813014812],
-    nearbyAttractions: []
+    coordinates: [-6.982424222247813, 106.30858813014812]
   }
 ];
 
