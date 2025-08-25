@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -13,78 +13,138 @@ interface DashboardTourProps {
 	isOpen: boolean;
 	onClose: () => void;
 	steps: TourStep[];
+	onTabChange?: (tabValue: string) => void;
 }
 
-const ESTIMATED_WIDTH = 300;
-const ESTIMATED_HEIGHT = 160;
+// Removed unused constants since positioning is now fixed
 
-const DashboardTour: React.FC<DashboardTourProps> = ({ isOpen, onClose, steps }) => {
+const DashboardTour: React.FC<DashboardTourProps> = ({ isOpen, onClose, steps, onTabChange }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
-	const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
-	const [placement, setPlacement] = useState<'above' | 'below'>('below');
 	const overlayRef = useRef<HTMLDivElement>(null);
 
 	const currentStep = useMemo(() => steps[currentIndex], [steps, currentIndex]);
 
-	useLayoutEffect(() => {
-		if (!isOpen) return;
-		const updatePosition = () => {
-			const target = document.querySelector(currentStep?.targetSelector) as HTMLElement | null;
-			if (!target) {
-				setPosition({ top: 80, left: window.innerWidth - Math.min(ESTIMATED_WIDTH + 24, window.innerWidth - 16) - 12 });
-				setPlacement('below');
-				return;
+	// Function to scroll to tab element
+	const scrollToTab = useCallback((targetSelector: string) => {
+		const target = document.querySelector(targetSelector) as HTMLElement;
+		if (target) {
+			// Check if we're on mobile (screen width < 768px)
+			const isMobile = window.innerWidth < 768;
+			
+			if (isMobile) {
+				// For mobile, scroll the tab into view with smooth animation
+				target.scrollIntoView({
+					behavior: 'smooth',
+					block: 'center',
+					inline: 'center'
+				});
+				
+				// Add a small delay to ensure the scroll completes
+				setTimeout(() => {
+					// Highlight the tab briefly
+					target.style.transition = 'all 0.3s ease';
+					target.style.transform = 'scale(1.05)';
+					target.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.5)';
+					
+					setTimeout(() => {
+						target.style.transform = 'scale(1)';
+						target.style.boxShadow = '';
+					}, 300);
+				}, 500);
+			} else {
+				// For desktop, just scroll into view
+				target.scrollIntoView({
+					behavior: 'smooth',
+					block: 'nearest'
+				});
 			}
-			const rect = target.getBoundingClientRect();
-			const scrollY = window.scrollY || document.documentElement.scrollTop;
-			const scrollX = window.scrollX || document.documentElement.scrollLeft;
+		}
+	}, []);
 
-			const preferBelow = rect.bottom + ESTIMATED_HEIGHT + 16 <= window.innerHeight;
-			setPlacement(preferBelow ? 'below' : 'above');
+	// Function to handle next step with auto tab switching
+	const handleNextStep = useCallback(() => {
+		const nextIndex = Math.min(currentIndex + 1, steps.length - 1);
+		
+		// Check if current step is a tab step and switch tab if needed
+		if (onTabChange && currentStep?.targetSelector?.includes('tab-')) {
+			const tabValue = currentStep.targetSelector.replace("[data-tour='tab-", "").replace("']", "");
+			onTabChange(tabValue);
+			
+			// Scroll to the tab after switching
+			setTimeout(() => {
+				scrollToTab(currentStep.targetSelector);
+			}, 100);
+		}
+		
+		setCurrentIndex(nextIndex);
+	}, [currentIndex, steps.length, currentStep, onTabChange, scrollToTab]);
 
-			const top = (preferBelow ? rect.bottom + 10 : rect.top - ESTIMATED_HEIGHT - 10) + scrollY;
-			let left = rect.left + scrollX + Math.max(0, rect.width / 2 - ESTIMATED_WIDTH / 2);
-			left = Math.max(12, Math.min(left, scrollX + window.innerWidth - ESTIMATED_WIDTH - 12));
-			setPosition({ top, left });
-		};
+	// Function to handle previous step
+	const handlePrevStep = useCallback(() => {
+		const prevIndex = Math.max(currentIndex - 1, 0);
+		setCurrentIndex(prevIndex);
+	}, [currentIndex]);
 
-		updatePosition();
-		const obs = new ResizeObserver(updatePosition);
-		obs.observe(document.body);
-		window.addEventListener('resize', updatePosition);
-		window.addEventListener('scroll', updatePosition, { passive: true });
-		return () => {
-			obs.disconnect();
-			window.removeEventListener('resize', updatePosition);
-			window.removeEventListener('scroll', updatePosition);
-		};
+	// Removed positioning logic since popup is now always centered
+
+	// Auto-scroll to tab when tour starts or step changes
+	useEffect(() => {
+		if (isOpen && currentStep?.targetSelector?.includes('tab-')) {
+			// Add a delay to ensure the tab has been switched
+			setTimeout(() => {
+				scrollToTab(currentStep.targetSelector);
+			}, 300);
+		}
+	}, [isOpen, currentStep, scrollToTab]);
+
+	// Additional effect to handle mobile tab scrolling when tour is active
+	useEffect(() => {
+		if (isOpen && currentStep?.targetSelector?.includes('tab-')) {
+			const isMobile = window.innerWidth < 768;
+			if (isMobile) {
+				// For mobile, also scroll the tab navigation container
+				const tabNavigation = document.getElementById('mobile-tab-navigation');
+				if (tabNavigation) {
+					setTimeout(() => {
+						tabNavigation.scrollIntoView({
+							behavior: 'smooth',
+							block: 'nearest'
+						});
+					}, 400);
+				}
+			}
+		}
 	}, [isOpen, currentStep]);
 
 	useEffect(() => {
 		if (!isOpen) return;
 		const handleKey = (e: KeyboardEvent) => {
 			if (e.key === 'Escape') onClose();
-			if (e.key === 'ArrowRight') setCurrentIndex((i) => Math.min(i + 1, steps.length - 1));
-			if (e.key === 'ArrowLeft') setCurrentIndex((i) => Math.max(i - 1, 0));
+			if (e.key === 'ArrowRight') handleNextStep();
+			if (e.key === 'ArrowLeft') handlePrevStep();
 		};
 		document.addEventListener('keydown', handleKey);
 		return () => document.removeEventListener('keydown', handleKey);
-	}, [isOpen, steps.length, onClose]);
+	}, [isOpen, steps.length, onClose, handleNextStep, handlePrevStep]);
 
 	if (!isOpen) return null;
 
 	return (
-		<div ref={overlayRef} className="fixed inset-0 z-[150]">
+		<div ref={overlayRef} className="fixed inset-0 z-[9999]">
 			{/* Backdrop */}
-			<div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" onClick={onClose} />
+			<div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]" onClick={onClose} />
 
 			{/* Bubble */}
 			<div
 				className={cn(
-					"fixed left-4 top-6 sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 w-[88vw] max-w-[320px] sm:max-w-[360px] bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200/80 dark:border-gray-700/60",
-					"animate-in fade-in-0 zoom-in-95 duration-200"
+					"fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[88vw] max-w-[320px] sm:max-w-[360px] bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200/80 dark:border-gray-700/60",
+					"animate-in fade-in-0 zoom-in-95 duration-200",
+					"mx-4" // Add horizontal margin for mobile
 				)}
-				style={{}}
+				style={{
+					maxHeight: '80vh', // Ensure it doesn't exceed viewport height
+					overflowY: 'auto' // Allow scrolling if content is too long
+				}}
 				role="dialog"
 				aria-modal="true"
 				aria-label="Tour Dashboard"
@@ -110,7 +170,7 @@ const DashboardTour: React.FC<DashboardTourProps> = ({ isOpen, onClose, steps })
 						</div>
 						<div className="flex items-center gap-2">
 							<button
-								onClick={() => setCurrentIndex((i) => Math.max(i - 1, 0))}
+								onClick={handlePrevStep}
 								disabled={currentIndex === 0}
 								className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md border text-xs sm:text-sm disabled:opacity-40"
 							>
@@ -119,7 +179,7 @@ const DashboardTour: React.FC<DashboardTourProps> = ({ isOpen, onClose, steps })
 							</button>
 							{currentIndex < steps.length - 1 ? (
 								<button
-									onClick={() => setCurrentIndex((i) => Math.min(i + 1, steps.length - 1))}
+									onClick={handleNextStep}
 									className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm"
 								>
 									Lanjut

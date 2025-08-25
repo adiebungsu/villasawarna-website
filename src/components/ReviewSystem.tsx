@@ -120,6 +120,7 @@ const ReviewSystem: React.FC<ReviewSystemProps> = ({
   const renderStars = (rating: number, interactive = false, size = 'default') => {
     const starSize = size === 'small' ? 'w-4 h-4' : size === 'large' ? 'w-6 h-6' : 'w-5 h-5';
     
+    const activeThreshold = interactive ? Math.max(hoveredRating, rating) : rating;
     return (
       <div className="flex gap-1">
         {[1, 2, 3, 4, 5].map((star) => (
@@ -129,10 +130,9 @@ const ReviewSystem: React.FC<ReviewSystemProps> = ({
               starSize,
               'transition-colors',
               {
-                'text-yellow-400 fill-yellow-400': star <= rating,
-                'text-gray-300 dark:text-gray-600': star > rating,
+                'text-yellow-400 fill-yellow-400': star <= activeThreshold,
+                'text-gray-300 dark:text-gray-600': star > activeThreshold,
                 'cursor-pointer hover:text-yellow-400': interactive,
-                'text-yellow-400 fill-yellow-400': interactive && star <= hoveredRating
               }
             )}
             onMouseEnter={() => interactive && setHoveredRating(star)}

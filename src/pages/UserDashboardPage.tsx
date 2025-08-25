@@ -183,6 +183,24 @@ const UserDashboardPage: React.FC = () => {
     }
   }, []);
 
+  // Auto-scroll to active tab on mobile when tab changes
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    if (isMobile && activeTab) {
+      const activeTabElement = document.querySelector(`[data-tour="tab-${activeTab}"]`) as HTMLElement;
+      if (activeTabElement) {
+        // Add a small delay to ensure the tab switch animation completes
+        setTimeout(() => {
+          activeTabElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'center'
+          });
+        }, 100);
+      }
+    }
+  }, [activeTab]);
+
   // Use real data from UserDataProvider
   const { 
     bookings, 
@@ -200,7 +218,7 @@ const UserDashboardPage: React.FC = () => {
   // Use real visit history data
   const { visitHistory, totalVisits, uniquePropertiesVisited } = useVisitHistory();
 
-  const handleSearch = (filters: any) => {
+  const handleSearch = (filters: Record<string, unknown>) => {
     // Handle search functionality
     console.log('Search filters:', filters);
     toast({
@@ -209,7 +227,7 @@ const UserDashboardPage: React.FC = () => {
     });
   };
 
-  const handleFiltersChange = (filters: any) => {
+  const handleFiltersChange = (filters: Record<string, unknown>) => {
     // Handle filter changes
     console.log('Filters changed:', filters);
   };
@@ -442,33 +460,33 @@ const UserDashboardPage: React.FC = () => {
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
                          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               {/* Mobile Tab Navigation - Horizontal Scroll */}
-              <div className="md:hidden w-full overflow-x-auto">
+              <div className="md:hidden w-full overflow-x-auto scrollbar-hide" id="mobile-tab-navigation">
                 <TabsList className="flex w-max bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
-                  <TabsTrigger data-tour="tab-overview" value="overview" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
+                  <TabsTrigger data-tour="tab-overview" value="overview" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <TrendingUp className="w-3 h-3" />
                     <span>Overview</span>
                   </TabsTrigger>
-                  <TabsTrigger data-tour="tab-profile" value="profile" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
+                  <TabsTrigger data-tour="tab-profile" value="profile" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <User className="w-3 h-3" />
                     <span>Profil</span>
                   </TabsTrigger>
-                  <TabsTrigger data-tour="tab-bookings" value="bookings" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
+                  <TabsTrigger data-tour="tab-bookings" value="bookings" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <Calendar className="w-3 h-3" />
                     <span>Booking</span>
                   </TabsTrigger>
-                  <TabsTrigger data-tour="tab-wishlist" value="wishlist" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
+                  <TabsTrigger data-tour="tab-wishlist" value="wishlist" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <Heart className="w-3 h-3" />
                     <span>Wishlist</span>
                   </TabsTrigger>
-                  <TabsTrigger data-tour="tab-notifications" value="notifications" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
+                  <TabsTrigger data-tour="tab-notifications" value="notifications" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <Bell className="w-3 h-3" />
                     <span>Notif</span>
                   </TabsTrigger>
-                  <TabsTrigger value="visits" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
+                  <TabsTrigger value="visits" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <Eye className="w-3 h-3" />
                     <span>Riwayat</span>
                   </TabsTrigger>
-                  <TabsTrigger value="search" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3">
+                  <TabsTrigger value="search" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <Search className="w-3 h-3" />
                     <span>Cari</span>
                   </TabsTrigger>
@@ -1377,6 +1395,7 @@ const UserDashboardPage: React.FC = () => {
         isOpen={isTourOpen}
         onClose={() => setIsTourOpen(false)}
         steps={tourSteps}
+        onTabChange={setActiveTab}
       />
     </>
   );
