@@ -55,6 +55,7 @@ import {
   Waves,
   Wind,
   ArrowLeft,
+  ArrowUp,
   Loader2,
   LogOut,
   X,
@@ -428,79 +429,7 @@ const UserDashboardPage: React.FC = () => {
     setShowRedemptionModal(false);
   };
 
-  // AI Recommendations System
-  const aiRecommendations = useMemo(() => {
-    const recommendations = [];
-    
-    // Tier-based recommendations
-    if (loyaltyData.tier === 'Platinum') {
-      recommendations.push({
-        id: 'platinum-luxury',
-        title: '🏰 Luxury Villa Experience',
-        description: 'Nikmati villa premium dengan butler service dan private pool',
-        reason: 'Platinum members exclusive',
-        priority: 'high',
-        estimatedPrice: 'Rp 5.000.000 - 8.000.000',
-        image: 'https://i.imgur.com/KNZs2rS.jpeg'
-      });
-    }
-    
-    if (loyaltyData.tier === 'Gold' || loyaltyData.tier === 'Platinum') {
-      recommendations.push({
-        id: 'gold-comfort',
-        title: '⭐ Comfort Plus Villa',
-        description: 'Villa dengan fasilitas lengkap dan view terbaik',
-        reason: 'Gold+ members recommendation',
-        priority: 'medium',
-        estimatedPrice: 'Rp 3.000.000 - 5.000.000',
-        image: 'https://i.imgur.com/KNZs2rS.jpeg'
-      });
-    }
-    
-    // Seasonal recommendations
-    const currentMonth = new Date().getMonth() + 1;
-    if (currentMonth >= 6 && currentMonth <= 8) {
-      recommendations.push({
-        id: 'summer-beach',
-        title: '🌊 Beachfront Summer Villa',
-        description: 'Villa tepi pantai dengan akses langsung ke laut',
-        reason: 'Perfect for summer vacation',
-        priority: 'high',
-        estimatedPrice: 'Rp 2.500.000 - 4.000.000',
-        image: 'https://i.imgur.com/KNZs2rS.jpeg'
-      });
-    }
-    
-    if (currentMonth === 12) {
-      recommendations.push({
-        id: 'holiday-special',
-        title: '🎄 Holiday Special Villa',
-        description: 'Villa dengan dekorasi natal dan promo liburan',
-        reason: 'Holiday season special',
-        priority: 'high',
-        estimatedPrice: 'Rp 3.500.000 - 6.000.000',
-        image: 'https://i.imgur.com/KNZs2rS.jpeg'
-      });
-    }
-    
-    // Budget-based recommendations
-    if (loyaltyData.totalPoints >= 2000) {
-      recommendations.push({
-        id: 'budget-friendly',
-        title: '💰 Budget-Friendly Villa',
-        description: 'Villa berkualitas dengan harga terjangkau',
-        reason: 'Based on your spending pattern',
-        priority: 'medium',
-        estimatedPrice: 'Rp 1.500.000 - 2.500.000',
-        image: 'https://i.imgur.com/KNZs2rS.jpeg'
-      });
-    }
-    
-    return recommendations.sort((a, b) => {
-      const priorityOrder = { 'high': 3, 'medium': 2, 'low': 1 };
-      return priorityOrder[b.priority] - priorityOrder[a.priority];
-    });
-  }, [loyaltyData.tier, loyaltyData.totalPoints]);
+
 
   // Check-in Reminders System
   const checkInReminders = useMemo(() => {
@@ -728,6 +657,12 @@ Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
       description: 'Kelola informasi akun dan preferensi Anda di sini.'
     },
     {
+      id: 'tab-bookings',
+      targetSelector: "[data-tour='tab-bookings']",
+      title: 'Booking',
+      description: 'Lihat dan kelola semua reservasi properti Anda.'
+    },
+    {
       id: 'tab-wishlist',
       targetSelector: "[data-tour='tab-wishlist']",
       title: 'Wishlist',
@@ -738,6 +673,36 @@ Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
       targetSelector: "[data-tour='tab-notifications']",
       title: 'Notifikasi',
       description: 'Pantau update terbaru seperti promo dan info booking.'
+    },
+    {
+      id: 'tab-messages',
+      targetSelector: "[data-tour='tab-messages']",
+      title: 'Pesan',
+      description: 'Kelola percakapan dengan tim support dan pemilik properti.'
+    },
+    {
+      id: 'tab-travel-plans',
+      targetSelector: "[data-tour='tab-travel-plans']",
+      title: 'Travel Plans',
+      description: 'Buat dan kelola rencana perjalanan Anda ke Sawarna.'
+    },
+    {
+      id: 'tab-visits',
+      targetSelector: "[data-tour='tab-visits']",
+      title: 'Riwayat Kunjungan',
+      description: 'Lihat properti yang pernah Anda kunjungi dan bookmark.'
+    },
+    {
+      id: 'tab-loyalty',
+      targetSelector: "[data-tour='tab-loyalty']",
+      title: 'Rewards & Loyalty',
+      description: 'Pantau poin loyalty dan manfaat member Anda.'
+    },
+    {
+      id: 'tab-search',
+      targetSelector: "[data-tour='tab-search']",
+      title: 'Pencarian',
+      description: 'Cari properti dengan filter dan preferensi yang disesuaikan.'
     }
   ], []);
 
@@ -1057,34 +1022,62 @@ Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
         <div className="container mx-auto px-3 md:px-4">
                      {/* Header */}
            <div className="mb-6 md:mb-8">
-             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50 dark:from-slate-800/40 dark:via-gray-800/40 dark:to-zinc-800/40 p-6 rounded-2xl border border-slate-200/60 dark:border-slate-700/40 shadow-xl backdrop-blur-sm">
                <div className="flex-1">
-                 <div className="flex items-center gap-3 mb-2">
-                   <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-ocean to-coral rounded-lg flex items-center justify-center">
-                     <User className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                 <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-3">
+                   <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden shadow-lg mx-auto sm:mx-0 border-4 border-white dark:border-gray-800 ring-4 ring-blue-100 dark:ring-blue-900/30">
+                     {user?.profileImage ? (
+                       <img 
+                         src={user.profileImage} 
+                         alt={user.name || 'User Profile'} 
+                         className="w-full h-full object-cover"
+                       />
+                     ) : (
+                       <div className="w-full h-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center">
+                         <User className="w-8 h-8 md:w-10 md:h-10 text-white" />
+                       </div>
+                     )}
                    </div>
-                   <div className="flex-1 min-w-0">
-                     <h1 id="dashboard-title" className="text-xl md:text-3xl font-bold text-gray-900 dark:text-white truncate">
-                       Dashboard Pengguna
+                   <div className="flex-1 min-w-0 text-center sm:text-left">
+                     <h1 id="dashboard-title" className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-600 to-purple-600 bg-clip-text text-transparent dark:from-white dark:via-blue-300 dark:to-purple-300 truncate mb-1">
+                       {user.name || 'User'}
                      </h1>
-                     <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 truncate">
-                       Selamat datang kembali, {user.name || 'User'}! 👋
+                     <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300 truncate mt-1">
+                       Selamat datang kembali! 👋
                      </p>
+                     <p className="text-xs sm:text-sm md:text-base text-gray-500 dark:text-gray-400 font-medium mt-1">
+                       Dashboard Pengguna
+                     </p>
+                     <div className="flex items-center gap-2 mt-3 justify-center sm:justify-start">
+                       <div className="h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 flex-1 rounded-full max-w-[60px] sm:max-w-none"></div>
+                       <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                       <div className="w-1 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
+                       <div className="h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 flex-1 rounded-full max-w-[60px] sm:max-w-none"></div>
+                     </div>
+                     
+
                    </div>
                  </div>
-                 <div className="flex flex-wrap items-center gap-2 md:gap-4 text-xs md:text-sm text-gray-500 dark:text-gray-400">
-                   <span>Member sejak {new Date(stats.memberSince).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</span>
-                   <span className="hidden md:inline">•</span>
-                   <span>Level: {stats.memberLevel} Member</span>
-                   <span className="hidden md:inline">•</span>
-                   <span>Poin: {stats.loyaltyPoints.toLocaleString()}</span>
+                 <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 md:gap-6 text-sm md:text-base">
+                   <div className="flex items-center gap-2 bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-full w-full sm:w-auto justify-center sm:justify-start">
+                     <Calendar className="w-4 h-4 text-blue-600" />
+                     <span className="text-blue-700 dark:text-blue-300 font-medium text-center sm:text-left">Member sejak {new Date(stats.memberSince).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</span>
+                   </div>
+                   <div className="flex items-center gap-2 bg-amber-50 dark:bg-amber-900/20 px-3 py-2 rounded-full w-full sm:w-auto justify-center sm:justify-start">
+                     <Award className="w-4 h-4 text-amber-600" />
+                     <span className="text-amber-700 dark:text-amber-300 font-medium text-center sm:text-left">Level: {stats.memberLevel} Member</span>
+                   </div>
+                   <div className="flex items-center gap-2 bg-green-50 dark:bg-green-900/20 px-3 py-2 rounded-full w-full sm:w-auto justify-center sm:justify-start">
+                     <Star className="w-4 h-4 text-green-600" />
+                     <span className="text-green-700 dark:text-green-300 font-medium text-center sm:text-left">Poin: {stats.loyaltyPoints.toLocaleString()}</span>
+                   </div>
                  </div>
                </div>
                
-               <div className="flex items-center gap-3 md:gap-4">
-                 <div className="text-right">
-                   <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">Terakhir login</p>
-                   <p className="text-xs md:text-sm font-medium text-gray-900 dark:text-white">
+               <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6">
+                 <div className="text-center sm:text-right bg-gray-50 dark:bg-gray-800 px-4 py-3 rounded-xl w-full sm:w-auto">
+                   <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-1">Terakhir login</p>
+                   <p className="text-sm md:text-base font-semibold text-gray-900 dark:text-white">
                      {new Date().toLocaleDateString('id-ID', { 
                        weekday: 'long', 
                        hour: '2-digit', 
@@ -1092,12 +1085,6 @@ Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
                      })}
                    </p>
                  </div>
-                 <Avatar className="w-12 h-12 md:w-14 md:h-14 border-2 md:border-4 border-white dark:border-gray-800 shadow-lg">
-                   <AvatarImage src={user?.profileImage || undefined} alt={user?.name || 'User'} />
-                   <AvatarFallback className="bg-gradient-to-br from-ocean to-coral text-white text-sm md:text-lg font-semibold">
-                     {user?.name?.charAt(0).toUpperCase() || 'U'}
-                   </AvatarFallback>
-                 </Avatar>
                  
                  {/* Mobile Logout Button */}
                  <Button 
@@ -1108,9 +1095,9 @@ Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
                      setUser(null);
                      navigate('/logout');
                    }}
-                   className="md:hidden text-red-600 hover:text-red-700 border-red-200 hover:bg-red-50"
+                   className="md:hidden text-red-600 hover:text-red-700 border-red-200 hover:bg-red-50 shadow-md"
                  >
-                   <LogOut className="w-4 h-4 mr-1" />
+                   <LogOut className="w-4 h-4 mr-2" />
                    Logout
                  </Button>
 
@@ -1120,9 +1107,9 @@ Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
                      variant="outline" 
                      size="sm" 
                      onClick={clearDemoData}
-                     className="md:hidden text-orange-600 hover:text-orange-700 border-orange-200 hover:bg-orange-50"
+                     className="md:hidden text-orange-600 hover:text-orange-700 border-orange-200 hover:bg-orange-50 shadow-md"
                    >
-                     <XCircle className="w-4 h-4 mr-1" />
+                     <XCircle className="w-4 h-4 mr-2" />
                      Hapus Demo
                    </Button>
                  )}
@@ -1131,28 +1118,27 @@ Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
            </div>
 
                      {/* Quick Stats */}
-           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-6 mb-6 md:mb-8">
-            <Card className="relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500/10 to-blue-600/10 rounded-full -translate-y-10 translate-x-10"></div>
-                             <CardContent className="p-4 md:p-6 relative">
-                 <div className="flex items-center justify-between">
+           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 mb-8">
+            <Card className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 border-blue-200 dark:border-blue-700 hover:shadow-lg transition-all duration-300">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-400/20 to-blue-600/20 rounded-full -translate-y-12 translate-x-12"></div>
+              <CardContent className="p-5 md:p-6 relative">
+                 <div className="flex items-center justify-between mb-3">
                    <div>
-                     <p className="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400">Total Booking</p>
-                     <p className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{stats.totalBookings}</p>
+                     <p className="text-sm md:text-base font-semibold text-blue-700 dark:text-blue-300 mb-1">Total Booking</p>
+                     <p className="text-3xl md:text-4xl font-bold text-blue-900 dark:text-blue-100">{stats.totalBookings}</p>
                    </div>
-                   <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-500/10 rounded-xl flex items-center justify-center">
-                     <Calendar className="w-5 h-5 md:w-6 md:h-6 text-blue-600" />
+                   <div className="w-12 h-12 md:w-14 md:h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center">
+                     <Calendar className="w-6 h-6 md:w-7 md:h-7 text-blue-600" />
                    </div>
                  </div>
-                 <div className="mt-3 md:mt-4 flex items-center gap-1 md:gap-2 text-xs md:text-sm">
-                   <div className="flex items-center gap-1">
-                     <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-green-500" />
-                     <span className="text-green-600 font-medium">{stats.completedBookings}</span>
+                 <div className="flex items-center justify-between text-sm">
+                   <div className="flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-3 py-2 rounded-full">
+                     <CheckCircle className="w-4 h-4 text-green-600" />
+                     <span className="text-green-700 dark:text-green-300 font-semibold">{stats.completedBookings}</span>
                    </div>
-                   <span className="text-gray-400 hidden md:inline">•</span>
-                   <div className="flex items-center gap-1">
-                     <Clock className="w-3 h-3 md:w-4 md:h-4 text-yellow-500" />
-                     <span className="text-yellow-600 font-medium">{stats.pendingBookings}</span>
+                   <div className="flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/30 px-3 py-2 rounded-full">
+                     <Clock className="w-4 h-4 text-yellow-600" />
+                     <span className="text-yellow-700 dark:text-yellow-300 font-semibold">{stats.pendingBookings}</span>
                    </div>
                  </div>
                </CardContent>
@@ -1270,23 +1256,23 @@ Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
                     <Bell className="w-3 h-3" />
                     <span>Notif</span>
                   </TabsTrigger>
-                  <TabsTrigger value="messages" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
+                  <TabsTrigger data-tour="tab-messages" value="messages" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <MessageSquare className="w-3 h-3" />
                     <span>Pesan</span>
                   </TabsTrigger>
-                  <TabsTrigger value="travel-plans" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
+                  <TabsTrigger data-tour="tab-travel-plans" value="travel-plans" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <MapPin className="w-3 h-3" />
                     <span>Travel</span>
                   </TabsTrigger>
-                  <TabsTrigger value="visits" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
+                  <TabsTrigger data-tour="tab-visits" value="visits" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <Eye className="w-3 h-3" />
                     <span>Riwayat</span>
                   </TabsTrigger>
-                  <TabsTrigger value="loyalty" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
+                  <TabsTrigger data-tour="tab-loyalty" value="loyalty" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <Award className="w-3 h-3" />
                     <span>Rewards</span>
                   </TabsTrigger>
-                  <TabsTrigger value="search" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
+                  <TabsTrigger data-tour="tab-search" value="search" className="flex items-center gap-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-xs whitespace-nowrap px-3 transition-all duration-200">
                     <Search className="w-3 h-3" />
                     <span>Cari</span>
                   </TabsTrigger>
@@ -1303,7 +1289,7 @@ Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
                   <User className="w-4 h-4" />
                   <span>Profil</span>
                 </TabsTrigger>
-                <TabsTrigger value="bookings" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
+                <TabsTrigger data-tour="tab-bookings" value="bookings" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
                   <Calendar className="w-4 h-4" />
                   <span>Booking</span>
                 </TabsTrigger>
@@ -1315,19 +1301,19 @@ Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
                   <Bell className="w-4 h-4" />
                   <span>Notifikasi</span>
                 </TabsTrigger>
-                <TabsTrigger value="messages" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
+                <TabsTrigger data-tour="tab-messages" value="messages" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
                   <MessageSquare className="w-4 h-4" />
                   <span>Pesan</span>
                 </TabsTrigger>
-                <TabsTrigger value="travel-plans" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
+                <TabsTrigger data-tour="tab-travel-plans" value="travel-plans" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
                   <MapPin className="w-4 h-4" />
                   <span>Travel Plans</span>
                 </TabsTrigger>
-                <TabsTrigger value="visits" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
+                <TabsTrigger data-tour="tab-visits" value="visits" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
                   <Eye className="w-4 h-4" />
                   <span>Riwayat</span>
                 </TabsTrigger>
-                <TabsTrigger value="search" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
+                <TabsTrigger data-tour="tab-search" value="search" className="flex items-center gap-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm text-sm">
                   <Search className="w-4 h-4" />
                   <span>Pencarian</span>
                  </TabsTrigger>
@@ -1757,42 +1743,7 @@ Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
                           </div>
                         </div>
 
-                        {/* AI Recommendations */}
-                        {aiRecommendations.length > 0 && (
-                          <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
-                            <h4 className="font-medium text-purple-800 dark:text-purple-200 mb-3 flex items-center gap-2">
-                              <Sparkles className="w-5 h-5" />
-                              Rekomendasi AI untuk Anda
-                            </h4>
-                            <div className="space-y-3">
-                              {aiRecommendations.slice(0, 2).map((rec) => (
-                                <div key={rec.id} className="p-3 bg-white/50 dark:bg-gray-800/50 rounded-lg hover:bg-white/70 dark:hover:bg-gray-800/70 transition-colors cursor-pointer">
-                                  <div className="flex items-start gap-3">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-800/30 dark:to-pink-800/30 rounded-lg flex items-center justify-center">
-                                      <span className="text-lg">{rec.title.split(' ')[0]}</span>
-                                    </div>
-                                    <div className="flex-1">
-                                      <h5 className="font-medium text-purple-900 dark:text-purple-100 mb-1">
-                                        {rec.title}
-                                      </h5>
-                                      <p className="text-sm text-purple-700 dark:text-purple-300 mb-2">
-                                        {rec.description}
-                                      </p>
-                                      <div className="flex items-center justify-between">
-                                        <span className="text-xs text-purple-600 dark:text-purple-400 font-medium">
-                                          {rec.reason}
-                                        </span>
-                                        <span className="text-sm font-medium text-purple-900 dark:text-purple-100">
-                                          {rec.estimatedPrice}
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
+
 
                         {/* Check-in Reminders */}
                         {checkInReminders.length > 0 && (
