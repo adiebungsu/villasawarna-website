@@ -682,7 +682,7 @@ const Index = () => {
                 .map((article) => (
                 <Link 
                   key={article.id} 
-                  to={`/article/${article.id}`}
+                  to={`/article/${article.slug}`}
                   className="group"
                 >
                   <div className="bg-white dark:bg-gray-800 rounded-xl md:rounded-2xl overflow-hidden shadow-md md:shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:-translate-y-1 md:hover:-translate-y-2">

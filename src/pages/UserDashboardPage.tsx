@@ -1035,7 +1035,7 @@ Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
                      ) : (
                        <div className="w-full h-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center">
                          <User className="w-8 h-8 md:w-10 md:h-10 text-white" />
-                       </div>
+                   </div>
                      )}
                    </div>
                    <div className="flex-1 min-w-0 text-center sm:text-left">
@@ -1053,10 +1053,10 @@ Bergabunglah dengan program loyalty kami dan dapatkan rewards eksklusif! 🚀
                        <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
                        <div className="w-1 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
                        <div className="h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 flex-1 rounded-full max-w-[60px] sm:max-w-none"></div>
-                     </div>
+                   </div>
                      
 
-                   </div>
+                 </div>
                  </div>
                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 md:gap-6 text-sm md:text-base">
                    <div className="flex items-center gap-2 bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-full w-full sm:w-auto justify-center sm:justify-start">

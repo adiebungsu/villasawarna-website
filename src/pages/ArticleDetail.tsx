@@ -1,5 +1,5 @@
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Calendar, User, Clock, Tag, ChevronLeft, Share2, Facebook, Twitter, MessageCircle, ArrowUp } from 'lucide-react';
 import { articleData } from '@/data/articles';
@@ -19,6 +19,9 @@ const ArticleDetail = () => {
   const article = articleData.find(article => article.slug === id);
   
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [sections, setSections] = useState<{ id: string; title: string; children?: { id: string; title: string }[] }[]>([]);
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
   
   // Find related articles (same category) - will work once category is in data
   const relatedArticles = article && article.category
@@ -40,6 +43,70 @@ const ArticleDetail = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Build heading IDs and sections from rendered HTML content
+  useEffect(() => {
+    if (!contentRef.current) return;
+    const container = contentRef.current;
+    const headingNodes = Array.from(container.querySelectorAll('h2, h3')) as HTMLElement[];
+    const toSlug = (text: string) => text
+      .toLowerCase()
+      .replace(/[^a-z0-9\u00C0-\u024F\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-')
+      .substring(0, 80);
+    const seen = new Map<string, number>();
+    const flatBuilt: { id: string; title: string; level: number }[] = [];
+    headingNodes.forEach((el) => {
+      const title = el.textContent?.trim() || '';
+      if (!title) return;
+      let idAttr = el.getAttribute('id') || toSlug(title);
+      // ensure uniqueness
+      const count = seen.get(idAttr) || 0;
+      if (count > 0) {
+        idAttr = `${idAttr}-${count + 1}`;
+      }
+      seen.set(idAttr, count + 1);
+      el.setAttribute('id', idAttr);
+      flatBuilt.push({ id: idAttr, title, level: el.tagName === 'H2' ? 2 : 3 });
+    });
+    // Build hierarchical sections: H2 as parents, H3 as children under nearest H2
+    const parents: { id: string; title: string; children: { id: string; title: string }[] }[] = [];
+    let currentParent: { id: string; title: string; children: { id: string; title: string }[] } | null = null;
+    flatBuilt.forEach(h => {
+      if (h.level === 2) {
+        currentParent = { id: h.id, title: h.title, children: [] };
+        parents.push(currentParent);
+      } else if (h.level === 3) {
+        if (!currentParent) {
+          // If H3 appears before any H2, promote a synthetic parent
+          currentParent = { id: h.id + '-section', title: 'Bagian', children: [] };
+          parents.push(currentParent);
+        }
+        currentParent.children.push({ id: h.id, title: h.title });
+      }
+    });
+    setSections(parents.length > 0 ? parents : flatBuilt.map(h => ({ id: h.id, title: h.title })));
+
+    // Scrollspy via IntersectionObserver
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSectionId((entry.target as HTMLElement).id);
+        }
+      });
+    }, { root: null, rootMargin: '0px 0px -65% 0px', threshold: 0.1 });
+
+    const observed: HTMLElement[] = [];
+    headingNodes.forEach((el) => {
+      observer.observe(el);
+      observed.push(el as HTMLElement);
+    });
+    return () => {
+      observed.forEach(el => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, [article?.content]);
 
   const handleCategoryClick = (category: string) => {
     navigate(`/articles?category=${encodeURIComponent(category)}`);
@@ -258,6 +325,7 @@ const ArticleDetail = () => {
 
                   {/* Article Content */}
                   <div 
+                    ref={contentRef}
                     className="prose dark:prose-invert max-w-none prose-headings:text-gray-800 dark:prose-headings:text-white prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-a:text-ocean dark:prose-a:text-ocean-light prose-strong:text-gray-800 dark:prose-strong:text-white prose-li:text-gray-600 dark:prose-li:text-gray-300 prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-300 prose-blockquote:border-gray-200 dark:prose-blockquote:border-gray-700 prose-ul:text-gray-600 dark:prose-ul:text-gray-300 prose-ol:text-gray-600 dark:prose-ol:text-gray-300 prose-hr:border-gray-200 dark:prose-hr:border-gray-700 prose-table:text-gray-600 dark:prose-table:text-gray-300 prose-th:border-gray-200 dark:prose-th:border-gray-700 prose-td:border-gray-200 dark:prose-td:border-gray-700 prose-code:text-gray-800 dark:prose-code:text-gray-200 prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 prose-pre:text-gray-800 dark:prose-pre:text-gray-200"
                     dangerouslySetInnerHTML={{ __html: article.content }}
                   />
@@ -268,7 +336,39 @@ const ArticleDetail = () => {
 
             {/* Sidebar */}
             <div className="md:col-span-1">
-               <ArticleSidebar />
+              {/* Quick Navigation */}
+              {sections.length > 0 && (
+                <nav className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-5 mb-6 sticky top-24 border border-gray-100 dark:border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-gray-800 dark:text-white">Navigasi Cepat</h3>
+                  <ul className="space-y-2">
+                    {sections.map((s) => (
+                      <li key={s.id}>
+                        <a
+                          href={`#${s.id}`}
+                          className={`block text-sm transition-colors ${activeSectionId === s.id ? 'text-cyan-600 dark:text-cyan-300 font-semibold' : 'text-gray-600 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-300'}`}
+                        >
+                          {s.title}
+                        </a>
+                        {s.children && s.children.length > 0 && (
+                          <ul className="mt-1 ml-3 border-l border-gray-200 dark:border-gray-700 pl-3 space-y-1">
+                            {s.children.map((c) => (
+                              <li key={c.id}>
+                                <a
+                                  href={`#${c.id}`}
+                                  className={`block text-[13px] transition-colors ${activeSectionId === c.id ? 'text-cyan-600 dark:text-cyan-300 font-semibold' : 'text-gray-500 dark:text-gray-400 hover:text-cyan-600 dark:hover:text-cyan-300'}`}
+                                >
+                                  {c.title}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              )}
+              <ArticleSidebar />
             </div>
           </div>
         </div>
