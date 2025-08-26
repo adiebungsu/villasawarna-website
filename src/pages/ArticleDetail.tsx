@@ -9,8 +9,10 @@ import { Button } from '@/components/ui/button';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SEO from '@/components/SEO';
 import OptimizedImage from '@/components/OptimizedImage';
+import { useTranslation } from 'react-i18next';
 
 const ArticleDetail = () => {
+  const { t, i18n } = useTranslation('common');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const location = useLocation();
@@ -137,14 +139,14 @@ const ArticleDetail = () => {
   };
 
   const metaDescription = article ? 
-    `${article.excerpt} Baca artikel lengkap tentang ${article.title} di Villa Sawarna.` :
-    'Artikel tidak ditemukan';
+    `${(i18n.language.startsWith('en') ? (article.translations?.en?.excerpt || article.excerpt) : article.excerpt)} ${t('article.readFull', 'Baca artikel lengkap tentang')} ${(i18n.language.startsWith('en') ? (article.translations?.en?.title || article.title) : article.title)} ${t('article.at', 'di')} Villa Sawarna.` :
+    t('article.notFoundDesc', 'Artikel tidak ditemukan');
 
   const structuredData = article ? {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": article.title,
-    "description": article.excerpt,
+    "headline": (i18n.language.startsWith('en') ? (article.translations?.en?.title || article.title) : article.title),
+    "description": (i18n.language.startsWith('en') ? (article.translations?.en?.excerpt || article.excerpt) : article.excerpt),
     "image": article.image,
     "datePublished": article.date,
     "dateModified": article.date,
@@ -168,24 +170,24 @@ const ArticleDetail = () => {
     },
     "keywords": article.category,
     "articleSection": article.category || 'Blog',
-    "inLanguage": "id-ID"
+    "inLanguage": i18n.language.startsWith('en') ? 'en-US' : 'id-ID'
   } : null;
 
   if (!article) {
     return (
       <div className="min-h-screen flex flex-col">
         <SEO 
-          title="Artikel Tidak Ditemukan | Villa Sawarna"
-          description="Artikel yang Anda cari tidak ditemukan. Silakan kunjungi halaman artikel kami untuk informasi terbaru tentang Villa Sawarna."
+          title={t('article.notFoundTitle', 'Artikel Tidak Ditemukan | Villa Sawarna')}
+          description={t('article.notFoundSeoDesc', 'Artikel yang Anda cari tidak ditemukan. Silakan kunjungi halaman artikel kami untuk informasi terbaru tentang Villa Sawarna.')}
           keywords="artikel sawarna, wisata sawarna, pantai sawarna, blog sawarna"
           url="https://villasawarna.com/articles/not-found"
           type="website"
         />
         <div className="container-custom py-8 text-center">
-          <h1 className="text-2xl font-bold mb-4">Artikel Tidak Ditemukan</h1>
-          <p className="mb-4">Artikel yang Anda cari tidak ditemukan.</p>
+          <h1 className="text-2xl font-bold mb-4">{t('article.notFoundHeading', 'Artikel Tidak Ditemukan')}</h1>
+          <p className="mb-4">{t('article.notFoundText', 'Artikel yang Anda cari tidak ditemukan.')}</p>
           <Link to="/articles" className="text-primary hover:underline">
-            Kembali ke Daftar Artikel
+            {t('article.backToList', 'Kembali ke Daftar Artikel')}
           </Link>
         </div>
       </div>
@@ -198,20 +200,20 @@ const ArticleDetail = () => {
      return (
        <>
          <SEO 
-           title="Data Artikel Tidak Lengkap"
-           description="Data untuk artikel ini tidak lengkap."
+           title={t('article.dataIncompleteTitle', 'Data Artikel Tidak Lengkap')}
+           description={t('article.dataIncompleteDesc', 'Data untuk artikel ini tidak lengkap.')}
            noindex={true}
          />
          <div className="container-custom py-16">
            <div className="text-center">
-             <h2 className="text-2xl font-bold mb-4">Data Artikel Tidak Lengkap</h2>
-             <p className="mb-6">Maaf, data untuk artikel ini tidak lengkap.</p>
+             <h2 className="text-2xl font-bold mb-4">{t('article.dataIncompleteHeading', 'Data Artikel Tidak Lengkap')}</h2>
+             <p className="mb-6">{t('article.dataIncompleteText', 'Maaf, data untuk artikel ini tidak lengkap.')}</p>
              <Link 
                to="/articles"
                className="inline-flex items-center text-ocean hover:underline"
              >
                <ChevronLeft className="mr-1" size={16} />
-               Kembali ke daftar artikel
+               {t('article.backToList', 'Kembali ke daftar artikel')}
              </Link>
            </div>
          </div>
@@ -222,9 +224,9 @@ const ArticleDetail = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <SEO 
-        title={`${article.title} | Villa Sawarna`}
+        title={`${(i18n.language.startsWith('en') ? (article.translations?.en?.title || article.title) : article.title)} | Villa Sawarna`}
         description={metaDescription}
-        keywords={`${article.category}, artikel sawarna, wisata sawarna, pantai sawarna, ${article.title.toLowerCase()}`}
+        keywords={`${(i18n.language.startsWith('en') ? (article.translations?.en?.category || article.category) : article.category)}, artikel sawarna, wisata sawarna, pantai sawarna, ${(i18n.language.startsWith('en') ? (article.translations?.en?.title || article.title) : article.title).toLowerCase()}`}
         url={`https://villasawarna.com/articles/${article.slug}`}
         image={article.image}
         type="article"
@@ -238,33 +240,38 @@ const ArticleDetail = () => {
             tags: [article.category]
           }
         }}
+        hreflangAlternates={[
+          { hrefLang: 'id-ID', href: `https://villasawarna.com/articles/${article.slug}` },
+          { hrefLang: 'en-US', href: `https://villasawarna.com/en/articles/${article.slug}` },
+          { hrefLang: 'x-default', href: `https://villasawarna.com/articles/${article.slug}` }
+        ]}
       />
       
       <div className="min-h-screen bg-sky-50 dark:bg-gray-900 flex flex-col">
         <div className="container-custom py-12 flex-grow">
           <Breadcrumbs 
             items={[
-              { label: "Artikel", href: "/articles" },
-              { label: article.category, href: `/articles?category=${encodeURIComponent(article.category)}` },
-              { label: article.title }
+              { label: t('articles.breadcrumb', 'Artikel'), href: "/articles" },
+              { label: (i18n.language.startsWith('en') ? (article.translations?.en?.category || article.category) : article.category), href: `/articles?category=${encodeURIComponent((i18n.language.startsWith('en') ? (article.translations?.en?.category || article.category) : article.category))}` },
+              { label: (i18n.language.startsWith('en') ? (article.translations?.en?.title || article.title) : article.title) }
             ]} 
           />
           {/* Back to articles link */}
           <Link to="/articles" className="inline-flex items-center text-ocean dark:text-ocean-light hover:underline mb-6">
             <ChevronLeft size={16} className="mr-1" />
-            Kembali ke daftar artikel
+            {t('article.backToList', 'Kembali ke daftar artikel')}
           </Link>
 
           {/* Optional Hero for guide-style article */}
           {article.slug === 'panduan-legon-pari-karang-taraje' && (
-            <section className="mb-8 rounded-2xl p-6 md:p-8" style={{background: 'linear-gradient(180deg, #e0f2fe, #ffffff)'}}>
+            <section className="mb-8 rounded-2xl p-6 md:p-8 bg-gradient-to-b from-sky-100 to-white">
               <div className="grid gap-6 md:grid-cols-[1.3fr,1fr] items-center">
                 <div>
                   <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3 text-slate-900">
-                    {article.title}
+                    {(i18n.language.startsWith('en') ? (article.translations?.en?.title || article.title) : article.title)}
                   </h1>
-                  <p className="text-slate-600 mb-4 max-w-2xl">{article.excerpt}</p>
-                  <Link to="/kontak" className="inline-block bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2.5 px-4 rounded-xl">Cek Ketersediaan Villa</Link>
+                  <p className="text-slate-600 mb-4 max-w-2xl">{(i18n.language.startsWith('en') ? (article.translations?.en?.excerpt || article.excerpt) : article.excerpt)}</p>
+                  <Link to="/kontak" className="inline-block bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2.5 px-4 rounded-xl">{t('article.checkAvailability', 'Cek Ketersediaan Villa')}</Link>
                 </div>
                 <figure className="bg-white border border-slate-200 rounded-2xl p-3">
                   <OptimizedImage 
@@ -313,7 +320,7 @@ const ArticleDetail = () => {
                 {/* Article content */}
                 <div className="p-6 md:p-8">
                   {/* Title */}
-                  <h1 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800 dark:text-white">{article.title}</h1>
+                  <h1 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800 dark:text-white">{(i18n.language.startsWith('en') ? (article.translations?.en?.title || article.title) : article.title)}</h1>
 
                   {/* Date and Author */}
                   <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm mb-6">
@@ -327,7 +334,7 @@ const ArticleDetail = () => {
                   <div 
                     ref={contentRef}
                     className="prose dark:prose-invert max-w-none prose-headings:text-gray-800 dark:prose-headings:text-white prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-a:text-ocean dark:prose-a:text-ocean-light prose-strong:text-gray-800 dark:prose-strong:text-white prose-li:text-gray-600 dark:prose-li:text-gray-300 prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-300 prose-blockquote:border-gray-200 dark:prose-blockquote:border-gray-700 prose-ul:text-gray-600 dark:prose-ul:text-gray-300 prose-ol:text-gray-600 dark:prose-ol:text-gray-300 prose-hr:border-gray-200 dark:prose-hr:border-gray-700 prose-table:text-gray-600 dark:prose-table:text-gray-300 prose-th:border-gray-200 dark:prose-th:border-gray-700 prose-td:border-gray-200 dark:prose-td:border-gray-700 prose-code:text-gray-800 dark:prose-code:text-gray-200 prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 prose-pre:text-gray-800 dark:prose-pre:text-gray-200"
-                    dangerouslySetInnerHTML={{ __html: article.content }}
+                    dangerouslySetInnerHTML={{ __html: (i18n.language.startsWith('en') ? (article.translations?.en?.content || article.content) : article.content) }}
                   />
 
                 </div>

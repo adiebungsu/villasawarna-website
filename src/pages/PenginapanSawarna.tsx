@@ -5,6 +5,7 @@ import OptimizedImage from '@/components/OptimizedImage';
 import { Button } from '@/components/ui/button';
 import { getVillasData } from '@/data/properties';
 import QuickView from '@/components/QuickView';
+import { useTranslation } from 'react-i18next';
 
 // CSS untuk line-clamp dan optimasi mobile
 const mobileStyles = `
@@ -82,6 +83,7 @@ const structuredData = [
 ];
 
 const PenginapanSawarna = () => {
+  const { t } = useTranslation('common');
   const allVillas = getVillasData();
   const [activeFilter, setActiveFilter] = useState<'semua' | 'dekat-pantai' | 'keluarga' | 'rombongan' | 'budget' | 'premium'>('semua');
   const [sortBy, setSortBy] = useState<'populer' | 'harga-asc' | 'harga-desc'>('populer');
@@ -132,9 +134,9 @@ const PenginapanSawarna = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <SEO
-        title="Penginapan Sawarna – Villa Nyaman & Murah Dekat Pantai"
-        description="Temukan penginapan Sawarna terbaik, villa murah dekat pantai, cocok untuk keluarga maupun rombongan."
-        keywords="penginapan sawarna, villa sawarna, homestay sawarna, villa dekat pantai sawarna, penginapan sawarna murah, penginapan sawarna untuk rombongan, harga villa sawarna, legon pari, tanjung layar, karang taraje"
+        title={t('staysPage.seo.title', 'Stays in Sawarna – Comfortable Villas Near the Beach')}
+        description={t('staysPage.seo.description', 'Find the best stays in Sawarna, affordable beachside villas perfect for families and groups.')}
+        keywords={t('staysPage.seo.keywords', 'stays sawarna, villa sawarna, homestay sawarna, beachside villa sawarna, affordable stays sawarna, group stays sawarna, sawarna villa prices, legon pari, tanjung layar, karang taraje')}
         image="https://i.imgur.com/pAI45l7.jpeg"
         url="https://www.villasawarna.com/penginapan-sawarna"
         structuredData={structuredData}
@@ -146,7 +148,7 @@ const PenginapanSawarna = () => {
         <div className="absolute inset-0">
           <OptimizedImage
             src="/images/hero-sawarna.jpg"
-            alt="Penginapan Sawarna dekat pantai"
+            alt={t('staysPage.hero.alt', 'Stays in Sawarna near the beach')}
             className="w-full h-full object-cover"
             quality={85}
             sizes="100vw"
@@ -159,17 +161,17 @@ const PenginapanSawarna = () => {
         <div className="relative container-custom py-16 md:py-24">
           <div className="max-w-3xl text-white">
             <h1 className="text-3xl md:text-5xl font-extrabold mb-3">
-              Penginapan dan Villa di Sawarna untuk Liburan Nyaman
+              {t('staysPage.hero.title', 'Stays and Villas in Sawarna for a Comfortable Holiday')}
             </h1>
             <p className="text-white/90 md:text-lg mb-6">
-              Pilihan villa dan homestay dekat pantai—cocok untuk keluarga, pasangan, hingga rombongan. Cek ketersediaan & harga terbaru.
+              {t('staysPage.hero.subtitle', 'Selections of beachside villas and homestays—ideal for families, couples, and groups. Check availability & latest prices.')}
             </p>
             <div className="flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-coral hover:bg-coral-dark">
-                <Link to="/villas">Lihat Semua Villa</Link>
+                <Link to="/villas">{t('staysPage.hero.viewAllVillas', 'View All Villas')}</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="text-white border-white/80 hover:bg-white/10">
-                <Link to="/contact">Hubungi Kami</Link>
+                <Link to="/contact">{t('staysPage.hero.contactUs', 'Contact Us')}</Link>
               </Button>
             </div>
           </div>
@@ -182,17 +184,14 @@ const PenginapanSawarna = () => {
           {/* Paragraf deskriptif untuk membantu SEO "penginapan sawarna" */}
           <div className="max-w-3xl text-gray-700 dark:text-gray-300 mb-6 text-sm md:text-base">
             <p className="mb-3">
-              Mencari <strong>penginapan Sawarna</strong> yang nyaman dan dekat pantai? Di halaman ini kami kumpulkan pilihan villa dan homestay terbaik
-              di sekitar Legon Pari, Tanjung Layar, Karang Taraje, hingga Pantai Ciantir. Anda bisa memilih unit yang sesuai kebutuhan—mulai dari
-              tipe <em>budget</em> untuk pasangan, unit keluarga dengan 2–3 kamar, sampai villa kapasitas rombongan dengan banyak kamar dan area parkir luas.
+              {t('staysPage.intro.p1', 'Looking for comfortable stays in Sawarna near the beach? On this page we curated the best villas and homestays around Legon Pari, Tanjung Layar, Karang Taraje, up to Ciantir Beach. Choose units that fit your needs—from budget for couples, family units with 2–3 bedrooms, to group-capacity villas with many rooms and wide parking areas.')}
             </p>
             <p>
-              Untuk pengalaman maksimal, pertimbangkan jarak ke pantai, akses jalan, serta fasilitas seperti dapur/BBQ dan WiFi. Tim kami siap membantu
-              rekomendasi terbaik sesuai tanggal dan jumlah tamu. Gunakan filter di bawah untuk mempercepat pencarian.
+              {t('staysPage.intro.p2', 'For the best experience, consider distance to the beach, road access, and facilities like kitchen/BBQ and WiFi. Our team can recommend the best options based on your dates and number of guests. Use the filters below to speed up your search.')}
             </p>
           </div>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold dark:text-white">Rekomendasi Penginapan</h2>
+            <h2 className="text-2xl md:text-3xl font-bold dark:text-white">{t('staysPage.recommendations.title', 'Recommended Stays')}</h2>
             <div className="flex flex-wrap gap-2">
               <div className="overflow-x-auto scrollbar-hide -mx-1 px-1 mb-2 md:mb-0">
                 <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-1 flex gap-1 min-w-max">
@@ -202,7 +201,7 @@ const PenginapanSawarna = () => {
                       onClick={() => { setVisible(9); setActiveFilter(f); window.scrollTo(0,0); }}
                       className={`px-4 py-2 md:px-3 md:py-1 rounded-lg text-sm font-medium whitespace-nowrap ${activeFilter===f? 'bg-white dark:bg-gray-700 text-ocean dark:text-ocean-light shadow':'text-gray-600 dark:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-700/50'}`}
                     >
-                      {f.replace('-', ' ')}
+                      {t(`staysPage.filters.${f}`, f.replace('-', ' '))}
                     </button>
                   ))}
                 </div>
@@ -211,33 +210,33 @@ const PenginapanSawarna = () => {
                 value={sortBy}
                 onChange={(e)=>setSortBy(e.target.value as any)}
                 className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-200"
-                aria-label="Urutkan"
+                aria-label={t('staysPage.sort.aria', 'Sort')}
               >
-                <option value="populer">Terpopuler</option>
-                <option value="harga-asc">Harga Termurah</option>
-                <option value="harga-desc">Harga Termahal</option>
+                <option value="populer">{t('staysPage.sort.popular', 'Most Popular')}</option>
+                <option value="harga-asc">{t('staysPage.sort.priceLow', 'Lowest Price')}</option>
+                <option value="harga-desc">{t('staysPage.sort.priceHigh', 'Highest Price')}</option>
               </select>
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {villas.map((villa) => (
               <div key={villa.id} className="villa-card-mobile bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-700">
-                                 <div 
-                   className="relative aspect-[16/9] cursor-pointer group"
-                   onClick={() => handleQuickView(villa)}
-                 >
-                   <OptimizedImage
-                     src={villa.image}
-                     alt={villa.name}
-                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                     quality={85}
-                   />
-                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white px-3 py-1.5 rounded-full text-sm font-medium shadow-lg">
-                       Quick View
-                     </div>
-                   </div>
-                 </div>
+                <div 
+                  className="relative aspect-[16/9] cursor-pointer group"
+                  onClick={() => handleQuickView(villa)}
+                >
+                  <OptimizedImage
+                    src={villa.image}
+                    alt={villa.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    quality={85}
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white px-3 py-1.5 rounded-full text-sm font-medium shadow-lg">
+                      {t('staysPage.quickView', 'Quick View')}
+                    </div>
+                  </div>
+                </div>
                 <div className="p-2 md:p-4">
                   <h3 className="text-sm md:text-lg font-bold mb-1 dark:text-white line-clamp-2">{villa.name}</h3>
                   <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300 mb-2 line-clamp-1">{villa.location}</p>
@@ -246,10 +245,10 @@ const PenginapanSawarna = () => {
                       <span className="line-through text-gray-400 text-xs md:text-sm">Rp {villa.originalPrice.toLocaleString('id-ID')}</span>
                     )}
                     <span className="text-red-600 dark:text-red-400 text-base md:text-xl font-bold">Rp {villa.price?.toLocaleString('id-ID') ?? '-'}</span>
-                    <span className="text-xs text-gray-500">/ malam</span>
+                    <span className="text-xs text-gray-500">{t('staysPage.perNight', '/ night')}</span>
                   </div>
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-                    <Link to={`/villas/${villa.id}`} className="text-coral dark:text-coral-light font-semibold text-xs md:text-sm">Lihat Detail</Link>
+                    <Link to={`/villas/${villa.id}`} className="text-coral dark:text-coral-light font-semibold text-xs md:text-sm">{t('staysPage.viewDetail', 'View Detail')}</Link>
                     <Button
                       variant="outline"
                       size="sm"
@@ -259,17 +258,17 @@ const PenginapanSawarna = () => {
                       }}
                       className="text-xs px-2 md:px-3 py-1 h-auto"
                     >
-                      Quick View
+                      {t('staysPage.quickView', 'Quick View')}
                     </Button>
                   </div>
-                  <p className="text-xs text-gray-500 mt-2 text-center hidden md:block">💡 Klik gambar untuk Quick View</p>
+                  <p className="text-xs text-gray-500 mt-2 text-center hidden md:block">{t('staysPage.hintClickImage', 'Tip: Click image for Quick View')}</p>
                 </div>
               </div>
             ))}
           </div>
           {visible < filtered.length && (
             <div className="text-center mt-8">
-              <Button variant="outline" onClick={()=>setVisible(v=>Math.min(v+9, filtered.length))}>Lihat Lainnya</Button>
+              <Button variant="outline" onClick={()=>setVisible(v=>Math.min(v+9, filtered.length))}>{t('staysPage.loadMore', 'Load More')}</Button>
             </div>
           )}
         </div>
@@ -278,33 +277,33 @@ const PenginapanSawarna = () => {
       {/* Harga & Paket Ringkas */}
       <section className="py-8 bg-sky-50 dark:bg-gray-900">
         <div className="container-custom">
-          <h2 className="text-xl md:text-2xl font-bold mb-4 dark:text-white">Kisaran Harga</h2>
+          <h2 className="text-xl md:text-2xl font-bold mb-4 dark:text-white">{t('staysPage.priceRange.title', 'Price Range')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
-              <h3 className="font-semibold mb-1 dark:text-white">Budget</h3>
-              <p className="text-gray-600 dark:text-gray-300">Mulai ±Rp300.000/malam</p>
+              <h3 className="font-semibold mb-1 dark:text-white">{t('staysPage.priceRange.budget', 'Budget')}</h3>
+              <p className="text-gray-600 dark:text-gray-300">{t('staysPage.priceRange.budgetDesc', 'From ±Rp300.000/night')}</p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
-              <h3 className="font-semibold mb-1 dark:text-white">Keluarga</h3>
-              <p className="text-gray-600 dark:text-gray-300">±Rp400.000–Rp600.000/malam</p>
+              <h3 className="font-semibold mb-1 dark:text-white">{t('staysPage.priceRange.family', 'Family')}</h3>
+              <p className="text-gray-600 dark:text-gray-300">{t('staysPage.priceRange.familyDesc', '±Rp400.000–Rp600.000/night')}</p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
-              <h3 className="font-semibold mb-1 dark:text-white">Rombongan</h3>
-              <p className="text-gray-600 dark:text-gray-300">Tersedia villa banyak kamar & area parkir luas</p>
+              <h3 className="font-semibold mb-1 dark:text-white">{t('staysPage.priceRange.group', 'Group')}</h3>
+              <p className="text-gray-600 dark:text-gray-300">{t('staysPage.priceRange.groupDesc', 'Large-room villas & wide parking available')}</p>
             </div>
           </div>
-          <p className="text-xs text-gray-500 mt-2">Catatan: harga dapat berubah berdasarkan musim/weekend.</p>
+          <p className="text-xs text-gray-500 mt-2">{t('staysPage.priceRange.note', 'Note: prices may change based on season/weekend.')}</p>
         </div>
       </section>
 
       {/* Area Populer */}
       <section className="py-10 bg-white dark:bg-gray-900">
         <div className="container-custom">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 dark:text-white">Area Populer</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 dark:text-white">{t('staysPage.popularAreas.title', 'Popular Areas')}</h2>
           <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-2">
-            <li><Link to="/article/panduan-legon-pari-karang-taraje" className="underline text-ocean dark:text-ocean-light">Legon Pari & Karang Taraje</Link> – sunrise & fenomena ombak.</li>
-            <li><Link to="/article/panduan-liburan-pantai-sawarna" className="underline text-ocean dark:text-ocean-light">Panduan Liburan Sawarna</Link> – rute, itinerary, tips.</li>
-            <li><Link to="/article/villa-dekat-pantai-sawarna" className="underline text-ocean dark:text-ocean-light">Villa Dekat Pantai</Link> – akses cepat ke pantai.</li>
+            <li><Link to="/article/panduan-legon-pari-karang-taraje" className="underline text-ocean dark:text-ocean-light">{t('staysPage.popularAreas.legonPari', 'Legon Pari & Karang Taraje')}</Link> – {t('staysPage.popularAreas.legonPariDesc', 'sunrise & wave phenomena.')}</li>
+            <li><Link to="/article/panduan-liburan-pantai-sawarna" className="underline text-ocean dark:text-ocean-light">{t('staysPage.popularAreas.guide', 'Sawarna Travel Guide')}</Link> – {t('staysPage.popularAreas.guideDesc', 'routes, itinerary, tips.')}</li>
+            <li><Link to="/article/villa-dekat-pantai-sawarna" className="underline text-ocean dark:text-ocean-light">{t('staysPage.popularAreas.beachVillas', 'Beachfront Villas')}</Link> – {t('staysPage.popularAreas.beachVillasDesc', 'quick access to the beach.')}</li>
           </ul>
         </div>
       </section>
@@ -312,23 +311,23 @@ const PenginapanSawarna = () => {
       {/* Artikel Rekomendasi untuk Anda */}
       <section className="py-8 bg-sky-50 dark:bg-gray-900">
         <div className="container-custom">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 dark:text-white">Artikel Rekomendasi untuk Anda</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 dark:text-white">{t('staysPage.recommendedArticles.title', 'Recommended Articles for You')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link to="/article/penginapan-sawarna-murah-dekat-pantai" className="group bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:shadow-md transition">
-              <h3 className="font-semibold mb-1 dark:text-white">Penginapan Sawarna Murah Dekat Pantai</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Pilihan ekonomis yang tetap nyaman dan dekat pantai.</p>
+              <h3 className="font-semibold mb-1 dark:text-white">{t('staysPage.recommendedArticles.a1Title', 'Affordable Beachside Stays in Sawarna')}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{t('staysPage.recommendedArticles.a1Desc', 'Economical options that remain comfortable and close to the beach.')}</p>
             </Link>
             <Link to="/article/villa-sawarna-untuk-keluarga-dan-rombongan" className="group bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:shadow-md transition">
-              <h3 className="font-semibold mb-1 dark:text-white">Villa Sawarna untuk Keluarga & Rombongan</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Panduan memilih kapasitas, kamar, dan area favorit.</p>
+              <h3 className="font-semibold mb-1 dark:text-white">{t('staysPage.recommendedArticles.a2Title', 'Sawarna Villas for Families & Groups')}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{t('staysPage.recommendedArticles.a2Desc', 'Guide to choosing capacity, bedrooms, and favorite areas.')}</p>
             </Link>
             <Link to="/article/rekomendasi-villa-sawarna-dengan-view-pantai" className="group bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:shadow-md transition">
-              <h3 className="font-semibold mb-1 dark:text-white">Rekomendasi Villa dengan View Pantai</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Unit menghadap laut di area Legon Pari, Tanjung Layar, Ciantir.</p>
+              <h3 className="font-semibold mb-1 dark:text-white">{t('staysPage.recommendedArticles.a3Title', 'Recommended Villas with Sea Views')}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{t('staysPage.recommendedArticles.a3Desc', 'Units facing the sea in Legon Pari, Tanjung Layar, Ciantir.')}</p>
             </Link>
             <Link to="/article/villa-sawarna" className="group bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:shadow-md transition">
-              <h3 className="font-semibold mb-1 dark:text-white">Villa Sawarna – Akomodasi Nyaman Dekat Pantai</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Informasi area, harga, dan tips memilih villa.</p>
+              <h3 className="font-semibold mb-1 dark:text-white">{t('staysPage.recommendedArticles.a4Title', 'Sawarna Villas – Comfortable Beachside Stays')}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{t('staysPage.recommendedArticles.a4Desc', 'Area info, prices, and tips for choosing villas.')}</p>
             </Link>
           </div>
         </div>
@@ -338,24 +337,24 @@ const PenginapanSawarna = () => {
       <section className="py-10 bg-white dark:bg-gray-900">
         <div className="container-custom grid gap-6 md:grid-cols-2">
           <div>
-            <h2 className="text-2xl font-bold mb-3 dark:text-white">Tips Memilih Penginapan</h2>
+            <h2 className="text-2xl font-bold mb-3 dark:text-white">{t('staysPage.tips.title', 'Tips for Choosing Stays')}</h2>
             <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-2">
-              <li>Perhatikan jarak ke pantai dan akses jalan/parkir.</li>
-              <li>Sesuaikan kapasitas kamar & opsi extra bed.</li>
-              <li>Pastikan fasilitas dapur/BBQ bila diperlukan.</li>
-              <li>Cek WiFi dan kebutuhan keluarga/anak.</li>
+              <li>{t('staysPage.tips.t1', 'Consider distance to the beach and road/parking access.')}</li>
+              <li>{t('staysPage.tips.t2', 'Match bedroom capacity & extra bed options.')}</li>
+              <li>{t('staysPage.tips.t3', 'Ensure kitchen/BBQ facilities if needed.')}</li>
+              <li>{t('staysPage.tips.t4', 'Check WiFi and family/children needs.')}</li>
             </ul>
           </div>
           <div>
             <h2 className="text-2xl font-bold mb-3 dark:text-white">FAQ</h2>
             <div className="space-y-2">
               <details className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-700">
-                <summary className="font-semibold cursor-pointer">Waktu terbaik menginap?</summary>
-                <div className="mt-2 text-gray-700 dark:text-gray-300">Musim kemarau (Mei–September) untuk peluang cuaca cerah; akhir pekan lebih ramai.</div>
+                <summary className="font-semibold cursor-pointer">{t('staysPage.faq.q1', 'Best time to stay?')}</summary>
+                <div className="mt-2 text-gray-700 dark:text-gray-300">{t('staysPage.faq.a1', 'Dry season (May–September) offers better chance of sunny weather; weekends are busier.')}</div>
               </details>
               <details className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-700">
-                <summary className="font-semibold cursor-pointer">Apakah bisa check-in malam?</summary>
-                <div className="mt-2 text-gray-700 dark:text-gray-300">Bisa diatur sesuai ketersediaan. Hubungi kami sebelum kedatangan.</div>
+                <summary className="font-semibold cursor-pointer">{t('staysPage.faq.q2', 'Is late check-in possible?')}</summary>
+                <div className="mt-2 text-gray-700 dark:text-gray-300">{t('staysPage.faq.a2', 'It can be arranged based on availability. Contact us before arrival.')}</div>
               </details>
             </div>
           </div>
@@ -365,10 +364,10 @@ const PenginapanSawarna = () => {
       {/* CTA */}
       <section className="py-10 bg-sky-50 dark:bg-gray-900">
         <div className="container-custom text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-3 dark:text-white">Siap Menginap di Sawarna?</h2>
-          <p className="text-gray-700 dark:text-gray-300 mb-5">Kami bantu rekomendasikan unit terbaik sesuai kebutuhan Anda.</p>
+          <h2 className="text-2xl md:text-3xl font-bold mb-3 dark:text-white">{t('staysPage.cta.title', 'Ready to Stay in Sawarna?')}</h2>
+          <p className="text-gray-700 dark:text-gray-300 mb-5">{t('staysPage.cta.subtitle', 'We’ll recommend the best units matching your needs.')}</p>
           <Button asChild size="lg">
-            <Link to="/contact">Cek Ketersediaan & Harga</Link>
+            <Link to="/contact">{t('staysPage.cta.button', 'Check Availability & Prices')}</Link>
           </Button>
         </div>
       </section>

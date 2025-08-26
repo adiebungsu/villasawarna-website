@@ -109,6 +109,11 @@ const HelpPage: React.FC = () => {
         keywords="bantuan villa sawarna, FAQ, support, kontak, troubleshooting"
         url="https://villasawarna.com/help"
         type="website"
+        hreflangAlternates={[
+          { hrefLang: 'id-ID', href: 'https://villasawarna.com/help' },
+          { hrefLang: 'en-US', href: 'https://villasawarna.com/en/help' },
+          { hrefLang: 'x-default', href: 'https://villasawarna.com/help' }
+        ]}
       />
       
       <div className="min-h-screen bg-gradient-to-br from-ocean/5 via-sand-light/10 to-coral/5 dark:from-ocean/10 dark:via-sand-light/5 dark:to-coral/10">

@@ -50,6 +50,317 @@
   "home": {
     "popularArticlesTitle": "Artikel Populer",
     "popularArticlesSubtitle": "Temukan informasi terbaru dan tips menarik seputar liburan di Sawarna",
-    "viewAllArticles": "Lihat Semua Artikel"
+    "viewAllArticles": "Lihat Semua Artikel",
+    "quickLinks": {
+      "villas": { "title": "Villa", "subtitle": "Penginapan Premium" },
+      "homestays": { "title": "Homestay", "subtitle": "Penginapan Lokal" },
+      "stays": { "title": "Penginapan", "subtitle": "Villa & Homestay" },
+      "destinations": { "title": "Destinasi", "subtitle": "Tempat Wisata" },
+      "articles": { "title": "Artikel", "subtitle": "Tips & Info" },
+      "map": { "title": "Maps", "subtitle": "Peta Lokasi" }
+    },
+    "stats": {
+      "villasAndHomestays": "Villa & Homestay",
+      "holidayExperiences": "Pengalaman Liburan",
+      "touristDestinations": "Destinasi Wisata",
+      "customerService": "Layanan Pelanggan"
+    },
+    "partnership": {
+      "title": "Bermitra dengan Kami",
+      "subtitle": "Apakah Anda pemilik villa, homestay, atau penginapan di Sawarna? Bergabunglah dengan jaringan kami dan jangkau lebih banyak wisatawan!",
+      "cta": "Pelajari Lebih Lanjut tentang Kemitraan"
+    },
+    "about": {
+      "titlePrefix": "Mengapa Memilih ",
+      "subtitle": "Kami menyediakan pengalaman pemesanan yang mudah untuk membantu Anda menemukan akomodasi yang sempurna untuk liburan pantai Anda."
+    },
+    "aboutSawarna": {
+      "title": "Temukan Pantai Sawarna",
+      "p1": "Terletak di pesisir selatan Provinsi Banten, Pantai Sawarna adalah salah satu permata tersembunyi Indonesia. Dengan pasir putih murni, tebing kapur dramatis, dan air yang jernih, ini adalah tempat pelarian sempurna dari kehidupan kota.",
+      "p2": "Kawasan ini terkenal dengan kondisi surfing yang luar biasa, goa-goa alami, dan matahari terbenam yang memukau. Pengunjung dapat menikmati berbagai aktivitas mulai dari selancar dan berenang hingga menjelajahi sawah dan desa tradisional.",
+      "beautifulBeach": "Pantai yang Indah",
+      "surfParadise": "Surga Selancar",
+      "naturalCaves": "Goa Alami",
+      "localCulture": "Budaya Lokal",
+      "imageAlt": "Pantai Sawarna",
+      "cardTitle": "Keindahan Alam yang Memukau",
+      "cardSubtitle": "Nikmati keindahan alam Sawarna yang masih asri dan terjaga",
+      "viewGallery": "Lihat Galeri"
+    },
+    "why": {
+      "verifiedProperties": {
+        "title": "Properti Terverifikasi",
+        "desc": "Semua listing telah kami verifikasi secara pribadi untuk memastikan kualitas dan pengalaman terbaik bagi tamu kami."
+      },
+      "strategicLocation": {
+        "title": "Lokasi Strategis",
+        "desc": "Temukan akomodasi di lokasi terbaik Pantai Sawarna, mulai dari tepi pantai hingga pemandangan tebing."
+      },
+      "affordablePrices": {
+        "title": "Harga Terjangkau",
+        "desc": "Nikmati harga kompetitif dan penawaran spesial untuk liburan pantai yang hemat biaya."
+      },
+      "modernFacilities": {
+        "title": "Fasilitas Modern",
+        "desc": "Sebagian besar properti dilengkapi fasilitas penting termasuk WiFi, AC, dan lainnya."
+      }
+    },
+    "articleTabs": {
+      "all": "Semua",
+      "stays": "Penginapan",
+      "tourism": "Wisata",
+      "culinary": "Kuliner",
+      "tips": "Tips & Info",
+      "culture": "Budaya",
+      "history": "Sejarah",
+      "photography": "Fotografi",
+      "adventure": "Petualangan",
+      "family": "Keluarga",
+      "accommodation": "Akomodasi",
+      "transportation": "Transportasi",
+      "activities": "Aktivitas",
+      "events": "Event"
+    },
+    "cards": {
+      "recommendation": "Rekomendasi spesial",
+      "viewGallery": "Lihat Galeri",
+      "excellent": "Luar biasa",
+      "reviews": "ulasan",
+      "todaySpecialPromo": "Promo Spesial Hari Ini",
+      "perNightIncludesTax": "Per malam sudah pajak dan biaya lainnya"
+    },
+    "quickView": {
+      "category": {
+        "villa": "Villa"
+      },
+      "prevAria": "Sebelumnya",
+      "nextAria": "Berikutnya",
+      "perNight": "per malam",
+      "mainFacilities": "Fasilitas Utama",
+      "viewDetail": "Lihat Detail",
+      "close": "Tutup"
+    },
+    "featuredProperties": {
+      "title": "Akomodasi Pilihan",
+      "subtitle": "Temukan penginapan terbaik di Sawarna dengan pemandangan menakjubkan dan fasilitas modern untuk liburan sempurna Anda.",
+      "filters": {
+        "all": "Semua Lokasi",
+        "pantai": "Pantai Sawarna",
+        "goaLangir": "Goa Langir",
+        "legonPari": "Legon Pari",
+        "puloManuk": "Pulo Manuk"
+      },
+      "swipeHint": "Geser untuk melihat lebih banyak akomodasi pilihan di Sawarna",
+      "viewAllVillas": "Lihat Semua Villa",
+      "viewAllStays": "Lihat Semua Penginapan"
+    },
+    "featuredDestinations": {
+      "title": "Destinasi Wisata",
+      "subtitle": "Jelajahi keindahan alam Sawarna dengan berbagai destinasi wisata yang menakjubkan.",
+      "viewAll": "Lihat Semua Destinasi"
+    },
+    "favoriteLocations": {
+      "badge": "Destinasi Favorit",
+      "title": "Jelajahi Lokasi Terbaik di Sawarna",
+      "subtitle": "Temukan spot-spot menarik yang wajib dikunjungi saat liburan di Sawarna. Dari pantai indah hingga gua alam yang menakjubkan.",
+      "reviews": "ulasan",
+      "bestTime": "Waktu terbaik",
+      "popularActivities": "Aktivitas Populer:",
+      "highlights": "Keunggulan:",
+      "exploreNow": "Jelajahi Sekarang",
+      "ctaTitle": "Ingin Jelajahi Semua Destinasi?",
+      "ctaSubtitle": "Dapatkan panduan lengkap, tips terbaik, dan rekomendasi lokasi favorit lainnya.",
+      "viewAll": "Lihat Semua Destinasi",
+      "openMap": "Buka Peta Interaktif"
+    },
+    "promos": {
+      "badge": "Penawaran Spesial",
+      "title": "Promo Spesial",
+      "description1": "Dapatkan penawaran terbaik untuk menginap di villa mewah kami dengan diskon spesial hingga 15%.",
+      "description2": "Berlaku terbatas sesuai ketersediaan."
+    }
+  },
+  "dest": {
+    "type": {
+      "beach": "Pantai",
+      "waterfall": "Air Terjun",
+      "cave": "Gua",
+      "rock": "Batu"
+    },
+    "viewDetail": "Lihat Detail"
+  },
+  "article": {
+    "readFull": "Baca artikel lengkap tentang",
+    "at": "di",
+    "notFoundDesc": "Artikel tidak ditemukan",
+    "notFoundTitle": "Artikel Tidak Ditemukan | Villa Sawarna",
+    "notFoundSeoDesc": "Artikel yang Anda cari tidak ditemukan. Silakan kunjungi halaman artikel kami untuk informasi terbaru tentang Villa Sawarna.",
+    "notFoundHeading": "Artikel Tidak Ditemukan",
+    "notFoundText": "Artikel yang Anda cari tidak ditemukan.",
+    "backToList": "Kembali ke Daftar Artikel",
+    "dataIncompleteTitle": "Data Artikel Tidak Lengkap",
+    "dataIncompleteDesc": "Data untuk artikel ini tidak lengkap.",
+    "dataIncompleteHeading": "Data Artikel Tidak Lengkap",
+    "dataIncompleteText": "Maaf, data untuk artikel ini tidak lengkap.",
+    "checkAvailability": "Cek Ketersediaan Villa"
+  }
+  ,
+  "aboutPage": {
+    "seoName": "Tentang Villa Sawarna",
+    "seoDescription": "VillaSawarna adalah penyedia akomodasi terdepan di Pantai Sawarna. Pelajari cerita kami, visi misi, dan komitmen kami untuk pengalaman liburan terbaik.",
+    "orgDescription": "Penyedia akomodasi terbaik di Pantai Sawarna",
+    "seoTitle": "Tentang Kami | Villa Sawarna",
+    "seoMetaDescription": "Temukan kisah di balik Villa Sawarna dan komitmen kami memberikan pengalaman menginap terbaik di Pantai Sawarna dengan villa mewah dan homestay otentik.",
+    "seoKeywords": "villa sawarna, tentang kami, sejarah sawarna, penginapan sawarna, wisata sawarna",
+    "hero": {"title": "Tentang VillaSawarna", "subtitle": "Menyediakan akomodasi terbaik di Pantai Sawarna untuk pengalaman liburan pantai yang tak terlupakan."},
+    "story": {
+      "title": "Cerita Kami",
+      "p1": "VillaSawarna didirikan pada tahun 2015 oleh pecinta pantai dan alam yang terinspirasi oleh keindahan Sawarna. Berawal dari villa kecil, kami melihat potensi untuk membantu wisatawan menikmati pantai ini dengan kenyamanan terbaik.",
+      "p2": "Kami tumbuh dari satu villa menjadi jaringan akomodasi terlengkap di kawasan Pantai Sawarna. Kami bekerja sama dengan masyarakat lokal menyediakan homestay otentik dan membangun villa pribadi yang menawarkan privasi dan kemewahan.",
+      "p3": "Misi kami sederhana: membantu wisatawan menikmati keindahan Pantai Sawarna dengan kenyamanan maksimal, sambil melestarikan alam dan memberdayakan masyarakat lokal."
+    },
+    "vision": {
+      "title": "Visi & Misi",
+      "subtitle": "Komitmen kami untuk memberikan pengalaman terbaik bagi setiap tamu yang menginap di VillaSawarna.",
+      "visionTitle": "Visi",
+      "visionText": "Menjadi penyedia akomodasi terdepan di Pantai Sawarna yang dikenal dengan kualitas layanan, kenyamanan, dan komitmen pada kelestarian lingkungan.",
+      "missionTitle": "Misi",
+      "m1": "Menyediakan akomodasi berkualitas berstandar internasional",
+      "m2": "Memberikan pengalaman liburan yang tak terlupakan",
+      "m3": "Melestarikan keindahan alam Pantai Sawarna",
+      "m4": "Memberdayakan masyarakat lokal",
+      "m5": "Mengembangkan destinasi wisata berkelanjutan"
+    },
+    "why": {
+      "title": "Mengapa Memilih Kami",
+      "subtitle": "Kami berkomitmen memberi pengalaman liburan terbaik dengan layanan berkualitas dan akomodasi nyaman di lokasi terbaik Pantai Sawarna.",
+      "locTitle": "Lokasi Strategis",
+      "locText": "Semua akomodasi berada di lokasi strategis dengan akses mudah ke pantai dan pemandangan laut menakjubkan.",
+      "qualityTitle": "Kualitas Terjamin",
+      "qualityText": "Kami memastikan standar kualitas tinggi dengan perawatan rutin dan fasilitas modern.",
+      "localExpTitle": "Pengalaman Lokal",
+      "localExpText": "Nikmati pengalaman otentik dengan pemandu lokal dan kuliner khas yang berkesan.",
+      "serviceTitle": "Layanan 24/7",
+      "serviceText": "Tim dukungan siap membantu 24 jam sehari, 7 hari seminggu untuk kenyamanan selama menginap."
+    },
+    "stats": {"years": "Tahun Pengalaman", "guests": "Tamu Puas", "rating": "Rating Tamu", "stays": "Akomodasi"},
+    "cta": {"title": "Siap Untuk Liburan Pantai Impian?", "subtitle": "Jelajahi koleksi villa dan homestay kami untuk menemukan akomodasi sempurna untuk liburan di Pantai Sawarna.", "viewVillas": "Lihat Villa", "viewHomestays": "Lihat Homestay"}
+  }
+  ,
+  "contact": {
+    "seoName": "Kontak Villa Sawarna",
+    "seoDescription": "Hubungi tim Villa Sawarna untuk informasi dan bantuan pemesanan akomodasi di Pantai Sawarna",
+    "seoTitle": "Hubungi Kami | Villa Sawarna",
+    "seoMetaDescription": "Hubungi Villa Sawarna untuk reservasi, pertanyaan, atau bantuan lainnya. Kami siap membantu rencana liburan Anda di Sawarna.",
+    "seoKeywords": "kontak villa sawarna, hubungi kami, reservasi sawarna, booking sawarna, customer service sawarna",
+    "hero": {
+      "title": "Hubungi Kami",
+      "subtitle1": "Ada pertanyaan atau butuh bantuan? Tim kami siap membantu Anda menemukan akomodasi sempurna di Pantai Sawarna.",
+      "subtitle2": "Silakan isi formulir atau hubungi kami melalui informasi di bawah ini."
+    },
+    "info": {
+      "title": "Informasi Kontak",
+      "addressTitle": "Alamat",
+      "address": "Jl. Pantai Sawarna, Desa Sawarna, Kecamatan Bayah,\nKabupaten Lebak, Banten, Indonesia",
+      "hoursTitle": "Jam Operasional",
+      "hoursWeekdays": "Senin - Jumat: 08:00 - 20:00",
+      "hoursWeekend": "Sabtu - Minggu: 09:00 - 18:00"
+    },
+    "map": {"title": "Lokasi Kami", "ariaTitle": "Peta Lokasi VillaSawarna"},
+    "form": {
+      "title": "Kirim Pesan",
+      "fullName": "Nama Lengkap",
+      "fullNamePlaceholder": "Masukkan nama lengkap",
+      "phone": "Nomor Telepon",
+      "phonePlaceholder": "Masukkan nomor telepon",
+      "subject": "Subjek",
+      "subjectPlaceholder": "Subjek pesan",
+      "message": "Pesan",
+      "messagePlaceholder": "Tuliskan pesan Anda",
+      "sending": "Mengirim...",
+      "send": "Kirim Pesan"
+    },
+    "faq": {
+      "title": "Pertanyaan Umum",
+      "q1": "Bagaimana cara melakukan reservasi?",
+      "a1": "Anda dapat melakukan reservasi melalui website kami atau menghubungi tim melalui WhatsApp/email.",
+      "q2": "Apa perbedaan antara villa dan homestay?",
+      "a2": "Villa menawarkan privasi & kemewahan dengan fasilitas lengkap; homestay menawarkan pengalaman lokal dengan harga lebih terjangkau.",
+      "q3": "Apakah ada layanan antar-jemput dari stasiun/bandara?",
+      "a3": "Ya, tersedia layanan antar-jemput dengan biaya tambahan. Hubungi kami untuk detail."
+    },
+    "newsletter": {"title": "Bergabunglah Dengan Newsletter Kami", "subtitle": "Dapatkan info terbaru dan penawaran eksklusif untuk liburan di Pantai Sawarna langsung ke email Anda.", "placeholder": "Alamat email Anda", "subscribe": "Berlangganan"},
+    "toast": {"title": "Pesan Terkirim!", "description": "Terima kasih telah menghubungi kami. Tim kami akan segera menghubungi Anda."}
+  }
+  ,
+  "staysPage": {
+    "seo": {
+      "title": "Penginapan di Sawarna – Villa Nyaman Dekat Pantai",
+      "description": "Temukan penginapan terbaik di Sawarna, villa dekat pantai yang cocok untuk keluarga dan rombongan.",
+      "keywords": "penginapan sawarna, villa sawarna, homestay sawarna, villa dekat pantai sawarna, penginapan murah sawarna, rombongan sawarna"
+    },
+    "hero": {
+      "alt": "Penginapan di Sawarna dekat pantai",
+      "title": "Penginapan & Villa di Sawarna untuk Liburan Nyaman",
+      "subtitle": "Pilihan villa dan homestay dekat pantai—cocok untuk keluarga, pasangan, hingga rombongan. Cek ketersediaan & harga terbaru.",
+      "viewAllVillas": "Lihat Semua Villa",
+      "contactUs": "Hubungi Kami"
+    },
+    "intro": {
+      "p1": "Mencari penginapan Sawarna dekat pantai? Di halaman ini kami kurasi villa & homestay terbaik di Legon Pari, Tanjung Layar, Karang Taraje, hingga Ciantir. Pilihan untuk pasangan, keluarga 2–3 kamar, hingga villa kapasitas rombongan.",
+      "p2": "Perhatikan jarak ke pantai, akses jalan, dan fasilitas seperti dapur/BBQ & WiFi. Tim kami siap merekomendasikan unit terbaik sesuai tanggal & jumlah tamu. Gunakan filter di bawah ini."
+    },
+    "recommendations": {"title": "Rekomendasi Penginapan"},
+    "filters": {"semua": "semua", "dekat-pantai": "dekat pantai", "keluarga": "keluarga", "rombongan": "rombongan", "budget": "budget", "premium": "premium"},
+    "sort": {"aria": "Urutkan", "popular": "Terpopuler", "priceLow": "Harga Termurah", "priceHigh": "Harga Termahal"},
+    "quickView": "Quick View",
+    "perNight": "/ malam",
+    "viewDetail": "Lihat Detail",
+    "hintClickImage": "Tips: Klik gambar untuk Quick View",
+    "loadMore": "Lihat Lainnya",
+    "priceRange": {"title": "Kisaran Harga", "budget": "Budget", "budgetDesc": "Mulai ±Rp300.000/malam", "family": "Keluarga", "familyDesc": "±Rp400.000–Rp600.000/malam", "group": "Rombongan", "groupDesc": "Tersedia villa banyak kamar & area parkir luas", "note": "Catatan: harga dapat berubah berdasarkan musim/weekend."},
+    "popularAreas": {"title": "Area Populer", "legonPari": "Legon Pari & Karang Taraje", "legonPariDesc": "sunrise & fenomena ombak.", "guide": "Panduan Liburan Sawarna", "guideDesc": "rute, itinerary, tips.", "beachVillas": "Villa Dekat Pantai", "beachVillasDesc": "akses cepat ke pantai."},
+    "recommendedArticles": {"title": "Artikel Rekomendasi untuk Anda", "a1Title": "Penginapan Sawarna Murah Dekat Pantai", "a1Desc": "Pilihan ekonomis yang nyaman dan dekat pantai.", "a2Title": "Villa Sawarna untuk Keluarga & Rombongan", "a2Desc": "Panduan memilih kapasitas, kamar, dan area favorit.", "a3Title": "Rekomendasi Villa dengan View Pantai", "a3Desc": "Unit menghadap laut di Legon Pari, Tanjung Layar, Ciantir.", "a4Title": "Villa Sawarna – Akomodasi Nyaman Dekat Pantai", "a4Desc": "Info area, harga, dan tips memilih villa."},
+    "tips": {"title": "Tips Memilih Penginapan", "t1": "Perhatikan jarak ke pantai & akses parkir.", "t2": "Sesuaikan kapasitas & opsi extra bed.", "t3": "Pastikan fasilitas dapur/BBQ bila perlu.", "t4": "Cek WiFi dan kebutuhan keluarga/anak."},
+    "faq": {"q1": "Waktu terbaik menginap?", "a1": "Musim kemarau (Mei–September) peluang cuaca cerah; akhir pekan lebih ramai.", "q2": "Apakah bisa check-in malam?", "a2": "Bisa sesuai ketersediaan. Hubungi sebelum kedatangan."},
+    "cta": {"title": "Siap Menginap di Sawarna?", "subtitle": "Kami bantu rekomendasikan unit terbaik sesuai kebutuhan Anda.", "button": "Cek Ketersediaan & Harga"}
+  }
+  ,
+  "villasPage": {
+    "seo": {
+      "title": "Villa di Sawarna - Sewa Villa Eksklusif dengan Pemandangan Pantai",
+      "description": "Temukan villa eksklusif di berbagai lokasi Sawarna dengan pemandangan pantai menakjubkan dan fasilitas lengkap untuk liburan Anda.",
+      "keywords": "villa sawarna, sewa villa sawarna, villa pantai sawarna, goa langir, tanjung layar, legon pari, karang bokor, pulo manuk"
+    },
+    "header": {"title": "Villa Eksklusif di Sawarna", "subtitle": "Temukan villa impian Anda di berbagai lokasi Sawarna. Setiap villa menawarkan pemandangan pantai yang menakjubkan dan fasilitas lengkap untuk liburan yang tak terlupakan."},
+    "tabs": {"all": "Semua Lokasi", "sawarna": "Pantai Sawarna", "goaLangir": "Goa Langir", "karangBokor": "Karang Bokor", "legonPari": "Legon Pari", "tanjungLayar": "Tanjung Layar", "puloManuk": "Pulo Manuk"},
+    "location": {
+      "all": {"title": "Semua Lokasi di Sawarna", "desc": "Temukan villa eksklusif di seluruh Sawarna. Dari Pantai Sawarna hingga Tanjung Layar, setiap lokasi menawarkan pengalaman unik dengan pemandangan pantai menakjubkan dan fasilitas lengkap."},
+      "sawarna": {"title": "Pantai Sawarna", "desc": "Pantai utama dengan pasir putih lembut dan ombak cocok berselancar. Pusat aktivitas wisata dengan fasilitas dan villa eksklusif."},
+      "goaLangir": {"title": "Goa Langir", "desc": "Area pantai tenang dan alami untuk mencari ketenangan. Villa di sini memberi pengalaman yang lebih privat dan eksklusif."},
+      "karangBokor": {"title": "Karang Bokor", "desc": "Terkenal dengan formasi karang unik dan pemandangan sunrise dari tebing. Akses mudah menikmati panorama dari ketinggian."},
+      "legonPari": {"title": "Legon Pari", "desc": "Pantai tenang dengan pasir putih dan air jernih, ideal untuk berenang dan snorkeling. Cocok untuk keluarga."},
+      "tanjungLayar": {"title": "Tanjung Layar", "desc": "Ikon karang sejoli. Villa menawarkan pemandangan sunset terbaik di Sawarna."},
+      "puloManuk": {"title": "Pulo Manuk", "desc": "Pulau kecil dengan pasir putih dan air jernih, cocok untuk snorkeling dan diving. Villa dengan pemandangan laut."}
+    },
+    "empty": "Belum ada villa yang tersedia di lokasi ini.",
+    "popular": {"title": "Villa Populer", "subtitle": "Sering dipilih tamu kami untuk pengalaman menginap berkesan"},
+    "cheapest": {"title": "Villa Termurah", "subtitle": "Temukan villa dengan harga terbaik untuk liburan Anda"}
+  }
+  ,
+  "destinationsPage": {
+    "seo": {
+      "title": "Destinasi Wisata di Sawarna | Villa Sawarna",
+      "description": "Jelajahi destinasi wisata terbaik di Sawarna, dari pantai berpasir putih hingga air terjun tersembunyi. Temukan pengalaman liburan yang tak terlupakan.",
+      "keywords": "destinasi sawarna, wisata sawarna, pantai sawarna, air terjun sawarna, goa sawarna, tempat wisata sawarna"
+    },
+    "title": "Destinasi Wisata Sawarna",
+    "subtitle": "Temukan destinasi wajib kunjung di Sawarna, dari pantai indah hingga gua menakjubkan.",
+    "searchPlaceholder": "Cari destinasi...",
+    "filters": {"all": "Semua", "beach": "Pantai", "waterfall": "Air Terjun", "cave": "Gua", "rock": "Karang"},
+    "type": {"beach": "Pantai", "waterfall": "Air Terjun", "cave": "Gua", "rock": "Karang"},
+    "empty": {"title": "Tidak ada destinasi ditemukan", "subtitle": "Coba ubah filter atau kata kunci pencarian"},
+    "sort": {"label": "Urutkan", "rating": "Rating", "reviews": "Ulasan", "name": "Nama"},
+    "card": {"hours": "Jam buka bervariasi", "bestTime": "Waktu terbaik sepanjang tahun", "reviews": "ulasan", "verified": "Terverifikasi", "viewDetails": "Lihat Detail"}
   }
 }

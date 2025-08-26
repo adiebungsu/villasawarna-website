@@ -19,8 +19,9 @@ i18n
     defaultNS: 'common',
     ns: ['common'],
     detection: {
-      order: ['querystring', 'localStorage', 'navigator', 'htmlTag'],
+      order: ['path', 'querystring', 'localStorage', 'navigator', 'htmlTag'],
       lookupQuerystring: 'lang',
+      lookupFromPathIndex: 0,
       caches: ['localStorage'],
     },
     interpolation: { escapeValue: false },

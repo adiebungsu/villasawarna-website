@@ -6,6 +6,7 @@ import { getHomestaysData } from "@/data/properties";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import SEO from '@/components/SEO';
+import { buildHreflangAlternates } from '@/utils/seo';
 
 const amenities = [
   { name: "Sarapan Gratis", count: 10 },
@@ -103,8 +104,19 @@ const Homestays = () => {
     setMinRating(rating);
   };
 
+  const metaTitle = 'Homestay di Sawarna - Penginapan Otentik & Nyaman';
+  const metaDescription = 'Temukan homestay otentik di Sawarna: dekat pantai, ramah keluarga, harga terjangkau, pengalaman lokal.';
+
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={metaTitle}
+        description={metaDescription}
+        keywords="homestay sawarna, penginapan sawarna, homestay dekat pantai, homestay keluarga, homestay murah sawarna"
+        url="https://villasawarna.com/homestays"
+        type="website"
+        hreflangAlternates={buildHreflangAlternates('/homestays')}
+      />
       {/* Page Header */}
       <div 
         className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white py-12 pt-24 
@@ -112,15 +124,7 @@ const Homestays = () => {
       >
         {/* Background Image Layer (Mobile Only) */}
         <div
-          className="absolute inset-0 sm:hidden"
-          style={{
-            backgroundImage: 'url(https://i.imgur.com/bXNDcYr.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            filter: 'blur(4px)',
-            transform: 'scale(1.05)',
-          }}
+          className="absolute inset-0 sm:hidden bg-[url('https://i.imgur.com/bXNDcYr.png')] bg-cover bg-center bg-no-repeat blur-sm transform scale-105"
         ></div>
 
         {/* Overlay with Gradient (Mobile Only) */}

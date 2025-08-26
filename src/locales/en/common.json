@@ -50,6 +50,336 @@
   "home": {
     "popularArticlesTitle": "Popular Articles",
     "popularArticlesSubtitle": "Find the latest info and useful tips for your trip to Sawarna",
-    "viewAllArticles": "View All Articles"
+    "viewAllArticles": "View All Articles",
+    "quickLinks": {
+      "villas": { "title": "Villas", "subtitle": "Premium Stays" },
+      "homestays": { "title": "Homestays", "subtitle": "Local Stays" },
+      "stays": { "title": "Stays", "subtitle": "Villas & Homestays" },
+      "destinations": { "title": "Destinations", "subtitle": "Tourist Spots" },
+      "articles": { "title": "Articles", "subtitle": "Tips & Info" },
+      "map": { "title": "Map", "subtitle": "Location Map" }
+    },
+    "stats": {
+      "villasAndHomestays": "Villas & Homestays",
+      "holidayExperiences": "Holiday Experiences",
+      "touristDestinations": "Tourist Destinations",
+      "customerService": "Customer Service"
+    },
+    "partnership": {
+      "title": "Partner with Us",
+      "subtitle": "Are you an owner of a villa, homestay, or accommodation in Sawarna? Join our network and reach more travelers!",
+      "cta": "Learn More About Partnership"
+    },
+    "about": {
+      "titlePrefix": "Why Choose ",
+      "subtitle": "We provide a seamless booking experience to help you find the perfect accommodation for your beach holiday."
+    },
+    "aboutSawarna": {
+      "title": "Discover Sawarna Beach",
+      "p1": "Located on the southern coast of Banten Province, Sawarna Beach is one of Indonesia's hidden gems. With pristine white sand, dramatic limestone cliffs, and clear waters, it is a perfect escape from city life.",
+      "p2": "The area is famous for its excellent surfing conditions, natural caves, and stunning sunsets. Visitors can enjoy activities from surfing and swimming to exploring rice fields and traditional villages.",
+      "beautifulBeach": "Beautiful Beach",
+      "surfParadise": "Surf Paradise",
+      "naturalCaves": "Natural Caves",
+      "localCulture": "Local Culture",
+      "imageAlt": "Sawarna Beach",
+      "cardTitle": "Stunning Natural Beauty",
+      "cardSubtitle": "Enjoy the unspoiled and well-preserved nature of Sawarna",
+      "viewGallery": "View Gallery"
+    },
+    "why": {
+      "verifiedProperties": {
+        "title": "Verified Properties",
+        "desc": "Every listing is personally verified to ensure quality and the best guest experience."
+      },
+      "strategicLocation": {
+        "title": "Strategic Locations",
+        "desc": "Find stays in the best spots of Sawarna Beach, from beachfront to cliff views."
+      },
+      "affordablePrices": {
+        "title": "Affordable Prices",
+        "desc": "Enjoy competitive prices and special deals for a budget-friendly beach holiday."
+      },
+      "modernFacilities": {
+        "title": "Modern Facilities",
+        "desc": "Most properties include essential facilities like WiFi, AC, and more."
+      }
+    },
+    "articleTabs": {
+      "all": "All",
+      "stays": "Stays",
+      "tourism": "Tourism",
+      "culinary": "Culinary",
+      "tips": "Tips & Info",
+      "culture": "Culture",
+      "history": "History",
+      "photography": "Photography",
+      "adventure": "Adventure",
+      "family": "Family",
+      "accommodation": "Accommodation",
+      "transportation": "Transportation",
+      "activities": "Activities",
+      "events": "Events"
+    },
+    "cards": {
+      "recommendation": "Special Recommendation",
+      "viewGallery": "View Gallery",
+      "excellent": "Excellent",
+      "reviews": "reviews",
+      "todaySpecialPromo": "Today’s Special Promo",
+      "perNightIncludesTax": "Per night includes taxes and fees"
+    },
+    "quickView": {
+      "category": {
+        "villa": "Villa"
+      },
+      "prevAria": "Previous",
+      "nextAria": "Next",
+      "perNight": "per night",
+      "mainFacilities": "Main Facilities",
+      "viewDetail": "View Detail",
+      "close": "Close"
+    },
+    "featuredProperties": {
+      "title": "Featured Stays",
+      "subtitle": "Discover the best stays in Sawarna with stunning views and modern facilities for your perfect holiday.",
+      "filters": {
+        "all": "All Locations",
+        "pantai": "Sawarna Beach",
+        "goaLangir": "Goa Langir",
+        "legonPari": "Legon Pari",
+        "puloManuk": "Pulo Manuk"
+      },
+      "swipeHint": "Swipe to see more featured stays in Sawarna",
+      "viewAllVillas": "View All Villas",
+      "viewAllStays": "View All Stays"
+    },
+    "featuredDestinations": {
+      "title": "Top Destinations",
+      "subtitle": "Explore Sawarna’s natural beauty with a variety of amazing destinations.",
+      "viewAll": "View All Destinations"
+    },
+    "favoriteLocations": {
+      "badge": "Favorite Destinations",
+      "title": "Explore Top Spots in Sawarna",
+      "subtitle": "Find must-visit spots for your holiday in Sawarna. From beautiful beaches to stunning caves.",
+      "reviews": "reviews",
+      "bestTime": "Best time",
+      "popularActivities": "Popular Activities:",
+      "highlights": "Highlights:",
+      "exploreNow": "Explore Now",
+      "ctaTitle": "Want to Explore All Destinations?",
+      "ctaSubtitle": "Get complete guides, top tips, and more favorite recommendations.",
+      "viewAll": "View All Destinations",
+      "openMap": "Open Interactive Map"
+    },
+    "promos": {
+      "badge": "Special Offers",
+      "title": "Special Promotions",
+      "description1": "Get the best offers to stay at our luxury villas with special discounts up to 15%.",
+      "description2": "Valid for a limited time and subject to availability."
+    }
+  },
+  "dest": {
+    "type": {
+      "beach": "Beach",
+      "waterfall": "Waterfall",
+      "cave": "Cave",
+      "rock": "Rock"
+    },
+    "viewDetail": "View Detail"
+  },
+  "aboutPage": {
+    "seoName": "About Villa Sawarna",
+    "seoDescription": "VillaSawarna is the leading accommodation provider in Sawarna Beach. Learn about our story, vision and mission, and our commitment to providing the best beach holiday experience.",
+    "orgDescription": "Leading accommodation provider in Sawarna Beach",
+    "seoTitle": "About Us | Villa Sawarna",
+    "seoMetaDescription": "Discover the story behind Villa Sawarna and our commitment to delivering the best stay experience in Sawarna Beach with luxury villas and authentic homestays.",
+    "seoKeywords": "villa sawarna, about us, sawarna history, stays in sawarna, sawarna travel",
+    "hero": {"title": "About VillaSawarna", "subtitle": "Providing the finest accommodations in Sawarna Beach for an unforgettable beach holiday experience."},
+    "story": {
+      "title": "Our Story",
+      "p1": "VillaSawarna was founded in 2015 by beach and nature enthusiasts inspired by the beauty of Sawarna Beach. Starting from a small private villa, we saw the potential to help travelers enjoy this beach with the best comfort.",
+      "p2": "Over the years, we have grown from a single villa into the most complete accommodation network in the Sawarna Beach area. We work with local communities to provide authentic homestays and build private villas that offer privacy and luxury amid natural beauty.",
+      "p3": "Our mission is simple: help travelers enjoy the beauty of Sawarna Beach with maximum comfort, while preserving nature and empowering local communities."
+    },
+    "vision": {
+      "title": "Vision & Mission",
+      "subtitle": "Our commitment to deliver the best experience for every guest staying with VillaSawarna.",
+      "visionTitle": "Vision",
+      "visionText": "To be the leading accommodation provider in Sawarna Beach known for service quality, comfort, and commitment to environmental sustainability.",
+      "missionTitle": "Mission",
+      "m1": "Provide high-quality accommodations to international standards",
+      "m2": "Deliver unforgettable holiday experiences",
+      "m3": "Preserve the natural beauty of Sawarna Beach",
+      "m4": "Empower local communities",
+      "m5": "Develop sustainable tourism destinations"
+    },
+    "why": {
+      "title": "Why Choose Us",
+      "subtitle": "We are committed to delivering the best holiday experience with quality service and comfortable stays in the best locations of Sawarna Beach.",
+      "locTitle": "Strategic Locations",
+      "locText": "All our stays are located in strategic areas with easy access to the beach and stunning sea views.",
+      "qualityTitle": "Assured Quality",
+      "qualityText": "We ensure high quality standards for all accommodations, with regular maintenance and modern facilities.",
+      "localExpTitle": "Local Experiences",
+      "localExpText": "Enjoy authentic experiences with local guides and culinary delights that make your holiday memorable.",
+      "serviceTitle": "24/7 Service",
+      "serviceText": "Our support team is ready to assist you 24 hours a day, 7 days a week to ensure comfort during your stay."
+    },
+    "stats": {"years":"Years of Experience","guests":"Happy Guests","rating":"Guest Rating","stays":"Accommodations"},
+    "cta": {"title":"Ready for Your Dream Beach Holiday?","subtitle":"Explore our collection of villas and homestays to find the perfect accommodation for your Sawarna Beach holiday.","viewVillas":"View Villas","viewHomestays":"View Homestays"}
+  },
+  "contact": {
+    "seoName": "Contact Villa Sawarna",
+    "seoDescription": "Contact the Villa Sawarna team for information and assistance with accommodation bookings at Sawarna Beach",
+    "seoTitle": "Contact Us | Villa Sawarna",
+    "seoMetaDescription": "Contact Villa Sawarna for reservations, questions, or other assistance. We are ready to help you plan the perfect holiday in Sawarna.",
+    "seoKeywords": "contact villa sawarna, contact us, reservation sawarna, booking sawarna, customer service sawarna",
+    "hero": {
+      "title": "Contact Us",
+      "subtitle1": "Have questions or need help? Our team is ready to help you find the perfect stay in Sawarna Beach.",
+      "subtitle2": "Please fill out the form or reach us via the contact information below."
+    },
+    "info": {
+      "title": "Contact Information",
+      "addressTitle": "Address",
+      "address": "Jl. Pantai Sawarna, Desa Sawarna, Kecamatan Bayah,\nKabupaten Lebak, Banten, Indonesia",
+      "hoursTitle": "Opening Hours",
+      "hoursWeekdays": "Monday - Friday: 08:00 - 20:00",
+      "hoursWeekend": "Saturday - Sunday: 09:00 - 18:00"
+    },
+    "map": {"title":"Our Location", "ariaTitle":"VillaSawarna Location Map"},
+    "form": {
+      "title": "Send a Message",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "phone": "Phone Number",
+      "phonePlaceholder": "Enter your phone number",
+      "subject": "Subject",
+      "subjectPlaceholder": "Message subject",
+      "message": "Message",
+      "messagePlaceholder": "Write your message",
+      "sending": "Sending...",
+      "send": "Send Message"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "How do I make a reservation?",
+      "a1": "You can make a reservation through our website by selecting the desired property and following the steps, or by contacting our team via WhatsApp or email.",
+      "q2": "What is the difference between a villa and a homestay?",
+      "a2": "Villas offer privacy and luxury with complete facilities and dedicated staff, while homestays offer local living experiences at more affordable prices.",
+      "q3": "Is there a shuttle service from the station or airport?",
+      "a3": "Yes, we provide shuttle services from the nearest train station or airport at an additional cost. Please contact us for more details."
+    },
+    "newsletter": {
+      "title": "Join Our Newsletter",
+      "subtitle": "Get the latest updates and exclusive offers for your holiday in Sawarna Beach delivered to your email.",
+      "placeholder": "Your email address",
+      "subscribe": "Subscribe"
+    },
+    "toast": {
+      "title": "Message Sent!",
+      "description": "Thank you for contacting us. Our team will get back to you shortly."
+    }
+  },
+  "staysPage": {
+    "seo": {
+      "title": "Stays in Sawarna – Comfortable Villas Near the Beach",
+      "description": "Find the best stays in Sawarna, affordable beachside villas perfect for families and groups.",
+      "keywords": "stays sawarna, villa sawarna, homestay sawarna, beachside villa sawarna, affordable stays sawarna, group stays sawarna, sawarna villa prices, legon pari, tanjung layar, karang taraje"
+    },
+    "hero": {
+      "alt": "Stays in Sawarna near the beach",
+      "title": "Stays and Villas in Sawarna for a Comfortable Holiday",
+      "subtitle": "Selections of beachside villas and homestays—ideal for families, couples, and groups. Check availability & latest prices.",
+      "viewAllVillas": "View All Villas",
+      "contactUs": "Contact Us"
+    },
+    "intro": {
+      "p1": "Looking for comfortable stays in Sawarna near the beach? On this page we curated the best villas and homestays around Legon Pari, Tanjung Layar, Karang Taraje, up to Ciantir Beach. Choose units that fit your needs—from budget for couples, family units with 2–3 bedrooms, to group-capacity villas with many rooms and wide parking areas.",
+      "p2": "For the best experience, consider distance to the beach, road access, and facilities like kitchen/BBQ and WiFi. Our team can recommend the best options based on your dates and number of guests. Use the filters below to speed up your search."
+    },
+    "recommendations": {"title": "Recommended Stays"},
+    "filters": {
+      "semua": "all",
+      "dekat-pantai": "near beach",
+      "keluarga": "family",
+      "rombongan": "group",
+      "budget": "budget",
+      "premium": "premium"
+    },
+    "sort": {"aria":"Sort","popular":"Most Popular","priceLow":"Lowest Price","priceHigh":"Highest Price"},
+    "quickView": "Quick View",
+    "perNight": "/ night",
+    "viewDetail": "View Detail",
+    "hintClickImage": "Tip: Click image for Quick View",
+    "loadMore": "Load More",
+    "priceRange": {"title":"Price Range","budget":"Budget","budgetDesc":"From ±Rp300.000/night","family":"Family","familyDesc":"±Rp400.000–Rp600.000/night","group":"Group","groupDesc":"Large-room villas & wide parking available","note":"Note: prices may change based on season/weekend."},
+    "popularAreas": {"title":"Popular Areas","legonPari":"Legon Pari & Karang Taraje","legonPariDesc":"sunrise & wave phenomena.","guide":"Sawarna Travel Guide","guideDesc":"routes, itinerary, tips.","beachVillas":"Beachfront Villas","beachVillasDesc":"quick access to the beach."},
+    "recommendedArticles": {"title":"Recommended Articles for You","a1Title":"Affordable Beachside Stays in Sawarna","a1Desc":"Economical options that remain comfortable and close to the beach.","a2Title":"Sawarna Villas for Families & Groups","a2Desc":"Guide to choosing capacity, bedrooms, and favorite areas.","a3Title":"Recommended Villas with Sea Views","a3Desc":"Units facing the sea in Legon Pari, Tanjung Layar, Ciantir.","a4Title":"Sawarna Villas – Comfortable Beachside Stays","a4Desc":"Area info, prices, and tips for choosing villas."},
+    "tips": {"title":"Tips for Choosing Stays","t1":"Consider distance to the beach and road/parking access.","t2":"Match bedroom capacity & extra bed options.","t3":"Ensure kitchen/BBQ facilities if needed.","t4":"Check WiFi and family/children needs."},
+    "faq": {"q1":"Best time to stay?","a1":"Dry season (May–September) offers better chance of sunny weather; weekends are busier.","q2":"Is late check-in possible?","a2":"It can be arranged based on availability. Contact us before arrival."},
+    "cta": {"title":"Ready to Stay in Sawarna?","subtitle":"We’ll recommend the best units matching your needs.","button":"Check Availability & Prices"}
+  },
+  "villasPage": {
+    "seo": {
+      "title": "Villas in Sawarna - Rent Exclusive Beachfront Villas",
+      "description": "Discover exclusive villas across Sawarna. From Sawarna Beach to Tanjung Layar, we provide villas with stunning beachfront views and complete facilities for your holiday. Rent affordable villas, family villas, beach villas, and the best stays in Sawarna.",
+      "keywords": "villa sawarna, rent villa sawarna, beachfront villa sawarna, exclusive villas, goa langir, tanjung layar, legon pari, karang bokor, pulo manuk"
+    },
+    "header": {
+      "title": "Exclusive Villas in Sawarna",
+      "subtitle": "Find your dream villa across Sawarna. Each villa offers stunning beach views and complete facilities for an unforgettable holiday."
+    },
+    "tabs": {
+      "all": "All Locations",
+      "sawarna": "Sawarna Beach",
+      "goaLangir": "Goa Langir",
+      "karangBokor": "Karang Bokor",
+      "legonPari": "Legon Pari",
+      "tanjungLayar": "Tanjung Layar",
+      "puloManuk": "Pulo Manuk"
+    },
+    "location": {
+      "all": {"title":"All Locations in Sawarna","desc":"Discover exclusive villas across Sawarna. From Sawarna Beach to Tanjung Layar, each location offers a unique experience with stunning beach views and complete facilities for your holiday."},
+      "sawarna": {"title":"Sawarna Beach","desc":"The main beach known for its soft white sand and surf-friendly waves. This is the tourism hub with facilities and exclusive villas offering stunning views."},
+      "goaLangir": {"title":"Goa Langir","desc":"A tranquil coastal area ideal for those seeking peace and pristine nature. Villas here provide a more private and exclusive stay."},
+      "karangBokor": {"title":"Karang Bokor","desc":"Famous for unique rock formations and breathtaking sunrise views from cliffs. Villas in this area offer easy access to enjoy the scenery from above."},
+      "legonPari": {"title":"Legon Pari","desc":"A calm beach with white sand and clear water, ideal for swimming and snorkeling. Villas here provide a relaxed family-friendly atmosphere."},
+      "tanjungLayar": {"title":"Tanjung Layar","desc":"Home to the iconic twin rocks. Villas here offer the best sunset views in Sawarna."},
+      "puloManuk": {"title":"Pulo Manuk","desc":"A small island with white sandy beaches and clear waters, great for snorkeling and diving. Villas provide unique stays with ocean views."}
+    },
+    "empty": "No villas available in this location.",
+    "popular": {"title":"Popular Villas","subtitle":"Frequently chosen by our guests for unforgettable stays"},
+    "cheapest": {"title":"Most Affordable Villas","subtitle":"Find the best-priced villas for your holiday in Sawarna"}
+  },
+  "destinationsPage": {
+    "seo": {
+      "title": "Destinations in Sawarna | Villa Sawarna",
+      "description": "Explore the best destinations in Sawarna, from white sand beaches to hidden waterfalls. Find unforgettable holiday experiences.",
+      "keywords": "destinations sawarna, travel sawarna, sawarna beach, waterfalls sawarna, caves sawarna, attractions sawarna"
+    },
+    "title": "Sawarna Destinations",
+    "subtitle": "Discover must-visit destinations in Sawarna, from beautiful beaches to stunning caves.",
+    "searchPlaceholder": "Search destinations...",
+    "filters": {"all":"All","beach":"Beach","waterfall":"Waterfall","cave":"Cave","rock":"Rock"},
+    "type": {"beach":"Beach","waterfall":"Waterfall","cave":"Cave","rock":"Rock"},
+    "empty": {"title":"No destinations found","subtitle":"Try changing filters or search keywords"}
+  },
+  "article": {
+    "readFull": "Read the full article about",
+    "at": "at",
+    "notFoundDesc": "Article not found",
+    "notFoundTitle": "Article Not Found | Villa Sawarna",
+    "notFoundSeoDesc": "The article you are looking for was not found. Please visit our articles page for the latest information about Villa Sawarna.",
+    "notFoundHeading": "Article Not Found",
+    "notFoundText": "The article you are looking for was not found.",
+    "backToList": "Back to Articles",
+    "dataIncompleteTitle": "Incomplete Article Data",
+    "dataIncompleteDesc": "Data for this article is incomplete.",
+    "dataIncompleteHeading": "Incomplete Article Data",
+    "dataIncompleteText": "Sorry, the data for this article is incomplete.",
+    "checkAvailability": "Check Villa Availability"
   }
 }

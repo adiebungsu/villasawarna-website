@@ -6,8 +6,10 @@ import { getAllProperties, getPropertiesByLocation, extractMainLocation } from "
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import OptimizedImage from './OptimizedImage';
 import useEmblaCarousel from 'embla-carousel-react';
+import { useTranslation } from 'react-i18next';
 
 const FeaturedProperties = () => {
+  const { t } = useTranslation('common');
   const [filter, setFilter] = useState<'all' | 'goa-langir' | 'pulo-manuk' | 'legon-pari' | 'pantai-sawarna'>('all');
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'start',
@@ -53,9 +55,9 @@ const FeaturedProperties = () => {
     <section className="py-16 bg-sand-light dark:bg-gray-900">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 dark:text-white">Akomodasi Pilihan</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 dark:text-white">{t('home.featuredProperties.title', 'Akomodasi Pilihan')}</h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Temukan penginapan terbaik di Sawarna dengan pemandangan menakjubkan dan fasilitas modern untuk liburan sempurna Anda.
+            {t('home.featuredProperties.subtitle', 'Temukan penginapan terbaik di Sawarna dengan pemandangan menakjubkan dan fasilitas modern untuk liburan sempurna Anda.')}
           </p>
         </div>
 
@@ -66,35 +68,35 @@ const FeaturedProperties = () => {
             className={filter === 'all' ? 'bg-coral dark:bg-coral-dark' : 'border-coral text-coral hover:bg-coral hover:text-white dark:border-coral-light dark:text-coral-light dark:hover:bg-coral-dark dark:hover:text-white'}
             onClick={() => setFilter('all')}
           >
-            Semua Lokasi
+            {t('home.featuredProperties.filters.all', 'Semua Lokasi')}
           </Button>
           <Button
             variant={filter === 'pantai-sawarna' ? 'default' : 'outline'}
             className={filter === 'pantai-sawarna' ? 'bg-coral dark:bg-coral-dark' : 'border-coral text-coral hover:bg-coral hover:text-white dark:border-coral-light dark:text-coral-light dark:hover:bg-coral-dark dark:hover:text-white'}
             onClick={() => setFilter('pantai-sawarna')}
           >
-            Pantai Sawarna
+            {t('home.featuredProperties.filters.pantai', 'Pantai Sawarna')}
           </Button>
           <Button
             variant={filter === 'goa-langir' ? 'default' : 'outline'}
             className={filter === 'goa-langir' ? 'bg-coral dark:bg-coral-dark' : 'border-coral text-coral hover:bg-coral hover:text-white dark:border-coral-light dark:text-coral-light dark:hover:bg-coral-dark dark:hover:text-white'}
             onClick={() => setFilter('goa-langir')}
           >
-            Goa Langir
+            {t('home.featuredProperties.filters.goaLangir', 'Goa Langir')}
           </Button>
           <Button
             variant={filter === 'legon-pari' ? 'default' : 'outline'}
             className={filter === 'legon-pari' ? 'bg-coral dark:bg-coral-dark' : 'border-coral text-coral hover:bg-coral hover:text-white dark:border-coral-light dark:text-coral-light dark:hover:bg-coral-dark dark:hover:text-white'}
             onClick={() => setFilter('legon-pari')}
           >
-            Legon Pari
+            {t('home.featuredProperties.filters.legonPari', 'Legon Pari')}
           </Button>
           <Button
             variant={filter === 'pulo-manuk' ? 'default' : 'outline'}
             className={filter === 'pulo-manuk' ? 'bg-coral dark:bg-coral-dark' : 'border-coral text-coral hover:bg-coral hover:text-white dark:border-coral-light dark:text-coral-light dark:hover:bg-coral-dark dark:hover:text-white'}
             onClick={() => setFilter('pulo-manuk')}
           >
-            Pulo Manuk
+            {t('home.featuredProperties.filters.puloManuk', 'Pulo Manuk')}
           </Button>
         </div>
 
@@ -102,7 +104,7 @@ const FeaturedProperties = () => {
         <div className="relative">
           <div className="text-center mb-6">
             <p className="text-gray-600 dark:text-gray-300">
-              Geser untuk melihat lebih banyak akomodasi pilihan di Sawarna
+              {t('home.featuredProperties.swipeHint', 'Geser untuk melihat lebih banyak akomodasi pilihan di Sawarna')}
             </p>
           </div>
           <div className="overflow-hidden" ref={emblaRef}>
@@ -163,7 +165,7 @@ const FeaturedProperties = () => {
               className="border-coral text-coral hover:bg-coral hover:text-white dark:border-coral-light dark:text-coral-light dark:hover:bg-coral-dark dark:hover:text-white m-1"
               asChild
             >
-              <Link to="/villas">Lihat Semua Villa</Link>
+              <Link to="/villas">{t('home.featuredProperties.viewAllVillas', 'Lihat Semua Villa')}</Link>
             </Button>
             <Button 
               size="lg" 
@@ -171,7 +173,7 @@ const FeaturedProperties = () => {
               className="border-ocean text-ocean hover:bg-ocean hover:text-white dark:border-ocean-light dark:text-ocean-light dark:hover:bg-ocean-dark dark:hover:text-white m-1"
               asChild
             >
-                              <Link to="/penginapan-sawarna">Lihat Semua Penginapan</Link>
+              <Link to="/penginapan-sawarna">{t('home.featuredProperties.viewAllStays', 'Lihat Semua Penginapan')}</Link>
             </Button>
           </div>
         </div>

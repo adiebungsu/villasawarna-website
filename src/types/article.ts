@@ -10,6 +10,14 @@ export interface Article {
   category: string;
   tags: string[];
   pinned?: boolean;
+  translations?: {
+    en?: {
+      title?: string;
+      excerpt?: string;
+      content?: string;
+      category?: string;
+    };
+  };
   meta?: {
     title?: string;
     description?: string;

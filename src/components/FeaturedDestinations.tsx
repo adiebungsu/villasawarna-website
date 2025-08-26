@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import { getFeaturedDestinations } from "@/data/destinations";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import useEmblaCarousel from 'embla-carousel-react';
+import { useTranslation } from 'react-i18next';
 
 const DestinationCard = ({ destination }) => {
   const [imageError, setImageError] = useState(false);
+  const { t } = useTranslation('common');
 
   return (
     <div className="bg-gradient-to-br from-white to-sand-light dark:from-gray-800 dark:to-gray-900 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
@@ -18,10 +20,10 @@ const DestinationCard = ({ destination }) => {
           onError={() => setImageError(true)}
         />
         <div className="absolute top-2 right-2 bg-coral/90 dark:bg-coral-dark/90 text-white px-3 py-1 rounded-full text-sm font-medium">
-          {destination.type === 'beach' ? 'Pantai' :
-           destination.type === 'waterfall' ? 'Air Terjun' :
-           destination.type === 'cave' ? 'Gua' :
-           destination.type === 'rock' ? 'Batu' : destination.type}
+          {destination.type === 'beach' ? t('dest.type.beach', 'Pantai') :
+           destination.type === 'waterfall' ? t('dest.type.waterfall', 'Air Terjun') :
+           destination.type === 'cave' ? t('dest.type.cave', 'Gua') :
+           destination.type === 'rock' ? t('dest.type.rock', 'Batu') : destination.type}
         </div>
       </div>
       <div className="p-4">
@@ -39,7 +41,7 @@ const DestinationCard = ({ destination }) => {
           </div>
           <Link to={`/destination/${destination.id}`}>
             <Button variant="outline" size="sm" className="border-coral text-coral hover:bg-coral hover:text-white dark:border-coral-light dark:text-coral-light dark:hover:bg-coral-dark dark:hover:text-white whitespace-nowrap px-3 w-full">
-              Lihat Detail
+              {t('dest.viewDetail', 'Lihat Detail')}
             </Button>
           </Link>
         </div>
@@ -49,6 +51,7 @@ const DestinationCard = ({ destination }) => {
 };
 
 const FeaturedDestinations = () => {
+  const { t } = useTranslation('common');
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: 'start', loop: true });
   const destinations = getFeaturedDestinations();
 
@@ -59,9 +62,9 @@ const FeaturedDestinations = () => {
     <section className="py-16 bg-white dark:bg-gray-900">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 dark:text-white">Destinasi Wisata</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 dark:text-white">{t('home.featuredDestinations.title', 'Destinasi Wisata')}</h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Jelajahi keindahan alam Sawarna dengan berbagai destinasi wisata yang menakjubkan.
+            {t('home.featuredDestinations.subtitle', 'Jelajahi keindahan alam Sawarna dengan berbagai destinasi wisata yang menakjubkan.')}
           </p>
         </div>
 
@@ -104,7 +107,7 @@ const FeaturedDestinations = () => {
             className="border-coral text-coral hover:bg-coral hover:text-white dark:border-coral-light dark:text-coral-light dark:hover:bg-coral-dark dark:hover:text-white"
             asChild
           >
-            <Link to="/destinations">Lihat Semua Destinasi</Link>
+            <Link to="/destinations">{t('home.featuredDestinations.viewAll', 'Lihat Semua Destinasi')}</Link>
           </Button>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { PromoCard } from "./PromoCard";
 import { useNavigate } from "react-router-dom";
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight, Star, Users, Bed } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const promos = [
   {
@@ -72,18 +73,19 @@ const promos = [
 
 export function PromoSection() {
   const navigate = useNavigate();
+  const { t } = useTranslation('common');
 
   return (
     <section className="py-16 bg-gradient-to-br from-coral/5 via-white to-coral/5 dark:from-coral/10 dark:via-gray-900 dark:to-coral/10">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <span className="inline-block px-4 py-1.5 mb-3 text-sm font-semibold bg-coral/10 dark:bg-coral-dark/20 text-coral dark:text-coral-light rounded-full shadow-sm">
-            Penawaran Spesial
+            {t('home.promos.badge', 'Penawaran Spesial')}
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 dark:text-white">Promo Spesial</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 dark:text-white">{t('home.promos.title', 'Promo Spesial')}</h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Dapatkan penawaran terbaik untuk menginap di villa mewah kami dengan diskon spesial 15%. 
-            Berlaku hingga 31 Agustus 2024.
+            {t('home.promos.description1', 'Dapatkan penawaran terbaik untuk menginap di villa mewah kami dengan diskon spesial hingga 15%.')}<br />
+            {t('home.promos.description2', 'Berlaku terbatas sesuai ketersediaan.')}
           </p>
         </div>
 

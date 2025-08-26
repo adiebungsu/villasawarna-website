@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Clock, Users, CreditCard, AlertCircle, Shield, FileText, Phone, Mail } from "lucide-react";
 import SEO from '@/components/SEO';
+import { buildHreflangAlternates } from '@/utils/seo';
 
 const TermsAndConditions = () => {
   const structuredData = {
@@ -34,6 +35,7 @@ const TermsAndConditions = () => {
             tags: ['terms', 'kebijakan', 'aturan']
           }
         }}
+        hreflangAlternates={buildHreflangAlternates('/terms')}
       />
       <main className="flex-grow container mx-auto px-4 py-8 dark:bg-gradient-to-b dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         {/* Breadcrumb */}

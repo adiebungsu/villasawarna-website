@@ -16,9 +16,10 @@ import {
 import Breadcrumbs from '@/components/Breadcrumbs';
 import OptimizedImage from '@/components/OptimizedImage';
 import { useTranslation } from 'react-i18next';
+import { buildHreflangAlternates } from '@/utils/seo';
 
 const Articles = () => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
   const [visibleArticles, setVisibleArticles] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
@@ -117,8 +118,10 @@ const Articles = () => {
 
   const filteredArticles = articleData.filter(article => {
     const matchesSearch = searchTerm === '' || 
-      article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+      (article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+       (article.translations?.en?.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+       article.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+       (article.translations?.en?.excerpt || '').toLowerCase().includes(searchTerm.toLowerCase()));
     
     const matchesCategory = selectedCategory === undefined || article.category === selectedCategory;
     
@@ -155,6 +158,7 @@ const Articles = () => {
             tags: ['artikel', 'wisata', 'sawarna', 'tips']
           }
         }}
+        hreflangAlternates={buildHreflangAlternates('/articles')}
       />
       <div className="flex-grow">
         <div className="container-custom">
@@ -216,9 +220,9 @@ const Articles = () => {
                           <span>{article.date}</span>
                         </div>
                         <Link to={`/article/${article.slug}`} className="block group">
-                          <h3 className="text-lg font-semibold text-gray-800 dark:text-white group-hover:text-coral dark:group-hover:text-coral-light transition-colors line-clamp-2">{article.title}</h3>
+                          <h3 className="text-lg font-semibold text-gray-800 dark:text-white group-hover:text-coral dark:group-hover:text-coral-light transition-colors line-clamp-2">{i18n.language.startsWith('en') ? (article.translations?.en?.title || article.title) : article.title}</h3>
                         </Link>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm mt-1 line-clamp-3">{article.excerpt}</p>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm mt-1 line-clamp-3">{i18n.language.startsWith('en') ? (article.translations?.en?.excerpt || article.excerpt) : article.excerpt}</p>
                         <Link to={`/article/${article.slug}`} className="inline-flex items-center mt-3 text-coral hover:text-coral-dark dark:text-coral-light">
                           {t('articles.readMore', 'Baca Selengkapnya')}
                           <ChevronRight size={14} className="ml-1" />

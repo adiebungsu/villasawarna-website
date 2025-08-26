@@ -128,7 +128,7 @@ const villasData: ExtendedPropertyCardProps[] = [
     },
     contact: { phone: "083877080088" },
     coordinates: [-6.983313138494551, 106.3100191399096],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-dua-putri",
@@ -232,7 +232,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     },
     contact: { phone: "083877080088" },
     coordinates: [-6.981214793297297, 106.30974981409561],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-deka-sawarna",
@@ -313,7 +313,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     },
     contact: { phone: "083877080088" },
     coordinates: [-6.979094466326558, 106.30727668986445],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-sawarna-resort",
@@ -433,7 +433,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     },
     contact: { phone: "083877080088" },
     coordinates: [-6.974810518892521, 106.29812614079675],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-sinar-pelangi",
@@ -518,7 +518,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         date: "2024-02-10"
       }
     ],
-    nearbyAttractions: []
   },
   {
     id: "villa-aki-nini",
@@ -652,7 +651,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     ],
     contact: { phone: "083877080088" },
     coordinates: [-6.978853212418463, 106.30729082671174],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-mutiara-sawarna",
@@ -792,7 +791,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     ],
     contact: { phone: "083877080088" },
     coordinates: [-6.978365247307664, 106.30587655192137],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-regin-sawarna",
@@ -953,7 +952,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     ],
     contact: { phone: "083877080088" },
     coordinates: [-6.978777224525033, 106.30637610022279],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-little-hula-hula",
@@ -1116,7 +1115,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     },
     contact: { phone: "083877080088" },
     coordinates: [-6.975719846392589, 106.30001354457787],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-arizky-sawarna",
@@ -1229,7 +1228,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         date: "2024-03-10"
       }
     ],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-sinar-matahari-resort",
@@ -1408,7 +1407,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
         date: "2024-02-20"
       }
     ],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-putri-asih",
@@ -1537,7 +1536,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     ],
     contact: { phone: "083877080088" },
     coordinates: [-6.982508012805922, 106.30846527931784],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-widi",
@@ -1633,7 +1632,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
     ],
     contact: { phone: "083877080088" },
     coordinates: [-6.983433239060691, 106.30965162602301],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-batara",
@@ -1697,8 +1696,6 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         description: "Kamar deluxe yang luas dengan king bed premium dan balkon pribadi. Dilengkapi dengan pemandangan pantai yang menakjubkan dan fasilitas modern untuk kenyamanan maksimal.",
         price: 375000,
         capacity: 4,
-        beds: "1 King Bed Premium",
-        bathrooms: 1,
         images: [
           "https://i.imgur.com/nsx2JLR.jpeg",
           "https://i.imgur.com/lldZEVy.jpeg",
@@ -1939,7 +1936,7 @@ Dapur modern yang lengkap dengan peralatan memasak premium memungkinkan Anda unt
     },
     contact: { phone: "083877080088" },
     coordinates: [-6.987281692878949, 106.32599122186257],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-family-sawarna",
@@ -2084,7 +2081,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
     ],
     contact: { phone: "083877080088" },
     coordinates: [-6.984509398549827, 106.31045079908536],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-muara-legon-pari",
@@ -2198,7 +2195,7 @@ Lokasi strategis villa ini memudahkan akses ke berbagai destinasi wisata populer
         date: "2024-03-10"
       }
     ],
-    nearbyAttractions: []
+    // nearbyAttractions: []
   },
   {
     id: "villa-sabumi-goa-langir",

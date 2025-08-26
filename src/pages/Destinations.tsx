@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, MapPin, Star, Loader2 } from 'lucide-react';
+import { Search, MapPin, Star, Loader2, Clock3, SunMedium, BadgeCheck } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -10,6 +10,9 @@ import SEO from '@/components/SEO';
 import { Destination } from '@/data/destinations';
 import PageTransition from '@/components/PageTransition';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { useMemo } from 'react';
+import { buildHreflangAlternates } from '@/utils/seo';
 
 interface PaginatedResponse {
   items: Destination[];
@@ -18,8 +21,10 @@ interface PaginatedResponse {
 }
 
 const Destinations = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<'rating'|'reviews'|'name'>('rating');
   const observer = useRef<IntersectionObserver>();
   const loadMoreRef = useRef<HTMLDivElement>(null);
   
@@ -52,6 +57,16 @@ const Destinations = () => {
     destination.location.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // Deduplicate destinations by id to avoid duplicates when paginating
+  const uniqueResults = useMemo(() => {
+    const seen = new Set<string>();
+    return filteredResults.filter(d => {
+      if (seen.has(d.id)) return false;
+      seen.add(d.id);
+      return true;
+    });
+  }, [filteredResults]);
+
   const lastElementRef = useCallback((node: HTMLDivElement) => {
     if (isLoading) return;
     if (observer.current) observer.current.disconnect();
@@ -69,7 +84,7 @@ const Destinations = () => {
       key={destination.id}
       className="group h-full block"
     >
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl h-full flex flex-col">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-2xl h-full flex flex-col border border-gray-100 dark:border-gray-700">
         <div className="relative h-40 sm:h-48 overflow-hidden">
           <img
             src={destination.mainImage}
@@ -77,6 +92,16 @@ const Destinations = () => {
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+          <div className="absolute top-3 left-3 right-3 flex items-center gap-2">
+            {destination.types.map((type) => (
+              <span key={type} className="bg-white/90 dark:bg-gray-900/80 text-gray-800 dark:text-gray-100 text-[10px] font-semibold px-2 py-0.5 rounded-full">
+                {type === 'beach' && t('destinationsPage.type.beach', 'Beach')}
+                {type === 'waterfall' && t('destinationsPage.type.waterfall', 'Waterfall')}
+                {type === 'cave' && t('destinationsPage.type.cave', 'Cave')}
+                {type === 'rock' && t('destinationsPage.type.rock', 'Rock')}
+              </span>
+            ))}
+          </div>
           <div className="absolute bottom-3 left-3 right-3 text-white">
             <div className="flex items-center gap-1.5 mb-1">
               <MapPin className="w-3.5 h-3.5" />
@@ -87,22 +112,40 @@ const Destinations = () => {
         </div>
         <div className="p-3 sm:p-4 flex-1 flex flex-col">
           <div className="flex items-center justify-between mb-2">
-            <div className="flex flex-wrap gap-1">
-              {destination.types.map((type) => (
-                <span key={type} className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
-                  {type === 'beach' && 'Pantai'}
-                  {type === 'waterfall' && 'Air Terjun'}
-                  {type === 'cave' && 'Gua'}
-                  {type === 'rock' && 'Karang'}
-                </span>
-              ))}
+            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+              <Clock3 className="w-4 h-4" />
+              <span className="text-xs sm:text-sm truncate">{destination.openingHours || t('destinationsPage.card.hours', 'Open hours vary')}</span>
             </div>
             <div className="flex items-center gap-1">
               <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-400 fill-yellow-400" />
-              <span className="text-xs sm:text-sm font-medium text-gray-800 dark:text-white">{destination.rating}</span>
+              <span className="text-xs sm:text-sm font-medium text-gray-800 dark:text-white">{destination.rating.toFixed(1)}</span>
+              <span className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">({destination.reviews} {t('destinationsPage.card.reviews','reviews')})</span>
             </div>
           </div>
-          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 line-clamp-2 flex-1">{destination.description}</p>
+          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 line-clamp-3 flex-1">{destination.description}</p>
+          <div className="mt-2 flex items-center gap-2 text-[10px] sm:text-xs text-gray-600 dark:text-gray-300">
+            <SunMedium className="w-3.5 h-3.5" />
+            <span>{destination.bestTimeToVisit || t('destinationsPage.card.bestTime','Best time all year')}</span>
+          </div>
+          {destination.activities?.length ? (
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {destination.activities.slice(0,4).map((a, i) => (
+                <span key={i} className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-2 py-0.5 rounded-full text-[10px] sm:text-xs">{a}</span>
+              ))}
+              {destination.activities.length > 4 && (
+                <span className="text-[10px] sm:text-xs text-gray-500">+{destination.activities.length - 4}</span>
+              )}
+            </div>
+          ) : null}
+          <div className="mt-3 flex justify-between items-center">
+            <div className="flex items-center gap-1 text-[10px] sm:text-xs text-green-600 dark:text-green-400">
+              <BadgeCheck className="w-3.5 h-3.5" />
+              <span>{t('destinationsPage.card.verified','Verified spot')}</span>
+            </div>
+            <Button size="sm" variant="outline" className="h-8 px-3">
+              {t('destinationsPage.card.viewDetails','View Details')}
+            </Button>
+          </div>
         </div>
       </div>
     </Link>
@@ -145,11 +188,12 @@ const Destinations = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <SEO 
-        title="Destinasi Wisata di Sawarna | Villa Sawarna"
-        description="Jelajahi destinasi wisata terbaik di Sawarna, dari pantai berpasir putih hingga air terjun tersembunyi. Temukan pengalaman liburan yang tak terlupakan."
-        keywords="destinasi sawarna, wisata sawarna, pantai sawarna, air terjun sawarna, goa sawarna, tempat wisata sawarna"
+        title={t('destinationsPage.seo.title', 'Destinations in Sawarna | Villa Sawarna')}
+        description={t('destinationsPage.seo.description', 'Explore the best destinations in Sawarna, from white sand beaches to hidden waterfalls. Find unforgettable holiday experiences.')}
+        keywords={t('destinationsPage.seo.keywords', 'destinations sawarna, travel sawarna, sawarna beach, waterfalls sawarna, caves sawarna, attractions sawarna')}
         url="https://villasawarna.com/destinations"
         type="website"
+        hreflangAlternates={buildHreflangAlternates('/destinations')}
       />
       
       {/* Main Content */}
@@ -170,7 +214,7 @@ const Destinations = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  Destinasi Wisata Sawarna
+                  {t('destinationsPage.title', 'Sawarna Destinations')}
                 </motion.h1>
                 <motion.p 
                   className="text-gray-600 dark:text-gray-300 text-center max-w-2xl mx-auto mb-8"
@@ -178,7 +222,7 @@ const Destinations = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  Temukan berbagai destinasi wisata menarik di Sawarna, mulai dari pantai yang indah hingga gua yang menakjubkan.
+                  {t('destinationsPage.subtitle', 'Discover must-visit destinations in Sawarna, from beautiful beaches to stunning caves.')}
                 </motion.p>
                 
                 {/* Search and Filter */}
@@ -192,13 +236,13 @@ const Destinations = () => {
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
                     <Input
                       type="text"
-                      placeholder="Cari destinasi..."
+                      placeholder={t('destinationsPage.searchPlaceholder', 'Search destinations...')}
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="pl-10 w-full h-12 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus-visible:ring-ocean dark:focus-visible:ring-ocean-light"
                     />
                   </div>
-                  <div className="w-full overflow-x-auto pb-2">
+                  <div className="w-full overflow-x-auto pb-2 flex items-center gap-3">
                     <Tabs defaultValue="all" className="w-full">
                       <TabsList className="flex w-full gap-1.5 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg">
                         <TabsTrigger 
@@ -206,38 +250,51 @@ const Destinations = () => {
                           onClick={() => setSelectedType(null)}
                           className="whitespace-nowrap text-sm px-4 py-2 flex-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-900 data-[state=active]:text-gray-800 dark:data-[state=active]:text-white transition-colors"
                         >
-                          Semua
+                          {t('destinationsPage.filters.all', 'All')}
                         </TabsTrigger>
                         <TabsTrigger 
                           value="beach"
                           onClick={() => setSelectedType('beach')}
                           className="whitespace-nowrap text-sm px-4 py-2 flex-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-900 data-[state=active]:text-gray-800 dark:data-[state=active]:text-white transition-colors"
                         >
-                          Pantai
+                          {t('destinationsPage.filters.beach', 'Beach')}
                         </TabsTrigger>
                         <TabsTrigger 
                           value="waterfall"
                           onClick={() => setSelectedType('waterfall')}
                           className="whitespace-nowrap text-sm px-4 py-2 flex-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-900 data-[state=active]:text-gray-800 dark:data-[state=active]:text-white transition-colors"
                         >
-                          Air Terjun
+                          {t('destinationsPage.filters.waterfall', 'Waterfall')}
                         </TabsTrigger>
                         <TabsTrigger 
                           value="cave"
                           onClick={() => setSelectedType('cave')}
                           className="whitespace-nowrap text-sm px-4 py-2 flex-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-900 data-[state=active]:text-gray-800 dark:data-[state=active]:text-white transition-colors"
                         >
-                          Gua
+                          {t('destinationsPage.filters.cave', 'Cave')}
                         </TabsTrigger>
                         <TabsTrigger 
                           value="rock"
                           onClick={() => setSelectedType('rock')}
                           className="whitespace-nowrap text-sm px-4 py-2 flex-1 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-900 data-[state=active]:text-gray-800 dark:data-[state=active]:text-white transition-colors"
                         >
-                          Karang
+                          {t('destinationsPage.filters.rock', 'Rock')}
                         </TabsTrigger>
                       </TabsList>
                     </Tabs>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <label htmlFor="sort" className="text-sm text-gray-600 dark:text-gray-300">{t('destinationsPage.sort.label','Sort')}</label>
+                      <select
+                        id="sort"
+                        value={sortBy}
+                        onChange={(e)=>setSortBy(e.target.value as any)}
+                        className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-md px-2 py-2 text-sm text-gray-700 dark:text-gray-200"
+                      >
+                        <option value="rating">{t('destinationsPage.sort.rating','Rating')}</option>
+                        <option value="reviews">{t('destinationsPage.sort.reviews','Reviews')}</option>
+                        <option value="name">{t('destinationsPage.sort.name','Name')}</option>
+                      </select>
+                    </div>
                   </div>
                 </motion.div>
               </div>
@@ -266,10 +323,12 @@ const Destinations = () => {
                     initial="hidden"
                     animate="visible"
                   >
-                    {filteredResults.map((destination, index) => (
+                    {[...uniqueResults]
+                      .sort((a,b)=> sortBy==='rating' ? b.rating - a.rating : sortBy==='reviews' ? b.reviews - a.reviews : a.name.localeCompare(b.name))
+                      .map((destination, index) => (
                       <motion.div
                         key={destination.id}
-                        ref={index === filteredResults.length - 1 ? lastElementRef : undefined}
+                        ref={index === uniqueResults.length - 1 ? lastElementRef : undefined}
                         variants={itemVariants}
                       >
                         {renderDestinationCard(destination)}
@@ -279,15 +338,15 @@ const Destinations = () => {
                 )}
               </AnimatePresence>
 
-              {filteredResults.length === 0 && !isLoading && (
+              {uniqueResults.length === 0 && !isLoading && (
                 <motion.div 
                   className="text-center py-12"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Tidak ada destinasi ditemukan</h3>
-                  <p className="text-gray-600 dark:text-gray-300">Coba ubah filter atau kata kunci pencarian Anda</p>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{t('destinationsPage.empty.title', 'No destinations found')}</h3>
+                  <p className="text-gray-600 dark:text-gray-300">{t('destinationsPage.empty.subtitle', 'Try changing filters or search keywords')}</p>
                 </motion.div>
               )}
 

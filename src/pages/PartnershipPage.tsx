@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import SEO from '@/components/SEO';
+import { buildHreflangAlternates } from '@/utils/seo';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -191,6 +193,14 @@ const PartnershipPage = () => {
 
   return (
     <div className="container mx-auto py-12 px-4">
+      <SEO
+        title="Bermitra dengan VillaSawarna - Daftarkan Properti Anda"
+        description="Tingkatkan visibilitas dan pendapatan properti Anda dengan bergabung sebagai mitra VillaSawarna. Sistem booking terpercaya, dukungan 24/7, dan jangkauan luas."
+        keywords="kemitraan villa sawarna, daftar properti sawarna, jadi mitra villa, partnership penginapan sawarna"
+        url="https://villasawarna.com/partnership"
+        type="website"
+        hreflangAlternates={buildHreflangAlternates('/partnership')}
+      />
       {/* Hero Section dengan Background Gradient */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 p-8 md:p-12 mb-16">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>

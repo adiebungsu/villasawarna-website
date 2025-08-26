@@ -172,7 +172,7 @@ const Navbar = () => {
                     'text-gray-400 dark:text-gray-500': !isActivePath('/')
                   }
                 )} />
-                <span className="text-[9px] font-medium">Beranda</span>
+                <span className="text-[9px] font-medium">{t('nav.home', 'Beranda')}</span>
               </Link>
 
               {/* Villa */}
@@ -191,7 +191,7 @@ const Navbar = () => {
                     'text-gray-400 dark:text-gray-500': !isActivePath('/villas')
                   }
                 )} />
-                <span className="text-[9px] font-medium">Villa</span>
+                <span className="text-[9px] font-medium">{t('nav.villas', 'Villa')}</span>
               </Link>
 
               {/* Destinations */}
@@ -210,7 +210,7 @@ const Navbar = () => {
                     'text-gray-400 dark:text-gray-500': !isActivePath('/destinations')
                   }
                 )} />
-                <span className="text-[9px] font-medium">Destinasi</span>
+                <span className="text-[9px] font-medium">{t('nav.destinations', 'Destinasi')}</span>
               </Link>
 
               {/* Dashboard - Profil Bulat di Tengah */}
@@ -262,7 +262,7 @@ const Navbar = () => {
                     </div>
                   )}
                 </div>
-                <span className="text-[9px] font-medium">{user ? 'Profil' : 'Login'}</span>
+                <span className="text-[9px] font-medium">{user ? t('nav.profile', 'Profil') : t('nav.login', 'Login')}</span>
               </Link>
 
               {/* Penginapan */}
@@ -281,7 +281,7 @@ const Navbar = () => {
                     'text-gray-400 dark:text-gray-500': !isActivePath('/penginapan-sawarna')
                   }
                 )} />
-                <span className="text-[9px] font-medium">Penginapan</span>
+                <span className="text-[9px] font-medium">{t('nav.stays', 'Penginapan')}</span>
               </Link>
 
               
@@ -302,7 +302,7 @@ const Navbar = () => {
                     'text-gray-400 dark:text-gray-500': !isActivePath('/about')
                   }
                 )} />
-                <span className="text-[9px] font-medium">Tentang</span>
+                <span className="text-[9px] font-medium">{t('nav.about', 'Tentang')}</span>
               </Link>
 
               {/* Contact */}
@@ -321,7 +321,7 @@ const Navbar = () => {
                     'text-gray-400 dark:text-gray-500': !isActivePath('/contact')
                   }
                 )} />
-                <span className="text-[9px] font-medium">Kontak</span>
+                <span className="text-[9px] font-medium">{t('nav.contact', 'Kontak')}</span>
               </Link>
             </nav>
           </div>
@@ -330,6 +330,19 @@ const Navbar = () => {
 
       {/* Tambahkan padding top untuk konten agar tidak tertutup navbar */}
       <div className="md:block hidden h-20"></div>
+
+      {/* Floating Language Switcher - Mobile only */}
+      <button
+        aria-label="Language Switcher"
+        onClick={() => {
+          const next = i18n.language.startsWith('id') ? 'en' : 'id';
+          i18n.changeLanguage(next);
+          try { localStorage.setItem('i18nextLng', next); } catch {}
+        }}
+        className="md:hidden fixed top-3 right-3 z-[10000] px-3 py-1.5 rounded-full text-xs font-semibold shadow-md backdrop-blur bg-white/90 dark:bg-gray-800/80 text-gray-800 dark:text-gray-100 border border-gray-200/60 dark:border-gray-700/60"
+      >
+        {i18n.language.startsWith('id') ? 'EN' : 'ID'}
+      </button>
     </>
   );
 };

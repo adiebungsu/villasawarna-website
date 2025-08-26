@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Hotel, Home, Newspaper, Landmark } from "lucide-react";
 import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { buildHreflangAlternates } from '@/utils/seo';
 
 // Import FILTERS dari SearchBar
 import { FILTERS } from "@/components/SearchBar";
@@ -306,6 +307,8 @@ const Search = () => {
         title={`Hasil Pencarian: ${searchQuery} | Villa Sawarna`}
         description={metaDescription}
         keywords={`${searchQuery}, villa sawarna, penginapan sawarna, destinasi sawarna, artikel sawarna`}
+        url={`https://villasawarna.com/search?query=${encodeURIComponent(searchQuery)}`}
+        hreflangAlternates={buildHreflangAlternates(`/search?query=${encodeURIComponent(searchQuery)}`)}
       />
       
       <div className="container-custom py-8">

@@ -653,6 +653,9 @@ const PropertyDetail: React.FC = () => {
     );
   }
 
+  // Base path untuk kanonik dan schema
+  const basePath = property?.type === 'villa' ? 'villas' : 'homestays';
+
   // Generate structured data
   const structuredData = property ? [
     {
@@ -661,7 +664,7 @@ const PropertyDetail: React.FC = () => {
       "name": property.name,
       "description": property.description,
       "image": property.image,
-      "url": `https://villasawarna.com/property/${id}`,
+      "url": `https://villasawarna.com/${basePath}/${id}`,
       "telephone": property.contact?.phone,
       "address": {
         "@type": "PostalAddress",
@@ -708,7 +711,7 @@ const PropertyDetail: React.FC = () => {
           "@type": "ListItem",
           "position": 3,
           "name": property.name,
-          "item": `https://villasawarna.com/property/${id}`
+          "item": `https://villasawarna.com/${basePath}/${id}`
         }
       ]
     },
@@ -789,7 +792,7 @@ const PropertyDetail: React.FC = () => {
         title={metaTitle}
         description={metaDescription}
         keywords={`${property?.type} sawarna, ${property?.location}, pantai sawarna, sewa ${property?.type}, ${property?.name?.toLowerCase()}, penginapan sawarna, wisata sawarna, villa sawarna, homestay sawarna, penginapan murah sawarna, sewa villa sawarna, sewa homestay sawarna, penginapan dekat pantai sawarna, villa dekat pantai sawarna, homestay dekat pantai sawarna, penginapan keluarga sawarna, villa keluarga sawarna, homestay keluarga sawarna`}
-        url={`https://villasawarna.com/property/${id}`}
+        url={`https://villasawarna.com/${basePath}/${id}`}
         image={property?.image}
         type="website"
         structuredData={structuredData}
@@ -800,6 +803,11 @@ const PropertyDetail: React.FC = () => {
             tags: [property?.type, 'sawarna', 'wisata sawarna', 'penginapan sawarna', 'villa sawarna', 'homestay sawarna']
           }
         }}
+        hreflangAlternates={[
+          { hrefLang: 'id-ID', href: `https://villasawarna.com/${basePath}/${id}` },
+          { hrefLang: 'en-US', href: `https://villasawarna.com/en/${basePath}/${id}` },
+          { hrefLang: 'x-default', href: `https://villasawarna.com/${basePath}/${id}` }
+        ]}
       />
       
       <Navbar />

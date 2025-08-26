@@ -20,7 +20,6 @@ import { FloatingThemeToggle } from '@/components/FloatingThemeToggle';
 import { Article } from '@/types/article';
 import { cn } from '@/lib/utils';
 import WelcomeModal from '@/components/WelcomeModal';
-import ArticlesSection from '@/components/ArticlesSection';
 import { getLowestRoomPrice } from '@/utils/price';
 import { useAuth } from '@/context/use-auth';
 import CornerWelcome from '@/components/CornerWelcome';
@@ -193,6 +192,14 @@ const Index = () => {
     }
   };
 
+  const userRecord = (user && typeof user === 'object') ? (user as unknown as Record<string, unknown>) : undefined;
+  const userName: string | undefined = userRecord
+    ? (typeof userRecord.name === 'string' && userRecord.name)
+        || (typeof userRecord.fullName === 'string' && userRecord.fullName)
+        || (typeof userRecord.email === 'string' && (userRecord.email as string).includes('@') && (userRecord.email as string).split('@')[0])
+        || undefined
+    : undefined;
+
   return (
     <>
       <SEO 
@@ -243,43 +250,43 @@ const Index = () => {
               <Link to="/villas">
                 <div className="group bg-gradient-to-br from-ocean/5 to-ocean/10 dark:from-ocean-dark/20 dark:to-ocean-dark/30 rounded-xl p-3 text-center transition-all duration-300 hover:shadow-lg hover:scale-105">
                   <img src="/images/villa mewah.png" alt="Villa Icon" className="w-10 h-10 mx-auto mb-2" />
-                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Villa</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Penginapan Premium</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">{t('home.quickLinks.villas.title', 'Villa')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{t('home.quickLinks.villas.subtitle', 'Penginapan Premium')}</p>
                 </div>
               </Link>
               <Link to="/homestays">
                 <div className="group bg-gradient-to-br from-green-600/5 to-green-600/10 dark:from-green-600/20 dark:to-green-600/30 rounded-xl p-3 text-center transition-all duration-300 hover:shadow-lg hover:scale-105">
                   <img src="/images/homestay.png" alt="Homestay Sawarna" className="w-10 h-10 mx-auto mb-2" />
-                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Homestay</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Penginapan Lokal</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">{t('home.quickLinks.homestays.title', 'Homestay')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{t('home.quickLinks.homestays.subtitle', 'Penginapan Lokal')}</p>
                 </div>
               </Link>
               <Link to="/penginapan-sawarna">
                 <div className="group bg-gradient-to-br from-coral/5 to-coral/10 dark:from-coral-dark/20 dark:to-coral-dark/30 rounded-xl p-3 text-center transition-all duration-300 hover:shadow-lg hover:scale-105">
                   <img src="/images/penginapan-sawarna.webp" alt="Penginapan Icon" className="w-10 h-10 mx-auto mb-2" />
-                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Penginapan</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Villa & Homestay</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">{t('home.quickLinks.stays.title', 'Penginapan')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{t('home.quickLinks.stays.subtitle', 'Villa & Homestay')}</p>
                 </div>
               </Link>
               <Link to="/destinations">
                 <div className="group bg-gradient-to-br from-purple-500/5 to-purple-500/10 dark:from-purple-500/20 dark:to-purple-500/30 rounded-xl p-3 text-center transition-all duration-300 hover:shadow-lg hover:scale-105">
                   <img src="/images/destinasi-sawarna.webp" alt="Destinasi Icon" className="w-10 h-10 mx-auto mb-2" />
-                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Destinasi</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Tempat Wisata</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">{t('home.quickLinks.destinations.title', 'Destinasi')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{t('home.quickLinks.destinations.subtitle', 'Tempat Wisata')}</p>
                 </div>
               </Link>
               <Link to="/articles">
                 <div className="group bg-gradient-to-br from-green-500/5 to-green-500/10 dark:from-green-500/20 dark:to-green-500/30 rounded-xl p-3 text-center transition-all duration-300 hover:shadow-lg hover:scale-105">
                   <img src="/images/artikel.png" alt="Artikel Icon" className="w-10 h-10 mx-auto mb-2" />
-                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Artikel</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Tips & Info</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">{t('home.quickLinks.articles.title', 'Artikel')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{t('home.quickLinks.articles.subtitle', 'Tips & Info')}</p>
                 </div>
               </Link>
               <Link to="/map">
                 <div className="group bg-gradient-to-br from-blue-500/5 to-blue-500/10 dark:from-blue-500/20 dark:to-blue-500/30 rounded-xl p-3 text-center transition-all duration-300 hover:shadow-lg hover:scale-105">
                   <img src="/images/lokasi.png" alt="Maps Icon" className="w-10 h-10 mx-auto mb-2" />
-                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Maps</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Peta Lokasi</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">{t('home.quickLinks.map.title', 'Maps')}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{t('home.quickLinks.map.subtitle', 'Peta Lokasi')}</p>
                 </div>
               </Link>
             </div>
@@ -405,7 +412,7 @@ const Index = () => {
                   {idx === 0 && (
                     <div className="absolute left-0 top-0 z-10 px-3 py-0.5 sm:px-4 sm:py-1 rounded-tl-2xl rounded-br-2xl bg-red-600 text-white text-xs font-semibold flex items-center gap-1 sm:gap-2">
                       <svg width="14" height="14" fill="none" viewBox="0 0 24 24" className="sm:w-4 sm:h-4"><path fill="currentColor" d="M12 2c.41 0 .8.25.95.64l2.36 5.7 6.2.54c.41.04.75.36.8.77.05.41-.19.8-.57.95l-4.8 2.1 1.5 6.1c.1.4-.1.82-.48 1-.38.18-.82.07-1.08-.27L12 17.27l-4.88 3.21c-.36.24-.85.15-1.1-.21a.82.82 0 01-.1-.79l1.5-6.1-4.8-2.1a.8.8 0 01-.57-.95c.05-.41.39-.73.8-.77l6.2-.54 2.36-5.7A1 1 0 0112 2z"/></svg>
-                      Rekomendasi spesial
+                      {t('home.cards.recommendation', 'Rekomendasi spesial')}
                     </div>
                   )}
                   {/* Gambar utama */}
@@ -438,7 +445,7 @@ const Index = () => {
                       }}
                       type="button"
                     >
-                      Lihat Galeri
+                      {t('home.cards.viewGallery', 'Lihat Galeri')}
                     </button>
                   </div>
                   {/* Konten */}
@@ -446,8 +453,8 @@ const Index = () => {
                     <div className="flex items-center gap-1 sm:gap-2 mb-1 flex-wrap">
                       <span className="text-yellow-500 text-xs sm:text-base font-bold">★</span>
                       <span className="font-semibold text-xs sm:text-base text-gray-900 dark:text-white">{villa.rating.toFixed(1)}</span>
-                      <span className="text-blue-600 dark:text-blue-400 font-semibold text-[10px] sm:text-sm">Luar biasa</span>
-                      <span className="text-gray-500 dark:text-gray-300 text-[10px]">({villa.reviews} ulasan)</span>
+                      <span className="text-blue-600 dark:text-blue-400 font-semibold text-[10px] sm:text-sm">{t('home.cards.excellent', 'Luar biasa')}</span>
+                      <span className="text-gray-500 dark:text-gray-300 text-[10px]">({villa.reviews} {t('home.cards.reviews', 'ulasan')})</span>
                     </div>
                     <div className="font-bold text-sm sm:text-lg leading-tight mb-1 line-clamp-2 text-gray-900 dark:text-white">{villa.name}</div>
                     <hr className="my-1 border-gray-200 dark:border-gray-700" />
@@ -457,7 +464,7 @@ const Index = () => {
                     </div>
                     <div className="flex items-center gap-1 sm:gap-2 mb-2 flex-wrap">
                       <span className="bg-red-600 text-white text-[10px] font-bold px-1 py-0.5 sm:px-2 sm:py-1 rounded">
-                        Promo Spesial Hari Ini
+                        {t('home.cards.todaySpecialPromo', 'Promo Spesial Hari Ini')}
                       </span>
                       <span className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200 text-[10px] font-semibold px-1 py-0.5 sm:px-2 sm:py-1 rounded flex items-center gap-1">
                         <span className="bg-green-600 dark:bg-green-700 text-white rounded-full w-3 h-3 sm:w-4 sm:h-4 flex items-center justify-center text-[9px] sm:text-xs font-bold">1</span>
@@ -471,7 +478,7 @@ const Index = () => {
                       <span className="line-through text-gray-400 dark:text-gray-500 text-[10px] sm:text-sm">Rp {villa.originalPrice?.toLocaleString('id-ID') ?? '-'}</span>
                       <span className="text-red-600 dark:text-red-400 text-base sm:text-xl md:text-2xl font-bold">Rp {villa.price?.toLocaleString('id-ID') ?? '-'}</span>
                     </div>
-                    <div className="text-[9px] sm:text-xs text-gray-500 dark:text-gray-300">Per malam sudah pajak dan biaya lainnya</div>
+                    <div className="text-[9px] sm:text-xs text-gray-500 dark:text-gray-300">{t('home.cards.perNightIncludesTax', 'Per malam sudah pajak dan biaya lainnya')}</div>
                   </div>
                 </div>
               );
@@ -489,28 +496,28 @@ const Index = () => {
                     <Building2 className="w-4 h-4 text-ocean dark:text-ocean-light" />
                   </div>
                   <div className="text-xl font-bold text-ocean dark:text-ocean-light mb-0.5">50+</div>
-                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Villa & Homestay</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">{t('home.stats.villasAndHomestays', 'Villa & Homestay')}</div>
                 </div>
                 <div className="flex-1 min-w-[120px] bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-3 text-center border border-gray-100 dark:border-gray-700">
                   <div className="bg-gradient-to-br from-coral/10 to-coral/20 dark:from-coral-dark/20 dark:to-coral-dark/30 p-2 rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-1">
                     <User className="w-4 h-4 text-coral dark:text-coral-light" />
                   </div>
                   <div className="text-xl font-bold text-coral dark:text-coral-light mb-0.5">500+</div>
-                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Pengalaman Liburan</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">{t('home.stats.holidayExperiences', 'Pengalaman Liburan')}</div>
                 </div>
                 <div className="flex-1 min-w-[120px] bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-3 text-center border border-gray-100 dark:border-gray-700">
                   <div className="bg-gradient-to-br from-purple-500/10 to-purple-500/20 dark:from-purple-500/20 dark:to-purple-500/30 p-2 rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-1">
                     <MapPin className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                   </div>
                   <div className="text-xl font-bold text-purple-600 dark:text-purple-400 mb-0.5">10+</div>
-                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Destinasi Wisata</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">{t('home.stats.touristDestinations', 'Destinasi Wisata')}</div>
                 </div>
                 <div className="flex-1 min-w-[120px] bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-3 text-center border border-gray-100 dark:border-gray-700">
                   <div className="bg-gradient-to-br from-green-500/10 to-green-500/20 dark:from-green-500/20 dark:to-green-500/30 p-2 rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-1">
                     <Clock className="w-4 h-4 text-green-600 dark:text-green-400" />
                   </div>
                   <div className="text-xl font-bold text-green-600 dark:text-green-400 mb-0.5">24/7</div>
-                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Layanan Pelanggan</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">{t('home.stats.customerService', 'Layanan Pelanggan')}</div>
                 </div>
               </div>
             </div>
@@ -542,7 +549,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('semua')}
                 >
-                  Semua
+                  {t('home.articleTabs.all', 'Semua')}
                 </button>
                 <button 
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap ${
@@ -552,7 +559,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('penginapan')}
                 >
-                  Penginapan
+                  {t('home.articleTabs.stays', 'Penginapan')}
                 </button>
                 <button 
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap ${
@@ -562,7 +569,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('wisata')}
                 >
-                  Wisata
+                  {t('home.articleTabs.tourism', 'Wisata')}
                 </button>
                 <button 
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap ${
@@ -572,7 +579,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('kuliner')}
                 >
-                  Kuliner
+                  {t('home.articleTabs.culinary', 'Kuliner')}
                 </button>
                 <button 
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap ${
@@ -582,7 +589,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('tips')}
                 >
-                  Tips & Info
+                  {t('home.articleTabs.tips', 'Tips & Info')}
                 </button>
                 <button 
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap ${
@@ -592,7 +599,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('budaya')}
                 >
-                  Budaya
+                  {t('home.articleTabs.culture', 'Budaya')}
                 </button>
                 <button 
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap ${
@@ -602,7 +609,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('sejarah')}
                 >
-                  Sejarah
+                  {t('home.articleTabs.history', 'Sejarah')}
                 </button>
                 <button 
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap ${
@@ -612,7 +619,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('fotografi')}
                 >
-                  Fotografi
+                  {t('home.articleTabs.photography', 'Fotografi')}
                 </button>
                 <button 
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap ${
@@ -622,7 +629,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('petualangan')}
                 >
-                  Petualangan
+                  {t('home.articleTabs.adventure', 'Petualangan')}
                 </button>
                 <button 
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap ${
@@ -632,7 +639,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('keluarga')}
                 >
-                  Keluarga
+                  {t('home.articleTabs.family', 'Keluarga')}
                 </button>
                 <button 
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap ${
@@ -642,7 +649,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('akomodasi')}
                 >
-                  Akomodasi
+                  {t('home.articleTabs.accommodation', 'Akomodasi')}
                 </button>
                 <button 
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap ${
@@ -652,7 +659,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('transportasi')}
                 >
-                  Transportasi
+                  {t('home.articleTabs.transportation', 'Transportasi')}
                 </button>
                 <button 
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap ${
@@ -662,7 +669,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('aktivitas')}
                 >
-                  Aktivitas
+                  {t('home.articleTabs.activities', 'Aktivitas')}
                 </button>
                 <button 
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap ${
@@ -672,7 +679,7 @@ const Index = () => {
                   }`}
                   onClick={() => setActiveCategory('event')}
                 >
-                  Event
+                  {t('home.articleTabs.events', 'Event')}
                 </button>
               </div>
             </div>
@@ -738,13 +745,13 @@ const Index = () => {
         {/* Partnership Call to Action Section */}
         <section className="py-12 bg-white dark:bg-gray-900">
           <div className="container-custom text-center">
-            <h2 className="text-3xl font-bold mb-4">Bermitra dengan Kami</h2>
+            <h2 className="text-3xl font-bold mb-4">{t('home.partnership.title', 'Bermitra dengan Kami')}</h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
-              Apakah Anda pemilik villa, homestay, atau penginapan di Sawarna? Bergabunglah dengan jaringan kami dan jangkau lebih banyak wisatawan!
+              {t('home.partnership.subtitle', 'Apakah Anda pemilik villa, homestay, atau penginapan di Sawarna? Bergabunglah dengan jaringan kami dan jangkau lebih banyak wisatawan!')}
             </p>
             <Link to="/partnership">
               <Button size="lg">
-                Pelajari Lebih Lanjut tentang Kemitraan
+                {t('home.partnership.cta', 'Pelajari Lebih Lanjut tentang Kemitraan')}
               </Button>
             </Link>
           </div>
@@ -770,7 +777,7 @@ const Index = () => {
             {/* Bagian Gambar */}
             <div className="md:w-1/2 w-full h-48 md:h-auto relative flex items-center justify-center bg-gray-100 dark:bg-gray-800">
               {/* Badge kategori */}
-              <span className="absolute top-3 left-3 bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">Villa</span>
+              <span className="absolute top-3 left-3 bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">{t('home.quickView.category.villa', 'Villa')}</span>
               <div className="w-full h-full flex items-center justify-center">
                 <div className="w-full h-full">
                   <div className="overflow-hidden w-full h-full" ref={quickViewEmblaRef}>
@@ -798,14 +805,14 @@ const Index = () => {
                   <button
                     onClick={() => quickViewEmblaApi && quickViewEmblaApi.scrollPrev()}
                     className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-white rounded-full p-1.5 shadow hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                    aria-label="Sebelumnya"
+                    aria-label={t('home.quickView.prevAria', 'Sebelumnya')}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                   </button>
                   <button
                     onClick={() => quickViewEmblaApi && quickViewEmblaApi.scrollNext()}
                     className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-white rounded-full p-1.5 shadow hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                    aria-label="Berikutnya"
+                    aria-label={t('home.quickView.nextAria', 'Berikutnya')}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                   </button>
@@ -932,7 +939,7 @@ const Index = () => {
                           )}
                           <div className="text-base sm:text-lg md:text-xl font-bold text-red-600 dark:text-red-400">Rp {villa.price?.toLocaleString('id-ID') ?? '-'}</div>
                         </div>
-                        <div className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-300">per malam</div>
+                        <div className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-300">{t('home.quickView.perNight', 'per malam')}</div>
                       </div>
                     </div>
                     <div>
@@ -942,7 +949,7 @@ const Index = () => {
                       <div className="flex items-center gap-2 mb-2">
                         <span className="text-yellow-500 font-bold">★</span>
                         <span className="font-semibold text-sm text-gray-900 dark:text-white">{villa.rating?.toFixed(1) ?? '-'}</span>
-                        <span className="text-gray-500 dark:text-gray-300 text-xs">{villa.reviews ?? '-'} ulasan</span>
+                        <span className="text-gray-500 dark:text-gray-300 text-xs">{villa.reviews ?? '-'} {t('home.cards.reviews', 'ulasan')}</span>
                       </div>
                       {/* Lokasi dan Detail Kamar (Tata Ulang untuk Mobile) */}
                       <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 gap-2 mb-3 text-sm sm:text-base">
@@ -970,7 +977,7 @@ const Index = () => {
                       <hr className="my-2 border-gray-200 dark:border-gray-700" />
                       {/* Fasilitas */}
                       <div className="mb-3">
-                        <div className="font-semibold text-sm mb-1">Fasilitas Utama</div>
+                        <div className="font-semibold text-sm mb-1">{t('home.quickView.mainFacilities', 'Fasilitas Utama')}</div>
                         <div className="flex flex-wrap gap-2">
                           {(villa.facilities && villa.facilities.length > 0 ? villa.facilities : ['-']).map((fasilitas: string, i: number) => (
                             <span key={i} className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200 px-2 py-1 rounded text-xs font-medium">{fasilitas}</span>
@@ -980,8 +987,8 @@ const Index = () => {
                     </div>
                     {/* Tombol Aksi */}
                     <div className="flex gap-2 mt-4 text-sm font-semibold">
-                      <a href={`/villas/${villa.id}`} className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-center py-2 rounded-lg transition-colors">Lihat Detail</a>
-                      <button onClick={() => setQuickViewOpen(false)} className="flex-1 border border-blue-500 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 py-2 rounded-lg transition-colors">Tutup</button>
+                      <a href={`/villas/${villa.id}`} className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-center py-2 rounded-lg transition-colors">{t('home.quickView.viewDetail', 'Lihat Detail')}</a>
+                      <button onClick={() => setQuickViewOpen(false)} className="flex-1 border border-blue-500 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 py-2 rounded-lg transition-colors">{t('home.quickView.close', 'Tutup')}</button>
                     </div>
                   </React.Fragment>
                 );
@@ -1001,7 +1008,7 @@ const Index = () => {
       <CornerWelcome
         isOpen={isCornerOpen}
         onClose={handleCloseCorner}
-        userName={(user as any)?.name || (user as any)?.fullName || ((user as any)?.email ? (user as any).email.split('@')[0] : undefined)}
+        userName={userName}
       />
 
       {/* Profile Coachmark */}
@@ -1015,6 +1022,7 @@ const Index = () => {
 };
 
 const WhyChooseUs = () => {
+  const { t } = useTranslation('common');
   const [whyChooseUsRef, whyChooseUsApi] = useEmblaCarousel({ align: 'start', loop: true });
   const scrollPrev = () => whyChooseUsApi && whyChooseUsApi.scrollPrev();
   const scrollNext = () => whyChooseUsApi && whyChooseUsApi.scrollNext();
@@ -1022,23 +1030,23 @@ const WhyChooseUs = () => {
   const features = [
     {
       icon: <Hotel className="h-10 w-10 text-ocean dark:text-ocean-light" />,
-      title: "Properti Terverifikasi",
-      description: "Semua listing telah kami verifikasi secara pribadi untuk memastikan kualitas dan pengalaman terbaik bagi tamu kami."
+      title: t('home.why.verifiedProperties.title', 'Properti Terverifikasi'),
+      description: t('home.why.verifiedProperties.desc', 'Semua listing telah kami verifikasi secara pribadi untuk memastikan kualitas dan pengalaman terbaik bagi tamu kami.')
     },
     {
       icon: <MapPin className="h-10 w-10 text-ocean dark:text-ocean-light" />,
-      title: "Lokasi Strategis",
-      description: "Temukan akomodasi di lokasi terbaik Pantai Sawarna, mulai dari tepi pantai hingga pemandangan tebing."
+      title: t('home.why.strategicLocation.title', 'Lokasi Strategis'),
+      description: t('home.why.strategicLocation.desc', 'Temukan akomodasi di lokasi terbaik Pantai Sawarna, mulai dari tepi pantai hingga pemandangan tebing.')
     },
     {
       icon: <Umbrella className="h-10 w-10 text-ocean dark:text-ocean-light" />,
-      title: "Harga Terjangkau",
-      description: "Nikmati harga kompetitif dan penawaran spesial untuk liburan pantai yang hemat biaya."
+      title: t('home.why.affordablePrices.title', 'Harga Terjangkau'),
+      description: t('home.why.affordablePrices.desc', 'Nikmati harga kompetitif dan penawaran spesial untuk liburan pantai yang hemat biaya.')
     },
     {
       icon: <Wifi className="h-10 w-10 text-ocean dark:text-ocean-light" />,
-      title: "Fasilitas Modern",
-      description: "Sebagian besar properti dilengkapi fasilitas penting termasuk WiFi, AC, dan lainnya."
+      title: t('home.why.modernFacilities.title', 'Fasilitas Modern'),
+      description: t('home.why.modernFacilities.desc', 'Sebagian besar properti dilengkapi fasilitas penting termasuk WiFi, AC, dan lainnya.')
     }
   ];
 
@@ -1058,10 +1066,10 @@ const WhyChooseUs = () => {
             height={67}
           />
           <h2 className="text-3xl md:text-4xl font-bold mb-4 dark:text-white">
-            Mengapa Memilih <span className="text-[#33C3F0] dark:text-[#33C3F0] font-bold">Vi</span>lla<span className="text-[#FF7B00] dark:text-[#FF7B00] font-bold">S</span>awarna
+            {t('home.about.titlePrefix', 'Mengapa Memilih ')}<span className="text-[#33C3F0] dark:text-[#33C3F0] font-bold">Vi</span>lla<span className="text-[#FF7B00] dark:text-[#FF7B00] font-bold">S</span>awarna
           </h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-lg">
-            Kami menyediakan pengalaman pemesanan yang mudah untuk membantu Anda menemukan akomodasi yang sempurna untuk liburan pantai Anda.
+            {t('home.about.subtitle', 'Kami menyediakan pengalaman pemesanan yang mudah untuk membantu Anda menemukan akomodasi yang sempurna untuk liburan pantai Anda.')}
           </p>
         </div>
         
@@ -1128,6 +1136,7 @@ const WhyChooseUs = () => {
 };
 
 const AboutSawarna = () => {
+  const { t } = useTranslation('common');
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: 'start' });
 
@@ -1147,32 +1156,30 @@ const AboutSawarna = () => {
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
           <div className="order-2 lg:order-1">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 dark:text-white">Temukan Pantai Sawarna</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-3 dark:text-white">{t('home.aboutSawarna.title', 'Temukan Pantai Sawarna')}</h2>
             <p className="text-gray-700 dark:text-gray-300 mb-3 text-sm">
-              Terletak di pesisir selatan Provinsi Banten, Pantai Sawarna adalah salah satu permata tersembunyi Indonesia. 
-              Dengan pasir putih murni, tebing kapur dramatis, dan air yang jernih, ini adalah tempat pelarian sempurna dari kehidupan kota.
+              {t('home.aboutSawarna.p1', 'Terletak di pesisir selatan Provinsi Banten, Pantai Sawarna adalah salah satu permata tersembunyi Indonesia. Dengan pasir putih murni, tebing kapur dramatis, dan air yang jernih, ini adalah tempat pelarian sempurna dari kehidupan kota.')}
             </p>
             <p className="text-gray-700 dark:text-gray-300 mb-3 text-sm">
-              Kawasan ini terkenal dengan kondisi surfing yang luar biasa, goa-goa alami, dan matahari terbenam yang memukau. 
-              Pengunjung dapat menikmati berbagai aktivitas mulai dari selancar dan berenang hingga menjelajahi sawah dan desa tradisional.
+              {t('home.aboutSawarna.p2', 'Kawasan ini terkenal dengan kondisi surfing yang luar biasa, goa-goa alami, dan matahari terbenam yang memukau. Pengunjung dapat menikmati berbagai aktivitas mulai dari selancar dan berenang hingga menjelajahi sawah dan desa tradisional.')}
             </p>
             
             <div className="grid grid-cols-2 gap-3 mt-4">
               <div className="flex items-center">
                 <Star className="h-4 w-4 text-coral dark:text-coral-light mr-2" />
-                <span className="dark:text-gray-200 text-sm">Pantai yang Indah</span>
+                <span className="dark:text-gray-200 text-sm">{t('home.aboutSawarna.beautifulBeach', 'Pantai yang Indah')}</span>
               </div>
               <div className="flex items-center">
                 <Star className="h-4 w-4 text-coral dark:text-coral-light mr-2" />
-                <span className="dark:text-gray-200 text-sm">Surga Selancar</span>
+                <span className="dark:text-gray-200 text-sm">{t('home.aboutSawarna.surfParadise', 'Surga Selancar')}</span>
               </div>
               <div className="flex items-center">
                 <Star className="h-4 w-4 text-coral dark:text-coral-light mr-2" />
-                <span className="dark:text-gray-200 text-sm">Goa Alami</span>
+                <span className="dark:text-gray-200 text-sm">{t('home.aboutSawarna.naturalCaves', 'Goa Alami')}</span>
               </div>
               <div className="flex items-center">
                 <Star className="h-4 w-4 text-coral dark:text-coral-light mr-2" />
-                <span className="dark:text-gray-200 text-sm">Budaya Lokal</span>
+                <span className="dark:text-gray-200 text-sm">{t('home.aboutSawarna.localCulture', 'Budaya Lokal')}</span>
               </div>
             </div>
           </div>
@@ -1184,7 +1191,7 @@ const AboutSawarna = () => {
             >
               <OptimizedImage 
                 src={sawarnaImages[0]}
-                alt="Pantai Sawarna" 
+                alt={t('home.aboutSawarna.imageAlt', 'Pantai Sawarna')} 
                 className="w-full h-[250px] object-cover transform group-hover:scale-105 transition-transform duration-300"
                 quality={85}
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -1193,11 +1200,11 @@ const AboutSawarna = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
-                <h3 className="text-lg font-bold mb-0.5">Keindahan Alam yang Memukau</h3>
-                <p className="text-xs text-white/90">Nikmati keindahan alam Sawarna yang masih asri dan terjaga</p>
+                <h3 className="text-lg font-bold mb-0.5">{t('home.aboutSawarna.cardTitle', 'Keindahan Alam yang Memukau')}</h3>
+                <p className="text-xs text-white/90">{t('home.aboutSawarna.cardSubtitle', 'Nikmati keindahan alam Sawarna yang masih asri dan terjaga')}</p>
               </div>
               <div className="absolute top-3 right-3 bg-white/90 dark:bg-gray-900/90 text-gray-900 dark:text-white px-2 py-0.5 rounded-full text-xs font-medium">
-                Lihat Galeri
+                {t('home.aboutSawarna.viewGallery', 'Lihat Galeri')}
               </div>
             </div>
             <div className="absolute -bottom-3 -left-3 w-20 h-20 bg-ocean/20 dark:bg-ocean/10 rounded-full -z-10"></div>

@@ -2,7 +2,7 @@ import "leaflet/dist/leaflet.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useState, Suspense, lazy, useEffect } from "react";
 import ScrollToTop from "./components/ScrollToTop";
@@ -27,6 +27,7 @@ import { AuthProvider } from '@/context/AuthContext';
 import { WishlistProvider } from '@/context/wishlist-provider';
 import { UserDataProvider } from '@/context/user-data-provider';
 import GoogleAnalytics from './components/GoogleAnalytics';
+import { useLocaleFromPath } from '@/hooks/useLocaleFromPath';
 
 // Lazy load pages dengan chunk naming
 const Index = lazy(() => import(/* webpackChunkName: "home" */ "./pages/Index"));
@@ -54,6 +55,10 @@ const MapPage = lazy(() => import(/* webpackChunkName: "map" */ "./pages/Map"));
 const PenginapanSawarna = lazy(() => import(/* webpackChunkName: "penginapan-sawarna" */ './pages/PenginapanSawarna'));
 const UserDashboardPage = lazy(() => import(/* webpackChunkName: "user-dashboard" */ './pages/UserDashboardPage'));
 const ReviewDemoPage = lazy(() => import(/* webpackChunkName: "review-demo" */ './pages/ReviewDemoPage'));
+const TransportPage = lazy(() => import(/* webpackChunkName: "transport" */ './pages/Transport'));
+const TransportDetail = lazy(() => import(/* webpackChunkName: "transport-detail" */ './pages/TransportDetail'));
+const FleetDetail = lazy(() => import(/* webpackChunkName: "fleet-detail" */ './pages/FleetDetail'));
+const AreaDetail = lazy(() => import(/* webpackChunkName: "area-detail" */ './pages/AreaDetail'));
 const LoginPage = lazy(() => import(/* webpackChunkName: "login" */ './pages/LoginPage'));
 const LogoutPage = lazy(() => import(/* webpackChunkName: "logout" */ './pages/LogoutPage'));
 const RegisterPage = lazy(() => import(/* webpackChunkName: "register" */ './pages/RegisterPage'));
@@ -82,9 +87,16 @@ import { getGoogleClientId } from './config/environment';
 // Get Google Client ID from environment configuration
 const GOOGLE_CLIENT_ID = getGoogleClientId();
 
+const AppLayout = () => (
+  <Layout>
+    <Outlet />
+  </Layout>
+);
+
 const App = () => {
   const { updateAvailable, update, isInstalled } = useServiceWorker();
   const [isLoading, setIsLoading] = useState(true);
+  const LocaleSync = () => { useLocaleFromPath(); return null; };
 
   useEffect(() => {
     // Initialize performance monitoring
@@ -170,6 +182,7 @@ const App = () => {
                         <WishlistProvider>
                           <UserDataProvider>
                             <Router>
+                        <LocaleSync />
                         <GoogleAnalytics />
                         <ScrollToTop />
                         <FontLoader 
@@ -187,41 +200,109 @@ const App = () => {
                                 <Route path="/login" element={<LoginPage />} />
                                 <Route path="/logout" element={<LogoutPage />} />
                                 <Route path="/register" element={<RegisterPage />} />
-                                <Route path="*" element={
-                                  <Layout>
-                                    <Routes>
-                                      <Route path="/" element={<Index />} />
-                                      <Route path="/villas" element={<Villas />} />
-                                      <Route path="/homestays" element={<Homestays />} />
-                                      <Route path="/villas/:id" element={<PropertyDetail key={window.location.pathname} />} />
-                                      <Route path="/homestays/:id" element={<PropertyDetail key={window.location.pathname} />} />
-                                      <Route path="/articles" element={<Articles />} />
-                                      <Route path="/article/:id" element={<ArticleDetail />} />
-                                      <Route path="/about" element={<About />} />
-                                      <Route path="/penginapan-sawarna" element={<PenginapanSawarna />} />
-                                      <Route path="/contact" element={<Contact />} />
-                                      <Route path="/partnership" element={<PartnershipPage />} />
-                                      <Route path="/search" element={<Search />} />
-                                      <Route path="/admin/articles" element={<ArticleList />} />
-                                      <Route path="/admin/articles/new" element={<ArticleEditor />} />
-                                      <Route path="/admin/articles/edit/:id" element={<ArticleEditor />} />
-                                      <Route path="/destinations" element={<Destinations />} />
-                                      <Route path="/destination/:id" element={<DestinationDetail />} />
-                                      <Route path="/terms" element={<TermsAndConditions />} />
-                                      <Route path="/admin" element={<AuthGuard><Dashboard /></AuthGuard>} />
-                                      <Route path="/admin/properties" element={<AuthGuard><PropertyList /></AuthGuard>} />
-                                      <Route path="/admin/properties/new" element={<AuthGuard><PropertyEditor /></AuthGuard>} />
-                                      <Route path="/admin/properties/edit/:id" element={<AuthGuard><PropertyEditor /></AuthGuard>} />
-                                      <Route path="/admin/destinations" element={<AuthGuard><DestinationList /></AuthGuard>} />
-                                      <Route path="/admin/bookings" element={<AuthGuard><BookingList /></AuthGuard>} />
-                                      <Route path="/map" element={<MapPage />} />
-                                      <Route path="/help" element={<HelpPage />} />
-                                      <Route path="/dashboard" element={<UserDashboardPage />} />
-                                      <Route path="/review-demo" element={<ReviewDemoPage />} />
-                                      <Route path="*" element={<NotFound />} />
-                                    </Routes>
-                                  </Layout>
-                                } />
+                                {/* Base routes with shared children */}
+                                <Route path="/" element={<AppLayout />}>
+                                  <Route index element={<Index />} />
+                                  <Route path="villas" element={<Villas />} />
+                                  <Route path="homestays" element={<Homestays />} />
+                                  <Route path="villas/:id" element={<PropertyDetail key={window.location.pathname} />} />
+                                  <Route path="homestays/:id" element={<PropertyDetail key={window.location.pathname} />} />
+                                  <Route path="articles" element={<Articles />} />
+                                  <Route path="article/:id" element={<ArticleDetail />} />
+                                  <Route path="about" element={<About />} />
+                                  <Route path="penginapan-sawarna" element={<PenginapanSawarna />} />
+                                  <Route path="contact" element={<Contact />} />
+                                  <Route path="partnership" element={<PartnershipPage />} />
+                                  <Route path="search" element={<Search />} />
+                                  <Route path="admin/articles" element={<ArticleList />} />
+                                  <Route path="admin/articles/new" element={<ArticleEditor />} />
+                                  <Route path="admin/articles/edit/:id" element={<ArticleEditor />} />
+                                  <Route path="destinations" element={<Destinations />} />
+                                  <Route path="destination/:id" element={<DestinationDetail />} />
+                                  <Route path="terms" element={<TermsAndConditions />} />
+                                  <Route path="admin" element={<AuthGuard><Dashboard /></AuthGuard>} />
+                                  <Route path="admin/properties" element={<AuthGuard><PropertyList /></AuthGuard>} />
+                                  <Route path="admin/properties/new" element={<AuthGuard><PropertyEditor /></AuthGuard>} />
+                                  <Route path="admin/properties/edit/:id" element={<AuthGuard><PropertyEditor /></AuthGuard>} />
+                                  <Route path="admin/destinations" element={<AuthGuard><DestinationList /></AuthGuard>} />
+                                  <Route path="admin/bookings" element={<AuthGuard><BookingList /></AuthGuard>} />
+                                  <Route path="map" element={<MapPage />} />
+                                  <Route path="help" element={<HelpPage />} />
+                                  <Route path="transport" element={<TransportPage />} />
+                                  <Route path="transport/:type" element={<TransportDetail />} />
+                                  <Route path="transport/fleet/:slug" element={<FleetDetail />} />
+                                  <Route path="transport/area/:city" element={<AreaDetail />} />
+                                  <Route path="dashboard" element={<UserDashboardPage />} />
+                                  <Route path="review-demo" element={<ReviewDemoPage />} />
+                                  <Route path="*" element={<NotFound />} />
+                                </Route>
+                                {/* Locale-prefixed routes reuse the same children */}
+                                <Route path="/en" element={<AppLayout />}>
+                                  <Route index element={<Index />} />
+                                  <Route path="villas" element={<Villas />} />
+                                  <Route path="homestays" element={<Homestays />} />
+                                  <Route path="villas/:id" element={<PropertyDetail key={window.location.pathname} />} />
+                                  <Route path="homestays/:id" element={<PropertyDetail key={window.location.pathname} />} />
+                                  <Route path="articles" element={<Articles />} />
+                                  <Route path="article/:id" element={<ArticleDetail />} />
+                                  <Route path="about" element={<About />} />
+                                  <Route path="penginapan-sawarna" element={<PenginapanSawarna />} />
+                                  <Route path="contact" element={<Contact />} />
+                                  <Route path="partnership" element={<PartnershipPage />} />
+                                  <Route path="search" element={<Search />} />
+                                  <Route path="admin/articles" element={<ArticleList />} />
+                                  <Route path="admin/articles/new" element={<ArticleEditor />} />
+                                  <Route path="admin/articles/edit/:id" element={<ArticleEditor />} />
+                                  <Route path="destinations" element={<Destinations />} />
+                                  <Route path="destination/:id" element={<DestinationDetail />} />
+                                  <Route path="terms" element={<TermsAndConditions />} />
+                                  <Route path="admin" element={<AuthGuard><Dashboard /></AuthGuard>} />
+                                  <Route path="admin/properties" element={<AuthGuard><PropertyList /></AuthGuard>} />
+                                  <Route path="admin/properties/new" element={<AuthGuard><PropertyEditor /></AuthGuard>} />
+                                  <Route path="admin/properties/edit/:id" element={<AuthGuard><PropertyEditor /></AuthGuard>} />
+                                  <Route path="admin/destinations" element={<AuthGuard><DestinationList /></AuthGuard>} />
+                                  <Route path="admin/bookings" element={<AuthGuard><BookingList /></AuthGuard>} />
+                                  <Route path="map" element={<MapPage />} />
+                                  <Route path="help" element={<HelpPage />} />
+                                  <Route path="transport" element={<TransportPage />} />
+                                  <Route path="transport/:type" element={<TransportDetail />} />
+                                  <Route path="dashboard" element={<UserDashboardPage />} />
+                                  <Route path="review-demo" element={<ReviewDemoPage />} />
+                                  <Route path="*" element={<NotFound />} />
+                                </Route>
+                                <Route path="/id" element={<AppLayout />}>
+                                  <Route index element={<Index />} />
+                                  <Route path="villas" element={<Villas />} />
+                                  <Route path="homestays" element={<Homestays />} />
+                                  <Route path="villas/:id" element={<PropertyDetail key={window.location.pathname} />} />
+                                  <Route path="homestays/:id" element={<PropertyDetail key={window.location.pathname} />} />
+                                  <Route path="articles" element={<Articles />} />
+                                  <Route path="article/:id" element={<ArticleDetail />} />
+                                  <Route path="about" element={<About />} />
+                                  <Route path="penginapan-sawarna" element={<PenginapanSawarna />} />
+                                  <Route path="contact" element={<Contact />} />
+                                  <Route path="partnership" element={<PartnershipPage />} />
+                                  <Route path="search" element={<Search />} />
+                                  <Route path="admin/articles" element={<ArticleList />} />
+                                  <Route path="admin/articles/new" element={<ArticleEditor />} />
+                                  <Route path="admin/articles/edit/:id" element={<ArticleEditor />} />
+                                  <Route path="destinations" element={<Destinations />} />
+                                  <Route path="destination/:id" element={<DestinationDetail />} />
+                                  <Route path="terms" element={<TermsAndConditions />} />
+                                  <Route path="admin" element={<AuthGuard><Dashboard /></AuthGuard>} />
+                                  <Route path="admin/properties" element={<AuthGuard><PropertyList /></AuthGuard>} />
+                                  <Route path="admin/properties/new" element={<AuthGuard><PropertyEditor /></AuthGuard>} />
+                                  <Route path="admin/properties/edit/:id" element={<AuthGuard><PropertyEditor /></AuthGuard>} />
+                                  <Route path="admin/destinations" element={<AuthGuard><DestinationList /></AuthGuard>} />
+                                  <Route path="admin/bookings" element={<AuthGuard><BookingList /></AuthGuard>} />
+                                  <Route path="map" element={<MapPage />} />
+                                  <Route path="help" element={<HelpPage />} />
+                                  <Route path="transport" element={<TransportPage />} />
+                                  <Route path="transport/:type" element={<TransportDetail />} />
+                                  <Route path="dashboard" element={<UserDashboardPage />} />
+                                  <Route path="review-demo" element={<ReviewDemoPage />} />
+                                  <Route path="*" element={<NotFound />} />
+                                </Route>
                               </Routes>
                           </AnimatePresence>
                         </Suspense>

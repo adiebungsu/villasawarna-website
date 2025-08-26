@@ -405,7 +405,43 @@ const article: Article = {
   category: 'panduan-wisata',
   tags: ['wisata sawarna', 'villa sawarna', 'penginapan sawarna', 'pantai'],
   image:
-    '/images/wisata-sawarna-panduan-lengkap-villa-penginapan-dan-destinasi-terbaik.webp'
+    '/images/wisata-sawarna-panduan-lengkap-villa-penginapan-dan-destinasi-terbaik.webp',
+  translations: {
+    en: {
+      title: 'Sawarna Travel Guide: Best Villas, Stays, and Destinations',
+      excerpt: 'Complete Sawarna travel guide: best beaches, recommended villas and stays, price ranges, activities, travel tips, and FAQs.',
+      category: 'travel-guide',
+      content: `
+<article>
+  <h1>Sawarna Travel Guide: Best Villas, Stays, and Destinations</h1>
+  <p><b>Sawarna Village</b> in Lebak, Banten, is increasingly popular for its stunning beaches, white sands, caves, and surf-ready waves. This guide covers where to stay, must-visit spots, prices, activities, and tips.</p>
+  <h2>1. About Sawarna</h2>
+  <p>Sawarna lies in Bayah District, Lebak Regency. Travel time from Jakarta/Bandung is about 6–8 hours by car.</p>
+  <h2>2. Best Beaches in Sawarna</h2>
+  <p>Highlights include Ciantir Beach (long white sands and surfing), Tanjung Layar (iconic twin rocks), Legon Pari (calm sunrise spot), Karang Taraje (dramatic waves), and Goa Langir (beach + limestone cave).</p>
+  <h2>3. Villas & Stays</h2>
+  <p>From family villas to budget homestays. Choose beachside villas for convenience.</p>
+  <h2>4. Prices</h2>
+  <p>Budget stays: IDR 200–300k; Family villas: IDR 450–800k; Group villas: IDR 1–2.5m.</p>
+  <h2>5. Activities</h2>
+  <ul>
+    <li>Surfing and sunsets at Ciantir</li>
+    <li>Camping at Legon Pari</li>
+    <li>Cave exploration at Goa Langir</li>
+  </ul>
+  <h2>6. Travel Tips</h2>
+  <ul>
+    <li>Go early morning or late afternoon due to heat</li>
+    <li>Bring cash; ATMs are limited</li>
+  </ul>
+  <h2>7. FAQs</h2>
+  <p>Plenty of villas within walking distance to beach; best time May–Sep.</p>
+  <h2>Route Guide to Sawarna</h2>
+  <p>From Jakarta via Sukabumi–Pelabuhan Ratu or Serang–Rangkasbitung–Malingping–Bayah; from Bandung via Cianjur or Garut–Cikajang–Cisolok.</p>
+</article>
+`
+    }
+  }
 };
 
 export default article;
