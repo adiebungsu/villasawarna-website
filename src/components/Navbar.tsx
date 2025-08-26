@@ -7,6 +7,7 @@ import GoogleAuth from './GoogleAuth';
 import { useAuth } from "@/context/use-auth";
 import OptimizedImage from '@/components/OptimizedImage';
 import { ThemeToggle } from './ThemeToggle';
+import { useTranslation } from 'react-i18next';
 
 // Logo component
 const Logo = () => {
@@ -30,6 +31,7 @@ const Logo = () => {
 
 // Main Navbar component
 const Navbar = () => {
+  const { t, i18n } = useTranslation('common');
   const { user, setUser } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -61,13 +63,13 @@ const Navbar = () => {
 
   // Navigation links with icons - untuk desktop navbar
   const navLinks = [
-    { name: 'Beranda', path: '/', icon: Home },
-    { name: 'Villa', path: '/villas', icon: Building2 },
-    { name: 'Penginapan', path: '/penginapan-sawarna', icon: Hotel },
-    { name: 'Tentang', path: '/about', icon: Info },
-    { name: 'Kontak', path: '/contact', icon: Phone },
-    ...(user ? [{ name: 'Dashboard', path: '/dashboard', icon: User }] : []),
-    ...(isAdmin ? [{ name: 'Admin', path: '/admin/articles', icon: Settings }] : [])
+    { name: t('nav.home'), path: '/', icon: Home },
+    { name: t('nav.villas'), path: '/villas', icon: Building2 },
+    { name: t('nav.stays'), path: '/penginapan-sawarna', icon: Hotel },
+    { name: t('nav.about'), path: '/about', icon: Info },
+    { name: t('nav.contact'), path: '/contact', icon: Phone },
+    ...(user ? [{ name: t('nav.dashboard'), path: '/dashboard', icon: User }] : []),
+    ...(isAdmin ? [{ name: t('nav.admin'), path: '/admin/articles', icon: Settings }] : [])
   ];
 
   // Check if current path matches link path
@@ -134,9 +136,16 @@ const Navbar = () => {
                 <GoogleAuth />
               ) : (
                 <Button asChild variant="outline">
-                  <Link to="/login">Login</Link>
+                  <Link to="/login">{t('nav.login')}</Link>
                 </Button>
               )}
+              <Button variant="ghost" className="ml-2" onClick={() => {
+                const next = i18n.language.startsWith('id') ? 'en' : 'id';
+                i18n.changeLanguage(next);
+                try { localStorage.setItem('i18nextLng', next); } catch {}
+              }}>
+                {i18n.language.startsWith('id') ? 'EN' : 'ID'}
+              </Button>
             </div>
           </div>
         </div>

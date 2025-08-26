@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "villas": "Villa",
+    "stays": "Penginapan",
+    "about": "Tentang",
+    "contact": "Kontak",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "profile": "Profil",
+    "login": "Login",
+    "destinations": "Destinasi"
+  },
+  "hero": {
+    "title": "Penginapan dan Villa di Sawarna untuk Liburan Nyaman",
+    "subtitle": "Temukan penginapan Sawarna terbaik: villa nyaman dekat pantai, cocok untuk keluarga maupun rombongan.",
+    "ctaVillas": "Jelajahi Villa",
+    "ctaStays": "Lihat Penginapan",
+    "ctaAbout": "Tentang Kami"
+  },
+  "footer": {
+    "tagline": "Temukan akomodasi sempurna untuk liburan impian Anda di Pantai Sawarna, dari villa mewah hingga homestay yang nyaman.",
+    "quickLinks": "Tautan Cepat",
+    "articles": "Artikel",
+    "terms": "Syarat & Ketentuan",
+    "contactUs": "Hubungi Kami",
+    "address": "Jl. Pantai Sawarna, Desa Sawarna, Kecamatan Bayah, Kabupaten Lebak, Banten, Indonesia",
+    "subscribe": "Berlangganan",
+    "subscribeText": "Berlangganan newsletter kami untuk mendapatkan penawaran spesial.",
+    "emailPlaceholder": "Email Anda",
+    "subscribeCta": "Langganan",
+    "copyright": "Hak cipta dilindungi."
+  },
+  "articles": {
+    "metaDescription": "Artikel dan informasi terbaru tentang Villa Sawarna, wisata Pantai Sawarna, dan tips liburan di Banten. Temukan panduan lengkap untuk liburan Anda di Sawarna.",
+    "blogName": "Blog Villa Sawarna",
+    "seoTitle": "Artikel & Informasi Wisata Sawarna | Villa Sawarna",
+    "keywords": "artikel sawarna, wisata sawarna, pantai sawarna, tips liburan sawarna, informasi villa sawarna, blog sawarna, panduan wisata sawarna",
+    "breadcrumb": "Artikel",
+    "heading": "Artikel & Informasi",
+    "subheading": "Temukan informasi terbaru seputar Pantai Sawarna dan tips liburan",
+    "searchResults": "Menampilkan hasil pencarian untuk:",
+    "in": "dalam",
+    "categoryResults": "Menampilkan artikel kategori: ",
+    "clearFilter": "Hapus Filter",
+    "readMore": "Baca Selengkapnya",
+    "noResults": "Tidak ada artikel yang ditemukan.",
+    "loadMore": "Muat Lebih Banyak"
+  },
+  "home": {
+    "popularArticlesTitle": "Artikel Populer",
+    "popularArticlesSubtitle": "Temukan informasi terbaru dan tips menarik seputar liburan di Sawarna",
+    "viewAllArticles": "Lihat Semua Artikel"
+  }
+}

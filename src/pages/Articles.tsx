@@ -15,8 +15,10 @@ import {
 } from '@/components/ui/pagination';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import OptimizedImage from '@/components/OptimizedImage';
+import { useTranslation } from 'react-i18next';
 
 const Articles = () => {
+  const { t } = useTranslation('common');
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
   const [visibleArticles, setVisibleArticles] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,10 +37,10 @@ const Articles = () => {
     // Scroll immediately and also after paint to prevent preserved scroll
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     const raf = requestAnimationFrame(() => window.scrollTo(0, 0));
-    const t = setTimeout(() => window.scrollTo(0, 0), 0);
+    const tmo = setTimeout(() => window.scrollTo(0, 0), 0);
     return () => {
       cancelAnimationFrame(raf);
-      clearTimeout(t);
+      clearTimeout(tmo);
     };
   }, [location.pathname]);
 
@@ -70,12 +72,12 @@ const Articles = () => {
     setVisibleArticles(10);
   }, [selectedCategory, searchTerm]);
   
-  const metaDescription = `Artikel dan informasi terbaru tentang Villa Sawarna, wisata Pantai Sawarna, dan tips liburan di Banten. Temukan panduan lengkap untuk liburan Anda di Sawarna.`;
+  const metaDescription = t('articles.metaDescription', 'Artikel dan informasi terbaru tentang Villa Sawarna, wisata Pantai Sawarna, dan tips liburan di Banten. Temukan panduan lengkap untuk liburan Anda di Sawarna.');
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "name": "Blog Villa Sawarna",
+    "name": t('articles.blogName', 'Blog Villa Sawarna'),
     "description": metaDescription,
     "url": "https://villasawarna.com/articles",
     "publisher": {
@@ -140,9 +142,9 @@ const Articles = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <SEO 
-        title="Artikel & Informasi Wisata Sawarna | Villa Sawarna"
+        title={t('articles.seoTitle', 'Artikel & Informasi Wisata Sawarna | Villa Sawarna')}
         description={metaDescription}
-        keywords="artikel sawarna, wisata sawarna, pantai sawarna, tips liburan sawarna, informasi villa sawarna, blog sawarna, panduan wisata sawarna"
+        keywords={t('articles.keywords', 'artikel sawarna, wisata sawarna, pantai sawarna, tips liburan sawarna, informasi villa sawarna, blog sawarna, panduan wisata sawarna')}
         url="https://villasawarna.com/articles"
         type="website"
         structuredData={structuredData}
@@ -158,11 +160,11 @@ const Articles = () => {
         <div className="container-custom">
           <Breadcrumbs 
             items={[
-              { label: "Artikel", href: "/articles" }
+              { label: t('articles.breadcrumb', 'Artikel'), href: "/articles" }
             ]} 
           />
-          <h1 className="text-3xl md:text-4xl font-bold text-ocean dark:text-ocean-light mb-2">Artikel & Informasi</h1>
-          <p className="text-gray-600 dark:text-gray-400 mb-8">Temukan informasi terbaru seputar Pantai Sawarna dan tips liburan</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-ocean dark:text-ocean-light mb-2">{t('articles.heading', 'Artikel & Informasi')}</h1>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">{t('articles.subheading', 'Temukan informasi terbaru seputar Pantai Sawarna dan tips liburan')}</p>
           
           <div className="flex flex-col md:flex-row gap-8">
             {/* Articles List */}
@@ -174,12 +176,12 @@ const Articles = () => {
                     <div>
                       {searchTerm && (
                         <span className="text-sm text-gray-600 dark:text-gray-400">
-                          Menampilkan hasil pencarian untuk: <span className="font-semibold text-gray-800 dark:text-white">"{searchTerm}"</span>
+                          {t('articles.searchResults', 'Menampilkan hasil pencarian untuk:')} <span className="font-semibold text-gray-800 dark:text-white">"{searchTerm}"</span>
                         </span>
                       )}
                       {selectedCategory && (
                         <span className="text-sm text-gray-600 dark:text-gray-400">
-                          {searchTerm ? ' dalam ' : 'Menampilkan artikel kategori: '}
+                          {searchTerm ? ` ${t('articles.in', 'dalam')} ` : t('articles.categoryResults', 'Menampilkan artikel kategori: ')}
                           <span className="font-semibold text-gray-800 dark:text-white">{selectedCategory}</span>
                         </span>
                       )}
@@ -192,46 +194,33 @@ const Articles = () => {
                       }}
                       className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white"
                     >
-                      Hapus Filter
+                      {t('articles.clearFilter', 'Hapus Filter')}
                     </Button>
                   </div>
                 </div>
               )}
               
-              {/* Articles - Mobile 2x2 grid */}
-              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-                {isLoading ? (
-                  <div className="text-center py-10 col-span-2 md:col-span-2 lg:col-span-3">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-coral dark:border-coral-light mx-auto"></div>
-                    <p className="text-gray-500 dark:text-gray-400 mt-2">Memuat artikel...</p>
-                  </div>
-                ) : displayedArticles.length > 0 ? (
+              {/* Articles Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {displayedArticles.length > 0 ? (
                   displayedArticles.map((article) => (
-                    <div key={article.id} className="bg-white dark:bg-gray-800 rounded-lg md:rounded-xl overflow-hidden shadow-sm md:shadow-md hover:shadow-lg transition-all flex flex-col h-full border border-gray-100 dark:border-gray-700 hover:-translate-y-1 md:hover:-translate-y-2">
-                      {/* Article Image */}
-                      <Link to={`/article/${article.slug}`} className="block flex-shrink-0">
-                        <OptimizedImage
-                          src={article.image}
-                          alt={article.title}
-                          className="w-full h-32 md:h-56 object-cover transition-transform duration-300 group-hover:scale-105"
-                          quality={85}
-                        />
+                    <div key={article.id} className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                      <Link to={`/article/${article.slug}`}>
+                        <div className="relative h-44">
+                          <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
+                        </div>
                       </Link>
-                      
-                      {/* Article Content */}
-                      <div className="p-3 md:p-5 flex-grow flex flex-col">
-                        <div className="flex items-center text-[10px] md:text-sm text-gray-500 dark:text-gray-400 mb-1 md:mb-2">
+                      <div className="p-4">
+                        <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-2">
                           <Calendar size={12} className="mr-1" />
                           <span>{article.date}</span>
-                          <span className="mx-2">•</span>
-                          <span className="text-ocean dark:text-ocean-light">{article.category}</span>
                         </div>
                         <Link to={`/article/${article.slug}`} className="block group">
-                          <h3 className="text-sm md:text-xl font-bold mb-1 md:mb-2 text-gray-800 dark:text-white group-hover:text-coral dark:group-hover:text-coral-light transition-colors line-clamp-2">{article.title}</h3>
+                          <h3 className="text-lg font-semibold text-gray-800 dark:text-white group-hover:text-coral dark:group-hover:text-coral-light transition-colors line-clamp-2">{article.title}</h3>
                         </Link>
-                        <p className="text-xs md:text-base text-gray-600 dark:text-gray-400 mb-3 md:mb-4 line-clamp-2 md:line-clamp-3">{article.excerpt}</p>
-                        <Link to={`/article/${article.slug}`} className="inline-flex items-center mt-auto bg-gradient-to-r from-coral to-coral-dark text-white px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg text-[11px] md:text-sm font-semibold hover:from-coral-dark hover:to-coral transition-colors">
-                          Baca Selengkapnya
+                        <p className="text-gray-600 dark:text-gray-400 text-sm mt-1 line-clamp-3">{article.excerpt}</p>
+                        <Link to={`/article/${article.slug}`} className="inline-flex items-center mt-3 text-coral hover:text-coral-dark dark:text-coral-light">
+                          {t('articles.readMore', 'Baca Selengkapnya')}
                           <ChevronRight size={14} className="ml-1" />
                         </Link>
                       </div>
@@ -239,31 +228,24 @@ const Articles = () => {
                   ))
                 ) : (
                   <div className="text-center py-10 col-span-2 md:col-span-2 lg:col-span-3">
-                    <p className="text-gray-500 dark:text-gray-400">Tidak ada artikel yang ditemukan.</p>
-                  </div>
-                )}
-                
-                {/* Load More Button */}
-                {hasMoreArticles && !isLoading && (
-                  <div className="flex justify-center pt-6 col-span-2 md:col-span-2 lg:col-span-3">
-                    <Button 
-                      onClick={handleLoadMore} 
-                      variant="outline"
-                      className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700"
-                    >
-                      Lihat Artikel Lainnya
-                    </Button>
+                    <p className="text-gray-500 dark:text-gray-400">{t('articles.noResults', 'Tidak ada artikel yang ditemukan.')}</p>
                   </div>
                 )}
               </div>
+
+              {/* Load More Button */}
+              {hasMoreArticles && !isLoading && (
+                <div className="text-center mt-8">
+                  <Button onClick={handleLoadMore} variant="outline">
+                    {t('articles.loadMore', 'Muat Lebih Banyak')}
+                  </Button>
+                </div>
+              )}
             </div>
-            
+
             {/* Sidebar */}
             <div className="w-full md:w-1/3">
-              <ArticleSidebar 
-                selectedCategory={selectedCategory}
-                onCategorySelect={(category) => setSelectedCategory(category)}
-              />
+              <ArticleSidebar />
             </div>
           </div>
         </div>

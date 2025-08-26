@@ -2,8 +2,10 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import OptimizedImage from "./OptimizedImage";
+import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
+  const { t } = useTranslation('common');
   return (
     <div className="relative">
       {/* Hero Background */}
@@ -33,26 +35,26 @@ const Hero = () => {
       <div className="relative z-10 container-custom py-16 md:py-24">
         <div className="max-w-3xl">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 animate-fade-in-slide-from-bottom">
-            Penginapan dan Villa di Sawarna untuk Liburan Nyaman
+            {t('hero.title', 'Penginapan dan Villa di Sawarna untuk Liburan Nyaman')}
           </h1>
           <p className="text-base md:text-xl text-white/90 dark:text-white/95 mb-8 animate-fade-in-delay">
-            Temukan penginapan Sawarna terbaik: villa nyaman dekat pantai, cocok untuk keluarga maupun rombongan.
+            {t('hero.subtitle', 'Temukan penginapan Sawarna terbaik: villa nyaman dekat pantai, cocok untuk keluarga maupun rombongan.')}
           </p>
           
           <div className="mt-8 flex flex-wrap gap-4 animate-fade-in-delay-2">
             <Button asChild size="lg" className="bg-coral hover:bg-coral-dark dark:bg-coral-dark dark:hover:bg-coral transition-transform hover:scale-105">
               <Link to="/villas" className="flex items-center gap-2">
-                Jelajahi Villa <ArrowRight size={18} />
+                {t('hero.ctaVillas', 'Jelajahi Villa')} <ArrowRight size={18} />
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="bg-white/20 text-white border-white hover:bg-white/30 dark:bg-white/10 dark:hover:bg-white/20 transition-transform hover:scale-105">
-                              <Link to="/penginapan-sawarna" className="flex items-center gap-2">
-                                  Lihat Penginapan <ArrowRight size={18} />
+              <Link to="/penginapan-sawarna" className="flex items-center gap-2">
+                {t('hero.ctaStays', 'Lihat Penginapan')} <ArrowRight size={18} />
               </Link>
             </Button>
             <Button asChild size="lg" variant="ghost" className="text-white hover:bg-white/10 dark:hover:bg-white/20 transition-transform hover:scale-105">
               <Link to="/about" className="flex items-center gap-2">
-                Tentang Kami <ArrowRight size={18} />
+                {t('hero.ctaAbout', 'Tentang Kami')} <ArrowRight size={18} />
               </Link>
             </Button>
           </div>

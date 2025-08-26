@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "home": "Home",
+    "villas": "Villas",
+    "stays": "Stays",
+    "about": "About",
+    "contact": "Contact",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "profile": "Profile",
+    "login": "Login",
+    "destinations": "Destinations"
+  },
+  "hero": {
+    "title": "Comfortable Villas & Stays in Sawarna for Your Getaway",
+    "subtitle": "Find the best stays in Sawarna: cozy beachside villas, perfect for families and groups.",
+    "ctaVillas": "Explore Villas",
+    "ctaStays": "View Stays",
+    "ctaAbout": "About Us"
+  },
+  "footer": {
+    "tagline": "Find the perfect accommodation for your dream holiday in Sawarna Beach, from luxury villas to cozy homestays.",
+    "quickLinks": "Quick Links",
+    "articles": "Articles",
+    "terms": "Terms & Conditions",
+    "contactUs": "Contact Us",
+    "address": "Jl. Pantai Sawarna, Desa Sawarna, Bayah District, Lebak Regency, Banten, Indonesia",
+    "subscribe": "Subscribe",
+    "subscribeText": "Subscribe to our newsletter to receive special offers.",
+    "emailPlaceholder": "Your Email",
+    "subscribeCta": "Subscribe",
+    "copyright": "All rights reserved."
+  },
+  "articles": {
+    "metaDescription": "Latest articles and information about Villa Sawarna, Sawarna Beach tourism, and travel tips in Banten. Find your complete guide to Sawarna.",
+    "blogName": "Villa Sawarna Blog",
+    "seoTitle": "Articles & Travel Info Sawarna | Villa Sawarna",
+    "keywords": "sawarna articles, sawarna travel, sawarna beach, travel tips sawarna, villa sawarna info, sawarna blog, sawarna travel guide",
+    "breadcrumb": "Articles",
+    "heading": "Articles & Information",
+    "subheading": "Find the latest info about Sawarna Beach and travel tips",
+    "searchResults": "Showing search results for:",
+    "in": "in",
+    "categoryResults": "Showing category:",
+    "clearFilter": "Clear Filter",
+    "readMore": "Read More",
+    "noResults": "No articles found.",
+    "loadMore": "Load More"
+  },
+  "home": {
+    "popularArticlesTitle": "Popular Articles",
+    "popularArticlesSubtitle": "Find the latest info and useful tips for your trip to Sawarna",
+    "viewAllArticles": "View All Articles"
+  }
+}

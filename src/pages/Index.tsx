@@ -25,6 +25,7 @@ import { getLowestRoomPrice } from '@/utils/price';
 import { useAuth } from '@/context/use-auth';
 import CornerWelcome from '@/components/CornerWelcome';
 import ProfileCoachmark from '@/components/ProfileCoachmark';
+import { useTranslation } from 'react-i18next';
 
 // Data testimonial
 const testimonialData = [
@@ -67,6 +68,7 @@ const testimonialData = [
 ];
 
 const Index = () => {
+  const { t } = useTranslation('common');
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -523,9 +525,9 @@ const Index = () => {
         <section className="py-10 bg-white dark:bg-gray-900">
           <div className="container-custom">
             <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold mb-3 dark:text-white">Artikel Populer</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-3 dark:text-white">{t('home.popularArticlesTitle', 'Artikel Populer')}</h2>
               <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-sm">
-                Temukan informasi terbaru dan tips menarik seputar liburan di Sawarna
+                {t('home.popularArticlesSubtitle', 'Temukan informasi terbaru dan tips menarik seputar liburan di Sawarna')}
               </p>
             </div>
 
@@ -710,7 +712,7 @@ const Index = () => {
                         {article.excerpt}
                       </p>
                       <div className="mt-3">
-                        <span className="inline-block bg-gradient-to-r from-coral to-coral-dark text-white text-[10px] md:text-xs px-2 py-1 rounded-full group-hover:from-coral-dark group-hover:to-coral transition-colors">Baca selengkapnya</span>
+                        <span className="inline-block bg-gradient-to-r from-coral to-coral-dark text-white text-[10px] md:text-xs px-2 py-1 rounded-full group-hover:from-coral-dark group-hover:to-coral transition-colors">{t('articles.readMore', 'Baca Selengkapnya')}</span>
                       </div>
                     </div>
                   </div>
@@ -725,7 +727,7 @@ const Index = () => {
                 className="border-coral text-coral hover:bg-coral hover:text-white dark:border-coral-light dark:text-coral-light dark:hover:bg-coral-dark dark:hover:text-white"
                 asChild
               >
-                <Link to="/articles">Lihat Semua Artikel</Link>
+                <Link to="/articles">{t('home.viewAllArticles', 'Lihat Semua Artikel')}</Link>
               </Button>
             </div>
           </div>
