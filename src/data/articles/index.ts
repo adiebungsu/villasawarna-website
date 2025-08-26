@@ -50,8 +50,10 @@ import villaKeluargaRombongan from './villa-sawarna-untuk-keluarga-dan-rombongan
 import villaViewPantai from './rekomendasi-villa-sawarna-dengan-view-pantai';
 import penginapanSawarnaRekomendasi from './penginapan-sawarna-rekomendasi';
 import panduanLegonKarangTanjung from './panduan-legon-pari-karang-taraje-tanjung-layar';
+import wisataSawarnaPanduanLengkap from './wisata-sawarna-panduan-lengkap';
 
 export const articleData: Article[] = [
+  wisataSawarnaPanduanLengkap,
   legonPariKarangTaraje,
   panduanLegonKarangTanjung,
   panduanLiburanPantai,

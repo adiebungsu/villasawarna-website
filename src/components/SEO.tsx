@@ -18,6 +18,7 @@ interface SEOProps {
       tags?: string[];
     };
   };
+  hreflangAlternates?: Array<{ hrefLang: string; href: string }>;
 }
 
 const SEO = ({
@@ -25,14 +26,18 @@ const SEO = ({
   description,
   keywords,
   image = "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&q=80",
-  url = "https://villasawarna.com",
+  url,
   type = "website",
   structuredData,
   noindex = false,
-  openGraph
+  openGraph,
+  hreflangAlternates
 }: SEOProps) => {
   const siteTitle = "Villa Sawarna";
   const fullTitle = `${title} | ${siteTitle}`;
+  // Determine effective absolute URL
+  const effectiveUrl =
+    url || (typeof window !== 'undefined' ? window.location.href : "https://villasawarna.com");
 
   return (
     <Helmet>
@@ -51,7 +56,7 @@ const SEO = ({
       
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={openGraph?.type || type} />
-      <meta property="og:url" content={url} />
+      <meta property="og:url" content={effectiveUrl} />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
@@ -76,13 +81,25 @@ const SEO = ({
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={url} />
+      <meta name="twitter:url" content={effectiveUrl} />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
       
       {/* Canonical URL */}
-      <link rel="canonical" href={url} />
+      <link rel="canonical" href={effectiveUrl} />
+
+      {/* Hreflang Alternates */}
+      {hreflangAlternates && hreflangAlternates.length > 0 ? (
+        hreflangAlternates.map((alt, idx) => (
+          <link key={`${alt.hrefLang}-${idx}`} rel="alternate" hrefLang={alt.hrefLang} href={alt.href} />
+        ))
+      ) : (
+        <>
+          <link rel="alternate" hrefLang="id-ID" href={effectiveUrl} />
+          <link rel="alternate" hrefLang="x-default" href={effectiveUrl} />
+        </>
+      )}
       
       {/* Structured Data */}
       {structuredData && (
