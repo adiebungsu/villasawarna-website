@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import FeaturedProperties from "@/components/FeaturedProperties";
 import FeaturedDestinations from "@/components/FeaturedDestinations";
 import FavoriteLocations from "@/components/FavoriteLocations";
-import { Hotel, MapPin, Umbrella, Wifi, Star, TreePalm, Utensils, Clock, Pizza, MapPinHouse, Truck, Calendar, User, Shield, MessageSquare, Percent, Icon, Building2, Home, Newspaper, Navigation } from "lucide-react";
+import { Hotel, MapPin, Umbrella, Wifi, Star, TreePalm, Utensils, Clock, Pizza, MapPinHouse, Truck, Calendar, User, Shield, MessageSquare, Percent, Icon, Building2, Home, Newspaper, Navigation, Users, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SEO from '@/components/SEO';
 import OptimizedImage from '@/components/OptimizedImage';
@@ -297,6 +297,7 @@ const Index = () => {
 
         <div className={cn("pt-2", isMobile && "pb-16")}>
           <FeaturedProperties />
+          
           {/* Custom Villa Promo Cards */}
           <div className="flex flex-col gap-4 mt-8 md:flex-row md:gap-4">
             {[0,1,2,3].map((idx) => {
@@ -525,6 +526,153 @@ const Index = () => {
         </section>
 
         <PromoSection />
+        
+        {/* Transport Services Card - After Promo Section */}
+        <section className="py-8 md:py-12 bg-gradient-to-br from-blue-50 via-white to-green-50 dark:from-blue-900/20 dark:via-gray-900 dark:to-green-900/20">
+          <div className="container-custom">
+            {/* Hero Section with Background Image */}
+            <div className="relative mb-8 md:mb-12 rounded-2xl overflow-hidden">
+              <div className="absolute inset-0">
+                <img 
+                  src="/images/gasken-sawarna.webp" 
+                  alt="Transportasi Sawarna - VillaSawarna" 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/images/sawarna-beach-3.jpeg'; // Fallback image
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+              </div>
+              <div className="relative z-10 p-6 md:p-8 text-white">
+                <h2 className="text-2xl md:text-4xl font-bold mb-3">🚗 Layanan Transportasi Sawarna</h2>
+                <p className="text-white/90 text-sm md:text-lg max-w-2xl">
+                  Antar-jemput dari berbagai kota, charter harian, dan paket tour destinasi. 
+                  Sopir berpengalaman, armada nyaman, harga transparan.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center gap-1 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs">
+                    <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                    Rating 4.8/5
+                  </span>
+                  <span className="inline-flex items-center gap-1 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs">
+                    <Shield className="w-3 h-3 text-green-400" />
+                    Driver Berpengalaman
+                  </span>
+                  <span className="inline-flex items-center gap-1 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs">
+                    <Clock className="w-3 h-3 text-blue-400" />
+                    24 Jam
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Service Cards - Mobile Optimized */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6">
+              {/* Card 1: Antar-Jemput */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-lg border border-blue-100 dark:border-blue-900/30 hover:shadow-xl transition-all duration-300 group">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Truck className="w-5 h-5 md:w-6 md:h-6 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm md:text-base">Antar-Jemput</h3>
+                    <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">Bandara & Stasiun</p>
+                  </div>
+                </div>
+                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+                  Penjemputan tepat waktu dari Soekarno-Hatta, Halim, Bogor, atau Rangkasbitung menuju Sawarna.
+                </p>
+                <div className="flex items-center gap-2 text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  <Star className="w-3 h-3 md:w-4 md:h-4 text-yellow-500 fill-yellow-500" />
+                  <span>Rating 4.8/5</span>
+                  <span className="hidden sm:inline">•</span>
+                  <span className="hidden sm:inline">234+ review</span>
+                </div>
+                <Link to="/transport">
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm h-9 md:h-10">
+                    Lihat Detail
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Card 2: Charter Harian */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-lg border border-green-100 dark:border-green-900/30 hover:shadow-xl transition-all duration-300 group">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Navigation className="w-5 h-5 md:w-6 md:h-6 text-green-600 dark:text-green-400" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm md:text-base">Charter Harian</h3>
+                    <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">City Tour</p>
+                  </div>
+                </div>
+                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+                  Sewa mobil dengan sopir untuk jelajah Goa Langir, Tanjung Layar, Legon Pari, dan spot terbaik.
+                </p>
+                <div className="flex items-center gap-2 text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  <Star className="w-3 h-3 md:w-4 md:h-4 text-yellow-500 fill-yellow-500" />
+                  <span>Rating 4.9/5</span>
+                  <span className="hidden sm:inline">•</span>
+                  <span className="hidden sm:inline">189+ review</span>
+                </div>
+                <Link to="/transport">
+                  <Button className="w-full bg-green-600 hover:bg-green-700 text-white text-xs md:text-sm h-9 md:h-10">
+                    Lihat Detail
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Card 3: Group & Rombongan */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-lg border border-purple-100 dark:border-purple-900/30 hover:shadow-xl transition-all duration-300 group sm:col-span-2 lg:col-span-1">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Users className="w-5 h-5 md:w-6 md:h-6 text-purple-600 dark:text-purple-400" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm md:text-base">Group & Rombongan</h3>
+                    <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">Bus & Elf</p>
+                  </div>
+                </div>
+                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+                  Bus/elf untuk rombongan kantor, keluarga besar, atau komunitas dengan itinerary kustom.
+                </p>
+                <div className="flex items-center gap-2 text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  <Star className="w-3 h-3 md:w-4 md:h-4 text-yellow-500 fill-yellow-500" />
+                  <span>Rating 4.7/5</span>
+                  <span className="hidden sm:inline">•</span>
+                  <span className="hidden sm:inline">167+ review</span>
+                </div>
+                <Link to="/transport">
+                  <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs md:text-sm h-9 md:h-10">
+                    Lihat Detail
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* Mobile Optimized Features Badge */}
+            <div className="text-center">
+              <div className="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-4 bg-white dark:bg-gray-800 rounded-2xl px-4 md:px-6 py-3 md:py-4 shadow-lg border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-2">
+                  <Shield className="w-4 h-4 md:w-5 md:h-5 text-green-600" />
+                  <span className="text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300">Driver Berpengalaman</span>
+                </div>
+                <div className="hidden sm:block text-gray-400">•</div>
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 md:w-5 md:h-5 text-blue-600" />
+                  <span className="text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300">Layanan 24 Jam</span>
+                </div>
+                <div className="hidden sm:block text-gray-400">•</div>
+                <div className="flex items-center gap-2">
+                  <CreditCard className="w-4 h-4 md:w-5 md:h-5 text-purple-600" />
+                  <span className="text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300">Pembayaran Fleksibel</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
         <FeaturedDestinations />
         <FavoriteLocations />
 

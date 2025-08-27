@@ -119,6 +119,7 @@ const Transport = () => {
       city: 'Jakarta', 
       desc: 'Penjemputan dari seluruh Jakarta (Pusat, Barat, Timur, Utara, Selatan).', 
       image: '/images/jakarta-sawarna.webp', 
+      fallbackImage: '/images/sawarna-beach-3.jpeg',
       distanceKm: '≈ 230 km', 
       duration: '≈ 6–7 jam', 
       priceFrom: 'Mulai Rp 1.200.000', 
@@ -135,6 +136,7 @@ const Transport = () => {
       city: 'Bogor', 
       desc: 'Layanan dari Kota/Kabupaten Bogor, Sentul, dan sekitarnya.', 
       image: '/images/bogor-sawarna.webp', 
+      fallbackImage: '/images/sawarna-beach-3.jpeg',
       distanceKm: '≈ 180 km', 
       duration: '≈ 5–6 jam', 
       priceFrom: 'Mulai Rp 1.100.000', 
@@ -184,6 +186,7 @@ const Transport = () => {
       city: 'Tangerang', 
       desc: 'Area Kota/Kabupaten Tangerang & Tangerang Selatan.', 
       image: '/images/tanggerang-sawarnaku.webp', 
+      fallbackImage: '/images/sawarna-beach-3.jpeg',
       distanceKm: '≈ 200 km', 
       duration: '≈ 6–7 jam', 
       priceFrom: 'Mulai Rp 1.150.000', 
@@ -246,6 +249,10 @@ const Transport = () => {
         modifiedTime={new Date().toISOString()}
       />
 
+      {/* Preload critical images */}
+      <link rel="preload" as="image" href="/images/tanggerang-sawarnaku.webp" />
+      <link rel="preload" as="image" href="/images/sawarna-beach-3.jpeg" />
+      
       {/* Structured Data for Transport Services */}
       <script
         type="application/ld+json"
@@ -314,7 +321,7 @@ const Transport = () => {
 
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/sawarna-beach-3.jpeg')] bg-cover bg-center opacity-80 dark:opacity-60" />
+        <div className="absolute inset-0 bg-[url('/images/gasken-sawarna.webp')] bg-cover bg-center opacity-80 dark:opacity-60" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/20" />
         <div className="relative z-10 container-custom py-20 md:py-28 text-white">
           <div className="max-w-3xl">
@@ -360,6 +367,69 @@ const Transport = () => {
         </div>
       </section>
 
+      {/* Hero Image Section */}
+      <section className="py-12 bg-gradient-to-br from-ocean/5 to-coral/5 dark:from-ocean/10 dark:to-coral/10">
+        <div className="container-custom">
+          <div className="grid grid-cols-2 gap-4 md:gap-6 lg:gap-12 items-center">
+            {/* Image - Left side */}
+            <div>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800">
+                <img 
+                  src="/images/travel-pantai-sawarna.webp" 
+                  alt="Perjalanan menuju Pantai Sawarna - Transportasi VillaSawarna" 
+                  className="w-full h-32 md:h-40 lg:h-72 object-contain mx-auto"
+                  loading="lazy"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/images/sawarna-beach-3.jpeg';
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Content - Right side */}
+            <div className="text-center lg:text-left">
+              <h2 className="text-lg md:text-xl lg:text-4xl font-bold dark:text-white mb-2 md:mb-4">
+                Perjalanan Menuju Sawarna
+              </h2>
+              <p className="text-xs md:text-sm lg:text-lg text-gray-600 dark:text-gray-300 mb-3 md:mb-6 leading-relaxed">
+                Nikmati perjalanan nyaman dan aman menuju destinasi wisata terbaik di Pantai Sawarna dengan layanan transportasi profesional kami.
+              </p>
+              
+              {/* Key Features */}
+              <div className="space-y-2 md:space-y-3 mb-3 md:mb-6">
+                <div className="flex items-center gap-2 md:gap-3 justify-center lg:justify-start">
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-ocean rounded-full"></div>
+                  <span className="text-xs md:text-sm lg:text-base text-gray-700 dark:text-gray-300">Sopir berpengalaman & berlisensi</span>
+                </div>
+                <div className="flex items-center gap-2 md:gap-3 justify-center lg:justify-start">
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-ocean rounded-full"></div>
+                  <span className="text-xs md:text-sm lg:text-base text-gray-700 dark:text-gray-300">Armada terawat & nyaman</span>
+                </div>
+                <div className="flex items-center gap-2 md:gap-3 justify-center lg:justify-start">
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-ocean rounded-full"></div>
+                  <span className="text-xs md:text-sm lg:text-base text-gray-700 dark:text-gray-300">Harga transparan & kompetitif</span>
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center lg:justify-start">
+                <a href="#areas">
+                  <Button className="w-full sm:w-auto bg-ocean hover:bg-ocean/90">
+                    Lihat Area Layanan
+                  </Button>
+                </a>
+                <a href="https://wa.me/6283877080088" target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" className="w-full sm:w-auto">
+                    Konsultasi via WhatsApp
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Service Areas */}
       <section id="areas" className="py-12 bg-gray-50 dark:bg-gray-800">
         <div className="container-custom">
@@ -383,7 +453,12 @@ const Transport = () => {
                     loading="lazy"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = '/images/sawarna-beach-3.jpeg'; // Fallback image
+                      console.log(`Image failed to load: ${area.image}, falling back to: ${area.fallbackImage || '/images/sawarna-beach-3.jpeg'}`);
+                      // Use specific fallback image for each area
+                      target.src = area.fallbackImage || '/images/sawarna-beach-3.jpeg';
+                    }}
+                    onLoad={() => {
+                      console.log(`Image loaded successfully: ${area.image}`);
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />

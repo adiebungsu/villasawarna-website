@@ -141,9 +141,9 @@ const TransportDetail = () => {
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Layanan Tidak Ditemukan</h1>
           <p className="text-gray-600 dark:text-gray-300 mb-6">Layanan transport yang Anda cari tidak tersedia.</p>
-          <a href="/transport">
+          <Link to="/transport">
             <Button>Kembali ke Halaman Transport</Button>
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -295,11 +295,11 @@ const TransportDetail = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <blockquote className="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
-                  <p className="text-gray-800 dark:text-gray-200">“Driver ramah, on-time, dan mobil bersih. Perjalanan dari Jakarta ke Sawarna lancar.”</p>
+                  <p className="text-gray-800 dark:text-gray-200">"Driver ramah, on-time, dan mobil bersih. Perjalanan dari Jakarta ke Sawarna lancar."</p>
                   <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">— Rina, Jakarta</div>
                 </blockquote>
                 <blockquote className="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
-                  <p className="text-gray-800 dark:text-gray-200">“Harga sesuai, armada nyaman. Sangat direkomendasikan untuk rombongan.”</p>
+                  <p className="text-gray-800 dark:text-gray-200">"Harga sesuai, armada nyaman. Sangat direkomendasikan untuk rombongan."</p>
                   <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">— Dimas, Bogor</div>
                 </blockquote>
               </CardContent>
@@ -408,56 +408,54 @@ const TransportDetail = () => {
         </div>
       </section>
 
-             {/* Features & Pricing */}
-       <section className="py-12">
-         <div className="container-custom">
-           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-             {/* Features */}
-             <Card className="border border-gray-100 dark:border-gray-700">
-               <CardHeader>
-                 <CardTitle className="text-2xl dark:text-white">Fitur Layanan</CardTitle>
-                 <CardDescription>Keunggulan layanan transportasi kami</CardDescription>
-               </CardHeader>
-               <CardContent>
-                 <ul className="space-y-3">
-                   {currentService.features.map((feature, index) => (
-                     <li key={index} className="flex items-center gap-3">
-                       <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
-                       <span className="text-gray-700 dark:text-gray-200">{feature}</span>
-                     </li>
-                   ))}
-                 </ul>
-               </CardContent>
-             </Card>
+      {/* Features & Pricing */}
+      <section className="py-12">
+        <div className="container-custom">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Features */}
+            <Card className="border border-gray-100 dark:border-gray-700">
+              <CardHeader>
+                <CardTitle className="text-2xl dark:text-white">Fitur Layanan</CardTitle>
+                <CardDescription>Keunggulan layanan transportasi kami</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  {currentService.features.map((feature, index) => (
+                    <li key={index} className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
+                      <span className="text-gray-700 dark:text-gray-200">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
 
-             {/* Pricing */}
-             <Card className="border border-gray-100 dark:border-gray-700">
-               <CardHeader>
-                 <CardTitle className="text-2xl dark:text-white">Harga Layanan</CardTitle>
-                 <CardDescription>Estimasi biaya sesuai kebutuhan Anda</CardDescription>
-               </CardHeader>
-               <CardContent>
-                 <div className="space-y-4">
-                   {Object.entries(currentService.pricing).map(([key, price]) => (
-                     <div key={key} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                       <span className="font-medium text-gray-900 dark:text-white">{key}</span>
-                       <span className="font-semibold text-ocean dark:text-ocean-light">{price}</span>
-                     </div>
-                   ))}
-                 </div>
-                 <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                   <p className="text-sm text-blue-700 dark:text-blue-300">
-                     <strong>Catatan:</strong> Harga dapat berubah sesuai jarak, durasi, dan kebutuhan khusus. 
-                     Hubungi kami untuk estimasi yang lebih akurat.
-                   </p>
-                 </div>
-               </CardContent>
-             </Card>
-           </div>
-         </div>
-       </section>
-
-       
+            {/* Pricing */}
+            <Card className="border border-gray-100 dark:border-gray-700">
+              <CardHeader>
+                <CardTitle className="text-2xl dark:text-white">Harga Layanan</CardTitle>
+                <CardDescription>Estimasi biaya sesuai kebutuhan Anda</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {Object.entries(currentService.pricing).map(([key, price]) => (
+                    <div key={key} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                      <span className="font-medium text-gray-900 dark:text-white">{key}</span>
+                      <span className="font-semibold text-ocean dark:text-ocean-light">{price}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                    <strong>Catatan:</strong> Harga dapat berubah sesuai jarak, durasi, dan kebutuhan khusus. 
+                    Hubungi kami untuk estimasi yang lebih akurat.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
 
       {/* Price Calculator */}
       <section className="py-6">

@@ -421,6 +421,82 @@ const AREA_DATA: Record<string, {
       weekend: 'Rp 1.100.000',
       includes: ['Driver', 'Bensin', 'Tol', 'Air mineral', 'Perjalanan tercepat']
     }
+  },
+  'depok': {
+    city: 'Depok',
+    description: 'Kota Depok dan sekitarnya (Cimanggis, Sawangan, Limo, Cinere).',
+    image: '/images/depok-sawarna.webp',
+    distanceKm: '≈ 220 km',
+    duration: '≈ 6–7 jam',
+    priceFrom: 'Mulai Rp 1.200.000',
+    pickupPoints: [
+      'Stasiun Depok',
+      'Mall Depok',
+      'Cimanggis',
+      'Sawangan',
+      'Limo',
+      'Cinere'
+    ],
+    popularRoutes: [
+      { from: 'Depok Kota', to: 'Sawarna', duration: '6 jam' },
+      { from: 'Cimanggis', to: 'Sawarna', duration: '6.5 jam' },
+      { from: 'Sawangan', to: 'Sawarna', duration: '7 jam' }
+    ],
+    features: [
+      'Rute strategis via jalur selatan',
+      'Driver berpengalaman rute Depok',
+      'Armada nyaman untuk perjalanan jauh',
+      'Harga kompetitif',
+      'Fleksibel jadwal penjemputan'
+    ],
+    gallery: [
+      '/images/depok-sawarna.webp',
+      '/images/sawarna-beach-3.jpeg',
+      '/images/sawarna-beach-2.jpeg',
+      '/images/hero-sawarna.jpg'
+    ],
+    testimonials: [
+      {
+        name: 'Diana Putri',
+        location: 'Depok',
+        rating: 5,
+        comment: 'Layanan dari Depok sangat memuaskan. Driver tepat waktu dan armada bersih. Harga juga sesuai.',
+        date: '3 hari lalu'
+      },
+      {
+        name: 'Ahmad Fauzi',
+        location: 'Cimanggis',
+        rating: 5,
+        comment: 'Perjalanan dari Cimanggis lancar. Driver ramah dan tahu rute terbaik. Highly recommended!',
+        date: '1 minggu lalu'
+      }
+    ],
+    faq: [
+      {
+        question: 'Berapa lama perjalanan dari Depok ke Sawarna?',
+        answer: 'Perjalanan normal memakan waktu 6-7 jam tergantung kondisi lalu lintas dan lokasi penjemputan di Depok.'
+      },
+      {
+        question: 'Apakah bisa penjemputan dari area Cimanggis?',
+        answer: 'Ya, kami melayani penjemputan dari seluruh area Depok termasuk Cimanggis, Sawangan, Limo, dan Cinere.'
+      },
+      {
+        question: 'Bisakah penjemputan di pagi buta?',
+        answer: 'Ya, kami melayani penjemputan pagi buta untuk menghindari macet. Ada biaya tambahan untuk layanan dini hari.'
+      }
+    ],
+    additionalInfo: {
+      bestTime: 'Pagi hari untuk menghindari macet',
+      weather: 'Cuaca tropis, siapkan payung',
+      roadCondition: 'Jalan nasional dengan pemandangan indah',
+      tips: ['Berangkat pagi', 'Bawa bekal', 'Siapkan charger HP', 'Rute strategis']
+    },
+    pricing: {
+      base: 'Rp 1.200.000',
+      peak: 'Rp 1.400.000',
+      weekend: 'Rp 1.300.000',
+      includes: ['Driver', 'Bensin', 'Tol', 'Air mineral', 'Fleksibel jadwal']
+    }
   }
 };
 
@@ -1192,7 +1268,7 @@ const AreaDetail = () => {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/sawarna-beach-3.jpeg')] bg-cover bg-center opacity-80 dark:opacity-60" />
+        <div className="absolute inset-0 bg-[url('/images/gasken-sawarna.webp')] bg-cover bg-center opacity-80 dark:opacity-60" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/20" />
          <div className="relative z-10 container-custom py-16 md:py-28 text-white">
           <div className="max-w-4xl">
