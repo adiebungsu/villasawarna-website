@@ -59,6 +59,8 @@ const TransportPage = lazy(() => import(/* webpackChunkName: "transport" */ './p
 const TransportDetail = lazy(() => import(/* webpackChunkName: "transport-detail" */ './pages/TransportDetail'));
 const FleetDetail = lazy(() => import(/* webpackChunkName: "fleet-detail" */ './pages/FleetDetail'));
 const AreaDetail = lazy(() => import(/* webpackChunkName: "area-detail" */ './pages/AreaDetail'));
+const AccommodationPackages = lazy(() => import(/* webpackChunkName: "accommodation-packages" */ './pages/AccommodationPackages'));
+const PackageDetail = lazy(() => import(/* webpackChunkName: "package-detail" */ './pages/PackageDetail'));
 const LoginPage = lazy(() => import(/* webpackChunkName: "login" */ './pages/LoginPage'));
 const LogoutPage = lazy(() => import(/* webpackChunkName: "logout" */ './pages/LogoutPage'));
 const RegisterPage = lazy(() => import(/* webpackChunkName: "register" */ './pages/RegisterPage'));
@@ -232,6 +234,8 @@ const App = () => {
                                   <Route path="transport/:type" element={<TransportDetail />} />
                                   <Route path="transport/fleet/:slug" element={<FleetDetail />} />
                                   <Route path="transport/area/:city" element={<AreaDetail />} />
+                                  <Route path="accommodation-packages" element={<AccommodationPackages />} />
+                                  <Route path="accommodation-packages/:id" element={<PackageDetail />} />
                                   <Route path="dashboard" element={<UserDashboardPage />} />
                                   <Route path="review-demo" element={<ReviewDemoPage />} />
                                   <Route path="*" element={<NotFound />} />
@@ -266,6 +270,8 @@ const App = () => {
                                   <Route path="help" element={<HelpPage />} />
                                   <Route path="transport" element={<TransportPage />} />
                                   <Route path="transport/:type" element={<TransportDetail />} />
+                                  <Route path="accommodation-packages" element={<AccommodationPackages />} />
+                                  <Route path="accommodation-packages/:id" element={<PackageDetail />} />
                                   <Route path="dashboard" element={<UserDashboardPage />} />
                                   <Route path="review-demo" element={<ReviewDemoPage />} />
                                   <Route path="*" element={<NotFound />} />
@@ -299,6 +305,8 @@ const App = () => {
                                   <Route path="help" element={<HelpPage />} />
                                   <Route path="transport" element={<TransportPage />} />
                                   <Route path="transport/:type" element={<TransportDetail />} />
+                                  <Route path="accommodation-packages" element={<AccommodationPackages />} />
+                                  <Route path="accommodation-packages/:id" element={<PackageDetail />} />
                                   <Route path="dashboard" element={<UserDashboardPage />} />
                                   <Route path="review-demo" element={<ReviewDemoPage />} />
                                   <Route path="*" element={<NotFound />} />
