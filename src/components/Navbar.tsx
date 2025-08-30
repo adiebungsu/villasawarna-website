@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Home, Building2, Hotel, Info, Phone, Settings, User, MapPin, Globe } from 'lucide-react';
+import { Home, Building2, Hotel, Info, Phone, Settings, User, MapPin, Globe, Car } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import GoogleAuth from './GoogleAuth';
 import { useAuth } from "@/context/use-auth";
@@ -24,7 +24,7 @@ const Logo = () => {
         width={120}
         height={32}
       />
-      <span className="font-bold text-xl md:text-2xl bg-gradient-to-r from-ocean to-coral bg-clip-text text-transparent align-middle">VillaSawarna</span>
+      <span className="font-bold text-lg md:text-xl bg-gradient-to-r from-ocean to-coral bg-clip-text text-transparent align-middle">VillaSawarna</span>
     </Link>
   );
 };
@@ -96,7 +96,7 @@ const Navbar = () => {
         )}
       >
         <div className="container-custom">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between h-12 md:h-14">
             {/* Logo */}
             <Logo />
 
@@ -107,7 +107,7 @@ const Navbar = () => {
                   key={link.path} 
                   to={link.path}
                   className={cn(
-                    'px-4 py-2 rounded-md font-medium transition-colors whitespace-nowrap',
+                    'px-2 py-1 rounded-md font-medium transition-colors whitespace-nowrap',
                     {
                       'text-ocean hover:bg-ocean/10 dark:text-ocean-light dark:hover:bg-ocean/20': !isActivePath(link.path) && (isScrolled || location.pathname !== '/'),
                       'text-white hover:bg-white/20': !isActivePath(link.path) && !isScrolled && location.pathname === '/',
@@ -155,8 +155,6 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-
-
 
       {/* Mobile Bottom Navigation - Selalu terlihat di mobile kecuali di halaman detail */}
       {!isDetailPage && (
@@ -291,23 +289,23 @@ const Navbar = () => {
                 <span className="text-[9px] font-medium">{t('nav.stays', 'Penginapan')}</span>
               </Link>
 
-              {/* About */}
+              {/* Transport */}
               <Link 
-                to="/about"
+                to="/transport"
                 className={cn(
                   'flex flex-col items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-coral dark:hover:text-coral-light transition-colors px-2 py-1.5 rounded-lg hover:bg-sand-light/50 dark:hover:bg-gray-800 min-w-0 flex-shrink-0',
                   {
-                    'text-coral dark:text-coral-light': isActivePath('/about')
+                    'text-coral dark:text-coral-light': isActivePath('/transport')
                   }
                 )}
               >
-                <Info size={18} className={cn(
+                <Car size={18} className={cn(
                   {
-                    'text-coral dark:text-coral-light': isActivePath('/about'),
-                    'text-gray-400 dark:text-gray-500': !isActivePath('/about')
+                    'text-coral dark:text-coral-light': isActivePath('/transport'),
+                    'text-gray-400 dark:text-gray-500': !isActivePath('/transport')
                   }
                 )} />
-                <span className="text-[9px] font-medium">{t('nav.about', 'Tentang')}</span>
+                <span className="text-[9px] font-medium">{t('nav.transport', 'Transport')}</span>
               </Link>
 
               {/* Contact */}
@@ -334,9 +332,7 @@ const Navbar = () => {
       )}
 
       {/* Tambahkan padding top untuk konten agar tidak tertutup navbar */}
-      <div className="md:block hidden h-20"></div>
-      
-
+      <div className="md:block hidden h-14"></div>
 
       {/* Floating Language Switcher - Mobile only */}
       <button

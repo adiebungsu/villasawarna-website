@@ -180,26 +180,26 @@ const App = () => {
             <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
               <HelmetProvider>
                 <TooltipProvider>
-                                      <ThemeProvider>
-                      <AuthProvider>
-                        <WishlistProvider>
-                          <UserDataProvider>
-                            <Router>
-                        <LocaleSync />
-                        <GoogleAnalytics />
-                        <ScrollToTop />
-                        <FontLoader 
-                          fonts={[
-                            { family: 'Inter', weight: [400, 500, 600, 700] },
-                            { family: 'Poppins', weight: [400, 500, 600, 700] }
-                          ]} 
-                        />
-                        <Toaster />
-                        <Sonner />
-                        <ErrorBoundary>
-                          <Suspense fallback={<PageLoader />}>
-                            <AnimatePresence mode="wait">
-                              <Routes>
+                  <ThemeProvider>
+                    <AuthProvider>
+                      <WishlistProvider>
+                        <UserDataProvider>
+                          <Router>
+                            <LocaleSync />
+                            <GoogleAnalytics />
+                            <ScrollToTop />
+                            <FontLoader 
+                              fonts={[
+                                { family: 'Inter', weight: [400, 500, 600, 700] },
+                                { family: 'Poppins', weight: [400, 500, 600, 700] }
+                              ]} 
+                            />
+                            <Toaster />
+                            <Sonner />
+                            <ErrorBoundary>
+                              <Suspense fallback={<PageLoader />}>
+                                <AnimatePresence mode="wait">
+                                  <Routes>
                                 <Route path="/login" element={<LoginPage />} />
                                 <Route path="/logout" element={<LogoutPage />} />
                                 <Route path="/register" element={<RegisterPage />} />
@@ -318,19 +318,19 @@ const App = () => {
                         </Suspense>
                       </ErrorBoundary>
                       {updateAvailable && <UpdateNotification onUpdate={update} />}
-                                            </Router>
-                            </UserDataProvider>
+                            </Router>
+                          </UserDataProvider>
                         </WishlistProvider>
                       </AuthProvider>
                     </ThemeProvider>
-                </TooltipProvider>
-              </HelmetProvider>
-            </GoogleOAuthProvider>
-          </QueryClientProvider>
-        </ErrorBoundary>
-      </div>
-    </>
-  );
-};
+                  </TooltipProvider>
+                </HelmetProvider>
+              </GoogleOAuthProvider>
+            </QueryClientProvider>
+          </ErrorBoundary>
+        </div>
+      </>
+    );
+  };
 
 export default App;

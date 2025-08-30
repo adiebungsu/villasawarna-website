@@ -22,7 +22,7 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[150] bg-black/60 backdrop-blur-sm flex items-center justify-center p-2 md:p-4">
+    <div className="fixed inset-0 z-[10000] bg-black/60 backdrop-blur-sm flex items-center justify-center p-2 md:p-4">
       {/* Modal Container */}
       <div className="relative w-full max-w-xs md:max-w-sm lg:max-w-md bg-gradient-to-br from-white via-blue-50/80 to-white dark:from-gray-900 dark:via-blue-950/30 dark:to-gray-900 border-2 border-blue-200 dark:border-blue-700/50 rounded-xl md:rounded-2xl shadow-2xl text-center transform transition-all duration-300 ease-out overflow-hidden">
         

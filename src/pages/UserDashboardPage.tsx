@@ -62,8 +62,8 @@ const UserDashboardPage: React.FC = () => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isTourOpen, setIsTourOpen] = useState(false);
   
-  // Sample notifications data
-  const notifications = [
+  // Sample notifications data with state management
+  const [notifications, setNotifications] = useState([
     {
       id: '1',
       type: 'booking',
@@ -91,9 +91,32 @@ const UserDashboardPage: React.FC = () => {
       isRead: true,
       priority: 'high'
     }
-  ];
+  ]);
   
   const unreadCount = notifications.filter(n => !n.isRead).length;
+
+  // Function to mark notification as read
+  const markNotificationAsRead = (notificationId: string) => {
+    setNotifications(prev => 
+      prev.map(notification => 
+        notification.id === notificationId 
+          ? { ...notification, isRead: true }
+          : notification
+      )
+    );
+  };
+
+  // Function to mark all notifications as read
+  const markAllNotificationsAsRead = () => {
+    setNotifications(prev => 
+      prev.map(notification => ({ ...notification, isRead: true }))
+    );
+    toast({
+      title: "Notifikasi Dibaca",
+      description: "Semua notifikasi telah ditandai sebagai dibaca! ✅",
+      duration: 2000,
+    });
+  };
 
   // Check if dashboard tour should be shown
   useEffect(() => {
@@ -176,26 +199,26 @@ const UserDashboardPage: React.FC = () => {
                 Kelola akun dan aktivitas Anda di Villa Sawarna
               </p>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1 sm:gap-2 lg:gap-3 flex-wrap">
               {/* Demo Buttons */}
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="text-xs sm:text-sm hover:bg-green-50 dark:hover:bg-green-900/20 text-green-600 dark:text-green-400 border-green-200 dark:border-green-700 transition-colors"
+                className="text-[10px] sm:text-xs lg:text-sm px-2 sm:px-3 py-1 sm:py-2 hover:bg-green-50 dark:hover:bg-green-900/20 text-green-600 dark:text-green-400 border-green-200 dark:border-green-700 transition-colors"
                 onClick={() => {
                   // Trigger demo data initialization
                   localStorage.setItem('initializeDemoData', '1');
                   window.location.reload();
                 }}
               >
-                <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <Plus className="w-2.5 h-2.5 sm:w-3 sm:h-3 lg:w-4 lg:h-4 mr-1" />
                 <span className="hidden sm:inline">Demo</span>
                 <span className="sm:hidden">Demo</span>
               </Button>
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="text-xs sm:text-sm hover:bg-orange-50 dark:hover:bg-orange-900/20 text-orange-600 dark:text-orange-400 border-orange-200 dark:border-orange-700 transition-colors"
+                className="text-[10px] sm:text-xs lg:text-sm px-2 sm:px-3 py-1 sm:py-2 hover:bg-orange-50 dark:hover:bg-orange-900/20 text-orange-600 dark:text-orange-400 border-orange-200 dark:border-orange-700 transition-colors"
                 onClick={() => {
                   // Clear only demo data without affecting authentication
                   if (confirm('Apakah Anda yakin ingin menghapus semua data demo? User akan tetap login.')) {
@@ -203,34 +226,25 @@ const UserDashboardPage: React.FC = () => {
                   }
                 }}
               >
-                <LogOut className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <LogOut className="w-2.5 h-2.5 sm:w-3 sm:h-3 lg:w-4 lg:h-4 mr-1" />
                 <span className="hidden sm:inline">Hapus Demo</span>
                 <span className="sm:hidden">Clear</span>
               </Button>
+
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="text-xs sm:text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                onClick={() => setActiveTab('settings')}
-              >
-                <Settings className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Pengaturan</span>
-                <span className="sm:hidden">Set</span>
-              </Button>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="text-xs sm:text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-700 transition-colors"
+                className="text-[10px] sm:text-xs lg:text-sm px-2 sm:px-3 py-1 sm:py-2 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-700 transition-colors"
                 onClick={() => setIsTourOpen(true)}
               >
-                <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <HelpCircle className="w-2.5 h-2.5 sm:w-3 sm:h-3 lg:w-4 lg:h-4 mr-1" />
                 <span className="hidden sm:inline">Bantuan</span>
                 <span className="sm:hidden">Help</span>
               </Button>
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="text-xs sm:text-sm hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400 border-red-200 dark:border-red-700 transition-colors"
+                className="text-[10px] sm:text-xs lg:text-sm px-2 sm:px-3 py-1 sm:py-2 hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400 border-red-200 dark:border-red-700 transition-colors"
                 onClick={() => {
                   setUser(null);
                   localStorage.removeItem('user');
@@ -241,7 +255,7 @@ const UserDashboardPage: React.FC = () => {
                   navigate('/logout');
                 }}
               >
-                <LogOut className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <LogOut className="w-2.5 h-2.5 sm:w-3 sm:h-3 lg:w-4 lg:h-4 mr-1" />
                 <span className="hidden sm:text-sm">Logout</span>
                 <span className="sm:hidden">Out</span>
               </Button>
@@ -281,11 +295,12 @@ const UserDashboardPage: React.FC = () => {
                     {notifications.map((notification) => (
                       <div 
                         key={notification.id}
-                        className={`p-3 rounded-lg border ${
+                        className={`p-3 rounded-lg border cursor-pointer transition-colors ${
                           notification.isRead 
                             ? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700' 
-                            : 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700'
+                            : 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-900/30'
                         }`}
+                        onClick={() => !notification.isRead && markNotificationAsRead(notification.id)}
                       >
                         <div className="flex items-start justify-between gap-2">
                           <div className="flex-1">
@@ -308,13 +323,23 @@ const UserDashboardPage: React.FC = () => {
                               })}
                             </p>
                           </div>
-                          <Badge 
-                            variant={notification.priority === 'high' ? 'destructive' : 'secondary'}
-                            className="text-xs"
-                          >
-                            {notification.priority === 'high' ? 'Tinggi' : 'Sedang'}
-                          </Badge>
+                          <div className="flex items-center gap-2">
+                            <Badge 
+                              variant={notification.priority === 'high' ? 'destructive' : 'secondary'}
+                              className="text-xs"
+                            >
+                              {notification.priority === 'high' ? 'Tinggi' : 'Sedang'}
+                            </Badge>
+                            {!notification.isRead && (
+                              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                            )}
+                          </div>
                         </div>
+                        {!notification.isRead && (
+                          <div className="mt-2 text-xs text-blue-600 dark:text-blue-400">
+                            💡 Klik untuk tandai sudah dibaca
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -337,15 +362,16 @@ const UserDashboardPage: React.FC = () => {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      onClick={() => {
-                        toast({
-                          title: "Tandai Semua Dibaca",
-                          description: "Semua notifikasi telah ditandai sebagai dibaca! ✅",
-                          duration: 2000,
-                        });
-                      }}
+                      onClick={markAllNotificationsAsRead}
+                      disabled={unreadCount === 0}
+                      className={unreadCount === 0 ? 'opacity-50 cursor-not-allowed' : ''}
                     >
                       Tandai Dibaca
+                      {unreadCount > 0 && (
+                        <Badge variant="secondary" className="ml-2 text-xs">
+                          {unreadCount}
+                        </Badge>
+                      )}
                     </Button>
                   </div>
                 </DialogContent>
@@ -631,56 +657,61 @@ const UserDashboardPage: React.FC = () => {
 
               {/* Demo Controls */}
               <Card className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200 dark:border-amber-700 shadow-lg border-0">
-                <CardHeader className="pb-4">
-                  <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
-                    <HelpCircle className="w-5 h-5" />
+                <CardHeader className="pb-3 sm:pb-4">
+                  <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-200 text-lg sm:text-xl">
+                    <HelpCircle className="w-5 h-5 sm:w-6 sm:h-6" />
                     Demo Controls
                   </CardTitle>
-                  <CardDescription className="text-amber-700 dark:text-amber-300">
+                  <CardDescription className="text-amber-700 dark:text-amber-300 text-sm sm:text-base">
                     Kontrol untuk testing dan development
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-3">
-                  <Button 
-                    className="w-full justify-start bg-green-600 hover:bg-green-700 text-white border-0" 
-                    variant="default"
-                    onClick={() => {
-                      localStorage.setItem('initializeDemoData', '1');
-                      toast({
-                        title: "Demo Data",
-                        description: "Data demo akan diinisialisasi setelah refresh halaman",
-                      });
-                      setTimeout(() => window.location.reload(), 1500);
-                    }}
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Load Demo Data
-                  </Button>
-                  <Button 
-                    className="w-full justify-start bg-orange-600 hover:bg-orange-700 text-white border-0" 
-                    variant="default"
-                    onClick={() => {
-                      if (confirm('Apakah Anda yakin ingin menghapus semua data demo? User akan tetap login.')) {
-                        clearDemoData();
-                      }
-                    }}
-                  >
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Clear Demo Data
-                  </Button>
-                  <Button 
-                    className="w-full justify-start bg-blue-600 hover:bg-blue-700 text-white border-0" 
-                    variant="default"
-                    onClick={() => {
-                      toast({
-                        title: "Info Demo",
-                        description: "Data demo menggunakan villa real: Sinar Pelangi, Arizky Sawarna, dan Aliya Sawarna",
-                      });
-                    }}
-                  >
-                    <Info className="w-4 h-4 mr-2" />
-                    Info Demo Data
-                  </Button>
+                <CardContent className="space-y-3 sm:space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                    <Button 
+                      className="w-full justify-center bg-green-600 hover:bg-green-700 text-white border-0 text-sm sm:text-base py-3 sm:py-4 px-4 sm:px-6 font-medium shadow-md hover:shadow-lg transition-all duration-200" 
+                      variant="default"
+                      onClick={() => {
+                        localStorage.setItem('initializeDemoData', '1');
+                        toast({
+                          title: "Demo Data",
+                          description: "Data demo akan diinisialisasi setelah refresh halaman",
+                        });
+                        setTimeout(() => window.location.reload(), 1500);
+                      }}
+                    >
+                      <Plus className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
+                      <span className="hidden sm:inline">Load Demo Data</span>
+                      <span className="sm:hidden">Demo</span>
+                    </Button>
+                    <Button 
+                      className="w-full justify-center bg-orange-600 hover:bg-orange-700 text-white border-0 text-sm sm:text-base py-3 sm:py-4 px-4 sm:px-6 font-medium shadow-md hover:shadow-lg transition-all duration-200" 
+                      variant="default"
+                      onClick={() => {
+                        if (confirm('Apakah Anda yakin ingin menghapus semua data demo? User akan tetap login.')) {
+                          clearDemoData();
+                        }
+                      }}
+                    >
+                      <LogOut className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
+                      <span className="hidden sm:inline">Clear Demo Data</span>
+                      <span className="sm:hidden">Clear</span>
+                    </Button>
+                    <Button 
+                      className="w-full justify-center bg-blue-600 hover:bg-blue-700 text-white border-0 text-sm sm:text-base py-3 sm:py-4 px-4 sm:px-6 font-medium shadow-md hover:shadow-lg transition-all duration-200" 
+                      variant="default"
+                      onClick={() => {
+                        toast({
+                          title: "Info Demo",
+                          description: "Data demo menggunakan villa real: Sinar Pelangi, Arizky Sawarna, dan Aliya Sawarna",
+                        });
+                      }}
+                    >
+                      <Info className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
+                      <span className="hidden sm:inline">Info Demo Data</span>
+                      <span className="sm:hidden">Info</span>
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -753,14 +784,88 @@ const UserDashboardPage: React.FC = () => {
 
           {/* Bookings Tab */}
           <TabsContent value="bookings" className="space-y-4 sm:space-y-6">
+            {/* Booking Summary */}
+            <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200 dark:border-blue-700 shadow-lg border-0">
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-blue-800 dark:text-blue-200">
+                  <BarChart3 className="w-5 h-5" />
+                  Ringkasan Booking
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                  <div className="text-center">
+                    <div className="text-lg sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
+                      {bookings.filter(b => b.status === 'confirmed').length}
+                    </div>
+                    <div className="text-xs sm:text-sm text-blue-700 dark:text-blue-300">Dikonfirmasi</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg sm:text-2xl font-bold text-orange-600 dark:text-orange-400">
+                      {bookings.filter(b => b.status === 'pending').length}
+                    </div>
+                    <div className="text-xs sm:text-sm text-orange-700 dark:text-orange-300">Pending</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg sm:text-2xl font-bold text-green-600 dark:text-green-400">
+                      {bookings.filter(b => b.status === 'completed').length}
+                    </div>
+                    <div className="text-xs sm:text-sm text-green-700 dark:text-green-300">Selesai</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg sm:text-2xl font-bold text-gray-600 dark:text-gray-400">
+                      {bookings.length}
+                    </div>
+                    <div className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">Total</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Booking List */}
             <Card className="bg-white dark:bg-gray-800 shadow-lg border-0">
               <CardHeader className="pb-3 sm:pb-6">
                 <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
                   <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                   Riwayat Booking
                 </CardTitle>
+                <CardDescription className="text-gray-600 dark:text-gray-400">
+                  Semua booking villa Anda dengan data real dari database
+                </CardDescription>
               </CardHeader>
               <CardContent>
+                {/* Filter dan Sorting */}
+                <div className="mb-4 p-3 sm:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="space-y-3 sm:space-y-0 sm:flex sm:flex-row sm:items-center sm:justify-between">
+                    {/* Filter Section */}
+                    <div className="space-y-2 sm:space-y-0">
+                      <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 sm:mb-0">
+                        Filter Status:
+                      </div>
+                      <div className="flex flex-wrap gap-2 sm:gap-3">
+                        <Badge variant="outline" className="cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2">
+                          Semua ({bookings.length})
+                        </Badge>
+                        <Badge variant="outline" className="cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2">
+                          Dikonfirmasi ({bookings.filter(b => b.status === 'confirmed').length})
+                        </Badge>
+                        <Badge variant="outline" className="cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2">
+                          Pending ({bookings.filter(b => b.status === 'pending').length})
+                        </Badge>
+                        <Badge variant="outline" className="cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2">
+                          Selesai ({bookings.filter(b => b.status === 'completed').length})
+                        </Badge>
+                      </div>
+                    </div>
+                    
+                    {/* Info Section */}
+                    <div className="text-center sm:text-right">
+                      <div className="text-xs text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-700 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600">
+                        📊 Data villa menggunakan database real Villa Sawarna
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 {bookings.length > 0 ? (
                   <div className="space-y-3 sm:space-y-4">
                     {bookings.map((booking) => (
@@ -800,14 +905,30 @@ const UserDashboardPage: React.FC = () => {
                             <span>{booking.guests} tamu</span>
                             <span>Booking: {new Date(booking.bookingDate).toLocaleDateString()}</span>
                           </div>
-                                                      <Button 
+                          <div className="flex items-center gap-2">
+                            <Button 
                               variant="outline" 
                               size="sm" 
                               className="text-xs sm:text-sm"
-                              onClick={() => navigate(`/property/${booking.propertyId}`)}
+                              onClick={() => navigate(`/villas/${booking.propertyId}`)}
                             >
-                              Lihat Detail
+                              Lihat Villa
                             </Button>
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="text-xs sm:text-sm"
+                              onClick={() => {
+                                toast({
+                                  title: "Detail Booking",
+                                  description: `Booking ID: ${booking.id}\nStatus: ${booking.status}\nPayment: ${booking.paymentStatus}`,
+                                  duration: 4000,
+                                });
+                              }}
+                            >
+                              Detail
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -878,8 +999,9 @@ const UserDashboardPage: React.FC = () => {
                             size="sm"
                             onClick={() => {
                               toast({
-                                title: "Edit Ulasan",
-                                description: "Fitur edit ulasan akan segera tersedia",
+                                title: "Demo Mode",
+                                description: "Ini hanya demo, untuk memberikan ulasan silahkan booking villa terlebih dahulu",
+                                duration: 4000,
                               });
                             }}
                           >
@@ -1093,10 +1215,10 @@ const UserDashboardPage: React.FC = () => {
                     Kontrol untuk testing dan development
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <CardContent className="space-y-3 sm:space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                     <Button 
-                      className="w-full bg-green-600 hover:bg-green-700 text-white border-0" 
+                      className="w-full bg-green-600 hover:bg-green-700 text-white border-0 text-xs sm:text-sm py-2 sm:py-3" 
                       variant="default"
                       onClick={() => {
                         localStorage.setItem('initializeDemoData', '1');
@@ -1107,11 +1229,12 @@ const UserDashboardPage: React.FC = () => {
                         setTimeout(() => window.location.reload(), 1500);
                       }}
                     >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Load Demo Data
+                      <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                      <span className="hidden sm:inline">Load Demo</span>
+                      <span className="sm:hidden">Demo</span>
                     </Button>
                     <Button 
-                      className="w-full bg-orange-600 hover:bg-orange-700 text-white border-0" 
+                      className="w-full bg-orange-600 hover:bg-orange-700 text-white border-0 text-xs sm:text-sm py-2 sm:py-3" 
                       variant="default"
                       onClick={() => {
                         if (confirm('Apakah Anda yakin ingin menghapus semua data demo? User akan tetap login.')) {
@@ -1119,23 +1242,25 @@ const UserDashboardPage: React.FC = () => {
                         }
                       }}
                     >
-                      <LogOut className="w-4 h-4 mr-2" />
-                      Clear Demo Data
+                      <LogOut className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                      <span className="hidden sm:inline">Clear Demo</span>
+                      <span className="sm:hidden">Clear</span>
+                    </Button>
+                    <Button 
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white border-0 text-xs sm:text-sm py-2 sm:py-3" 
+                      variant="default"
+                      onClick={() => {
+                        toast({
+                          title: "Info Demo",
+                          description: "Data demo menggunakan villa real: Sinar Pelangi, Arizky Sawarna, dan Aliya Sawarna",
+                        });
+                      }}
+                    >
+                      <Info className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                      <span className="hidden sm:text-sm">Info Demo</span>
+                      <span className="sm:hidden">Info</span>
                     </Button>
                   </div>
-                  <Button 
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white border-0" 
-                    variant="default"
-                    onClick={() => {
-                      toast({
-                        title: "Info Demo",
-                        description: "Data demo menggunakan villa real: Sinar Pelangi, Arizky Sawarna, dan Aliya Sawarna",
-                      });
-                    }}
-                  >
-                    <Info className="w-4 h-4 mr-2" />
-                    Info Demo Data
-                  </Button>
                   <div className="text-xs text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/30 p-3 rounded-lg">
                     <p className="font-medium mb-2">Data Demo yang Tersedia:</p>
                     <ul className="space-y-1">

@@ -454,7 +454,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         propertyName: villaSinarPelangi?.name || 'Villa Sinar Pelangi',
         propertyImage: villaSinarPelangi?.image || 'https://i.imgur.com/lNcydX5.jpeg',
         rating: 4,
-        comment: 'Fasilitas lengkap dan view yang indah. Hanya sedikit masalah dengan AC di kamar utama.',
+        comment: 'Mungkin karena villa baru beberapa fasilitas masih tahap penyelesaian, tapi overall bagus, pelayanan terbaik.',
         reviewDate: '2024-01-25',
         helpful: 8,
         verified: true

@@ -49,7 +49,7 @@ const CornerWelcome: React.FC<CornerWelcomeProps> = ({ isOpen, onClose, userName
 	return (
 		<div
 			className={cn(
-				"fixed z-[140] right-4 top-4 sm:right-6 sm:top-auto sm:bottom-6 transition-all duration-300",
+				"fixed z-[10000] right-4 top-4 sm:right-6 sm:top-auto sm:bottom-6 transition-all duration-300",
 				isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 pointer-events-none"
 			)}
 			role="dialog"

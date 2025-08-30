@@ -94,17 +94,18 @@ const UpdateChecker: React.FC = () => {
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Current Status */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
           <div className="flex items-center gap-2">
             <span className="text-sm text-gray-600 dark:text-gray-400">Status:</span>
-            <Badge className={`${getStatusColor()} text-white`}>
+            <Badge className={`${getStatusColor()} text-white text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2`}>
               <div className="flex items-center gap-1">
                 {getStatusIcon()}
-                {getStatusText()}
+                <span className="hidden sm:inline">{getStatusText()}</span>
+                <span className="sm:hidden">{getStatusText().split(' ')[0]}</span>
               </div>
             </Badge>
           </div>
-          <div className="text-right">
+          <div className="text-left sm:text-right">
             <div className="text-xs text-gray-500 dark:text-gray-400">Version</div>
             <div className="text-sm font-mono text-gray-700 dark:text-gray-300">{currentVersion}</div>
           </div>
@@ -116,37 +117,39 @@ const UpdateChecker: React.FC = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <Button
             onClick={handleCheckUpdates}
             disabled={isChecking}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+            className="w-full sm:flex-1 bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base py-2 sm:py-2"
             size="sm"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${isChecking ? 'animate-spin' : ''}`} />
-            {isChecking ? 'Checking...' : 'Check Updates'}
+            <span className="hidden sm:inline">{isChecking ? 'Checking...' : 'Check Updates'}</span>
+            <span className="sm:hidden">{isChecking ? 'Checking...' : 'Check'}</span>
           </Button>
           
           {(updateStatus.available || updateStatus.installed) && (
             <Button
               onClick={handleUpdateNow}
-              className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+              className="w-full sm:flex-1 bg-green-600 hover:bg-green-700 text-white text-sm sm:text-base py-2 sm:py-2"
               size="sm"
             >
               <Download className="w-4 h-4 mr-2" />
-              Update Sekarang
+              <span className="hidden sm:inline">Update Sekarang</span>
+              <span className="sm:hidden">Update</span>
             </Button>
           )}
         </div>
 
         {/* Update Info */}
         {updateStatus.available && (
-          <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-            <div className="flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 text-blue-600 mt-0.5" />
-              <div className="text-sm text-blue-800 dark:text-blue-200">
-                <p className="font-medium">Update Baru Tersedia!</p>
-                <p className="text-xs opacity-80">
+          <div className="p-3 sm:p-4 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+            <div className="flex items-start gap-2 sm:gap-3">
+              <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+              <div className="text-sm sm:text-base text-blue-800 dark:text-blue-200 min-w-0">
+                <p className="font-medium mb-1">Update Baru Tersedia!</p>
+                <p className="text-xs sm:text-sm opacity-80 leading-relaxed">
                   Versi terbaru telah siap untuk diinstall. Klik "Update Sekarang" untuk menggunakan versi baru.
                 </p>
               </div>
@@ -155,12 +158,12 @@ const UpdateChecker: React.FC = () => {
         )}
 
         {updateStatus.installed && (
-          <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
-            <div className="flex items-start gap-2">
-              <CheckCircle className="w-4 h-4 text-green-600 mt-0.5" />
-              <div className="text-sm text-green-800 dark:text-green-200">
-                <p className="font-medium">Update Siap Diaktifkan!</p>
-                <p className="text-xs opacity-80">
+          <div className="p-3 sm:p-4 bg-green-100 dark:bg-green-900/30 rounded-lg">
+            <div className="flex items-start gap-2 sm:gap-3">
+              <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 mt-0.5 flex-shrink-0" />
+              <div className="text-sm sm:text-base text-green-800 dark:text-green-200 min-w-0">
+                <p className="font-medium mb-1">Update Siap Diaktifkan!</p>
+                <p className="text-xs sm:text-sm opacity-80 leading-relaxed">
                   Update telah diinstall dan siap digunakan. Halaman akan reload otomatis.
                 </p>
               </div>
@@ -170,14 +173,14 @@ const UpdateChecker: React.FC = () => {
 
         {/* Debug Info */}
         <details className="text-xs">
-          <summary className="cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
-            Debug Info
+          <summary className="cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            🔍 Debug Info
           </summary>
-          <div className="mt-2 p-2 bg-gray-100 dark:bg-gray-800 rounded text-xs font-mono">
-            <div>Status: {JSON.stringify(updateStatus)}</div>
+          <div className="mt-2 p-3 bg-gray-100 dark:bg-gray-800 rounded text-xs font-mono space-y-1 overflow-x-auto">
+            <div className="break-all">Status: {JSON.stringify(updateStatus)}</div>
             <div>Version: {currentVersion}</div>
-            <div>Last Check: {lastChecked.toISOString()}</div>
-            <div>User Agent: {navigator.userAgent.substring(0, 50)}...</div>
+            <div className="break-all">Last Check: {lastChecked.toISOString()}</div>
+            <div className="break-all">User Agent: {navigator.userAgent.substring(0, 50)}...</div>
           </div>
         </details>
       </CardContent>
@@ -186,5 +189,4 @@ const UpdateChecker: React.FC = () => {
 };
 
 export default UpdateChecker;
-
 
