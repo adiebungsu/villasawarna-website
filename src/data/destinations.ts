@@ -116,9 +116,9 @@ Kesimpulan
 
 Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyuguhkan pemandangan alam luar biasa. Tempat ini cocok untuk Anda yang mencari ketenangan, keindahan, dan suasana alami yang masih asri. Dengan akses yang semakin mudah dan fasilitas yang terus dikembangkan, Karang Bokor memiliki potensi besar menjadi destinasi wisata unggulan di pesisir selatan Pulau Jawa.
 `,
-    mainImage: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&q=80&w=800",
+    mainImage: "/images/karang-bokor-sawarna.webp",
     images: [
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&q=80&w=800",
+      "/images/karang-bokor-sawarna.webp",
       "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&q=80&w=800",
       "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&q=80&w=800",
       "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&q=80&w=800"
@@ -289,15 +289,53 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     ]
   },
   {
-    id: "karang-berem",
-    name: "Karang Berem",
+    id: "karang-bereum",
+    name: "Karang Bereum",
     types: ["rock"],
-    location: "Karang Berem, Sawarna",
+    location: "Karang Bereum, Sawarna",
     coordinates: [-6.990, 106.297],
-    description: "Karang Berem adalah formasi batuan karang yang unik dengan pemandangan laut lepas. Tempat ini terkenal dengan spot fotografi yang menakjubkan dan pemandangan matahari terbenam yang memukau.",
-    mainImage: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&q=80&w=800",
+    description: `Karang Bereum: Destinasi Tersembunyi di Sawarna yang Menawan
+
+Karang Bereum adalah salah satu destinasi wisata pantai di kawasan Sawarna, Lebak, Banten, yang masih jarang diketahui wisatawan. Lokasinya berada di area Pantai Legon Pari, tepatnya di sebelah kanan arah teluk. Meskipun letaknya berdekatan dengan ikon terkenal Sawarna yaitu Tanjung Layar, Karang Bereum sering terlewatkan karena jalur masuknya lebih mudah diakses melalui Pantai Legon Pari.
+
+Bagi yang pernah menjelajah Legon Pari, posisi Karang Bereum ini berada di sisi kanan teluk, sementara di sisi kiri terdapat destinasi lain yang tak kalah populer yaitu Karang Taraje. Keunikan Karang Bereum membuatnya menjadi salah satu spot favorit terutama bagi pecinta fotografi dan pemburu panorama sunrise.
+
+Keindahan Karang Bereum
+
+Sesuai namanya, "Bereum" dalam bahasa Sunda berarti "merah". Beberapa batu karang di kawasan pantai ini memiliki warna kemerahan yang khas, terutama saat terkena sinar matahari pagi maupun sore. Warna alami ini berpadu indah dengan birunya laut dan pasir pantai, menciptakan suasana eksotis yang jarang ditemukan di tempat lain.
+
+Karang Bereum merupakan pantai karang yang menjorok ke laut, sehingga pemandangan ombak yang menghantam karang memberikan nuansa dramatis. Saat air laut surut, wisatawan bisa berjalan lebih dekat untuk menyaksikan detail bebatuan karang, biota laut kecil, hingga celah-celah alami yang menambah keunikan tempat ini.
+
+Spot Instagramable Favorit
+
+Bagi para pecinta fotografi, Karang Bereum bisa dibilang sebagai surga tersembunyi. Bentangan karang yang luas, warna alami yang kontras, serta suasana tenang menjadikan tempat ini spot foto yang sangat Instagramable.
+
+Momen terbaik untuk berkunjung ke sini adalah saat matahari terbit. Pemandangan sunrise dari Karang Bereum benar-benar memanjakan mata. Cahaya matahari yang muncul dari ufuk timur akan menyinari karang-karang merah, menciptakan gradasi warna yang cantik untuk diabadikan.
+
+Akses Menuju Karang Bereum
+
+Untuk menuju Karang Bereum, wisatawan umumnya melewati jalur Pantai Legon Pari. Dari area parkir Legon Pari, pengunjung dapat berjalan kaki menyusuri bibir pantai menuju sisi kanan teluk. Perjalanan ini tidak terlalu jauh dan bisa ditempuh dengan santai sambil menikmati pemandangan laut yang indah.
+
+Sebagai gambaran:
+
+Sebelah kiri Legon Pari → terdapat Karang Taraje dengan ombak besar yang menghantam karang berundak.
+
+Sebelah kanan Legon Pari → terdapat Karang Bereum yang khas dengan karang kemerahan dan spot sunrise.
+
+Karena jalur masuknya melalui Legon Pari, tak heran jika banyak wisatawan lebih mengenal Legon Pari sebagai destinasi utama, sementara Karang Bereum sering dianggap sebagai bonus perjalanan.
+
+Tips Berkunjung ke Karang Bereum
+
+Datang pagi hari – Waktu terbaik adalah saat sunrise, cahaya matahari akan menambah pesona karang merah.
+
+Gunakan alas kaki yang nyaman – Karena area ini berupa pantai karang, sebaiknya memakai sandal gunung atau sepatu yang tidak licin.
+
+Bawa kamera – Jangan lupa mengabadikan keindahan alami yang jarang ditemukan di tempat lain.
+
+Tetap jaga kebersihan – Sebagai wisatawan, mari ikut melestarikan alam dengan tidak membuang sampah sembarangan.`,
+    mainImage: "/images/karang-bereum-sawarna.webp",
     images: [
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&q=80&w=800",
+      "/images/karang-bereum-sawarna.webp",
       "https://images.unsplash.com/photo-1465101053361-763ab02bced9?auto=format&fit=crop&q=80&w=800",
       "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&q=80&w=800",
       "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&q=80&w=800"
@@ -321,7 +359,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
       "Picnic"
     ],
     tips: [
-      "Kunjungi saat air surut",
+      "Kunjungi saat pasang",
       "Bawa kamera untuk fotografi",
       "Gunakan alas kaki anti selip",
       "Perhatikan kondisi cuaca"
@@ -337,10 +375,16 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     types: ["rock"],
     location: "Karang Taraje, Sawarna",
     coordinates: [-6.991, 106.298],
-    description: "Karang Taraje adalah formasi batuan karang yang menyerupai tangga alami. Tempat ini menawarkan pemandangan laut yang menakjubkan dan spot fotografi yang unik.",
-    mainImage: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&q=80&w=800",
+    description: `Karang Taraje adalah formasi batuan karang berundak yang menyerupai taraje (tangga) alami di tepi Samudra Hindia. Saat ombak besar datang dan menghantam susunan batu bertingkat, air mengalir menuruni undakan seperti air terjun, menciptakan pemandangan dramatis yang menjadi ciri khas destinasi ini.
+
+Nama "Taraje" berasal dari bahasa Sunda yang berarti "tangga"—menggambarkan kontur karang berlapis yang memanjang di sepanjang garis pantai. Pada momen pasang, suara deburan ombak yang menghantam karang berpadu dengan percikan air yang beterbangan membentuk kabut tipis, menjadikannya lokasi favorit fotografer untuk menangkap momen long exposure.
+
+Daya tarik utama Karang Taraje tidak hanya pada bentuk karang berundaknya, tetapi juga pada komposisi lanskap yang kontras: garis laut lepas, tekstur batuan yang kasar, dan langit luas yang berubah warna saat sunrise maupun sunset. Waktu terbaik untuk berkunjung adalah pagi hari ketika cahaya matahari rendah menyorot relief karang, atau sore hari saat langit berwarna keemasan. Ketika air surut, pola-pola alami di permukaan batu lebih terlihat jelas dan jalur pijakan relatif aman, namun tetap perlu berhati-hati karena permukaan dapat licin.
+
+Akses menuju Karang Taraje umumnya searah dengan rute Legon Pari dan Tanjung Layar. Dari area parkir terdekat, pengunjung melanjutkan dengan berjalan kaki menyusuri tepian karang. Kenakan alas kaki dengan grip baik dan perhatikan gelombang datang-tiba (swell set) yang kadang meninggi secara tiba-tiba. Hindari berdiri terlalu dekat dengan bibir karang saat ombak besar dan selalu prioritaskan keselamatan.`,
+    mainImage: "/images/karang-taraje-sawarna-1.webp",
     images: [
-      "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&q=80&w=800",
+      "/images/karang-taraje-sawarna-1.webp",
       "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&q=80&w=800",
       "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&q=80&w=800",
       "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&q=80&w=800"
@@ -381,9 +425,9 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     location: "Legon Pari, Sawarna",
     coordinates: [-6.978, 106.312],
     description: "Legon Pari adalah pantai yang tersembunyi dengan pasir putih dan air jernih. Pantai ini menawarkan ketenangan dan keindahan alam yang masih alami.",
-    mainImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800",
+    mainImage: "/images/pantai-legon-pari-sawarna.webp",
     images: [
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800",
+      "/images/pantai-legon-pari-sawarna.webp",
       "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=800",
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800",
       "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800"
@@ -414,7 +458,7 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     ],
     nearbyAttractions: [
       { name: "Pantai Pasput", distance: "10 menit berkendara" },
-      { name: "Karang Berem", distance: "15 menit berkendara" }
+      { name: "Karang Bereum", distance: "15 menit berkendara" }
     ]
   },
   {
@@ -457,46 +501,64 @@ Karang Bokor Sawarna adalah salah satu permata tersembunyi di Banten yang menyug
     ],
     nearbyAttractions: [
       { name: "Legon Pari", distance: "10 menit berkendara" },
-      { name: "Karang Berem", distance: "15 menit berkendara" }
+      { name: "Karang Bereum", distance: "15 menit berkendara" }
     ]
   },
   {
     id: "pasir-kolecer",
     name: "Pasir Kolecer",
-    types: ["beach"],
+    types: ["rock"],
     location: "Pasir Kolecer, Sawarna",
     coordinates: [-6.975, 106.316],
-    description: "Pasir Kolecer adalah pantai yang terkenal dengan ombaknya yang cocok untuk berselancar. Pantai ini menawarkan pemandangan yang menakjubkan dan suasana yang tenang.",
-    mainImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800",
+    description: `Pasir Kolecer Sawarna adalah bukit indah di Desa Sawarna Timur dengan panorama laut, garis pantai, dan perbukitan hijau yang memukau. Ini bukan area pantai dan tidak cocok untuk berenang—lebih pas untuk menikmati pemandangan dari ketinggian dalam suasana tenang dan menyegarkan.
+
+Asal-usul nama: "Pasir" berarti bukit, "Kolecer" adalah baling-baling tradisional dari bambu. Di area bukit ini, kolecer milik warga setempat sering berputar tertiup angin dan menambah nuansa khas yang unik.
+
+Daya tarik utama:
+• Panorama luas dari puncak (laut, pantai, perbukitan)
+• Spot foto instagramable dengan latar kolecer dan lanskap alam
+• Suasana sejuk dan tenang, cocok untuk bersantai
+
+Akses: dari pusat Desa Sawarna menuju area perbukitan di Sawarna Timur, lalu lanjut berjalan kaki ke puncak. Jalur relatif ramah, namun sedikit menanjak.
+
+Aktivitas yang disarankan:
+• Menikmati sunrise/sunset dari ketinggian
+• Berfoto dengan latar kolecer
+• Piknik santai bersama keluarga/teman
+• Hiking ringan di jalur bukit
+
+Tips kunjungan:
+• Gunakan alas kaki yang nyaman
+• Datang saat cuaca cerah untuk pemandangan maksimal
+• Bawa bekal karena fasilitas masih terbatas
+• Jaga kebersihan dan bawa kembali sampah`,
+    mainImage: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800",
     images: [
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800"
+      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&q=80&w=800"
     ],
     rating: 4.7,
     reviews: 198,
-    openingHours: "24 jam",
-    bestTimeToVisit: "April - Oktober",
+    openingHours: "06:00 - 18:00",
+    bestTimeToVisit: "Mei - September",
     facilities: [
-      "Parkir",
-      "Warung Makan",
-      "Toilet Umum",
-      "Tempat Ganti",
-      "Penyewaan Papan Selancar"
+      "Area Parkir",
+      "Tempat Istirahat Sederhana",
+      "Papan Petunjuk Arah"
     ],
     activities: [
-      "Berselancar",
-      "Berenang",
-      "Fotografi",
-      "Matahari Terbenam",
-      "Camping"
+      "Menikmati Sunrise/Sunset",
+      "Fotografi Lanskap",
+      "Piknik",
+      "Hiking Ringan"
     ],
     tips: [
       "Bawa tabir surya dan air minum",
-      "Sewa papan selancar di lokasi",
-      "Kunjungi saat pagi atau sore hari",
-      "Perhatikan kondisi ombak"
+      "Kenakan sepatu/alas kaki yang nyaman",
+      "Kunjungi saat pagi atau sore untuk cuaca sejuk",
+      "Hindari datang saat hujan karena jalur bisa licin"
     ],
     nearbyAttractions: [
       { name: "Pantai Sepang", distance: "10 menit berkendara" },

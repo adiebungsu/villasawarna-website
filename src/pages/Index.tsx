@@ -171,6 +171,9 @@ const Index = () => {
     const hasSeenModal = sessionStorage.getItem('hasSeenWelcomeModal');
     console.log('Nilai sessionStorage "hasSeenModal":', hasSeenModal);
 
+    // Untuk testing - hapus baris ini jika sudah tidak diperlukan
+    sessionStorage.removeItem('hasSeenWelcomeModal');
+
     if (!hasSeenModal) {
       console.log('hasSeenModal tidak ditemukan di sessionStorage, menampilkan modal');
       setIsWelcomeModalOpen(true);

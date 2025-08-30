@@ -25,8 +25,23 @@ const CornerWelcome: React.FC<CornerWelcomeProps> = ({ isOpen, onClose, userName
 		return months[new Date().getMonth()];
 	}, []);
 
+	// Fungsi untuk mendapatkan sapaan berdasarkan waktu
+	const getTimeBasedGreeting = useMemo(() => {
+		const hour = new Date().getHours();
+		
+		if (hour >= 5 && hour < 12) {
+			return 'Selamat Pagi';
+		} else if (hour >= 12 && hour < 15) {
+			return 'Selamat Siang';
+		} else if (hour >= 15 && hour < 18) {
+			return 'Selamat Sore';
+		} else {
+			return 'Selamat Malam';
+		}
+	}, []);
+
 	const greetingName = (() => {
-		if (!userName || userName.trim().length === 0) return 'Teman';
+		if (!userName || userName.trim().length === 0) return 'Kawan';
 		const first = userName.trim().split(/\s+/)[0];
 		return first;
 	})();
@@ -65,7 +80,7 @@ const CornerWelcome: React.FC<CornerWelcomeProps> = ({ isOpen, onClose, userName
 
 				<div className="p-3">
 					<p className="text-sm text-gray-800 dark:text-gray-100 leading-snug">
-						<span className="font-semibold">Hai {greetingName}</span>! Bulan <span className="font-semibold capitalize">{monthNameId}</span> cocok banget jika liburan ke <span className="font-semibold">Legon Pari</span>, cek sini yuk!
+						<span className="font-semibold">{getTimeBasedGreeting} {greetingName}</span>! Bulan <span className="font-semibold capitalize">{monthNameId}</span> cocok banget jika liburan ke <span className="font-semibold">Legon Pari</span>, cek sini yuk!
 					</p>
 
 					<div className="mt-3 flex items-center gap-3 rounded-lg bg-gradient-to-r from-ocean/10 to-coral/10 dark:from-ocean/20 dark:to-coral/20 p-3">

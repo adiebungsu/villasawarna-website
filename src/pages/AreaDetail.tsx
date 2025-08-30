@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { MapPin, Clock, Car, Users, CheckCircle2, Navigation, Phone, Star, Shield, Calendar, User, Mail, Camera, Wifi, Coffee, Utensils, CreditCard, AlertCircle, Info, ChevronDown, ChevronUp, Fuel, Settings, Luggage, Baby, Wifi as WifiIcon, Snowflake, Bus } from 'lucide-react';
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const AREA_DATA: Record<string, {
   city: string;
@@ -163,6 +164,14 @@ const AREA_DATA: Record<string, {
       {
         question: 'Mengapa dari Bogor lebih cepat ke Sawarna?',
         answer: 'Bogor memiliki akses langsung ke jalur selatan yang lebih dekat ke Sawarna dibandingkan dari Jakarta.'
+      },
+      {
+        question: 'Berapa lama perjalanan dari Bogor ke Sawarna?',
+        answer: 'The typical journey takes 5–6 hours depending on traffic conditions and your pickup location in Bogor.'
+      },
+      {
+        question: 'Apakah harga sudah termasuk tol dan parkir?',
+        answer: 'The base price includes tolls and parking. No additional fees for these components.'
       }
     ],
     additionalInfo: {
@@ -223,7 +232,15 @@ const AREA_DATA: Record<string, {
     faq: [
       {
         question: 'Apakah bisa stop over di destinasi wisata?',
-        answer: 'Ya, kami fleksibel untuk stop over di destinasi wisata dengan biaya tambahan sesuai durasi.'
+        answer: 'Yes, we are flexible for stopovers at tourist destinations with an additional fee based on duration.'
+      },
+      {
+        question: 'Berapa lama perjalanan dari Bandung ke Sawarna?',
+        answer: 'The typical journey takes 7–8 hours depending on traffic conditions and your pickup location in Bandung.'
+      },
+      {
+        question: 'Apakah ada penjemputan dari bandara?',
+        answer: 'Yes, we provide direct pickup from Husein Sastranegara Airport (BDO) with additional airport parking fees.'
       }
     ],
     additionalInfo: {
@@ -284,7 +301,15 @@ const AREA_DATA: Record<string, {
     faq: [
       {
         question: 'Apakah bisa penjemputan dari bandara?',
-        answer: 'Ya, kami melayani penjemputan langsung dari Bandara Soekarno-Hatta dengan biaya tambahan untuk parkir bandara.'
+        answer: 'Yes, we provide direct pickup from Soekarno–Hatta Airport with additional airport parking fees.'
+      },
+      {
+        question: 'Berapa lama perjalanan dari Tangerang ke Sawarna?',
+        answer: 'The typical journey takes 6–7 hours depending on traffic conditions and your pickup location in Tangerang.'
+      },
+      {
+        question: 'Apakah harga sudah termasuk tol dan parkir?',
+        answer: 'The base price includes tolls and airport parking. No additional fees for these components.'
       }
     ],
     additionalInfo: {
@@ -345,7 +370,15 @@ const AREA_DATA: Record<string, {
     faq: [
       {
         question: 'Apakah benar melayani 24 jam?',
-        answer: 'Ya, kami melayani 24 jam dengan biaya tambahan untuk layanan malam hari (22:00-06:00).'
+        answer: 'Yes, we operate 24/7 with additional fees for night service (22:00–06:00).'
+      },
+      {
+        question: 'Berapa lama perjalanan dari Bekasi ke Sawarna?',
+        answer: 'The typical journey takes 6–7 hours depending on traffic conditions and your pickup location in Bekasi.'
+      },
+      {
+        question: 'Apakah ada penjemputan dari Cikarang area?',
+        answer: 'Yes, we provide pickup from all Bekasi areas including Cikarang, Tambun, and surrounding areas.'
       }
     ],
     additionalInfo: {
@@ -406,7 +439,15 @@ const AREA_DATA: Record<string, {
     faq: [
       {
         question: 'Mengapa dari Serang paling cepat?',
-        answer: 'Serang memiliki jarak terdekat ke Sawarna dengan rute langsung tanpa harus melewati Jakarta.'
+        answer: 'Serang has the shortest distance to Sawarna with a direct route without going through Jakarta.'
+      },
+      {
+        question: 'Berapa lama perjalanan dari Serang ke Sawarna?',
+        answer: 'The typical journey takes 4–5 hours depending on traffic conditions and your pickup location in Serang.'
+      },
+      {
+        question: 'Apakah harga sudah termasuk tol dan parkir?',
+        answer: 'The base price includes tolls and parking. No additional fees for these components.'
       }
     ],
     additionalInfo: {
@@ -474,15 +515,15 @@ const AREA_DATA: Record<string, {
     faq: [
       {
         question: 'Berapa lama perjalanan dari Depok ke Sawarna?',
-        answer: 'Perjalanan normal memakan waktu 6-7 jam tergantung kondisi lalu lintas dan lokasi penjemputan di Depok.'
+        answer: 'The typical journey takes 6–7 hours depending on traffic conditions and your pickup location in Depok.'
       },
       {
-        question: 'Apakah bisa penjemputan dari area Cimanggis?',
-        answer: 'Ya, kami melayani penjemputan dari seluruh area Depok termasuk Cimanggis, Sawangan, Limo, dan Cinere.'
+        question: 'Is pickup available from Cimanggis area?',
+        answer: 'Yes, we provide pickup from all Depok areas including Cimanggis, Sawangan, Limo, and Cinere.'
       },
       {
-        question: 'Bisakah penjemputan di pagi buta?',
-        answer: 'Ya, kami melayani penjemputan pagi buta untuk menghindari macet. Ada biaya tambahan untuk layanan dini hari.'
+        question: 'Apakah ada penjemputan di pagi buta?',
+        answer: 'Yes, we provide early morning pickup to avoid traffic. Additional fees apply for early morning service.'
       }
     ],
     additionalInfo: {
@@ -1087,7 +1128,225 @@ const NEEDS_RECOMMENDATION = {
 
 const AreaDetail = () => {
   const { city } = useParams<{ city: string }>();
-  const data = city ? AREA_DATA[city] : undefined;
+  const { i18n } = useTranslation('common');
+  const isId = (i18n.language || '').toLowerCase().startsWith('id');
+  let data = city ? AREA_DATA[city] : undefined;
+  const ui = (idText: string, enText: string) => (isId ? idText : enText);
+
+  const toEn = (val: string): string => {
+    if (!val) return val;
+    return val
+      .replace(/Mulai\s/gi, 'From ')
+      .replace(/jam\b/gi, 'hours')
+      .replace(/menit\b/gi, 'minutes')
+      .replace(/≈\s*(\d+)([.,]?\d*)\s*km/gi, '≈ $1$2 km')
+      .replace(/Penjemputan/gi, 'Pickup')
+      .replace(/door-to-door/gi, 'door-to-door')
+      .replace(/Driver/gi, 'Driver')
+      .replace(/berpengalaman/gi, 'experienced')
+      .replace(/rute/gi, 'routes')
+      .replace(/Armada/gi, 'Fleet')
+      .replace(/nyaman/gi, 'comfortable')
+      .replace(/terawat/gi, 'well-maintained')
+      .replace(/Termasuk/gi, 'Includes')
+      .replace(/tol/gi, 'toll')
+      .replace(/parkir/gi, 'parking')
+      .replace(/Air mineral gratis/gi, 'Free mineral water')
+      .replace(/Bandara/gi, 'Airport')
+      .replace(/Stasiun/gi, 'Station')
+      .replace(/Mall/gi, 'Mall')
+      .replace(/Jakarta Pusat/gi, 'Central Jakarta')
+      .replace(/Jakarta Selatan/gi, 'South Jakarta')
+      .replace(/Jakarta Utara/gi, 'North Jakarta')
+      .replace(/Jakarta Barat/gi, 'West Jakarta')
+      .replace(/Jakarta Timur/gi, 'East Jakarta')
+      .replace(/Kota/gi, 'City')
+      .replace(/Kabupaten/gi, 'Regency')
+      .replace(/Layanan/gi, 'Service')
+      .replace(/Lebih/gi, 'More')
+      .replace(/Harga/gi, 'Price');
+  };
+
+  const localizeArea = (area?: typeof AREA_DATA[string]) => {
+    if (!area) return area;
+    return {
+      ...area,
+      description: toEn(area.description),
+      distanceKm: area.distanceKm,
+      duration: toEn(area.duration),
+      priceFrom: toEn(area.priceFrom),
+      pickupPoints: area.pickupPoints.map(toEn),
+      popularRoutes: area.popularRoutes.map(r => ({ from: toEn(r.from), to: toEn(r.to), duration: toEn(r.duration) })),
+      features: area.features.map(toEn),
+      testimonials: area.testimonials.map(t => ({ ...t, location: toEn(t.location), comment: toEn(t.comment), date: toEn(t.date) })),
+      faq: area.faq.map(f => ({ question: toEn(f.question), answer: toEn(f.answer) })),
+      additionalInfo: {
+        bestTime: toEn(area.additionalInfo.bestTime),
+        weather: toEn(area.additionalInfo.weather),
+        roadCondition: toEn(area.additionalInfo.roadCondition),
+        tips: area.additionalInfo.tips.map(toEn)
+      },
+      pricing: {
+        base: area.pricing.base,
+        peak: area.pricing.peak,
+        weekend: area.pricing.weekend,
+        includes: area.pricing.includes.map(toEn)
+      }
+    };
+  };
+
+  if (!isId) {
+    data = localizeArea(data);
+  }
+
+  // Minimal English translation for Jakarta; fallback to Indonesian for others
+  if (!isId && city === 'jakarta' && data) {
+    data = {
+      ...data,
+      description: 'Pickup from all Jakarta areas (Central, West, East, North, South).',
+      duration: '≈ 6–7 hours',
+      priceFrom: 'From Rp 1.200.000',
+      pickupPoints: [
+        'Soekarno–Hatta Airport (CGK)',
+        'Halim Perdanakusuma Airport (HLP)',
+        'Gambir Station',
+        'Jakarta Kota Station',
+        'Kelapa Gading Mall',
+        'Plaza Senayan'
+      ],
+      popularRoutes: [
+        { from: 'Central Jakarta', to: 'Sawarna', duration: '6 hours' },
+        { from: 'South Jakarta', to: 'Sawarna', duration: '6.5 hours' },
+        { from: 'North Jakarta', to: 'Sawarna', duration: '7 hours' }
+      ],
+      features: [
+        'Door-to-door pickup',
+        'Experienced drivers for Jakarta routes',
+        'Comfortable & well-maintained fleet',
+        'Includes toll & parking (optional)',
+        'Free mineral water'
+      ]
+    };
+  }
+
+  // English overrides for other areas' FAQs
+  if (!isId && data) {
+    if (city === 'bogor') {
+      data = {
+        ...data,
+        faq: [
+          {
+            question: 'Why is Bogor faster to Sawarna?',
+            answer: 'Bogor has direct access to the southern route which is closer to Sawarna compared to Jakarta.'
+          },
+          {
+            question: 'How long is the trip from Bogor to Sawarna?',
+            answer: 'The typical journey takes 5–6 hours depending on traffic conditions and your pickup location in Bogor.'
+          },
+          {
+            question: 'Does the price include tolls and parking?',
+            answer: 'The base price includes tolls and parking. No additional fees for these components.'
+          }
+        ]
+      };
+    }
+    if (city === 'bandung') {
+      data = {
+        ...data,
+        faq: [
+          {
+            question: 'Can we stop over at tourist spots?',
+            answer: 'Yes, we are flexible for stopovers at tourist destinations with an additional fee based on duration.'
+          },
+          {
+            question: 'How long is the trip from Bandung to Sawarna?',
+            answer: 'The typical journey takes 7–8 hours depending on traffic conditions and your pickup location in Bandung.'
+          },
+          {
+            question: 'Is airport pickup available from Bandung?',
+            answer: 'Yes, we provide direct pickup from Husein Sastranegara Airport (BDO) with additional airport parking fees.'
+          }
+        ]
+      };
+    }
+    if (city === 'tangerang') {
+      data = {
+        ...data,
+        faq: [
+          {
+            question: 'Is airport pickup available?',
+            answer: 'Yes, we provide direct pickup from Soekarno–Hatta Airport with additional airport parking fees.'
+          },
+          {
+            question: 'How long is the trip from Tangerang to Sawarna?',
+            answer: 'The typical journey takes 6–7 hours depending on traffic conditions and your pickup location in Tangerang.'
+          },
+          {
+            question: 'Does the price include tolls and parking?',
+            answer: 'The base price includes tolls and airport parking. No additional fees for these components.'
+          }
+        ]
+      };
+    }
+    if (city === 'bekasi') {
+      data = {
+        ...data,
+        faq: [
+          {
+            question: 'Do you really operate 24/7?',
+            answer: 'Yes, we operate 24/7 with additional fees for night service (22:00–06:00).'
+          },
+          {
+            question: 'How long is the trip from Bekasi to Sawarna?',
+            answer: 'The typical journey takes 6–7 hours depending on traffic conditions and your pickup location in Bekasi.'
+          },
+          {
+            question: 'Is pickup available from Cikarang area?',
+            answer: 'Yes, we provide pickup from all Bekasi areas including Cikarang, Tambun, and surrounding areas.'
+          }
+        ]
+      };
+    }
+    if (city === 'serang') {
+      data = {
+        ...data,
+        faq: [
+          {
+            question: 'Why is Serang the fastest to Sawarna?',
+            answer: 'Serang has the shortest distance to Sawarna with a direct route without going through Jakarta.'
+          },
+          {
+            question: 'How long is the trip from Serang to Sawarna?',
+            answer: 'The typical journey takes 4–5 hours depending on traffic conditions and your pickup location in Serang.'
+          },
+          {
+            question: 'Does the price include tolls and parking?',
+            answer: 'The base price includes tolls and parking. No additional fees for these components.'
+          }
+        ]
+      };
+    }
+    if (city === 'depok') {
+      data = {
+        ...data,
+        faq: [
+          {
+            question: 'How long is the trip from Depok to Sawarna?',
+            answer: 'The typical journey takes 6–7 hours depending on traffic conditions and your pickup location in Depok.'
+          },
+          {
+            question: 'Is pickup available from Cimanggis area?',
+            answer: 'Yes, we provide pickup from all Depok areas including Cimanggis, Sawangan, Limo, and Cinere.'
+          },
+          {
+            question: 'Is early morning pickup available?',
+            answer: 'Yes, we provide early morning pickup to avoid traffic. Additional fees apply for early morning service.'
+          }
+        ]
+      };
+    }
+  }
+
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -1098,6 +1357,22 @@ const AreaDetail = () => {
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [isWeekend, setIsWeekend] = useState<boolean>(false);
   const [isPeakSeason, setIsPeakSeason] = useState<boolean>(false);
+  // Detail kalkulator
+  const [distanceKm, setDistanceKm] = useState<number>(() => {
+    const m = (data?.distanceKm)?.match(/\d+(?:[.,]\d+)?/);
+    return m ? parseFloat(m[0].replace(',', '.')) : 0;
+  });
+  const [estimatedHours, setEstimatedHours] = useState<number>(() => {
+    const m = (data?.duration)?.match(/\d+/);
+    return m ? parseInt(m[0]) : 0;
+  });
+  const [perKmRate, setPerKmRate] = useState<number>(0);
+  const [perHourRate, setPerHourRate] = useState<number>(0);
+  const [tollCost, setTollCost] = useState<number>(0);
+  const [parkingCost, setParkingCost] = useState<number>(0);
+  const [extraStopCost, setExtraStopCost] = useState<number>(0);
+  const [includeToll, setIncludeToll] = useState<boolean>(false);
+  const [includeParking, setIncludeParking] = useState<boolean>(false);
   const [favoriteVehicles, setFavoriteVehicles] = useState<string[]>([]);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [vehicleRatings, setVehicleRatings] = useState<Record<string, { rating: number; reviewCount: number; lastReview: string }>>({
@@ -1150,6 +1425,57 @@ const AreaDetail = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Fallback UI localization: replace remaining Indonesian UI strings with English on the client when EN is active
+  useEffect(() => {
+    if (isId) return;
+    const replacements: Record<string, string> = {
+      'Pilih Kendaraan Sesuai Kebutuhan': 'Choose Vehicles That Fit Your Needs',
+      'Penawaran Khusus': 'Special Offers',
+      'Keunggulan Layanan': 'Service Advantages',
+      'Rute Populer': 'Popular Routes',
+      'Titik Penjemputan': 'Pickup Points',
+      'Info Cepat': 'Quick Info',
+      'Siap Berangkat dari Jakarta?': 'Ready to Depart from Jakarta?',
+      'Galeri Perjalanan': 'Trip Gallery',
+      'Testimoni Pelanggan': 'Customer Testimonials',
+      'Pertanyaan yang Sering Diajukan': 'Frequently Asked Questions',
+      'Informasi Tambahan': 'Additional Information',
+      'Detail Harga': 'Price Details',
+      'Berapa Jumlah Penumpang?': 'How Many Passengers?',
+      'Kendaraan Favorit Anda': 'Your Favorite Vehicles',
+      'Mengapa rekomendasi ini?': 'Why these recommendations?',
+      'Kapasitas': 'Capacity',
+      'Harga': 'Price',
+      'Lihat Detail': 'View Details',
+      'Sembunyikan Detail': 'Hide Details',
+      'Pilih Kendaraan': 'Choose Vehicle',
+      '✓ Dipilih': '✓ Selected',
+      'Lihat Titik Penjemputan': 'View Pickup Points',
+      'Pesan dari': 'Book from',
+      'Baru': 'New',
+      'ulasan': 'reviews'
+    };
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes: Text[] = [];
+    let n = walker.nextNode();
+    while (n) {
+      nodes.push(n as Text);
+      n = walker.nextNode();
+    }
+    nodes.forEach((textNode) => {
+      let txt = textNode.nodeValue || '';
+      let changed = false;
+      for (const [idText, enText] of Object.entries(replacements)) {
+        if (txt.includes(idText)) {
+          const parts = txt.split(idText);
+          txt = parts.join(enText);
+          changed = true;
+        }
+      }
+      if (changed) textNode.nodeValue = txt;
+    });
+  }, [isId, city]);
 
   // Toggle favorite vehicle
   const toggleFavorite = useCallback((vehicleKey: string) => {
@@ -1205,30 +1531,39 @@ const AreaDetail = () => {
     );
   };
 
+  // Helper untuk memastikan angka valid
+  const asSafeNumber = (value: unknown) => {
+    const n = typeof value === 'number' ? value : Number(value);
+    return Number.isFinite(n) && n >= 0 ? n : 0;
+  };
+
   // Fungsi kalkulator harga
   const calculatePrice = () => {
     if (!selectedVehicle || !data) return 0;
-    
+
     const vehicle = VEHICLE_DATA[selectedVehicle as keyof typeof VEHICLE_DATA];
-    const basePrice = parseInt(vehicle.price.replace(/[^\d]/g, ''));
-    
-    let finalPrice = basePrice;
-    
-    // Weekend multiplier
-    if (isWeekend) {
-      finalPrice *= 1.1; // 10% tambahan
-    }
-    
-    // Peak season multiplier
-    if (isPeakSeason) {
-      finalPrice *= 1.2; // 20% tambahan
-    }
-    
-    // Round trip multiplier
-    if (tripType === 'round-trip') {
-      finalPrice *= 1.8; // 80% tambahan (bukan 2x karena ada diskon)
-    }
-    
+    const basePrice = parseInt(vehicle.price.replace(/[^\d]/g, '')) || 0;
+
+    const safeDistanceKm = asSafeNumber(distanceKm);
+    const safePerKm = asSafeNumber(perKmRate);
+    const safeHours = asSafeNumber(estimatedHours);
+    const safePerHour = asSafeNumber(perHourRate);
+    const safeToll = includeToll ? asSafeNumber(tollCost) : 0;
+    const safeParking = includeParking ? asSafeNumber(parkingCost) : 0;
+    const safeExtraStop = asSafeNumber(extraStopCost);
+
+    const distanceCharge = safeDistanceKm * safePerKm;
+    const timeCharge = safeHours * safePerHour;
+
+    // Terapkan multiplier hanya ke komponen dasar (tanpa extras)
+    let subtotal = basePrice + distanceCharge + timeCharge;
+    if (isWeekend) subtotal *= 1.1; // 10% tambahan
+    if (isPeakSeason) subtotal *= 1.2; // 20% tambahan
+    if (tripType === 'round-trip') subtotal *= 1.8; // 80% tambahan
+
+    const extras = safeToll + safeParking + safeExtraStop;
+    const finalPrice = subtotal + extras;
+
     return Math.round(finalPrice);
   };
 
@@ -1297,10 +1632,10 @@ const AreaDetail = () => {
             </div>
              <div className="flex flex-col sm:flex-row gap-3">
               <a href={`https://wa.me/6283877080088?text=${encodeURIComponent(`Halo VillaSawarna, saya ingin sewa kendaraan dari ${data.city} ke Sawarna. Mohon info ketersediaan & estimasi biaya.`)}`} target="_blank" rel="noopener noreferrer">
-                 <Button className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-base py-3 px-6" title={`Pesan transport dari ${data.city}`}>Pesan dari {data.city}</Button>
+                 <Button className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-base py-3 px-6" title={ui(`Pesan transport dari ${data.city}`, `Book transport from ${data.city}`)}>{ui(`Pesan dari ${data.city}`, `Book from ${data.city}`)}</Button>
               </a>
               <a href="#pickup-points">
-                 <Button variant="outline" className="w-full sm:w-auto text-white border-white hover:bg-white/10 text-base py-3 px-6" title="Lihat titik penjemputan">Lihat Titik Penjemputan</Button>
+                 <Button variant="outline" className="w-full sm:w-auto text-white border-white hover:bg-white/10 text-base py-3 px-6" title={ui('Lihat titik penjemputan','See pickup points')}>{ui('Lihat Titik Penjemputan','View Pickup Points')}</Button>
               </a>
             </div>
           </div>
@@ -1311,16 +1646,16 @@ const AreaDetail = () => {
       <section className="py-12 bg-gray-50 dark:bg-gray-800">
         <div className="container-custom">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold dark:text-white">Pilih Kendaraan Sesuai Kebutuhan</h2>
-            <p className="text-gray-600 dark:text-gray-300">Sistem rekomendasi otomatis berdasarkan jumlah penumpang dan kebutuhan Anda</p>
+            <h2 className="text-2xl md:text-3xl font-bold dark:text-white">{ui('Pilih Kendaraan Sesuai Kebutuhan','Choose Vehicles That Fit Your Needs')}</h2>
+            <p className="text-gray-600 dark:text-gray-300">{ui('Sistem rekomendasi otomatis berdasarkan jumlah penumpang dan kebutuhan Anda','Automatic recommendations based on passengers and your needs')}</p>
           </div>
 
           {/* Passenger Selection */}
           <div className="max-w-2xl mx-auto mb-8">
             <Card className="border border-gray-100 dark:border-gray-700">
                <CardHeader className="text-center">
-                 <CardTitle className="text-xl md:text-2xl dark:text-white">Berapa Jumlah Penumpang?</CardTitle>
-                 <CardDescription className="text-sm md:text-base">Silahkan <span className="text-ocean dark:text-ocean-light font-semibold">klik</span> Pilih jumlah penumpang untuk untuk melihat pilihan kendaraan dan mendapatkan rekomendasi kendaraan terbaik</CardDescription>
+                 <CardTitle className="text-xl md:text-2xl dark:text-white">{ui('Berapa Jumlah Penumpang?','How Many Passengers?')}</CardTitle>
+                 <CardDescription className="text-sm md:text-base">{ui('Silahkan ','Please ')}<span className="text-ocean dark:text-ocean-light font-semibold">{ui('klik','click')}</span>{ui(' Pilih jumlah penumpang untuk untuk melihat pilihan kendaraan dan mendapatkan rekomendasi kendaraan terbaik',' Select number of passengers to see vehicle options and get best recommendations')}</CardDescription>
               </CardHeader>
               <CardContent>
                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
@@ -1345,10 +1680,10 @@ const AreaDetail = () => {
                            ? 'border-ocean bg-ocean/10 dark:bg-ocean/20 shadow-lg'
                            : 'border-gray-200 dark:border-gray-600 hover:border-ocean/50 bg-white dark:bg-gray-800'
                        }`}
-                       title={`Pilih untuk ${range} penumpang`}
+                       title={ui(`Pilih untuk ${range} penumpang`, `Choose for ${range} passengers`)}
                      >
                        <div className="text-center">
-                         <div className="text-base md:text-lg font-bold text-gray-900 dark:text-white leading-tight mb-1">{range} orang</div>
+                         <div className="text-base md:text-lg font-bold text-gray-900 dark:text-white leading-tight mb-1">{ui(`${range} orang`, `${range} pax`)}</div>
                          <div className="text-xs md:text-sm text-gray-600 dark:text-gray-300 leading-tight">{info.title}</div>
                        </div>
                      </button>
@@ -1367,10 +1702,10 @@ const AreaDetail = () => {
                     <svg className="w-5 h-5 md:w-6 md:h-6 text-red-500" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 000-6.364 4.5 4.5 0 00-6.364 0L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
-                    Kendaraan Favorit Anda
+                    {ui('Kendaraan Favorit Anda','Your Favorite Vehicles')}
                   </CardTitle>
                   <CardDescription className="text-sm">
-                    {favoriteVehicles.length} kendaraan yang Anda tandai sebagai favorit
+                    {ui(`${favoriteVehicles.length} kendaraan yang Anda tandai sebagai favorit`, `${favoriteVehicles.length} vehicles marked as favorite`)}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-4 md:p-6">
@@ -1401,7 +1736,7 @@ const AreaDetail = () => {
                           <button
                             onClick={() => toggleFavorite(vehicleKey)}
                             className="p-1 md:p-1.5 text-red-500 hover:text-red-700 transition-colors"
-                            title="Hapus dari favorit"
+                            title={ui('Hapus dari favorit','Remove from favorites')}
                           >
                             <svg className="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 000-6.364 4.5 4.5 0 00-6.364 0L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -1422,7 +1757,7 @@ const AreaDetail = () => {
               <Card className="border border-gray-100 dark:border-gray-700 mb-6">
                 <CardHeader>
                   <CardTitle className="text-xl dark:text-white">
-                    Rekomendasi untuk {NEEDS_RECOMMENDATION[selectedPassengers as keyof typeof NEEDS_RECOMMENDATION].title}
+                    {ui('Rekomendasi untuk','Recommendations for')} {NEEDS_RECOMMENDATION[selectedPassengers as keyof typeof NEEDS_RECOMMENDATION].title}
                   </CardTitle>
                   <CardDescription>
                     {NEEDS_RECOMMENDATION[selectedPassengers as keyof typeof NEEDS_RECOMMENDATION].description}
@@ -1432,7 +1767,7 @@ const AreaDetail = () => {
                   <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
                     <div className="flex items-center gap-2 mb-2">
                       <Info className="w-5 h-5 text-blue-600" />
-                      <span className="font-semibold text-blue-800 dark:text-blue-200">Mengapa rekomendasi ini?</span>
+                      <span className="font-semibold text-blue-800 dark:text-blue-200">{ui('Mengapa rekomendasi ini?','Why these recommendations?')}</span>
                     </div>
                     <p className="text-blue-700 dark:text-blue-300">
                       {NEEDS_RECOMMENDATION[selectedPassengers as keyof typeof NEEDS_RECOMMENDATION].reason}
@@ -1504,11 +1839,11 @@ const AreaDetail = () => {
                           <div className="space-y-3 md:space-y-4">
                             <div className="grid grid-cols-2 gap-2 md:gap-3">
                               <div className="text-center p-2 md:p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                                <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">Kapasitas</div>
+                                <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">{ui('Kapasitas','Capacity')}</div>
                                 <div className="font-bold text-xs md:text-sm text-gray-900 dark:text-white">{vehicle.capacity}</div>
                            </div>
                               <div className="text-center p-2 md:p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                                <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">Harga</div>
+                                <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">{ui('Harga','Price')}</div>
                                 <div className="font-bold text-xs md:text-sm text-ocean dark:text-ocean-light">{vehicle.price}</div>
                               </div>
                            </div>
@@ -1526,9 +1861,9 @@ const AreaDetail = () => {
                                <button
                                  onClick={() => setShowVehicleDetails(showVehicleDetails === vehicleKey ? null : vehicleKey)}
                                 className="w-full text-xs md:text-sm text-ocean dark:text-ocean-light hover:underline py-1.5 md:py-2 px-2 md:px-3 rounded-lg border border-ocean/20 hover:bg-ocean/5 transition-colors"
-                                title="Lihat detail kendaraan"
+                                title={ui('Lihat detail kendaraan','View vehicle details')}
                                >
-                                {showVehicleDetails === vehicleKey ? 'Sembunyikan Detail' : 'Lihat Detail'}
+                                {showVehicleDetails === vehicleKey ? ui('Sembunyikan Detail','Hide Details') : ui('Lihat Detail','View Details')}
                                </button>
                                
                                <button
@@ -1538,9 +1873,9 @@ const AreaDetail = () => {
                                     ? 'bg-ocean text-white shadow-lg'
                                      : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600'
                                  }`}
-                                title={selectedVehicle === vehicleKey ? 'Kendaraan sudah dipilih' : 'Pilih kendaraan ini'}
+                                title={selectedVehicle === vehicleKey ? ui('Kendaraan sudah dipilih','Vehicle already selected') : ui('Pilih kendaraan ini','Choose this vehicle')}
                                >
-                                {selectedVehicle === vehicleKey ? '✓ Dipilih' : 'Pilih Kendaraan'}
+                                {selectedVehicle === vehicleKey ? ui('✓ Dipilih','✓ Selected') : ui('Pilih Kendaraan','Choose Vehicle')}
                                </button>
                            </div>
                          </div>
@@ -1554,10 +1889,10 @@ const AreaDetail = () => {
 
                      {/* Vehicle Details Modal */}
            {showVehicleDetails && (
-              <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 md:p-6 pb-20 md:pb-6">
-                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-2xl max-w-4xl md:max-w-4xl lg:max-w-5xl w-full max-h-[85vh] md:max-h-[80vh] overflow-hidden">
+              <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 md:p-6 pb-24 md:pb-8">
+                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-2xl w-11/12 max-w-md md:max-w-4xl lg:max-w-5xl max-h-[85vh] md:max-h-[80vh] overflow-hidden">
                  {/* Header */}
-                  <div className="flex items-center justify-between p-4 md:p-6 border-b border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center justify-between p-4 md:p-6 pb-6 border-b border-gray-200 dark:border-gray-700">
                     <div className="flex-1 min-w-0">
                       <h3 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white break-words">
                        {VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].name}
@@ -1567,7 +1902,7 @@ const AreaDetail = () => {
                      </p>
                      
                      {/* Rating in Modal Header */}
-                     <div className="flex flex-wrap items-center gap-2 md:gap-3 mt-2">
+                     <div className="flex flex-wrap items-center gap-2 md:gap-3 mt-3">
                        <div className="flex items-center gap-1.5">
                          <div className="flex items-center gap-0.5">
                            {[...Array(5)].map((_, i) => (
@@ -1601,9 +1936,9 @@ const AreaDetail = () => {
                  </div>
 
                                    <div className="overflow-y-auto max-h-[calc(85vh-80px)] md:max-h-[calc(80vh-80px)]">
-                   <div className="p-4 md:p-6">
+                   <div className="p-4 md:p-6 pb-12 md:pb-16">
                      {/* Image Section */}
-                      <div className="w-full h-56 md:h-80 bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden mb-4 md:mb-6">
+                      <div className="w-full h-56 md:h-80 bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden mb-6 md:mb-8">
                        <img 
                          src={VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].image} 
                          alt={VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].name}
@@ -1612,7 +1947,7 @@ const AreaDetail = () => {
                      </div>
 
                      {/* Quick Info Cards */}
-                      <div className="grid grid-cols-2 gap-3 md:gap-4 mb-4 md:mb-6">
+                      <div className="grid grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
                        <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-center">
                          <Users className="w-6 h-6 text-blue-600 mx-auto mb-2" />
                          <div className="text-sm text-blue-600 dark:text-blue-300">Kapasitas</div>
@@ -1636,7 +1971,7 @@ const AreaDetail = () => {
                      </div>
 
                      {/* Description */}
-                      <div className="mb-4 md:mb-6">
+                      <div className="mb-6 md:mb-8">
                         <h4 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white mb-2 md:mb-3">Deskripsi</h4>
                         <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
                          {VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].description}
@@ -1644,39 +1979,39 @@ const AreaDetail = () => {
                      </div>
 
                      {/* Specifications */}
-                      <div className="mb-4 md:mb-6">
+                      <div className="mb-6 md:mb-8">
                         <h4 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white mb-3 md:mb-4">Spesifikasi Teknis</h4>
-                        <div className="space-y-3 md:space-y-4">
-                          <div className="bg-gray-50 dark:bg-gray-800 p-3 md:p-4 rounded-lg">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
+                        <div className="space-y-4 md:space-y-5">
+                          <div className="bg-gray-50 dark:bg-gray-800 p-4 md:p-5 rounded-lg">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                               <div className="flex flex-col">
-                                <span className="text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-1">Mesin</span>
+                                <span className="text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-2">Mesin</span>
                                 <span className="text-xs md:text-sm text-gray-900 dark:text-white font-semibold">{VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].specifications.engine}</span>
                            </div>
                               <div className="flex flex-col">
-                                <span className="text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-1">Bahan Bakar</span>
+                                <span className="text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-2">Bahan Bakar</span>
                                 <span className="text-xs md:text-sm text-gray-900 dark:text-white font-semibold">{VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].specifications.fuel}</span>
                            </div>
                               <div className="flex flex-col">
-                                <span className="text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-1">Transmisi</span>
+                                <span className="text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-2">Transmisi</span>
                                 <span className="text-xs md:text-sm text-gray-900 dark:text-white font-semibold">{VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].specifications.transmission}</span>
                            </div>
                          </div>
                            </div>
-                          <div className="bg-gray-50 dark:bg-gray-800 p-3 md:p-4 rounded-lg">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
+                          <div className="bg-gray-50 dark:bg-gray-800 p-4 md:p-5 rounded-lg">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                               <div className="flex flex-col">
-                                <span className="text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-1">AC</span>
+                                <span className="text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-2">AC</span>
                                 <span className="text-xs md:text-sm text-gray-900 dark:text-white font-semibold break-words">{VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].specifications.ac}</span>
                            </div>
                               <div className="flex flex-col md:col-span-2">
-                                <span className="text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-1">Entertainment</span>
+                                <span className="text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-2">Entertainment</span>
                                 <span className="text-xs md:text-sm text-gray-900 dark:text-white font-semibold break-words">{VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].specifications.entertainment}</span>
                               </div>
                             </div>
-                            <div className="mt-3 md:mt-4">
+                            <div className="mt-4 md:mt-5">
                               <div className="flex flex-col">
-                                <span className="text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-1">Safety</span>
+                                <span className="text-xs md:text-sm text-gray-600 dark:text-gray-300 font-medium mb-2">Safety</span>
                                 <span className="text-xs md:text-sm text-gray-900 dark:text-white font-semibold break-words">{VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].specifications.safety}</span>
                               </div>
                            </div>
@@ -1685,11 +2020,11 @@ const AreaDetail = () => {
                      </div>
 
                      {/* Features */}
-                      <div className="mb-4 md:mb-6">
+                      <div className="mb-6 md:mb-8">
                         <h4 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white mb-3 md:mb-4">Fitur Utama</h4>
-                        <div className="grid grid-cols-1 gap-2 md:gap-3">
+                        <div className="grid grid-cols-1 gap-3 md:gap-4">
                          {VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].features.map((feature, index) => (
-                            <div key={index} className="flex items-center gap-2 md:gap-3 p-3 md:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <div key={index} className="flex items-center gap-3 md:gap-4 p-4 md:p-5 bg-gray-50 dark:bg-gray-800 rounded-lg">
                               <feature.icon className={`w-5 h-5 md:w-6 md:h-6 ${feature.color} flex-shrink-0`} />
                               <span className="text-sm md:text-base text-gray-700 dark:text-gray-300 break-words">{feature.text}</span>
                            </div>
@@ -1698,11 +2033,11 @@ const AreaDetail = () => {
                      </div>
 
                      {/* Suitable For */}
-                      <div className="mb-4 md:mb-6">
+                      <div className="mb-6 md:mb-8">
                         <h4 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white mb-3 md:mb-4">Cocok Untuk</h4>
-                        <div className="flex flex-wrap gap-2 md:gap-3">
+                        <div className="flex flex-wrap gap-3 md:gap-4">
                          {VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].suitable.map((item, index) => (
-                            <span key={index} className="bg-ocean/10 text-ocean dark:text-ocean-light px-3 py-2 md:px-4 md:py-2 rounded-full text-sm md:text-base font-medium border border-ocean/20 break-words">
+                            <span key={index} className="bg-ocean/10 text-ocean dark:text-ocean-light px-4 py-3 md:px-5 md:py-3 rounded-full text-sm md:text-base font-medium border border-ocean/20 break-words">
                              {item}
                            </span>
                          ))}
@@ -1711,7 +2046,7 @@ const AreaDetail = () => {
 
                      {/* Price and Action */}
                       <div className="bg-gradient-to-r from-ocean/5 to-blue-50 dark:from-ocean/10 dark:to-blue-900/20 p-4 md:p-6 rounded-xl border border-ocean/20">
-                        <div className="flex flex-col gap-3 md:gap-0 mb-4">
+                        <div className="flex flex-col gap-3 md:gap-0 mb-6">
                           <div className="text-center md:text-left">
                             <h4 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">Harga Sewa</h4>
                             <p className="text-sm md:text-base text-gray-600 dark:text-gray-300">Termasuk driver & bensin</p>
@@ -1725,26 +2060,26 @@ const AreaDetail = () => {
                        </div>
 
                         {/* Rental Duration Pricing */}
-                        <div className="mb-4">
+                        <div className="mb-6">
                           <h5 className="text-base font-semibold text-gray-900 dark:text-white mb-3">Pilihan Durasi Sewa</h5>
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
-                            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700 text-center">
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 text-center">
                               <div className="text-xs text-gray-600 dark:text-gray-300 mb-1">1 Hari</div>
                               <div className="text-sm font-semibold text-gray-900 dark:text-white">{VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].price}</div>
                             </div>
-                            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700 text-center relative">
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 text-center relative">
                               <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-2 py-1 rounded-full">PROMO</div>
                               <div className="text-xs text-gray-600 dark:text-gray-300 mb-1">2 Hari</div>
                               <div className="text-sm font-semibold text-gray-900 dark:text-white">{VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].price.replace(/[^\d]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.')}</div>
                               <div className="text-xs text-red-600 font-medium">-10%</div>
                             </div>
-                            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700 text-center relative">
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 text-center relative">
                               <div className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs px-2 py-1 rounded-full">HOT</div>
                               <div className="text-xs text-gray-600 dark:text-gray-300 mb-1">3 Hari</div>
                               <div className="text-sm font-semibold text-gray-900 dark:text-white">{VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].price.replace(/[^\d]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.')}</div>
                               <div className="text-xs text-orange-600 font-medium">-15%</div>
                             </div>
-                            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700 text-center relative">
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 text-center relative">
                               <div className="absolute -top-1 -right-1 bg-green-500 text-white text-xs px-2 py-1 rounded-full">BEST</div>
                               <div className="text-xs text-gray-600 dark:text-gray-300 mb-1">1 Minggu</div>
                               <div className="text-sm font-semibold text-gray-900 dark:text-white">{VEHICLE_DATA[showVehicleDetails as keyof typeof VEHICLE_DATA].price.replace(/[^\d]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.')}</div>
@@ -1754,24 +2089,24 @@ const AreaDetail = () => {
                         </div>
 
                         {/* Promotional Offers */}
-                        <div className="mb-4">
+                        <div className="mb-6">
                           <h5 className="text-base font-semibold text-gray-900 dark:text-white mb-3">Penawaran Spesial</h5>
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-2 p-2 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-2 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
                               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                               <span className="text-sm text-green-700 dark:text-green-300">Gratis antar jemput area Jakarta</span>
                             </div>
-                            <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                            <div className="flex items-center gap-2 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                               <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                               <span className="text-sm text-blue-700 dark:text-blue-300">Free cancellation 24 jam sebelum keberangkatan</span>
                             </div>
-                            <div className="flex items-center gap-2 p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                            <div className="flex items-center gap-2 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
                               <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                               <span className="text-sm text-purple-700 dark:text-purple-300">Bonus air mineral & snack untuk perjalanan lebih dari 2 hari</span>
                             </div>
                           </div>
                         </div>
-                        <div className="flex flex-col md:flex-row gap-3">
+                        <div className="flex flex-col md:flex-row gap-3 mb-6">
                          <button
                            onClick={() => {
                               // Close modal first, then set selected vehicle
@@ -1797,6 +2132,11 @@ const AreaDetail = () => {
                      </div>
                    </div>
                  </div>
+                                      {/* Additional bottom padding to ensure buttons are fully visible */}
+                 <div className="h-6 md:h-8"></div>
+                 
+                 {/* Additional padding for mobile to prevent content cutoff */}
+                 <div className="h-16 md:h-8"></div>
                </div>
              </div>
            )}
@@ -1918,7 +2258,7 @@ const AreaDetail = () => {
                     </div>
                   </div>
                                                           {/* Vehicle Features */}
-                    <div className="mb-6">
+                    <div className="mb-8">
                       <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Fitur Unggulan:</h4>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                         {VEHICLE_DATA[selectedVehicle as keyof typeof VEHICLE_DATA].features.slice(0, 6).map((feature, index) => (
@@ -1931,7 +2271,7 @@ const AreaDetail = () => {
                     </div>
                    
                    {/* Action Buttons */}
-                   <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                   <div className="mt-8 flex flex-col sm:flex-row gap-3">
                     <a href={`https://wa.me/6283877080088?text=${encodeURIComponent(`Halo VillaSawarna, saya ingin sewa ${VEHICLE_DATA[selectedVehicle as keyof typeof VEHICLE_DATA].name} dari ${data.city} ke Sawarna untuk ${selectedPassengers} orang. Mohon info ketersediaan & estimasi biaya.`)}`} target="_blank" rel="noopener noreferrer">
                        <Button className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-base py-3 px-6" title="Pesan kendaraan via WhatsApp">
                          <Phone className="w-4 h-4 mr-2" />
@@ -1953,7 +2293,7 @@ const AreaDetail = () => {
                   </div>
                    
                    {/* Additional Info */}
-                   <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                   <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
                      <div className="flex items-start">
                        <div className="w-5 h-5 bg-blue-500 rounded-full mr-3 mt-0.5 flex-shrink-0"></div>
                        <div className="text-sm text-blue-800 dark:text-blue-200">

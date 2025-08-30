@@ -23,24 +23,59 @@ import {
   ArrowRight,
   Car as CarIcon,
   Bus,
-  Plane
+  Plane,
+  Plus
 } from 'lucide-react';
 import { useParams, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const PackageDetail = () => {
   const { id } = useParams();
   const [selectedMealPlan, setSelectedMealPlan] = useState('2x');
   const [selectedDuration, setSelectedDuration] = useState('2');
+  const [selectedSeason, setSelectedSeason] = useState('regular');
+  const [guestCount, setGuestCount] = useState(1);
+  const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
+  const [checkInDate, setCheckInDate] = useState('');
+  const [showPriceBreakdown, setShowPriceBreakdown] = useState(false);
+  
+  // Kapasitas maksimal per kamar untuk setiap paket
+  const roomCapacity = {
+    'budget-1': 4,    // Kamar backpacker maksimal 4 orang
+    'budget-2': 4,    // Kamar keluarga maksimal 4 orang
+    'standard-1': 4   // Villa premium maksimal 4 orang
+  };
+
+  // Auto-detect season based on date
+  useEffect(() => {
+    if (checkInDate) {
+      const date = new Date(checkInDate);
+      const month = date.getMonth() + 1;
+      const day = date.getDay();
+      
+      // Peak season: June-August (6-8)
+      if (month >= 6 && month <= 8) {
+        setSelectedSeason('peak');
+      }
+      // Weekend
+      else if (day === 0 || day === 6) {
+        setSelectedSeason('weekend');
+      }
+      // Regular season
+      else {
+        setSelectedSeason('regular');
+      }
+    }
+  }, [checkInDate]);
 
   // Data lengkap paket menginap
   const packageData = {
     'budget-1': {
       name: 'Paket Backpacker',
       category: 'budget',
-      basePrice: 150000,
-      originalPrice: 200000,
-      discount: '25%',
+      basePrice: 350000,
+      originalPrice: 400000,
+      discount: '12.5%',
       image: '/images/homestay.png',
       location: 'Desa Sawarna',
       rating: 4.5,
@@ -54,53 +89,91 @@ const PackageDetail = () => {
         'Dekat pantai (5 menit jalan kaki)',
         'Resepsionis 24 jam'
       ],
-      mealPlans: {
-        '2x': { price: 180000, description: 'Sarapan + Makan Siang' },
-        '3x': { price: 220000, description: 'Sarapan + Makan Siang + Makan Malam' }
-      },
+             mealPlans: {
+         '2x': { price: 60000, description: 'Sarapan + Makan Siang' },
+         '3x': { price: 80000, description: 'Sarapan + Makan Siang + Makan Malam' }
+       },
       duration: {
-        '1': { price: 150000, discount: '0%' },
-        '2': { price: 280000, discount: '7%' },
-        '3': { price: 400000, discount: '11%' }
+        '1': { price: 350000, discount: '0%' },
+        '2': { price: 650000, discount: '7%' },
+        '3': { price: 900000, discount: '11%' }
       },
-      itinerary: [
-        {
-          day: 1,
-          title: 'Check-in & Pantai Sawarna',
-          activities: [
-            '14:00 - Check-in dan istirahat',
-            '15:00 - Jalan-jalan ke Pantai Sawarna',
-            '17:00 - Sunset di Tanjung Layar',
-            '19:00 - Makan malam di warung lokal'
+                           itinerary: {
+          '1': [
+            {
+              day: 1,
+              title: 'Petualangan Sehari di Sawarna',
+              activities: [
+                '08:00 - Sarapan pagi di homestay • 09:00 - Check-in dan istirahat sebentar • 10:00 - Jalan-jalan ke Pantai Sawarna',
+                '11:00 - Berenang dan bermain di pantai • 12:00 - Makan siang di warung pantai • 14:00 - Eksplorasi Tanjung Layar',
+                '16:00 - Snorkeling di Karang Taraje • 17:30 - Sunset di Bukit Cinta • 19:00 - Makan malam • 20:00 - Istirahat'
+              ]
+            }
+          ],
+          '2': [
+            {
+              day: 1,
+              title: 'Kedatangan & Aklimatisasi',
+              activities: [
+                '14:00 - Check-in di homestay • 15:00 - Istirahat dan persiapan • 16:00 - Jalan-jalan santai ke Pantai Sawarna',
+                '17:00 - Sunset di Tanjung Layar • 18:30 - Makan malam di warung lokal • 20:00 - Istirahat malam'
+              ]
+            },
+            {
+              day: 2,
+              title: 'Eksplorasi Lengkap Sawarna',
+              activities: [
+                '07:00 - Sarapan pagi • 08:00 - Goa Langir adventure dengan guide lokal • 10:00 - Snorkeling di Karang Taraje',
+                '12:00 - Makan siang di warung pantai • 14:00 - Eksplorasi Pantai Legon Pari • 16:00 - Sunset di Bukit Cinta',
+                '18:00 - Makan malam dan beli souvenir • 20:00 - Istirahat dan persiapan check-out'
+              ]
+            }
+          ],
+          '3': [
+            {
+              day: 1,
+              title: 'Kedatangan & Aklimatisasi',
+              activities: [
+                '14:00 - Check-in di homestay • 15:00 - Istirahat dan persiapan • 16:00 - Jalan-jalan santai ke Pantai Sawarna',
+                '17:00 - Sunset di Tanjung Layar • 18:30 - Makan malam di warung lokal • 20:00 - Istirahat malam'
+              ]
+            },
+            {
+              day: 2,
+              title: 'Petualangan Goa & Snorkeling',
+              activities: [
+                '07:00 - Sarapan pagi • 08:00 - Goa Langir adventure dengan guide lokal • 10:00 - Snorkeling di Karang Taraje',
+                '12:00 - Makan siang di warung pantai • 14:00 - Eksplorasi Pantai Legon Pari • 16:00 - Sunset di Bukit Cinta',
+                '18:00 - Makan malam • 20:00 - Istirahat malam'
+              ]
+            },
+            {
+              day: 3,
+              title: 'Eksplorasi Terakhir & Check-out',
+              activities: [
+                '07:00 - Sarapan pagi • 08:00 - Eksplorasi Pantai Ciantir • 10:00 - Beli souvenir dan oleh-oleh lokal',
+                '11:00 - Check-out dan foto terakhir • 12:00 - Makan siang sebelum pulang'
+              ]
+            }
           ]
         },
-        {
-          day: 2,
-          title: 'Eksplorasi Wisata',
-          activities: [
-            '07:00 - Sarapan pagi',
-            '08:00 - Goa Langir adventure',
-            '12:00 - Makan siang',
-            '14:00 - Snorkeling di Karang Taraje',
-            '17:00 - Sunset di Bukit Cinta'
-          ]
-        },
-        {
-          day: 3,
-          title: 'Check-out & Souvenir',
-          activities: [
-            '07:00 - Sarapan pagi',
-            '08:00 - Beli souvenir dan oleh-oleh',
-            '11:00 - Check-out'
-          ]
-        }
-      ],
       terms: [
         'Check-in: 14:00 WIB',
         'Check-out: 11:00 WIB',
         'Pembayaran di muka 50%',
         'Free cancellation 24 jam sebelum check-in'
-      ]
+      ],
+      seasonalPricing: {
+        regular: { multiplier: 1.0, description: 'Harga Normal' },
+        weekend: { multiplier: 1.1, description: 'Harga Weekend' },
+        peak: { multiplier: 1.3, description: 'Harga Peak Season (Juni-Agustus)' }
+      },
+      
+      addOns: {
+        'extra-bed': { name: 'Tempat Tidur Tambahan', price: 80000, description: 'Untuk tamu tambahan' },
+        'airport-transfer': { name: 'Transfer Bandara', price: 250000, description: 'PP dari Bandara Soekarno-Hatta' },
+        'guided-tour': { name: 'Tour Guide', price: 150000, description: 'Pemandu wisata lokal' }
+      }
     },
     'budget-2': {
       name: 'Paket Keluarga Hemat',
@@ -121,10 +194,10 @@ const PackageDetail = () => {
         'Parkir mobil gratis',
         'Area bermain anak'
       ],
-      mealPlans: {
-        '2x': { price: 480000, description: 'Sarapan + Makan Siang untuk 2 orang' },
-        '3x': { price: 560000, description: 'Sarapan + Makan Siang + Makan Malam untuk 2 orang' }
-      },
+             mealPlans: {
+         '2x': { price: 60000, description: 'Sarapan + Makan Siang untuk 2 orang' },
+         '3x': { price: 80000, description: 'Sarapan + Makan Siang + Makan Malam untuk 2 orang' }
+       },
       duration: {
         '2': { price: 400000, discount: '0%' },
         '3': { price: 580000, discount: '3%' },
@@ -169,7 +242,19 @@ const PackageDetail = () => {
         'Check-out: 11:00 WIB',
         'Pembayaran di muka 50%',
         'Free cancellation 24 jam sebelum check-in'
-      ]
+      ],
+      seasonalPricing: {
+        regular: { multiplier: 1.0, description: 'Harga Normal' },
+        weekend: { multiplier: 1.2, description: 'Harga Weekend' },
+        peak: { multiplier: 1.5, description: 'Harga Peak Season (Juni-Agustus)' }
+      },
+      
+      addOns: {
+        'extra-bed': { name: 'Tempat Tidur Tambahan', price: 100000, description: 'Untuk tamu tambahan' },
+        'airport-transfer': { name: 'Transfer Bandara', price: 300000, description: 'PP dari Bandara Soekarno-Hatta' },
+        'guided-tour': { name: 'Tour Guide', price: 200000, description: 'Pemandu wisata lokal' },
+        'dinner-special': { name: 'Makan Malam Spesial', price: 150000, description: 'Makan malam dengan menu premium' }
+      }
     },
     'standard-1': {
       name: 'Paket Comfort Stay',
@@ -191,10 +276,10 @@ const PackageDetail = () => {
         'Restaurant on-site',
         'Room service'
       ],
-      mealPlans: {
-        '2x': { price: 950000, description: 'Sarapan buffet + Makan siang premium' },
-        '3x': { price: 1100000, description: 'Sarapan buffet + Makan siang + Makan malam premium' }
-      },
+             mealPlans: {
+         '2x': { price: 60000, description: 'Sarapan buffet + Makan siang premium' },
+         '3x': { price: 80000, description: 'Sarapan buffet + Makan siang + Makan malam premium' }
+       },
       duration: {
         '2': { price: 800000, discount: '0%' },
         '3': { price: 1150000, discount: '4%' },
@@ -241,7 +326,19 @@ const PackageDetail = () => {
         'Check-out: 12:00 WIB',
         'Pembayaran di muka 50%',
         'Free cancellation 48 jam sebelum check-in'
-      ]
+      ],
+      seasonalPricing: {
+        regular: { multiplier: 1.0, description: 'Harga Normal' },
+        weekend: { multiplier: 1.3, description: 'Harga Weekend' },
+        peak: { multiplier: 1.8, description: 'Harga Peak Season (Juni-Agustus)' }
+      },
+      
+      addOns: {
+        'spa-treatment': { name: 'Spa Treatment', price: 300000, description: 'Relaksasi spa premium' },
+        'private-chef': { name: 'Private Chef', price: 500000, description: 'Chef pribadi untuk makan malam' },
+        'helicopter-tour': { name: 'Helicopter Tour', price: 1500000, description: 'Tour helikopter ke destinasi premium' },
+        'beach-dinner': { name: 'Beach Dinner', price: 400000, description: 'Makan malam romantis di pantai' }
+      }
     }
   };
 
@@ -274,10 +371,73 @@ const PackageDetail = () => {
     );
   };
 
-  const calculateTotalPrice = () => {
-    const mealPrice = currentPackage.mealPlans[selectedMealPlan as keyof typeof currentPackage.mealPlans].price;
-    const durationPrice = currentPackage.duration[selectedDuration as keyof typeof currentPackage.duration].price;
-    return mealPrice + durationPrice;
+     const calculateTotalPrice = () => {
+     let total = 0;
+     
+     // Paket makan - HARUS dikalikan jumlah tamu (setiap orang butuh makan)
+     const mealPrice = currentPackage.mealPlans[selectedMealPlan as keyof typeof currentPackage.mealPlans].price;
+     total += mealPrice * guestCount;
+     
+     // Durasi menginap - Harga kamar tetap, tidak dikalikan jumlah tamu
+     const durationPrice = getTotalDurationPrice(selectedDuration, guestCount);
+     total += durationPrice;
+     
+     // Multiplier musim
+     if (currentPackage.seasonalPricing && selectedSeason !== 'regular') {
+       const multiplier = currentPackage.seasonalPricing[selectedSeason as keyof typeof currentPackage.seasonalPricing].multiplier;
+       total = total * multiplier;
+     }
+     
+     // Add-ons
+     if (currentPackage.addOns) {
+       selectedAddOns.forEach(addonKey => {
+         const addon = currentPackage.addOns[addonKey as keyof typeof currentPackage.addOns] as { name: string; price: number; description: string };
+         total += addon.price;
+       });
+     }
+     
+     return Math.round(total);
+   };
+
+  // Fungsi untuk menghitung jumlah kamar yang diperlukan
+  const getRequiredRooms = () => {
+    return Math.ceil(guestCount / roomCapacity[id as keyof typeof roomCapacity]);
+  };
+
+  // Fungsi untuk mendapatkan kapasitas kamar saat ini
+  const getCurrentRoomCapacity = () => {
+    return roomCapacity[id as keyof typeof roomCapacity];
+  };
+
+  // Fungsi untuk menghitung harga durasi berdasarkan jumlah tamu
+  const getDurationPriceByGuests = (duration: string, guestCount: number) => {
+    const basePrice = currentPackage.duration[duration as keyof typeof currentPackage.duration].price;
+    const maxGuests = roomCapacity[id as keyof typeof roomCapacity];
+    
+    // Harga kamar tetap, dibagi rata per tamu
+    // Semakin banyak tamu, semakin murah per orang
+    if (guestCount <= maxGuests) {
+      return Math.round(basePrice / guestCount);
+    } else {
+      // Jika lebih dari 4 orang, perlu kamar tambahan
+      const requiredRooms = Math.ceil(guestCount / maxGuests);
+      return Math.round((basePrice * requiredRooms) / guestCount);
+    }
+  };
+
+  // Fungsi untuk menghitung total harga durasi
+  const getTotalDurationPrice = (duration: string, guestCount: number) => {
+    const basePrice = currentPackage.duration[duration as keyof typeof currentPackage.duration].price;
+    const maxGuests = roomCapacity[id as keyof typeof roomCapacity];
+    
+    if (guestCount <= maxGuests) {
+      // 1 kamar untuk semua tamu
+      return basePrice;
+    } else {
+      // Perlu kamar tambahan
+      const requiredRooms = Math.ceil(guestCount / maxGuests);
+      return basePrice * requiredRooms;
+    }
   };
 
   const metaTitle = `${currentPackage.name} - Detail Paket Menginap Sawarna`;
@@ -381,120 +541,465 @@ const PackageDetail = () => {
         </div>
       </section>
 
-      {/* Package Options */}
+      {/* Kalkulator Harga Lengkap */}
       <section className="py-12 bg-gray-50 dark:bg-gray-800">
         <div className="container-custom">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold dark:text-white mb-4">
-              Pilih Paket Anda
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300">
-              Sesuaikan dengan kebutuhan dan budget Anda
-            </p>
-          </div>
+                     <div className="text-center mb-8">
+             <h2 className="text-2xl md:text-3xl font-bold dark:text-white mb-4">
+               Kalkulator Harga Paket
+             </h2>
+             <p className="text-gray-600 dark:text-gray-300 mb-2">
+               Hitung total biaya dengan detail lengkap sesuai kebutuhan Anda
+             </p>
+                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-3 max-w-2xl mx-auto">
+                 <p className="text-sm text-blue-700 dark:text-blue-300">
+                   <strong>Info Penting:</strong> Paket makan dikalikan jumlah tamu, durasi menginap menggunakan sistem "harga kamar tetap". 
+                   Semakin banyak tamu dalam 1 kamar, semakin murah harga per orang. Maksimal 4 orang per kamar.
+                 </p>
+               </div>
+           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Meal Plans */}
-            <Card className="border border-gray-200 dark:border-gray-700">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Utensils className="w-5 h-5 text-orange-500" />
-                  Paket Makan
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {Object.entries(currentPackage.mealPlans).map(([plan, details]) => (
-                  <div 
-                    key={plan}
-                    className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                      selectedMealPlan === plan 
-                        ? 'border-ocean bg-ocean/5' 
-                        : 'border-gray-200 dark:border-gray-600 hover:border-ocean/50'
-                    }`}
-                    onClick={() => setSelectedMealPlan(plan)}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="font-semibold text-gray-900 dark:text-white">
-                          {plan === '2x' ? '2x Makan' : '3x Makan'}
-                        </div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">
-                          {details.description}
-                        </div>
+                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+             {/* Panel Konfigurasi */}
+             <div className="lg:col-span-2 space-y-4 lg:space-y-6">
+               {/* Paket Makan */}
+               <Card className="border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                 <CardHeader className="pb-3">
+                   <CardTitle className="flex items-center gap-2 text-lg">
+                     <Utensils className="w-5 h-5 text-orange-500" />
+                     Paket Makan
+                   </CardTitle>
+                 </CardHeader>
+                 <CardContent className="space-y-3">
+                   {Object.entries(currentPackage.mealPlans).map(([plan, details]) => (
+                     <div 
+                       key={plan}
+                       className={`p-3 lg:p-4 rounded-lg border-2 cursor-pointer transition-all hover:scale-[1.02] ${
+                         selectedMealPlan === plan 
+                           ? 'border-ocean bg-ocean/5 shadow-md' 
+                           : 'border-gray-200 dark:border-gray-600 hover:border-ocean/50'
+                       }`}
+                       onClick={() => setSelectedMealPlan(plan)}
+                     >
+                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                         <div className="flex-1">
+                           <div className="font-semibold text-gray-900 dark:text-white text-base lg:text-lg">
+                             {plan === '2x' ? '2x Makan' : '3x Makan'}
+                           </div>
+                           <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                             {details.description}
+                           </div>
+                         </div>
+                         <div className="text-right sm:text-left sm:min-w-[120px]">
+                           <div className="text-lg lg:text-xl font-bold text-ocean dark:text-ocean-light">
+                             Rp {details.price.toLocaleString('id-ID')}
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                   ))}
+                 </CardContent>
+               </Card>
+
+                             {/* Durasi Menginap */}
+               <Card className="border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                 <CardHeader className="pb-3">
+                   <CardTitle className="flex items-center gap-2 text-lg">
+                     <Calendar className="w-5 h-5 text-blue-500" />
+                     Durasi Menginap
+                   </CardTitle>
+                 </CardHeader>
+                 <CardContent className="space-y-3">
+                   {Object.entries(currentPackage.duration).map(([days, details]) => (
+                     <div 
+                       key={days}
+                       className={`p-3 lg:p-4 rounded-lg border-2 cursor-pointer transition-all hover:scale-[1.02] ${
+                         selectedDuration === days 
+                           ? 'border-ocean bg-ocean/5 shadow-md' 
+                           : 'border-gray-200 dark:border-gray-600 hover:border-ocean/50'
+                       }`}
+                       onClick={() => setSelectedDuration(days)}
+                     >
+                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                         <div className="flex-1">
+                           <div className="font-semibold text-gray-900 dark:text-white text-base lg:text-lg">
+                             {days} {days === '1' ? 'Hari' : 'Hari'}
+                           </div>
+                           <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                             Diskon {details.discount}
+                           </div>
+                           <div className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+                             Harga per orang: Rp {getDurationPriceByGuests(days, guestCount).toLocaleString('id-ID')}
+                           </div>
+                         </div>
+                         <div className="text-right sm:text-left sm:min-w-[120px]">
+                           <div className="text-lg lg:text-xl font-bold text-ocean dark:text-ocean-light">
+                             Rp {details.price.toLocaleString('id-ID')}
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                   ))}
+                 </CardContent>
+               </Card>
+
+                                                           {/* Jumlah Tamu */}
+                <Card className="border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Users className="w-5 h-5 text-green-500" />
+                      Jumlah Tamu
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                      <div className="flex items-center justify-center gap-3">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
+                          disabled={guestCount <= 1}
+                          className="w-10 h-10 rounded-full p-0 text-lg font-bold hover:bg-ocean hover:text-white transition-colors"
+                        >
+                          -
+                        </Button>
+                        <span className="text-2xl font-bold text-gray-900 dark:text-white min-w-[4rem] text-center">
+                          {guestCount}
+                        </span>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setGuestCount(guestCount + 1)}
+                          disabled={guestCount >= 12} // Maksimal 12 tamu (3 kamar × 4 orang)
+                          className="w-10 h-10 rounded-full p-0 text-lg font-bold hover:bg-ocean hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          +
+                        </Button>
                       </div>
-                      <div className="text-right">
-                        <div className="text-lg font-bold text-ocean dark:text-ocean-light">
-                          Rp {details.price.toLocaleString('id-ID')}
+                      <div className="text-center sm:text-left">
+                        <div className="text-sm text-gray-600 dark:text-gray-400">
+                          {guestCount} tamu
                         </div>
+                        <div className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+                          Paket makan × {guestCount} orang
+                        </div>
+                        <div className="text-xs text-purple-600 dark:text-purple-400 mt-1">
+                          Kamar: {getRequiredRooms()} × {getCurrentRoomCapacity()} orang
+                        </div>
+                        <div className="text-xs text-green-600 dark:text-green-400 mt-1">
+                          Harga per orang: Rp {getDurationPriceByGuests(selectedDuration, guestCount).toLocaleString('id-ID')}
+                        </div>
+                        {getRequiredRooms() > 1 && (
+                          <div className="text-xs text-orange-600 dark:text-orange-400 mt-1 font-medium">
+                            ⚠️ Memerlukan {getRequiredRooms()} kamar
+                          </div>
+                        )}
+                        {guestCount >= 12 && (
+                          <div className="text-xs text-red-600 dark:text-red-400 mt-1 font-medium">
+                            🚫 Maksimal 12 tamu (3 kamar)
+                          </div>
+                        )}
                       </div>
                     </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
+                  </CardContent>
+                </Card>
 
-            {/* Duration */}
-            <Card className="border border-gray-200 dark:border-gray-700">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-blue-500" />
-                  Durasi Menginap
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {Object.entries(currentPackage.duration).map(([days, details]) => (
-                  <div 
-                    key={days}
-                    className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                      selectedDuration === days 
-                        ? 'border-ocean bg-ocean/5' 
-                        : 'border-gray-200 dark:border-gray-600 hover:border-ocean/50'
-                    }`}
-                    onClick={() => setSelectedDuration(days)}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="font-semibold text-gray-900 dark:text-white">
-                          {days} {days === '1' ? 'Hari' : 'Hari'}
-                        </div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">
-                          Diskon {details.discount}
-                        </div>
+                             {/* Musim & Tanggal */}
+               {currentPackage.seasonalPricing && (
+                 <Card className="border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                   <CardHeader className="pb-3">
+                     <CardTitle className="flex items-center gap-2 text-lg">
+                       <Clock className="w-5 h-5 text-purple-500" />
+                       Musim & Tanggal
+                     </CardTitle>
+                   </CardHeader>
+                   <CardContent className="space-y-4">
+                     <div>
+                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                         Tanggal Check-in
+                       </label>
+                       <input
+                         type="date"
+                         value={checkInDate}
+                         onChange={(e) => setCheckInDate(e.target.value)}
+                         className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-ocean focus:border-transparent transition-colors"
+                         title="Pilih tanggal check-in"
+                         placeholder="Pilih tanggal"
+                       />
+                     </div>
+                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                       {Object.entries(currentPackage.seasonalPricing).map(([season, details]) => (
+                         <div 
+                           key={season}
+                           className={`p-3 rounded-lg border-2 cursor-pointer transition-all text-center hover:scale-[1.02] ${
+                             selectedSeason === season 
+                               ? 'border-ocean bg-ocean/5 shadow-md' 
+                               : 'border-gray-200 dark:border-gray-600 hover:border-ocean/50'
+                           }`}
+                           onClick={() => setSelectedSeason(season)}
+                         >
+                           <div className="font-semibold text-gray-900 dark:text-white text-sm mb-1">
+                             {season === 'regular' ? 'Normal' : season === 'weekend' ? 'Weekend' : 'Peak Season'}
+                           </div>
+                           <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                             {details.description}
+                           </div>
+                           <div className={`text-xs font-medium px-2 py-1 rounded-full ${
+                             details.multiplier === 1 
+                               ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400' 
+                               : 'bg-orange-100 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400'
+                           }`}>
+                             {details.multiplier === 1 ? 'Harga Normal' : `${Math.round((details.multiplier - 1) * 100)}% lebih tinggi`}
+                           </div>
+                         </div>
+                       ))}
+                     </div>
+                   </CardContent>
+                 </Card>
+               )}
+
+                             {/* Add-ons */}
+               {currentPackage.addOns && (
+                 <Card className="border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                   <CardHeader className="pb-3">
+                     <CardTitle className="flex items-center gap-2 text-lg">
+                       <Plus className="w-5 h-5 text-indigo-500" />
+                       Layanan Tambahan
+                     </CardTitle>
+                   </CardHeader>
+                   <CardContent>
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                       {Object.entries(currentPackage.addOns).map(([key, addon]: [string, { name: string; price: number; description: string }]) => (
+                         <div 
+                           key={key}
+                           className={`p-3 rounded-lg border-2 cursor-pointer transition-all hover:scale-[1.02] ${
+                             selectedAddOns.includes(key)
+                               ? 'border-ocean bg-ocean/5 shadow-md' 
+                               : 'border-gray-200 dark:border-gray-600 hover:border-ocean/50'
+                           }`}
+                           onClick={() => {
+                             if (selectedAddOns.includes(key)) {
+                               setSelectedAddOns(selectedAddOns.filter(item => item !== key));
+                             } else {
+                               setSelectedAddOns([...selectedAddOns, key]);
+                             }
+                           }}
+                         >
+                           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                             <div className="flex-1">
+                               <div className="font-semibold text-gray-900 dark:text-white text-sm">
+                                 {addon.name}
+                               </div>
+                               <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                                 {addon.description}
+                               </div>
+                             </div>
+                             <div className="text-center sm:text-right sm:min-w-[100px]">
+                               <div className="text-sm font-bold text-ocean dark:text-ocean-light">
+                                 Rp {addon.price.toLocaleString('id-ID')}
+                               </div>
+                               <div className={`text-xs px-2 py-1 rounded-full mt-1 ${
+                                 selectedAddOns.includes(key) 
+                                   ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400' 
+                                   : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
+                               }`}>
+                                 {selectedAddOns.includes(key) ? '✓ Dipilih' : 'Klik untuk pilih'}
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                       ))}
+                     </div>
+                   </CardContent>
+                 </Card>
+               )}
+            </div>
+
+                         {/* Panel Total Harga */}
+             <div className="lg:col-span-1">
+               <Card className="border border-ocean/20 bg-gradient-to-r from-ocean/5 to-blue-50 dark:from-ocean/10 dark:to-blue-900/20 shadow-lg sticky top-4">
+                 <CardHeader className="pb-3">
+                   <CardTitle className="text-xl text-gray-900 dark:text-white flex items-center gap-2">
+                     <div className="w-2 h-2 bg-ocean rounded-full"></div>
+                     Total Biaya Paket
+                   </CardTitle>
+                 </CardHeader>
+                 <CardContent className="space-y-4">
+                                       {/* Breakdown Harga */}
+                    <div className="space-y-3 bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600 dark:text-gray-400">
+                          Paket Makan ({selectedMealPlan}) × {guestCount} orang
+                        </span>
+                        <span className="font-medium">
+                          Rp {(currentPackage.mealPlans[selectedMealPlan as keyof typeof currentPackage.mealPlans].price * guestCount).toLocaleString('id-ID')}
+                        </span>
                       </div>
-                      <div className="text-right">
-                        <div className="text-lg font-bold text-ocean dark:text-ocean-light">
-                          Rp {details.price.toLocaleString('id-ID')}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
+                      
+                                             <div className="flex justify-between text-sm">
+                         <span className="text-gray-600 dark:text-gray-400">
+                           Durasi ({selectedDuration} hari) - {getRequiredRooms()} kamar
+                         </span>
+                         <span className="font-medium">
+                           Rp {getTotalDurationPrice(selectedDuration, guestCount).toLocaleString('id-ID')}
+                         </span>
+                       </div>
+
+                      
+
+                     {currentPackage.seasonalPricing && selectedSeason !== 'regular' && (
+                       <div className="flex justify-between text-sm">
+                         <span className="text-gray-600 dark:text-gray-400">
+                           {selectedSeason === 'weekend' ? 'Weekend' : 'Peak Season'} multiplier
+                         </span>
+                         <span className="font-medium text-orange-600">
+                           +{Math.round((currentPackage.seasonalPricing[selectedSeason as keyof typeof currentPackage.seasonalPricing].multiplier - 1) * 100)}%
+                         </span>
+                       </div>
+                     )}
+
+                     {selectedAddOns.length > 0 && (
+                       <>
+                         <div className="border-t border-gray-200 dark:border-gray-600 pt-2 mt-2">
+                           <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Layanan Tambahan:</div>
+                           {selectedAddOns.map((addonKey) => {
+                             const addon = currentPackage.addOns[addonKey as keyof typeof currentPackage.addOns] as { name: string; price: number; description: string };
+                             return (
+                               <div key={addonKey} className="flex justify-between text-sm">
+                                 <span className="text-gray-600 dark:text-gray-400">{addon.name}</span>
+                                 <span className="font-medium text-green-600">+Rp {addon.price.toLocaleString('id-ID')}</span>
+                               </div>
+                             );
+                           })}
+                         </div>
+                       </>
+                     )}
+                   </div>
+
+                   {/* Total */}
+                   <div className="border-t border-gray-200 dark:border-gray-600 pt-4">
+                     <div className="flex justify-between items-center">
+                       <span className="text-lg font-bold text-gray-900 dark:text-white">Total Biaya</span>
+                       <div className="text-right">
+                         <div className="text-2xl lg:text-3xl font-bold text-ocean dark:text-ocean-light">
+                           Rp {calculateTotalPrice().toLocaleString('id-ID')}
+                         </div>
+                         <div className="text-xs text-gray-500 mt-1">
+                           *Harga sudah termasuk semua biaya dan layanan
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+
+                   {/* CTA Buttons */}
+                   <div className="space-y-3 pt-4">
+                     <a href={`https://wa.me/6283877080088?text=${encodeURIComponent(`Halo VillaSawarna, saya tertarik dengan ${currentPackage.name} dengan konfigurasi:
+• Paket makan: ${selectedMealPlan}
+• Durasi: ${selectedDuration} hari
+• Jumlah tamu: ${guestCount} orang
+• Musim: ${selectedSeason === 'regular' ? 'Normal' : selectedSeason === 'weekend' ? 'Weekend' : 'Peak Season'}
+• Add-ons: ${selectedAddOns.length > 0 ? selectedAddOns.map(key => (currentPackage.addOns[key as keyof typeof currentPackage.addOns] as { name: string; price: number; description: string }).name).join(', ') : 'Tidak ada'}
+• Total biaya: Rp ${calculateTotalPrice().toLocaleString('id-ID')}
+
+Mohon info ketersediaan dan proses pemesanan.`)}`} target="_blank" rel="noopener noreferrer">
+                       <Button className="w-full bg-green-600 hover:bg-green-700 text-lg py-3 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
+                         <Phone className="w-5 h-5 mr-2" />
+                         Pesan via WhatsApp
+                       </Button>
+                     </a>
+                     
+                     <Button 
+                       variant="outline" 
+                       className="w-full hover:bg-ocean hover:text-white hover:border-ocean transition-all duration-300"
+                       onClick={() => setShowPriceBreakdown(!showPriceBreakdown)}
+                     >
+                       {showPriceBreakdown ? 'Sembunyikan' : 'Lihat'} Detail Perhitungan
+                     </Button>
+                   </div>
+                 </CardContent>
+               </Card>
+             </div>
           </div>
 
-          {/* Total Price */}
-          <div className="mt-8 text-center">
-            <Card className="border border-ocean/20 bg-gradient-to-r from-ocean/5 to-blue-50 dark:from-ocean/10 dark:to-blue-900/20">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                  Total Harga Paket
-                </h3>
-                <div className="text-3xl font-bold text-ocean dark:text-ocean-light mb-4">
-                  Rp {calculateTotalPrice().toLocaleString('id-ID')}
-                </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                  Termasuk {selectedMealPlan} makan dan {selectedDuration} hari menginap
-                </div>
-                <a href={`https://wa.me/6283877080088?text=${encodeURIComponent(`Halo VillaSawarna, saya tertarik dengan ${currentPackage.name} dengan paket ${selectedMealPlan} makan untuk ${selectedDuration} hari. Total harga Rp ${calculateTotalPrice().toLocaleString('id-ID')}. Mohon info ketersediaan.`)}`} target="_blank" rel="noopener noreferrer">
-                  <Button className="bg-green-600 hover:bg-green-700 text-lg px-8 py-3">
-                    <Phone className="w-5 h-5 mr-2" />
-                    Pesan Sekarang via WhatsApp
-                  </Button>
-                </a>
-              </CardContent>
-            </Card>
-          </div>
+          {/* Detail Perhitungan */}
+          {showPriceBreakdown && (
+            <div className="mt-8">
+              <Card className="border border-gray-200 dark:border-gray-700 shadow-lg">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg dark:text-white flex items-center gap-2">
+                    <div className="w-2 h-2 bg-ocean rounded-full"></div>
+                    Detail Perhitungan Harga
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-gray-200 dark:border-gray-600">
+                          <th className="text-left py-3 font-medium text-gray-700 dark:text-gray-300">Komponen</th>
+                          <th className="text-right py-3 font-medium text-gray-700 dark:text-gray-300">Harga Dasar</th>
+                          <th className="text-right py-3 font-medium text-gray-700 dark:text-gray-300">Multiplier</th>
+                          <th className="text-right py-3 font-medium text-gray-700 dark:text-gray-300">Subtotal</th>
+                        </tr>
+                      </thead>
+                                             <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                         <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                           <td className="py-3 text-gray-700 dark:text-gray-300">
+                             Paket Makan ({selectedMealPlan}) × {guestCount} orang
+                           </td>
+                           <td className="text-right">Rp {currentPackage.mealPlans[selectedMealPlan as keyof typeof currentPackage.mealPlans].price.toLocaleString('id-ID')}</td>
+                           <td className="text-right">{guestCount}.0x</td>
+                           <td className="text-right font-medium">Rp {(currentPackage.mealPlans[selectedMealPlan as keyof typeof currentPackage.mealPlans].price * guestCount).toLocaleString('id-ID')}</td>
+                         </tr>
+                                                                              <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                             <td className="py-3 text-gray-700 dark:text-gray-300">
+                               Durasi ({selectedDuration} hari) - {getRequiredRooms()} kamar
+                             </td>
+                             <td className="text-right">Rp {currentPackage.duration[selectedDuration as keyof typeof currentPackage.duration].price.toLocaleString('id-ID')}</td>
+                             <td className="text-right">{getRequiredRooms()}.0x</td>
+                             <td className="text-right font-medium">Rp {getTotalDurationPrice(selectedDuration, guestCount).toLocaleString('id-ID')}</td>
+                           </tr>
+                         
+                        {currentPackage.seasonalPricing && selectedSeason !== 'regular' && (
+                          <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                            <td className="py-3 text-gray-700 dark:text-gray-300">Multiplier Musim</td>
+                            <td className="text-right">-</td>
+                            <td className="text-right">{currentPackage.seasonalPricing[selectedSeason as keyof typeof currentPackage.seasonalPricing].multiplier.toFixed(1)}x</td>
+                            <td className="text-right font-medium text-orange-600">
+                              +{Math.round((currentPackage.seasonalPricing[selectedSeason as keyof typeof currentPackage.seasonalPricing].multiplier - 1) * 100)}%
+                            </td>
+                          </tr>
+                        )}
+                        {selectedAddOns.length > 0 && (
+                          <>
+                            {selectedAddOns.map((addonKey) => {
+                              const addon = currentPackage.addOns[addonKey as keyof typeof currentPackage.addOns] as { name: string; price: number; description: string };
+                              return (
+                                <tr key={addonKey} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                  <td className="py-3 text-gray-700 dark:text-gray-300">{addon.name}</td>
+                                  <td className="text-right">Rp {addon.price.toLocaleString('id-ID')}</td>
+                                  <td className="text-right">1.0x</td>
+                                  <td className="text-right font-medium text-green-600">+Rp {addon.price.toLocaleString('id-ID')}</td>
+                                </tr>
+                              );
+                            })}
+                          </>
+                        )}
+                        <tr className="border-t-2 border-ocean dark:border-ocean-light font-bold bg-ocean/5 dark:bg-ocean/10">
+                          <td className="py-4 text-lg text-gray-900 dark:text-white">Total Biaya</td>
+                          <td className="text-right"></td>
+                          <td className="text-right"></td>
+                          <td className="text-right text-lg text-ocean dark:text-ocean-light">
+                            Rp {calculateTotalPrice().toLocaleString('id-ID')}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </div>
       </section>
 
@@ -510,30 +1015,55 @@ const PackageDetail = () => {
             </p>
           </div>
 
-          <div className="space-y-6">
-            {currentPackage.itinerary.map((day) => (
-              <Card key={day.day} className="border border-gray-200 dark:border-gray-700">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-ocean text-white flex items-center justify-center font-bold">
-                      {day.day}
-                    </div>
-                    <span className="text-xl">{day.title}</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {day.activities.map((activity, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <Clock className="w-4 h-4 text-gray-400 mt-1 flex-shrink-0" />
-                        <span className="text-gray-700 dark:text-gray-300">{activity}</span>
+                                                                                                 <div className="space-y-6">
+             {(() => {
+               // Handle different itinerary structures
+               let itineraryData: Array<{day: number; title: string; activities: string[]}> = [];
+               
+               try {
+                 if (typeof currentPackage.itinerary === 'object' && currentPackage.itinerary !== null) {
+                   // For budget-1 package (has nested structure)
+                   if (currentPackage.itinerary[selectedDuration] && Array.isArray(currentPackage.itinerary[selectedDuration])) {
+                     itineraryData = currentPackage.itinerary[selectedDuration];
+                   } else if (Array.isArray(currentPackage.itinerary)) {
+                     // For other packages (has direct array structure)
+                     itineraryData = currentPackage.itinerary;
+                   }
+                 }
+               } catch (error) {
+                 console.error('Error processing itinerary:', error);
+                 itineraryData = [];
+               }
+               
+               // Ensure itineraryData is always an array
+               if (!Array.isArray(itineraryData)) {
+                 itineraryData = [];
+               }
+               
+               return itineraryData.map((day) => (
+                 <Card key={day.day} className="border border-gray-200 dark:border-gray-700">
+                   <CardHeader>
+                     <CardTitle className="flex items-center gap-3">
+                       <div className="w-10 h-10 rounded-full bg-ocean text-white flex items-center justify-center font-bold">
+                         {day.day}
+                       </div>
+                       <span className="text-xl">{day.title}</span>
+                     </CardTitle>
+                   </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {day.activities.map((activity, index) => (
+                          <div key={index} className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <Clock className="w-4 h-4 text-gray-400 mt-1 flex-shrink-0" />
+                            <span className="text-gray-700 dark:text-gray-300 text-sm">{activity}</span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                    </CardContent>
+                 </Card>
+               ));
+             })()}
+            </div>
         </div>
       </section>
 

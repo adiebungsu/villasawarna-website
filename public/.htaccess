@@ -1,0 +1,180 @@
+# ====================
+# SPA Rewrite (Vite/React)
+# ====================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# ====================
+# Prioritaskan index.html
+# ====================
+DirectoryIndex index.html index.php
+
+# ====================
+# Block access to sensitive files
+# ====================
+<FilesMatch "\.(js|css|map)$">
+  # Allow access to main JS/CSS files but block source maps
+  <If "%{REQUEST_URI} =~ m#\.map$#">
+    Order Deny,Allow
+    Deny from all
+  </If>
+</FilesMatch>
+
+# Block access to build artifacts and source files
+<FilesMatch "\.(env|log|sql|bak|tmp|temp)$">
+  Order Deny,Allow
+  Deny from all
+</FilesMatch>
+
+# Block access to package files
+<FilesMatch "package(-lock)?\.json$">
+  Order Deny,Allow
+  Deny from all
+</FilesMatch>
+
+# ====================
+# CORS headers (hati-hati jika ada data sensitif)
+# ====================
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+# ====================
+# Security Headers
+# ====================
+<IfModule mod_headers.c>
+  # Prevent MIME type sniffing
+  Header set X-Content-Type-Options "nosniff"
+  # Prevent clickjacking
+  Header set X-Frame-Options "SAMEORIGIN"
+  # Referrer policy
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  # XSS protection (optional, modern browser sudah tidak pakai)
+  Header set X-XSS-Protection "1; mode=block"
+  # Content Security Policy (CSP) - sesuaikan jika ada resource eksternal
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src * data:; font-src 'self' data: https://fonts.gstatic.com; connect-src *; frame-ancestors 'self';"
+  # Remove server info
+  Header unset Server
+  # Remove Pragma and Expires headers
+  Header unset Pragma
+  Header unset Expires
+  # X-Permitted-Cross-Domain-Policies
+  Header set X-Permitted-Cross-Domain-Policies "none"
+  # HSTS (aktifkan karena sudah HTTPS)
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+</IfModule>
+
+# ====================
+# Browser Caching
+# ====================
+<IfModule mod_expires.c>
+  ExpiresActive On
+  
+  # Default expiration: 1 month after request
+  ExpiresDefault "access plus 1 month"
+  
+  # CSS and JS files: 1 year after request
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType application/x-javascript "access plus 1 year"
+  
+  # Images: 1 year after request
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  
+  # Fonts: 1 year after request
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/font-woff "access plus 1 year"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+  ExpiresByType application/x-font-ttf "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
+  
+  # HTML: 1 hour after request
+  ExpiresByType text/html "access plus 1 hour"
+  
+  # XML: 1 day after request
+  ExpiresByType application/xml "access plus 1 day"
+  ExpiresByType text/xml "access plus 1 day"
+</IfModule>
+
+# ====================
+# Compression
+# ====================
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/atom_xml
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/font-woff
+  AddOutputFilterByType DEFLATE application/font-woff2
+  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+  AddOutputFilterByType DEFLATE application/x-font-opentype
+  AddOutputFilterByType DEFLATE application/x-font-ttf
+  AddOutputFilterByType DEFLATE font/opentype
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE font/woff
+  AddOutputFilterByType DEFLATE font/woff2
+  
+  SetEnvIfNoCase Request_URI \\.(?:gif|jpe?g|png|webp|svg|ico)$ no-gzip dont-vary
+  Header append Vary Accept-Encoding
+</IfModule>
+
+# Sitemap XML Handler
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Handle sitemap.xml directly
+    RewriteCond %{REQUEST_URI} ^/sitemap\.xml$ [NC]
+    RewriteRule ^ - [L]
+</IfModule>
+
+# Set correct content type for XML files
+<IfModule mod_mime.c>
+    AddType application/xml .xml
+</IfModule>
+
+# SPA Rewrite for React/Vite
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Don't rewrite files or directories
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Don't rewrite sitemap.xml
+    RewriteCond %{REQUEST_URI} !^/sitemap\.xml$ [NC]
+    
+    # Rewrite everything else to index.html
+    RewriteRule ^ index.html [L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+

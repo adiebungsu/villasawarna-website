@@ -73,7 +73,12 @@ export default defineConfig({
           maps: ['leaflet', 'react-leaflet'],
           forms: ['react-hook-form', 'zod', '@hookform/resolvers'],
           editor: ['@tiptap/react', '@tiptap/starter-kit'],
-        }
+        },
+        // Prevent source maps from being generated in production
+        sourcemap: false,
+        // Add comments to prevent Google from crawling JS files
+        banner: '/* Villa Sawarna - Do not crawl this file */',
+        footer: '/* End Villa Sawarna */'
       }
     },
     chunkSizeWarningLimit: 500,
@@ -82,8 +87,13 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true
+      },
+      format: {
+        comments: false
       }
-    }
+    },
+    // Disable source maps in production
+    sourcemap: false
   },
   publicDir: 'public'
 });

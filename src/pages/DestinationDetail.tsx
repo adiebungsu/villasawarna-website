@@ -112,8 +112,8 @@ const DestinationDetail = () => {
       },
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": "-6.9036",
-        "longitude": "105.8456"
+        "latitude": String(destination.coordinates?.[0] ?? ''),
+        "longitude": String(destination.coordinates?.[1] ?? '')
       },
       "openingHours": destination.openingHours || "Mo-Su 00:00-23:59",
       "priceRange": destination.price ? `Rp ${destination.price}` : "Gratis",
@@ -194,7 +194,8 @@ const DestinationDetail = () => {
       <SEO 
         title={`${destination.name} - Destinasi Wisata di Sawarna | Villa Sawarna`}
         description={destination.description}
-        keywords={`${destination.name}, ${destination.types.join(', ')}, wisata sawarna, destinasi sawarna, ${destination.location}`}
+        keywords={`${destination.name}, ${destination.types.join(', ')}, wisata sawarna, destinasi sawarna, ${destination.location}${destination.id==='pasir-kolecer' ? ', pasir kolecer sawarna, bukit pasir kolecer, kolecer sawarna, view point sawarna' : ''}`}
+        image={destination.mainImage}
         url={`https://villasawarna.com/destination/${destination.id}`}
         type="article"
         structuredData={structuredData}
@@ -202,7 +203,7 @@ const DestinationDetail = () => {
           type: 'article',
           article: {
             section: 'destinations',
-            tags: [...destination.types, 'wisata sawarna', destination.location]
+            tags: [...destination.types, 'wisata sawarna', destination.location, ...(destination.id==='pasir-kolecer' ? ['pasir kolecer','bukit sawarna','kolecer'] : [])]
           }
         }}
       />

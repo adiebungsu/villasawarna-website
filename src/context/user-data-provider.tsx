@@ -78,8 +78,12 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
   useEffect(() => {
     if (user) {
       loadUserData();
-      // Don't auto-initialize demo data - let users start with clean slate
-      // Demo data can be added manually if needed for testing
+      // Check if demo data should be initialized
+      const shouldInitializeDemo = localStorage.getItem('initializeDemoData');
+      if (shouldInitializeDemo === '1') {
+        localStorage.removeItem('initializeDemoData');
+        initializeDemoData();
+      }
     } else {
       clearAllData();
     }
@@ -219,7 +223,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
   };
 
   // Save user data to localStorage with error handling and data compression
-  const saveUserData = (key: string, data: any) => {
+  const saveUserData = (key: string, data: unknown) => {
     if (!user) return;
     
     try {
@@ -234,12 +238,13 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         if (Array.isArray(data)) {
           const truncatedData = data.slice(0, 50); // Keep only first 50 items
           localStorage.setItem(`user_${key}_${user.id}`, JSON.stringify(truncatedData));
-        } else {
+        } else if (data && typeof data === 'object' && data !== null) {
           // For non-array data, try to save essential fields only
+          const dataObj = data as Record<string, unknown>;
           const essentialData = {
-            ...data,
+            ...dataObj,
             // Remove large fields if they exist
-            messages: data.messages ? data.messages.slice(-10) : undefined, // Keep only last 10 messages
+            messages: dataObj.messages && Array.isArray(dataObj.messages) ? dataObj.messages.slice(-10) : undefined, // Keep only last 10 messages
             attachments: undefined, // Remove attachments
             images: undefined
           };
@@ -290,13 +295,91 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
     }
   };
 
+  // Clear only demo data without affecting authentication
+  const clearDemoData = () => {
+    if (!user) return;
+    
+    try {
+      console.log('🧹 Clearing demo data only...');
+      
+      // Set flag to prevent auto-generation
+      setIsClearingData(true);
+      
+      // Clear only user-specific demo data
+      const demoDataKeys = [
+        `user_bookings_${user.id}`,
+        `user_reviews_${user.id}`,
+        `user_notifications_${user.id}`,
+        `user_search_filters_${user.id}`,
+        `user_stats_${user.id}`,
+        `user_activities_${user.id}`,
+        `user_conversations_${user.id}`,
+        `user_support_tickets_${user.id}`,
+        `user_travel_plans_${user.id}`
+      ];
+      
+      // Remove each demo data key
+      demoDataKeys.forEach(key => {
+        localStorage.removeItem(key);
+        console.log(`Removed: ${key}`);
+      });
+      
+      // Reset state to empty
+      setBookings([]);
+      setReviews([]);
+      setNotifications([]);
+      setSearchFilters([]);
+      setStats({
+        totalBookings: 0,
+        completedBookings: 0,
+        pendingBookings: 0,
+        cancelledBookings: 0,
+        totalReviews: 0,
+        averageRating: 0,
+        wishlistItems: 0,
+        savedSearches: 0,
+        unreadNotifications: 0,
+        totalSpent: 0,
+        memberSince: user.createdAt || new Date().toISOString(),
+        memberLevel: 'Bronze',
+        loyaltyPoints: 0
+      });
+      setRecentActivities([]);
+      setConversations([]);
+      setSupportTickets([]);
+      setTravelPlans([]);
+      
+      console.log('✅ Demo data cleared successfully');
+      
+      // Reset flag after a short delay to allow state updates to complete
+      setTimeout(() => {
+        setIsClearingData(false);
+        console.log('🔄 Demo data cleanup completed');
+      }, 100);
+      
+      // Show success message
+      toast({
+        title: "Demo Data Dihapus",
+        description: "Data demo telah dihapus, user tetap login",
+      });
+      
+    } catch (error) {
+      console.error('❌ Failed to clear demo data:', error);
+      toast({
+        title: "Error",
+        description: "Gagal menghapus data demo",
+        variant: "destructive"
+      });
+    }
+  };
+
   // Get real villa data
   const getRealVillaData = (villaId: string) => {
     const villas = getVillasData();
     return villas.find(villa => villa.id === villaId);
   };
 
-  // Initialize demo data for new users
+      // Initialize demo data for new users
   const initializeDemoData = () => {
     if (!user) return;
 
@@ -305,16 +388,22 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
     const villaArizkySawarna = getRealVillaData('villa-arizky-sawarna');
     const villaAliyaSawarna = getRealVillaData('villa-aliya-sawarna');
 
+    // Debug: Log real villa data
+    console.log('🔍 DEBUG: Real Villa Data Found:');
+    console.log('Villa Sinar Pelangi:', villaSinarPelangi);
+    console.log('Villa Arizky Sawarna:', villaArizkySawarna);
+    console.log('Villa Aliya Sawarna:', villaAliyaSawarna);
+
     const demoBookings: UserBooking[] = [
       {
         id: '1',
         propertyId: 'villa-sinar-pelangi',
-        propertyName: 'Villa Sinar Pelangi',
-        propertyImage: 'https://i.imgur.com/lNcydX5.jpeg',
+        propertyName: villaSinarPelangi?.name || 'Villa Sinar Pelangi',
+        propertyImage: villaSinarPelangi?.image || 'https://i.imgur.com/lNcydX5.jpeg',
         checkIn: '2024-03-20',
         checkOut: '2024-03-22',
         guests: 8,
-        totalPrice: 400000, // 2 malam x Rp 200.000
+        totalPrice: villaSinarPelangi ? villaSinarPelangi.price * 2 : 400000, // 2 malam sesuai harga real
         status: 'confirmed',
         bookingDate: '2024-03-15',
         paymentStatus: 'paid'
@@ -322,12 +411,12 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
       {
         id: '2',
         propertyId: 'villa-arizky-sawarna',
-        propertyName: 'Villa Arizky Sawarna',
-        propertyImage: 'https://i.imgur.com/wBoC7ZA.jpeg',
+        propertyName: villaArizkySawarna?.name || 'Villa Arizky Sawarna',
+        propertyImage: villaArizkySawarna?.image || 'https://i.imgur.com/wBoC7ZA.jpeg',
         checkIn: '2024-02-15',
         checkOut: '2024-02-17',
         guests: 6,
-        totalPrice: 760000, // 2 malam x Rp 380.000
+        totalPrice: villaArizkySawarna ? villaArizkySawarna.price * 2 : 760000, // 2 malam sesuai harga real
         status: 'completed',
         bookingDate: '2024-02-10',
         paymentStatus: 'paid'
@@ -335,12 +424,12 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
       {
         id: '3',
         propertyId: 'villa-aliya-sawarna',
-        propertyName: 'Villa Aliya Sawarna',
-        propertyImage: 'https://i.imgur.com/KNZs2rS.jpeg',
+        propertyName: villaAliyaSawarna?.name || 'Villa Aliya Sawarna',
+        propertyImage: villaAliyaSawarna?.image || 'https://i.imgur.com/KNZs2rS.jpeg',
         checkIn: '2024-04-10',
         checkOut: '2024-04-12',
         guests: 10,
-        totalPrice: 500000, // 2 malam x Rp 250.000
+        totalPrice: villaAliyaSawarna ? villaAliyaSawarna.price * 2 : 500000, // 2 malam sesuai harga real
         status: 'pending',
         bookingDate: '2024-03-18',
         paymentStatus: 'pending'
@@ -351,8 +440,8 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
       {
         id: '1',
         propertyId: 'villa-arizky-sawarna',
-        propertyName: 'Villa Arizky Sawarna',
-        propertyImage: 'https://i.imgur.com/wBoC7ZA.jpeg',
+        propertyName: villaArizkySawarna?.name || 'Villa Arizky Sawarna',
+        propertyImage: villaArizkySawarna?.image || 'https://i.imgur.com/wBoC7ZA.jpeg',
         rating: 5,
         comment: 'Villa yang sangat nyaman dan bersih. Staff ramah dan lokasi strategis dekat pantai.',
         reviewDate: '2024-02-18',
@@ -362,8 +451,8 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
       {
         id: '2',
         propertyId: 'villa-sinar-pelangi',
-        propertyName: 'Villa Sinar Pelangi',
-        propertyImage: 'https://i.imgur.com/lNcydX5.jpeg',
+        propertyName: villaSinarPelangi?.name || 'Villa Sinar Pelangi',
+        propertyImage: villaSinarPelangi?.image || 'https://i.imgur.com/lNcydX5.jpeg',
         rating: 4,
         comment: 'Fasilitas lengkap dan view yang indah. Hanya sedikit masalah dengan AC di kamar utama.',
         reviewDate: '2024-01-25',
@@ -377,7 +466,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         id: '1',
         type: 'booking',
         title: 'Booking Dikonfirmasi',
-        message: 'Booking Anda untuk Villa Sinar Pelangi telah dikonfirmasi',
+        message: `Booking Anda untuk ${villaSinarPelangi?.name || 'Villa Sinar Pelangi'} telah dikonfirmasi`,
         timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 jam yang lalu
         isRead: false,
         action: 'Lihat Detail',
@@ -429,13 +518,13 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         type: 'property_chat',
         participants: [user.id, 'villa-sinar-pelangi'],
         propertyId: 'villa-sinar-pelangi',
-        propertyName: 'Villa Sinar Pelangi',
-        propertyImage: 'https://i.imgur.com/lNcydX5.jpeg',
+        propertyName: villaSinarPelangi?.name || 'Villa Sinar Pelangi',
+        propertyImage: villaSinarPelangi?.image || 'https://i.imgur.com/lNcydX5.jpeg',
         lastMessage: {
           id: 'msg-1',
           conversationId: '1',
           senderId: 'villa-sinar-pelangi',
-          senderName: 'Villa Sinar Pelangi',
+          senderName: villaSinarPelangi?.name || 'Villa Sinar Pelangi',
           message: 'Terima kasih atas booking Anda. Check-in dapat dilakukan mulai jam 14:00 WIB.',
           timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
           isRead: false,
@@ -451,13 +540,13 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         type: 'property_chat',
         participants: [user.id, 'villa-arizky'],
         propertyId: 'villa-arizky-sawarna',
-        propertyName: 'Villa Arizky Sawarna',
-        propertyImage: 'https://i.imgur.com/wBoC7ZA.jpeg',
+        propertyName: villaArizkySawarna?.name || 'Villa Arizky Sawarna',
+        propertyImage: villaArizkySawarna?.image || 'https://i.imgur.com/wBoC7ZA.jpeg',
         lastMessage: {
           id: 'msg-2',
           conversationId: '2',
           senderId: 'villa-arizky',
-          senderName: 'Villa Arizky Sawarna',
+          senderName: villaArizkySawarna?.name || 'Villa Arizky Sawarna',
           message: 'Apakah ada pertanyaan tentang fasilitas villa kami?',
           timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
           isRead: true,
@@ -497,7 +586,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         priority: 'medium',
         status: 'resolved',
         subject: 'Masalah dengan Check-in',
-        description: 'Saya mengalami kesulitan saat melakukan check-in di Villa Sinar Pelangi.',
+        description: `Saya mengalami kesulitan saat melakukan check-in di ${villaSinarPelangi?.name || 'Villa Sinar Pelangi'}.`,
         attachments: [],
         createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
         updatedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
@@ -508,7 +597,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
             conversationId: '1',
             senderId: user.id,
             senderName: user.name || 'User',
-            message: 'Saya mengalami kesulitan saat melakukan check-in di Villa Sinar Pelangi.',
+            message: `Saya mengalami kesulitan saat melakukan check-in di ${villaSinarPelangi?.name || 'Villa Sinar Pelangi'}.`,
             timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
             isRead: true,
             messageType: 'text'
@@ -552,8 +641,8 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
           {
             id: 'acc-1',
             propertyId: 'villa-sinar-pelangi',
-            propertyName: 'Villa Sinar Pelangi',
-            propertyImage: 'https://i.imgur.com/lNcydX5.jpeg',
+            propertyName: villaSinarPelangi?.name || 'Villa Sinar Pelangi',
+            propertyImage: villaSinarPelangi?.image || 'https://i.imgur.com/lNcydX5.jpeg',
             checkIn: '2024-04-15',
             checkOut: '2024-04-18',
             guests: 6,
@@ -639,8 +728,8 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
           {
             id: 'acc-2',
             propertyId: 'villa-arizky-sawarna',
-            propertyName: 'Villa Arizky Sawarna',
-            propertyImage: 'https://i.imgur.com/wBoC7ZA.jpeg',
+            propertyName: villaArizkySawarna?.name || 'Villa Arizky Sawarna',
+            propertyImage: villaArizkySawarna?.image || 'https://i.imgur.com/wBoC7ZA.jpeg',
             checkIn: '2024-05-10',
             checkOut: '2024-05-12',
             guests: 2,
@@ -692,6 +781,12 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         sharedWith: []
       }
     ];
+
+    // Debug: Log demo data that will be set
+    console.log('🔍 DEBUG: Demo Data Created:');
+    console.log('Demo Bookings:', demoBookings);
+    console.log('Demo Reviews:', demoReviews);
+    console.log('Demo Notifications:', demoNotifications);
 
     setBookings(demoBookings);
     setReviews(demoReviews);
@@ -756,11 +851,15 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
 
     // Add recent bookings
     bookings.slice(0, 3).forEach(booking => {
+      // Get real villa data for better description
+      const bookingVillaData = getRealVillaData(booking.propertyId);
+      const bookingPropertyName = bookingVillaData?.name || booking.propertyName;
+      
       activities.push({
         id: `booking-${booking.id}`,
         type: 'booking',
         title: `Booking ${booking.status === 'confirmed' ? 'Dikonfirmasi' : booking.status === 'completed' ? 'Selesai' : 'Pending'}`,
-        description: `${booking.propertyName} untuk ${booking.checkIn}-${booking.checkOut}`,
+        description: `${bookingPropertyName} untuk ${booking.checkIn}-${booking.checkOut}`,
         timestamp: booking.bookingDate,
         icon: <Calendar className="w-4 h-4 text-blue-500" />,
         status: booking.status === 'confirmed' || booking.status === 'completed' ? 'success' : 'pending',
@@ -770,11 +869,15 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
 
     // Add recent reviews
     reviews.slice(0, 2).forEach(review => {
+      // Get real villa data for better description
+      const reviewVillaData = getRealVillaData(review.propertyId);
+      const reviewPropertyName = reviewVillaData?.name || review.propertyName;
+      
       activities.push({
         id: `review-${review.id}`,
         type: 'review',
         title: 'Review Dikirim',
-        description: `Memberikan review ${review.rating} bintang untuk ${review.propertyName}`,
+        description: `Memberikan review ${review.rating} bintang untuk ${reviewPropertyName}`,
         timestamp: review.reviewDate,
         icon: <Star className="w-4 h-4 text-yellow-500" />,
         status: 'success',
@@ -829,19 +932,29 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
 
   // Booking actions
   const addBooking = (booking: Omit<UserBooking, 'id'>) => {
+    // Get real villa data for better property information
+    const bookingVillaData = getRealVillaData(booking.propertyId);
+    const bookingPropertyName = bookingVillaData?.name || booking.propertyName;
+    const bookingPropertyImage = bookingVillaData?.image || booking.propertyImage;
+    
     const newBooking: UserBooking = {
       ...booking,
-      id: Date.now().toString()
+      id: Date.now().toString(),
+      propertyName: bookingPropertyName,
+      propertyImage: bookingPropertyImage
     };
     const updatedBookings = [newBooking, ...bookings];
     setBookings(updatedBookings);
     saveUserData('bookings', updatedBookings);
     
     // Add notification
+    const notificationVillaData = getRealVillaData(booking.propertyId);
+    const notificationPropertyName = notificationVillaData?.name || booking.propertyName;
+    
     addNotification({
       type: 'booking',
       title: 'Booking Baru Dibuat',
-      message: `Booking untuk ${booking.propertyName} telah dibuat dan sedang menunggu konfirmasi`,
+      message: `Booking untuk ${notificationPropertyName} telah dibuat dan sedang menunggu konfirmasi`,
       isRead: false,
       action: 'Lihat Detail',
       actionUrl: '/dashboard/bookings',
@@ -877,9 +990,16 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
 
   // Review actions
   const addReview = (review: Omit<UserReview, 'id'>) => {
+    // Get real villa data for better property information
+    const reviewVillaData = getRealVillaData(review.propertyId);
+    const reviewPropertyName = reviewVillaData?.name || review.propertyName;
+    const reviewPropertyImage = reviewVillaData?.image || review.propertyImage;
+    
     const newReview: UserReview = {
       ...review,
-      id: Date.now().toString()
+      id: Date.now().toString(),
+      propertyName: reviewPropertyName,
+      propertyImage: reviewPropertyImage
     };
     const updatedReviews = [newReview, ...reviews];
     setReviews(updatedReviews);
@@ -887,7 +1007,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
     
     toast({
       title: "Review Berhasil",
-      description: "Review Anda telah berhasil ditambahkan.",
+      description: `Review untuk ${reviewPropertyName} telah berhasil ditambahkan.`,
     });
   };
 
@@ -1287,73 +1407,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
     }, 100);
   };
 
-  // Clear demo data and start fresh
-  const clearDemoData = () => {
-    if (!user) return;
-    
-    console.log('🔄 Clearing demo data for user:', user.id);
-    
-    // Set flag to prevent auto-generation
-    setIsClearingData(true);
-    
-    // Clear from localStorage first
-    try {
-      localStorage.removeItem(`user_bookings_${user.id}`);
-      localStorage.removeItem(`user_reviews_${user.id}`);
-      localStorage.removeItem(`user_notifications_${user.id}`);
-      localStorage.removeItem(`user_search_filters_${user.id}`);
-      localStorage.removeItem(`user_stats_${user.id}`);
-      localStorage.removeItem(`user_activities_${user.id}`);
-      localStorage.removeItem(`user_conversations_${user.id}`);
-      localStorage.removeItem(`user_support_tickets_${user.id}`);
-      localStorage.removeItem(`user_travel_plans_${user.id}`);
-      
-      console.log('🗑️ localStorage cleared');
-    } catch (error) {
-      console.error('Error clearing localStorage:', error);
-    }
-    
-    // Reset state completely
-    setBookings([]);
-    setReviews([]);
-    setNotifications([]);
-    setSearchFilters([]);
-    setRecentActivities([]);
-    setConversations([]);
-    setSupportTickets([]);
-    
-    console.log('🔄 State reset completed');
-    
-    // Reset stats to initial values
-    setStats({
-      totalBookings: 0,
-      completedBookings: 0,
-      pendingBookings: 0,
-      cancelledBookings: 0,
-      totalReviews: 0,
-      averageRating: 0,
-      wishlistItems: 0,
-      savedSearches: 0,
-      unreadNotifications: 0,
-      totalSpent: 0,
-      memberSince: user.createdAt || new Date().toISOString(),
-      memberLevel: 'Bronze',
-      loyaltyPoints: 0
-    });
-    
-    console.log('📊 Stats reset completed');
-    
-    // Reset flag after a short delay to allow state updates to complete
-    setTimeout(() => {
-      setIsClearingData(false);
-      console.log('✅ Demo data cleanup completed');
-    }, 100);
-    
-    toast({
-      title: "Demo Data Dihapus",
-      description: "Data demo telah dihapus. Dashboard sekarang menampilkan data real Anda.",
-    });
-  };
+
 
   // Emergency localStorage cleanup function
   const emergencyCleanup = () => {

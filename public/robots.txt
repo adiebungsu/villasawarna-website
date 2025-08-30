@@ -8,5 +8,25 @@ Sitemap: https://villasawarna.com/sitemap.xml
 Disallow: /admin/
 Disallow: /api/
 
+# Disallow assets and build files
+Disallow: /assets/
+Disallow: /dist/
+Disallow: /node_modules/
+Disallow: /*.js$
+Disallow: /*.css$
+Disallow: /*.map$
+
+# Disallow user dashboard (optional - remove if you want it indexed)
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /register/
+
+# Disallow temporary and system files
+Disallow: /temp/
+Disallow: /tmp/
+Disallow: /.env
+Disallow: /package.json
+Disallow: /package-lock.json
+
 # Crawl-delay
 Crawl-delay: 10

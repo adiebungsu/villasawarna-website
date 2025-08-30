@@ -6,7 +6,9 @@ import { Car, Bus, Shield, Clock, MapPin, Phone, Star, Users, CheckCircle2, Cred
 import { useTranslation } from 'react-i18next';
 
 const Transport = () => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+  const isId = (i18n.language || '').toLowerCase().startsWith('id');
+  const L = (idText: string, enText: string) => (isId ? idText : enText);
 
   // Rating helper functions
   const getRatingColor = (rating: number) => {
@@ -48,188 +50,188 @@ const Transport = () => {
     );
   };
 
-  const metaTitle = 'Jasa Transportasi Sawarna - Antar Jemput & Wisata Harian';
-  const metaDescription = 'Layanan transportasi profesional ke Pantai Sawarna: antar-jemput dari Jakarta, Bogor, Bandung, Tangerang, Bekasi, Depok & Serang. Charter harian, tour destinasi, sewa mobil & bus. Armada nyaman, sopir berpengalaman, harga transparan.';
+  const metaTitle = L('Jasa Transport Sawarna - Antar Jemput & City Tour', 'Sawarna Transportation Services - Airport Transfers & Day Tours');
+  const metaDescription = L('Transport profesional ke Pantai Sawarna: antar/jemput bandara/stasiun dari Jakarta, Bogor, Bandung, Tangerang, Bekasi, Depok & Serang. Charter harian, tur destinasi, sewa mobil & bus. Armada nyaman, driver berpengalaman, harga transparan.', 'Professional transportation to Sawarna Beach: airport/station transfers from Jakarta, Bogor, Bandung, Tangerang, Bekasi, Depok & Serang. Daily charter, destination tours, car & bus rental. Comfortable fleet, experienced drivers, transparent pricing.');
   
   // SEO keywords yang lebih lengkap
   const seoKeywords = [
-    'transportasi sawarna',
-    'antar jemput sawarna', 
-    'sewa mobil sawarna',
-    'charter sawarna',
-    'tour sawarna',
-    'jasa transport sawarna',
-    'rental mobil sawarna',
-    'sewa bus sawarna',
-    'antar jemput bandara',
-    'transport jakarta sawarna',
-    'transport bogor sawarna',
-    'transport bandung sawarna',
-    'transport tangerang sawarna',
-    'transport bekasi sawarna',
-    'transport depok sawarna',
-    'transport serang sawarna',
-    'sewa mobil dengan sopir sawarna',
-    'rental mobil sawarna murah',
-    'antar jemput bandara soekarno hatta sawarna',
-    'charter harian sawarna',
-    'tour wisata sawarna',
-    'sewa bus sawarna rombongan',
-    'transportasi sawarna terpercaya'
+    'sawarna transport',
+    'sawarna airport transfer',
+    'car rental sawarna with driver',
+    'sawarna day charter',
+    'sawarna tour',
+    'transport service sawarna',
+    'rent a car sawarna',
+    'bus rental sawarna',
+    'airport pickup drop',
+    'jakarta to sawarna transport',
+    'bogor to sawarna transport',
+    'bandung to sawarna transport',
+    'tangerang to sawarna transport',
+    'bekasi to sawarna transport',
+    'depok to sawarna transport',
+    'serang to sawarna transport',
+    'hire car with driver sawarna',
+    'cheap car rental sawarna',
+    'soekarno hatta to sawarna transfer',
+    'daily charter sawarna',
+    'sawarna sightseeing tour',
+    'group bus sawarna',
+    'reliable sawarna transportation'
   ].join(', ');
 
   const packages = [
     {
       icon: <Car className="w-6 h-6" />,
-      title: 'Antar-Jemput Bandara/Stasiun',
-      desc: 'Penjemputan tepat waktu dari Soekarno-Hatta, Halim, Bogor, atau Rangkasbitung menuju Sawarna.',
-      highlights: ['Meet & greet', 'Termasuk tol & parkir (opsional)', 'Air mineral'],
+      title: L('Antar/Jemput Bandara/Stasiun','Airport/Station Transfers'),
+      desc: L('Jemput tepat waktu dari Soekarno–Hatta, Halim, Bogor, atau Rangkasbitung ke Sawarna.','On-time pickup from Soekarno–Hatta, Halim, Bogor, or Rangkasbitung to Sawarna.'),
+      highlights: [L('Meet & greet','Meet & greet'), L('Termasuk tol & parkir (opsional)','Toll & parking included (optional)'), L('Air mineral','Mineral water')],
     },
     {
       icon: <Navigation className="w-6 h-6" />,
-      title: 'Charter Harian (City Tour)',
-      desc: 'Sewa mobil dengan sopir untuk jelajah Goa Langir, Tanjung Layar, Legon Pari, dan spot terbaik.',
-      highlights: ['Rute fleksibel', 'Sopir lokal berpengalaman', 'Bisa multiple stop'],
+      title: L('Charter Harian (City Tour)','Daily Charter (City Tour)'),
+      desc: L('Sewa mobil + driver untuk menjelajah Goa Langir, Tanjung Layar, Legon Pari, dan spot terbaik.','Hire a car with driver to explore Goa Langir, Tanjung Layar, Legon Pari, and top spots.'),
+      highlights: [L('Rute fleksibel','Flexible routes'), L('Driver lokal berpengalaman','Experienced local driver'), L('Bisa banyak pemberhentian','Multiple stops possible')],
     },
     {
       icon: <Bus className="w-6 h-6" />,
-      title: 'Group & Rombongan',
-      desc: 'Bus/elf untuk rombongan kantor, keluarga besar, atau komunitas dengan itinerary kustom.',
-      highlights: ['Paket hemat', 'Tour leader (opsional)', 'Dokumentasi (opsional)'],
+      title: L('Rombongan & Event','Groups & Events'),
+      desc: L('Bus/elf untuk company trip, family gathering, atau komunitas dengan itinerary custom.','Bus/elf for company trips, family gatherings, or communities with custom itineraries.'),
+      highlights: [L('Paket hemat','Budget packages'), L('Tour leader (opsional)','Tour leader (optional)'), L('Dokumentasi (opsional)','Documentation (optional)')],
     },
   ];
 
   const fleets = [
-    { name: 'Avanza/Xenia', capacity: '4-6 penumpang', features: ['AC Dingin', 'Audio', 'Kursi Nyaman'], price: 'Mulai Rp 750.000/hari' },
-    { name: 'Innova/Reborn', capacity: '4-6 penumpang', features: ['AC Dingin', 'Legroom Luas', 'Captain Seat (opsional)'], price: 'Mulai Rp 1.100.000/hari' },
-    { name: 'Hiace/Elf', capacity: '9-15 penumpang', features: ['AC Dingin', 'Bagasi Luas', 'Reclining Seat'], price: 'Mulai Rp 1.700.000/hari' },
-    { name: 'Medium/Big Bus', capacity: '25-45 penumpang', features: ['AC Dingin', 'Mic + Audio', 'Bagasi Besar'], price: 'Hubungi Kami' },
+    { name: 'Avanza/Xenia', capacity: L('4-6 penumpang','4-6 passengers'), features: [L('AC Dingin','Cold AC'), 'Audio', L('Kursi nyaman','Comfortable seats')], price: L('Mulai Rp 750.000/hari','From Rp 750.000/day') },
+    { name: 'Innova/Reborn', capacity: L('4-6 penumpang','4-6 passengers'), features: [L('AC Dingin','Cold AC'), L('Legroom luas','Spacious legroom'), L('Captain seat (opsional)','Captain seat (optional)')], price: L('Mulai Rp 1.100.000/hari','From Rp 1.100.000/day') },
+    { name: 'Hiace/Elf', capacity: L('9-15 penumpang','9-15 passengers'), features: [L('AC Dingin','Cold AC'), L('Bagasi besar','Large luggage space'), L('Kursi reclining','Reclining seats')], price: L('Mulai Rp 1.700.000/hari','From Rp 1.700.000/day') },
+    { name: 'Medium/Big Bus', capacity: L('25-45 penumpang','25-45 passengers'), features: [L('AC Dingin','Cold AC'), 'Mic + Audio', L('Bagasi besar','Large luggage')], price: L('Hubungi Kami','Contact Us') },
   ];
 
   const usp = [
-    { icon: <Shield className="w-5 h-5 text-green-600" />, title: 'Legal & Asuransi', desc: 'Armada terawat, supir berlisensi, dan opsi asuransi perjalanan.' },
-    { icon: <Clock className="w-5 h-5 text-blue-600" />, title: 'Tepat Waktu', desc: 'Penjemputan on-time dengan tracking dan konfirmasi H-1.' },
-    { icon: <Star className="w-5 h-5 text-yellow-500" />, title: 'Rating 4.8/5', desc: 'Ratusan tamu puas. Komitmen pada pelayanan ramah & aman.' },
-    { icon: <CreditCard className="w-5 h-5 text-purple-600" />, title: 'Pembayaran Fleksibel', desc: 'Transfer bank, e-wallet, atau QRIS. Invoice tersedia.' },
+    { icon: <Shield className="w-5 h-5 text-green-600" />, title: L('Legal & Terlindungi','Licensed & Insured'), desc: L('Armada terawat, driver berlisensi, opsi asuransi perjalanan.','Well-maintained fleet, licensed drivers, travel insurance options.') },
+    { icon: <Clock className="w-5 h-5 text-blue-600" />, title: L('Tepat Waktu','On-Time Pickup'), desc: L('Jemput tepat waktu dengan tracking dan konfirmasi H-1.','Punctual pickup with tracking and T-1 confirmation.') },
+    { icon: <Star className="w-5 h-5 text-yellow-500" />, title: L('Rating 4.8/5','Rated 4.8/5'), desc: L('Ratusan tamu puas. Layanan ramah dan aman.','Hundreds of happy guests. Friendly and safe service.') },
+    { icon: <CreditCard className="w-5 h-5 text-purple-600" />, title: L('Pembayaran Fleksibel','Flexible Payments'), desc: L('Transfer bank, e-wallet, atau QRIS. Tersedia faktur.','Bank transfer, e-wallet, or QRIS. Invoice available.') },
   ];
 
   // Area layanan utama dengan rating dan informasi lengkap
   const serviceAreas = [
     { 
       city: 'Jakarta', 
-      desc: 'Penjemputan dari seluruh Jakarta (Pusat, Barat, Timur, Utara, Selatan).', 
+      desc: 'Pickup from all Jakarta areas (Central, West, East, North, South).', 
       image: '/images/jakarta-sawarna.webp', 
       fallbackImage: '/images/sawarna-beach-3.jpeg',
       distanceKm: '≈ 230 km', 
-      duration: '≈ 6–7 jam', 
-      priceFrom: 'Mulai Rp 1.200.000', 
+      duration: '≈ 6–7 hours', 
+      priceFrom: 'From Rp 1.200.000', 
       gmaps: 'https://www.google.com/maps/dir/Jakarta/Sawarna',
       rating: 4.9,
       reviewCount: 234,
-      lastReview: '2 hari lalu',
-      pickupPoints: ['Bandara CGK', 'Halim', 'Stasiun Gambir', 'Mall Kelapa Gading'],
-      features: ['Door-to-door', 'Driver berpengalaman', 'Termasuk tol', 'Air mineral'],
+      lastReview: '2 days ago',
+      pickupPoints: ['CGK Airport', 'Halim', 'Gambir Station', 'Kelapa Gading Mall'],
+      features: ['Door-to-door', 'Experienced driver', 'Toll included', 'Mineral water'],
       bestTime: '06:00 - 22:00',
-      availability: 'Setiap hari'
+      availability: 'Every day'
     },
     { 
       city: 'Bogor', 
-      desc: 'Layanan dari Kota/Kabupaten Bogor, Sentul, dan sekitarnya.', 
+      desc: 'Service from Bogor City/Regency, Sentul, and surrounding areas.', 
       image: '/images/bogor-sawarna.webp', 
       fallbackImage: '/images/sawarna-beach-3.jpeg',
       distanceKm: '≈ 180 km', 
-      duration: '≈ 5–6 jam', 
-      priceFrom: 'Mulai Rp 1.100.000', 
+      duration: '≈ 5–6 hours', 
+      priceFrom: 'From Rp 1.100.000', 
       gmaps: 'https://www.google.com/maps/dir/Bogor/Sawarna',
       rating: 4.8,
       reviewCount: 189,
-      lastReview: '1 hari lalu',
-      pickupPoints: ['Stasiun Bogor', 'Sentul City', 'Botani Square', 'Puncak'],
-      features: ['Penjemputan tepat waktu', 'Sopir lokal', 'Rute terbaik', 'Nyaman'],
+      lastReview: '1 day ago',
+      pickupPoints: ['Bogor Station', 'Sentul City', 'Botani Square', 'Puncak'],
+      features: ['On-time pickup', 'Local driver', 'Best routes', 'Comfortable'],
       bestTime: '06:00 - 21:00',
-      availability: 'Setiap hari'
+      availability: 'Every day'
     },
     { 
       city: 'Bandung', 
-      desc: 'Antar-jemput dari Bandung Raya (Kota/Kabupaten, Cimahi, Sumedang).', 
+      desc: 'Pickup from Greater Bandung (City/Regency, Cimahi, Sumedang).', 
       image: '/images/bandung-sawarna.webp', 
       distanceKm: '≈ 260 km', 
-      duration: '≈ 7–8 jam', 
-      priceFrom: 'Mulai Rp 1.300.000', 
+      duration: '≈ 7–8 hours', 
+      priceFrom: 'From Rp 1.300.000', 
       gmaps: 'https://www.google.com/maps/dir/Bandung/Sawarna',
       rating: 4.9,
       reviewCount: 167,
-      lastReview: '3 hari lalu',
-      pickupPoints: ['Stasiun Bandung', 'Bandara Husein', 'Mall Paris Van Java', 'Cimahi'],
-      features: ['Layanan premium', 'Sopir berpengalaman', 'Armada terawat', 'GPS tracking'],
+      lastReview: '3 days ago',
+      pickupPoints: ['Bandung Station', 'Husein Airport', 'Paris Van Java Mall', 'Cimahi'],
+      features: ['Premium service', 'Experienced driver', 'Well-maintained fleet', 'GPS tracking'],
       bestTime: '05:00 - 20:00',
-      availability: 'Setiap hari'
+      availability: 'Every day'
     },
 
     { 
       city: 'Bekasi', 
-      desc: 'Bekasi Kota, Kabupaten Bekasi, dan Cikarang.', 
+      desc: 'Bekasi City, Bekasi Regency, and Cikarang.', 
       image: '/images/bekasi-sawarna.webp', 
       distanceKm: '≈ 240 km', 
-      duration: '≈ 6–7 jam', 
-      priceFrom: 'Mulai Rp 1.250.000', 
+      duration: '≈ 6–7 hours', 
+      priceFrom: 'From Rp 1.250.000', 
       gmaps: 'https://www.google.com/maps/dir/Bekasi/Sawarna',
       rating: 4.8,
       reviewCount: 123,
-      lastReview: '2 hari lalu',
-      pickupPoints: ['Stasiun Bekasi', 'Mall Bekasi', 'Cikarang', 'Tambun'],
-      features: ['Layanan 24 jam', 'Sopir profesional', 'Armada nyaman', 'Harga transparan'],
+      lastReview: '2 days ago',
+      pickupPoints: ['Bekasi Station', 'Bekasi Mall', 'Cikarang', 'Tambun'],
+      features: ['24-hour service', 'Professional driver', 'Comfortable fleet', 'Transparent pricing'],
       bestTime: '06:00 - 23:00',
-      availability: 'Setiap hari'
+      availability: 'Every day'
     },
     { 
       city: 'Tangerang', 
-      desc: 'Area Kota/Kabupaten Tangerang & Tangerang Selatan.', 
+      desc: 'Tangerang City/Regency & South Tangerang areas.', 
       image: '/images/tanggerang-sawarnaku.webp', 
       fallbackImage: '/images/sawarna-beach-3.jpeg',
       distanceKm: '≈ 200 km', 
-      duration: '≈ 6–7 jam', 
-      priceFrom: 'Mulai Rp 1.150.000', 
+      duration: '≈ 6–7 hours', 
+      priceFrom: 'From Rp 1.150.000', 
       gmaps: 'https://www.google.com/maps/dir/Tangerang/Sawarna',
       rating: 4.7,
       reviewCount: 145,
-      lastReview: '1 minggu lalu',
-      pickupPoints: ['Bandara CGK', 'Mall Tangerang', 'Serpong', 'BSD City'],
-      features: ['Penjemputan cepat', 'Harga kompetitif', 'Driver ramah', 'Termasuk parkir'],
+      lastReview: '1 week ago',
+      pickupPoints: ['CGK Airport', 'Tangerang Mall', 'Serpong', 'BSD City'],
+      features: ['Fast pickup', 'Competitive price', 'Friendly driver', 'Parking included'],
       bestTime: '06:00 - 22:00',
-      availability: 'Setiap hari'
+      availability: 'Every day'
     },
     { 
       city: 'Depok', 
-      desc: 'Kota Depok dan sekitarnya (Cimanggis, Sawangan, Limo, Cinere).', 
+      desc: 'Depok City and surrounding areas (Cimanggis, Sawangan, Limo, Cinere).', 
       image: '/images/depok-sawarna.webp', 
       distanceKm: '≈ 220 km', 
-      duration: '≈ 6–7 jam', 
-      priceFrom: 'Mulai Rp 1.200.000', 
+      duration: '≈ 6–7 hours', 
+      priceFrom: 'From Rp 1.200.000', 
       gmaps: 'https://www.google.com/maps/dir/Depok/Sawarna',
       rating: 4.7,
       reviewCount: 156,
-      lastReview: '3 hari lalu',
-      pickupPoints: ['Stasiun Depok', 'Mall Depok', 'Cimanggis', 'Sawangan'],
-      features: ['Rute strategis', 'Driver berpengalaman', 'Harga kompetitif', 'Fleksibel jadwal'],
+      lastReview: '3 days ago',
+      pickupPoints: ['Depok Station', 'Depok Mall', 'Cimanggis', 'Sawangan'],
+      features: ['Strategic routes', 'Experienced driver', 'Competitive price', 'Flexible schedule'],
       bestTime: '06:00 - 22:00',
-      availability: 'Setiap hari'
+      availability: 'Every day'
     },
     { 
       city: 'Serang', 
-      desc: 'Kota/Kabupaten Serang dan Cilegon.', 
+      desc: 'Serang City/Regency and Cilegon.', 
       image: '/images/serang-sawarna.webp', 
       distanceKm: '≈ 150 km', 
-      duration: '≈ 4–5 jam', 
-      priceFrom: 'Mulai Rp 1.000.000', 
+      duration: '≈ 4–5 hours', 
+      priceFrom: 'From Rp 1.000.000', 
       gmaps: 'https://www.google.com/maps/dir/Serang/Sawarna',
       rating: 4.6,
       reviewCount: 98,
-      lastReview: '1 minggu lalu',
-      pickupPoints: ['Stasiun Serang', 'Pelabuhan Merak', 'Cilegon', 'Anyer'],
-      features: ['Jarak terdekat', 'Waktu singkat', 'Harga ekonomis', 'Rute favorit'],
+      lastReview: '1 week ago',
+      pickupPoints: ['Serang Station', 'Merak Port', 'Cilegon', 'Anyer'],
+      features: ['Nearest distance', 'Short travel time', 'Economic price', 'Favorite route'],
       bestTime: '07:00 - 20:00',
-      availability: 'Setiap hari'
+      availability: 'Every day'
     },
   ];
 
@@ -243,10 +245,13 @@ const Transport = () => {
         type="website"
         hreflangAlternates={buildHreflangAlternates('/transport')}
         image="/images/sawarna-beach-3.jpeg"
-        imageAlt="Layanan transportasi ke Pantai Sawarna - VillaSawarna"
-        author="VillaSawarna"
-        publishedTime="2024-01-01T00:00:00Z"
-        modifiedTime={new Date().toISOString()}
+        openGraph={{
+          type: 'website',
+          article: {
+            publishedTime: '2024-01-01T00:00:00Z',
+            modifiedTime: new Date().toISOString()
+          }
+        }}
       />
 
       {/* Preload critical images */}
@@ -312,9 +317,9 @@ const Transport = () => {
       <section className="py-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="container-custom">
           <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-            <a href="/" className="hover:text-ocean dark:hover:text-ocean-light transition-colors">Beranda</a>
+            <a href="/" className="hover:text-ocean dark:hover:text-ocean-light transition-colors">{L('Beranda','Home')}</a>
             <span>/</span>
-            <span className="text-gray-900 dark:text-white font-medium">Transportasi</span>
+            <span className="text-gray-900 dark:text-white font-medium">{L('Transport','Transport')}</span>
           </nav>
         </div>
       </section>
@@ -325,22 +330,22 @@ const Transport = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/20" />
         <div className="relative z-10 container-custom py-20 md:py-28 text-white">
           <div className="max-w-3xl">
-            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">Jasa Transportasi Sawarna</h1>
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">{L('Jasa Transportasi Sawarna','Sawarna Transportation Services')}</h1>
             <p className="text-white/90 text-lg md:text-xl mb-6">
-              Antar-jemput, charter harian, dan paket tour destinasi. Sopir lokal berpengalaman, armada nyaman, harga transparan.
+              {L('Antar/jemput bandara/stasiun, charter harian, dan tur destinasi. Driver lokal berpengalaman, armada nyaman, harga transparan.','Airport/station transfers, daily charter, and destination tours. Local experienced drivers, comfortable fleet, transparent pricing.')}
             </p>
             <div className="flex flex-wrap gap-3">
               <a href="https://wa.me/6283877080088?text=Halo%20VillaSawarna%2C%20saya%20ingin%20pesan%20transportasi%20ke%20Sawarna" target="_blank" rel="noopener noreferrer">
-                <Button className="bg-green-600 hover:bg-green-700">Pesan via WhatsApp</Button>
+                <Button className="bg-green-600 hover:bg-green-700">{L('Booking via WhatsApp','Book via WhatsApp')}</Button>
               </a>
               <a href="#packages">
-                <Button variant="outline" className="text-white border-white hover:bg-white/10">Lihat Paket</Button>
+                <Button variant="outline" className="text-white border-white hover:bg-white/10">{L('Lihat Paket','View Packages')}</Button>
               </a>
             </div>
             <div className="mt-6 flex flex-wrap gap-4 text-sm text-white/90">
-              <div className="inline-flex items-center gap-2"><BadgeCheck className="w-4 h-4" /> Driver Ramah & Berpengalaman</div>
-              <div className="inline-flex items-center gap-2"><Waves className="w-4 h-4" /> Rute Favorit Wisata Sawarna</div>
-              <div className="inline-flex items-center gap-2"><Users className="w-4 h-4" /> Cocok Keluarga & Rombongan</div>
+              <div className="inline-flex items-center gap-2"><BadgeCheck className="w-4 h-4" /> {L('Driver Ramah & Berpengalaman','Friendly & Experienced Drivers')}</div>
+              <div className="inline-flex items-center gap-2"><Waves className="w-4 h-4" /> {L('Rute Favorit Sawarna','Favorite Sawarna Routes')}</div>
+              <div className="inline-flex items-center gap-2"><Users className="w-4 h-4" /> {L('Cocok untuk Keluarga & Rombongan','Great for Families & Groups')}</div>
             </div>
           </div>
         </div>
@@ -376,7 +381,7 @@ const Transport = () => {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800">
                 <img 
                   src="/images/travel-pantai-sawarna.webp" 
-                  alt="Perjalanan menuju Pantai Sawarna - Transportasi VillaSawarna" 
+                  alt="Trip to Sawarna Beach - VillaSawarna Transport" 
                   className="w-full h-32 md:h-40 lg:h-72 object-contain mx-auto"
                   loading="lazy"
                   onError={(e) => {
@@ -390,25 +395,25 @@ const Transport = () => {
             {/* Content - Right side */}
             <div className="text-center lg:text-left">
               <h2 className="text-lg md:text-xl lg:text-4xl font-bold dark:text-white mb-2 md:mb-4">
-                Perjalanan Menuju Sawarna
+                {L('Menuju Sawarna','Getting to Sawarna')}
               </h2>
               <p className="text-xs md:text-sm lg:text-lg text-gray-600 dark:text-gray-300 mb-3 md:mb-6 leading-relaxed">
-                Nikmati perjalanan nyaman dan aman menuju destinasi wisata terbaik di Pantai Sawarna dengan layanan transportasi profesional kami.
+                {L('Nikmati perjalanan aman dan nyaman ke destinasi terbaik di sekitar Pantai Sawarna dengan layanan transport profesional kami.','Enjoy a safe and comfortable trip to the best attractions around Sawarna Beach with our professional transport services.')}
               </p>
               
               {/* Key Features */}
               <div className="space-y-2 md:space-y-3 mb-3 md:mb-6">
                 <div className="flex items-center gap-2 md:gap-3 justify-center lg:justify-start">
                   <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-ocean rounded-full"></div>
-                  <span className="text-xs md:text-sm lg:text-base text-gray-700 dark:text-gray-300">Sopir berpengalaman & berlisensi</span>
+                  <span className="text-xs md:text-sm lg:text-base text-gray-700 dark:text-gray-300">{L('Driver berpengalaman & berlisensi','Experienced & licensed drivers')}</span>
                 </div>
                 <div className="flex items-center gap-2 md:gap-3 justify-center lg:justify-start">
                   <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-ocean rounded-full"></div>
-                  <span className="text-xs md:text-sm lg:text-base text-gray-700 dark:text-gray-300">Armada terawat & nyaman</span>
+                  <span className="text-xs md:text-sm lg:text-base text-gray-700 dark:text-gray-300">{L('Armada terawat & nyaman','Well-maintained & comfortable fleet')}</span>
                 </div>
                 <div className="flex items-center gap-2 md:gap-3 justify-center lg:justify-start">
                   <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-ocean rounded-full"></div>
-                  <span className="text-xs md:text-sm lg:text-base text-gray-700 dark:text-gray-300">Harga transparan & kompetitif</span>
+                  <span className="text-xs md:text-sm lg:text-base text-gray-700 dark:text-gray-300">{L('Harga transparan & kompetitif','Transparent & competitive pricing')}</span>
                 </div>
               </div>
 
@@ -416,12 +421,12 @@ const Transport = () => {
               <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center lg:justify-start">
                 <a href="#areas">
                   <Button className="w-full sm:w-auto bg-ocean hover:bg-ocean/90">
-                    Lihat Area Layanan
+                    {L('Lihat Area Layanan','View Service Areas')}
                   </Button>
                 </a>
                 <a href="https://wa.me/6283877080088" target="_blank" rel="noopener noreferrer">
                   <Button variant="outline" className="w-full sm:w-auto">
-                    Konsultasi via WhatsApp
+                    {L('Konsultasi via WhatsApp','Consult via WhatsApp')}
                   </Button>
                 </a>
               </div>
@@ -434,10 +439,9 @@ const Transport = () => {
       <section id="areas" className="py-12 bg-gray-50 dark:bg-gray-800">
         <div className="container-custom">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold dark:text-white mb-4">Area Layanan Transportasi</h2>
+            <h2 className="text-3xl md:text-4xl font-bold dark:text-white mb-4">{L('Area Layanan Transport','Transportation Service Areas')}</h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Layanan antar-jemput profesional dari berbagai kota di Jawa Barat menuju Pantai Sawarna. 
-              Sopir berpengalaman, armada terawat, dan harga transparan.
+              {L('Layanan transfer profesional dari berbagai kota di Jawa Barat ke Pantai Sawarna. Driver berpengalaman, armada terawat, dan harga transparan.','Professional transfer service from various cities in West Java to Sawarna Beach. Experienced drivers, well-maintained fleet, and transparent pricing.')}
             </p>
           </div>
           
@@ -448,7 +452,7 @@ const Transport = () => {
                 <div className="relative w-full h-48 md:h-56 bg-gray-200 dark:bg-gray-800 overflow-hidden">
                   <img 
                     src={area.image} 
-                    alt={`Layanan transportasi dari ${area.city} ke Pantai Sawarna - VillaSawarna`} 
+                    alt={`Transportation service from ${area.city} to Sawarna Beach - VillaSawarna`} 
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
                     loading="lazy"
                     onError={(e) => {
@@ -491,7 +495,7 @@ const Transport = () => {
                   </div>
                   
                   <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-3">
-                    <span>{area.reviewCount} review</span>
+                    <span>{area.reviewCount} {L('ulasan','reviews')}</span>
                     <span>{area.lastReview}</span>
                   </div>
 
@@ -510,7 +514,7 @@ const Transport = () => {
 
                   {/* Pickup Points */}
                   <div className="mb-4">
-                    <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-400 mb-2 uppercase tracking-wide">Titik Penjemputan:</h4>
+                    <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-400 mb-2 uppercase tracking-wide">{L('Titik Jemput:','Pickup Points:')}</h4>
                     <div className="flex flex-wrap gap-1">
                       {area.pickupPoints.slice(0, 3).map((point, index) => (
                         <span key={index} className="inline-block bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs px-2 py-1 rounded">
@@ -519,7 +523,7 @@ const Transport = () => {
                       ))}
                       {area.pickupPoints.length > 3 && (
                         <span className="inline-block bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs px-2 py-1 rounded">
-                          +{area.pickupPoints.length - 3} lagi
+                          +{area.pickupPoints.length - 3} more
                         </span>
                       )}
                     </div>
@@ -528,11 +532,11 @@ const Transport = () => {
                   {/* Info Grid */}
                   <div className="grid grid-cols-2 gap-3 mb-4">
                     <div className="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                      <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">Jarak</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">{L('Jarak','Distance')}</div>
                       <div className="font-bold text-sm text-gray-900 dark:text-white">{area.distanceKm}</div>
                     </div>
                     <div className="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                      <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">Durasi</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">{L('Durasi','Duration')}</div>
                       <div className="font-bold text-sm text-gray-900 dark:text-white">{area.duration}</div>
                     </div>
                   </div>
@@ -542,7 +546,7 @@ const Transport = () => {
                     <div className="text-center">
                       <div className="text-lg font-bold text-ocean dark:text-ocean-light mb-1">{area.priceFrom}</div>
                       <div className="text-xs text-gray-600 dark:text-gray-400">
-                        Tersedia: {area.availability} • Waktu: {area.bestTime}
+                        {L('Ketersediaan','Availability')}: {area.availability} • {L('Waktu','Time')}: {area.bestTime}
                       </div>
                     </div>
                   </div>
@@ -551,7 +555,7 @@ const Transport = () => {
                   <div className="space-y-2">
                     <a href={`/transport/area/${area.city.toLowerCase()}`}>
                       <Button className="w-full bg-ocean hover:bg-ocean/90 text-white">
-                        Lihat Detail Lengkap
+                        {L('Lihat Detail Lengkap','View Full Details')}
                       </Button>
                     </a>
                     <div className="grid grid-cols-2 gap-2">
@@ -562,19 +566,19 @@ const Transport = () => {
                         className="inline-block"
                       >
                         <Button variant="outline" className="w-full text-xs h-9">
-                          📍 Maps
+                          📍 {L('Peta','Maps')}
                         </Button>
                       </a>
                       <a
                         href={`https://wa.me/6283877080088?text=${encodeURIComponent(
-                          `Halo VillaSawarna, saya ingin sewa kendaraan dari ${area.city} ke Sawarna. Mohon info ketersediaan & estimasi biaya.`
+                          `Hello VillaSawarna, I would like to rent a vehicle from ${area.city} to Sawarna. Please share availability & estimated cost.`
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-block"
                       >
                         <Button className="w-full bg-green-600 hover:bg-green-700 text-xs h-9">
-                          💬 Pesan
+                          💬 {L('Chat','Chat')}
                         </Button>
                       </a>
                     </div>
@@ -588,20 +592,20 @@ const Transport = () => {
           <div className="text-center mt-12">
             <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 md:p-8 shadow-lg border border-ocean/20">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                Tidak Ada Kota Anda di Daftar?
+                {L('Kotamu belum ada di daftar?','Your City Not Listed?')}
               </h3>
               <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-                Kami melayani area lain di Jawa Barat dan sekitarnya. Hubungi kami untuk konsultasi rute dan estimasi biaya yang tepat.
+                {L('Kami juga melayani area lain di Jawa Barat dan sekitarnya. Hubungi kami untuk konsultasi rute dan estimasi biaya yang akurat.','We also serve other areas across West Java and beyond. Contact us for route consultation and accurate cost estimates.')}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <a href="https://wa.me/6283877080088?text=Halo%20VillaSawarna%2C%20saya%20ingin%20konsultasi%20rute%20transportasi%20ke%20Sawarna%20dari%20area%20yang%20belum%20ada%20di%20daftar." target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/6283877080088?text=Hello%20VillaSawarna%2C%20I%20want%20to%20consult%20transport%20routes%20to%20Sawarna%20from%20an%20area%20not%20listed." target="_blank" rel="noopener noreferrer">
                   <Button className="bg-green-600 hover:bg-green-700">
-                    💬 Konsultasi WhatsApp
+                    💬 {L('Konsultasi WhatsApp','WhatsApp Consultation')}
                   </Button>
                 </a>
                 <a href="tel:+6283877080088">
                   <Button variant="outline">
-                    📞 Telepon Langsung
+                    📞 {L('Telepon Sekarang','Call Now')}
                   </Button>
                 </a>
               </div>
@@ -614,8 +618,8 @@ const Transport = () => {
       <section id="packages" className="py-6 md:py-10 bg-gray-50 dark:bg-gray-800">
         <div className="container-custom">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold dark:text-white">Paket Layanan</h2>
-            <p className="text-gray-600 dark:text-gray-300">Pilih paket sesuai kebutuhan perjalanan Anda</p>
+            <h2 className="text-2xl md:text-3xl font-bold dark:text-white">{L('Paket Layanan','Service Packages')}</h2>
+            <p className="text-gray-600 dark:text-gray-300">{L('Pilih paket yang sesuai kebutuhan perjalanan Anda','Choose a package that suits your travel needs')}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {packages.map((p, i) => (
@@ -635,10 +639,10 @@ const Transport = () => {
                   </ul>
                   <div className="mt-4 space-y-2">
                     <a href={`/transport/${p.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}>
-                      <Button className="w-full">Lihat Detail</Button>
+                      <Button className="w-full">{L('Lihat Detail','View Details')}</Button>
                     </a>
-                    <a href="https://wa.me/6283877080088?text=Halo%20VillaSawarna%2C%20saya%20ingin%20informasi%20Paket%20Transport%3A%20${encodeURIComponent(p.title)}" target="_blank" rel="noopener noreferrer">
-                      <Button variant="outline" className="w-full">Tanya Harga</Button>
+                    <a href="https://wa.me/6283877080088?text=Hello%20VillaSawarna%2C%20I%20would%20like%20information%20about%20the%20Transport%20Package%3A%20${encodeURIComponent(p.title)}" target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline" className="w-full">{L('Tanyakan Harga','Ask for Price')}</Button>
                     </a>
                   </div>
                 </CardContent>
@@ -652,8 +656,8 @@ const Transport = () => {
       <section className="py-10">
         <div className="container-custom">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold dark:text-white">Armada Kami</h2>
-            <p className="text-gray-600 dark:text-gray-300">Pilihan kendaraan untuk kebutuhan personal hingga rombongan</p>
+            <h2 className="text-2xl md:text-3xl font-bold dark:text-white">{L('Armada Kami','Our Fleet')}</h2>
+            <p className="text-gray-600 dark:text-gray-300">{L('Pilihan kendaraan untuk perjalanan pribadi hingga rombongan besar','Vehicle options for personal trips to large groups')}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {fleets.map((f) => (
@@ -669,7 +673,7 @@ const Transport = () => {
                   <div className="text-sm font-semibold text-ocean dark:text-ocean-light">{f.price}</div>
                   <div className="mt-3">
                     <a href={`/transport/fleet/${f.name.toLowerCase().replace(/\s+\//g, '-').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}>
-                      <Button variant="outline" className="w-full">Lihat Detail Armada</Button>
+                      <Button variant="outline" className="w-full">View Fleet Details</Button>
                     </a>
                   </div>
                 </CardContent>
@@ -683,31 +687,31 @@ const Transport = () => {
       <section className="py-12 bg-gray-50 dark:bg-gray-800">
         <div className="container-custom">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold dark:text-white mb-4">Pertanyaan Umum Transportasi</h2>
+            <h2 className="text-3xl md:text-4xl font-bold dark:text-white mb-4">Transportation FAQs</h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Temukan jawaban untuk pertanyaan yang sering diajukan tentang layanan transportasi ke Sawarna
+              Find answers to frequently asked questions about transportation to Sawarna
             </p>
           </div>
           
           <div className="max-w-4xl mx-auto space-y-6">
             <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Berapa lama perjalanan dari Jakarta ke Sawarna?</h3>
-              <p className="text-gray-600 dark:text-gray-300">Perjalanan normal memakan waktu 6-7 jam tergantung kondisi lalu lintas dan lokasi penjemputan di Jakarta.</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">How long is the trip from Jakarta to Sawarna?</h3>
+              <p className="text-gray-600 dark:text-gray-300">A typical journey takes 6-7 hours depending on traffic and pickup location in Jakarta.</p>
             </div>
             
             <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Apakah harga sudah termasuk tol dan parkir?</h3>
-              <p className="text-gray-600 dark:text-gray-300">Harga dasar belum termasuk tol dan parkir. Namun bisa ditambahkan sesuai permintaan dengan biaya tambahan.</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Are tolls and parking included?</h3>
+              <p className="text-gray-600 dark:text-gray-300">Base price excludes tolls and parking. They can be included upon request with additional cost.</p>
             </div>
             
             <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Bisakah penjemputan di malam hari?</h3>
-              <p className="text-gray-600 dark:text-gray-300">Ya, kami melayani penjemputan 24 jam. Namun ada biaya tambahan untuk layanan malam hari (22:00-06:00).</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Do you offer late-night pickups?</h3>
+              <p className="text-gray-600 dark:text-gray-300">Yes, we provide 24-hour pickup service. Extra fee applies for late-night service (22:00-06:00).</p>
             </div>
             
             <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Apakah ada asuransi perjalanan?</h3>
-              <p className="text-gray-600 dark:text-gray-300">Ya, kami menyediakan opsi asuransi perjalanan untuk memberikan ketenangan pikiran selama perjalanan ke Sawarna.</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Is travel insurance available?</h3>
+              <p className="text-gray-600 dark:text-gray-300">Yes, we offer optional travel insurance for peace of mind during your trip to Sawarna.</p>
             </div>
           </div>
         </div>
@@ -719,12 +723,12 @@ const Transport = () => {
           <Card className="border border-ocean/20 dark:border-ocean/30">
             <CardContent className="p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
               <div>
-                <div className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">Siap Berangkat ke Sawarna?</div>
-                <div className="text-gray-600 dark:text-gray-300">Hubungi kami untuk konsultasi rute dan estimasi biaya terbaik.</div>
+                <div className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">Ready to Head to Sawarna?</div>
+                <div className="text-gray-600 dark:text-gray-300">Contact us for route consultation and the best cost estimate.</div>
               </div>
               <div className="flex gap-3">
                 <a href="https://wa.me/6283877080088" target="_blank" rel="noopener noreferrer"><Button className="bg-green-600 hover:bg-green-700">Chat WhatsApp</Button></a>
-                <a href="tel:+6283877080088"><Button variant="outline">Telepon</Button></a>
+                <a href="tel:+6283877080088"><Button variant="outline">Call</Button></a>
               </div>
             </CardContent>
           </Card>

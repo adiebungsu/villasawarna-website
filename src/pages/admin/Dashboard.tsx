@@ -20,15 +20,23 @@ import {
   Eye,
   User,
   X,
-  Send
+  Send,
+  HelpCircle
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '@/components/SEO';
+import DashboardTour from '@/components/DashboardTour';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(() => {
     if (typeof window === 'undefined') return 'overview';
     return localStorage.getItem('admin_dashboard_active_tab') || 'overview';
+  });
+
+  // Tour state
+  const [showTour, setShowTour] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('admin_dashboard_tour_completed') !== 'true';
   });
 
   // Support tickets state
@@ -95,10 +103,27 @@ const Dashboard = () => {
     setActiveTab(val);
     try {
       localStorage.setItem('admin_dashboard_active_tab', val);
-    } catch {}
+    } catch (error) {
+      console.warn('Failed to save active tab:', error);
+    }
     try {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch {}
+    } catch (error) {
+      console.warn('Failed to scroll to top:', error);
+    }
+  };
+
+  const handleTourComplete = () => {
+    setShowTour(false);
+    try {
+      localStorage.setItem('admin_dashboard_tour_completed', 'true');
+    } catch (error) {
+      console.warn('Failed to save tour completion:', error);
+    }
+  };
+
+  const handleTourClose = () => {
+    setShowTour(false);
   };
 
   // Data dummy untuk contoh
@@ -124,7 +149,15 @@ const Dashboard = () => {
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">Dashboard</h1>
           <div className="flex gap-2">
-            <Button variant="outline" asChild>
+            <Button 
+              variant="outline" 
+              onClick={() => setShowTour(true)}
+              className="flex items-center gap-2"
+            >
+              <HelpCircle className="w-4 h-4" />
+              Mulai Tour
+            </Button>
+            <Button variant="outline" asChild data-tour="settings-button">
               <Link to="/admin/settings">
                 <Settings className="w-4 h-4 mr-2" />
                 Pengaturan
@@ -135,15 +168,15 @@ const Dashboard = () => {
 
         <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
           <TabsList className="grid grid-cols-5 gap-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="properties">Properti</TabsTrigger>
-            <TabsTrigger value="bookings">Booking</TabsTrigger>
-            <TabsTrigger value="content">Konten</TabsTrigger>
-            <TabsTrigger value="support">Support</TabsTrigger>
+            <TabsTrigger value="overview" data-tour="overview-tab">Overview</TabsTrigger>
+            <TabsTrigger value="properties" data-tour="properties-tab">Properti</TabsTrigger>
+            <TabsTrigger value="bookings" data-tour="bookings-tab">Booking</TabsTrigger>
+            <TabsTrigger value="content" data-tour="content-tab">Konten</TabsTrigger>
+            <TabsTrigger value="support" data-tour="support-tab">Support</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" data-tour="stats-cards">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Total Pengunjung</CardTitle>
@@ -200,7 +233,7 @@ const Dashboard = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <Card>
+              <Card data-tour="quick-actions">
                 <CardHeader>
                   <CardTitle>Quick Actions</CardTitle>
                 </CardHeader>
@@ -234,7 +267,7 @@ const Dashboard = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card data-tour="content-stats">
                 <CardHeader>
                   <CardTitle>Statistik Konten</CardTitle>
                 </CardHeader>
@@ -532,6 +565,13 @@ const Dashboard = () => {
           </div>
         </div>
       )}
+
+      {/* Dashboard Tour */}
+      <DashboardTour 
+        isOpen={showTour}
+        onClose={handleTourClose}
+        onComplete={handleTourComplete}
+      />
     </>
   );
 };

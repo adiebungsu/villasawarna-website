@@ -152,6 +152,7 @@ const GoogleAuth = () => {
       title: "Logout berhasil",
       description: "Anda telah keluar dari akun"
     });
+    navigate('/logout');
   };
 
   if (!isGoogleScriptLoaded) {

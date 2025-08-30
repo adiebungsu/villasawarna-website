@@ -54,6 +54,7 @@ const PartnershipPage = lazy(() => import(/* webpackChunkName: "partnership" */ 
 const MapPage = lazy(() => import(/* webpackChunkName: "map" */ "./pages/Map"));
 const PenginapanSawarna = lazy(() => import(/* webpackChunkName: "penginapan-sawarna" */ './pages/PenginapanSawarna'));
 const UserDashboardPage = lazy(() => import(/* webpackChunkName: "user-dashboard" */ './pages/UserDashboardPage'));
+const NavbarTest = lazy(() => import(/* webpackChunkName: "navbar-test" */ './components/NavbarTest'));
 const ReviewDemoPage = lazy(() => import(/* webpackChunkName: "review-demo" */ './pages/ReviewDemoPage'));
 const TransportPage = lazy(() => import(/* webpackChunkName: "transport" */ './pages/Transport'));
 const TransportDetail = lazy(() => import(/* webpackChunkName: "transport-detail" */ './pages/TransportDetail'));
@@ -237,6 +238,7 @@ const App = () => {
                                   <Route path="accommodation-packages" element={<AccommodationPackages />} />
                                   <Route path="accommodation-packages/:id" element={<PackageDetail />} />
                                   <Route path="dashboard" element={<UserDashboardPage />} />
+                                  <Route path="test-navbar" element={<NavbarTest />} />
                                   <Route path="review-demo" element={<ReviewDemoPage />} />
                                   <Route path="*" element={<NotFound />} />
                                 </Route>

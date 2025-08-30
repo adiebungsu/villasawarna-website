@@ -10,17 +10,37 @@ export const useLocaleFromPath = () => {
 
   useEffect(() => {
     const pathname = location.pathname || '/';
-    const isEnglish = /^\/en(\/|$)/i.test(pathname);
-    const targetLang = isEnglish ? 'en' : 'id';
-    if (i18n.language !== targetLang) {
+    const search = location.search || '';
+    const hasEnPrefix = /^\/en(\/|$)/i.test(pathname);
+    const hasIdPrefix = /^\/id(\/|$)/i.test(pathname);
+
+    // Allow explicit query override: ?lang=en or ?lang=id
+    const params = new URLSearchParams(search);
+    const queryLang = params.get('lang');
+
+    let targetLang = i18n.language;
+    if (queryLang === 'en' || queryLang === 'id') {
+      targetLang = queryLang;
+    } else if (hasEnPrefix) {
+      targetLang = 'en';
+    } else if (hasIdPrefix) {
+      targetLang = 'id';
+    }
+
+    if (targetLang && i18n.language !== targetLang) {
       i18n.changeLanguage(targetLang);
-      // Update <html lang="..."> for accessibility/SEO
       if (typeof document !== 'undefined') {
         document.documentElement.lang = targetLang;
       }
     }
-  }, [location.pathname]);
+  }, [location.pathname, location.search]);
 };
+
+
+
+
+
+
 
 
 

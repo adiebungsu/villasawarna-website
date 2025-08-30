@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Menu, X, Home, Building2, Hotel, Newspaper, Info, Phone, Settings, User, Shield, LogOut, MapPin } from 'lucide-react';
+import { Home, Building2, Hotel, Info, Phone, Settings, User, MapPin, Globe } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import GoogleAuth from './GoogleAuth';
 import { useAuth } from "@/context/use-auth";
@@ -34,6 +34,7 @@ const Navbar = () => {
   const { t, i18n } = useTranslation('common');
   const { user, setUser } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
+
   const location = useLocation();
 
   // Handle scroll event to change navbar appearance
@@ -60,6 +61,8 @@ const Navbar = () => {
                       /^\/article\/[^/]+$/.test(location.pathname);
 
 
+  
+
 
   // Navigation links with icons - untuk desktop navbar
   const navLinks = [
@@ -71,6 +74,8 @@ const Navbar = () => {
     ...(user ? [{ name: t('nav.dashboard'), path: '/dashboard', icon: User }] : []),
     ...(isAdmin ? [{ name: t('nav.admin'), path: '/admin/articles', icon: Settings }] : [])
   ];
+
+
 
   // Check if current path matches link path
   const isActivePath = (path: string) => {
@@ -150,6 +155,8 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+
+
 
       {/* Mobile Bottom Navigation - Selalu terlihat di mobile kecuali di halaman detail */}
       {!isDetailPage && (
@@ -284,8 +291,6 @@ const Navbar = () => {
                 <span className="text-[9px] font-medium">{t('nav.stays', 'Penginapan')}</span>
               </Link>
 
-              
-
               {/* About */}
               <Link 
                 to="/about"
@@ -330,6 +335,8 @@ const Navbar = () => {
 
       {/* Tambahkan padding top untuk konten agar tidak tertutup navbar */}
       <div className="md:block hidden h-20"></div>
+      
+
 
       {/* Floating Language Switcher - Mobile only */}
       <button
@@ -339,7 +346,7 @@ const Navbar = () => {
           i18n.changeLanguage(next);
           try { localStorage.setItem('i18nextLng', next); } catch {}
         }}
-        className="md:hidden fixed top-3 right-3 z-[10000] px-3 py-1.5 rounded-full text-xs font-semibold shadow-md backdrop-blur bg-white/90 dark:bg-gray-800/80 text-gray-800 dark:text-gray-100 border border-gray-200/60 dark:border-gray-700/60"
+        className="md:hidden fixed top-3 left-3 z-[10000] px-3 py-1.5 rounded-full text-xs font-semibold shadow-md backdrop-blur bg-white/90 dark:bg-gray-800/80 text-gray-800 dark:text-gray-100 border border-gray-200/60 dark:border-gray-700/60"
       >
         {i18n.language.startsWith('id') ? 'EN' : 'ID'}
       </button>
