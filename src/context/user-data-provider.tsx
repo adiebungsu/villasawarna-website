@@ -9,9 +9,17 @@ import {
   UserNotification, 
   UserSearchFilter, 
   UserDashboardStats, 
-  UserRecentActivity 
+  UserRecentActivity,
+  UserConversation,
+  UserSupportTicket,
+  TravelPlan,
+  UserMessage,
+  TravelAccommodation,
+  TravelActivity,
+  TravelTransportation
 } from './user-data-context-helpers';
 import { useToast } from '@/components/ui/use-toast';
+import { getVillasData } from '@/data/properties';
 import { 
   Calendar, 
   Star, 
@@ -63,6 +71,8 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
   
   // Flag to prevent auto-generation during cleanup
   const [isClearingData, setIsClearingData] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasInitialized, setHasInitialized] = useState(false);
 
   // Load user data from localStorage when user changes
   useEffect(() => {
@@ -280,20 +290,31 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
     }
   };
 
+  // Get real villa data
+  const getRealVillaData = (villaId: string) => {
+    const villas = getVillasData();
+    return villas.find(villa => villa.id === villaId);
+  };
+
   // Initialize demo data for new users
   const initializeDemoData = () => {
     if (!user) return;
+
+    // Get real villa data for bookings
+    const villaSinarPelangi = getRealVillaData('villa-sinar-pelangi');
+    const villaArizkySawarna = getRealVillaData('villa-arizky-sawarna');
+    const villaAliyaSawarna = getRealVillaData('villa-aliya-sawarna');
 
     const demoBookings: UserBooking[] = [
       {
         id: '1',
         propertyId: 'villa-sinar-pelangi',
         propertyName: 'Villa Sinar Pelangi',
-        propertyImage: 'https://i.imgur.com/KNZs2rS.jpeg',
+        propertyImage: 'https://i.imgur.com/lNcydX5.jpeg',
         checkIn: '2024-03-20',
         checkOut: '2024-03-22',
         guests: 8,
-        totalPrice: 2500000,
+        totalPrice: 400000, // 2 malam x Rp 200.000
         status: 'confirmed',
         bookingDate: '2024-03-15',
         paymentStatus: 'paid'
@@ -302,24 +323,24 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         id: '2',
         propertyId: 'villa-arizky-sawarna',
         propertyName: 'Villa Arizky Sawarna',
-        propertyImage: 'https://i.imgur.com/KNZs2rS.jpeg',
+        propertyImage: 'https://i.imgur.com/wBoC7ZA.jpeg',
         checkIn: '2024-02-15',
         checkOut: '2024-02-17',
         guests: 6,
-        totalPrice: 1800000,
+        totalPrice: 760000, // 2 malam x Rp 380.000
         status: 'completed',
         bookingDate: '2024-02-10',
         paymentStatus: 'paid'
       },
       {
         id: '3',
-        propertyId: 'villa-cempaka',
-        propertyName: 'Villa Cempaka',
+        propertyId: 'villa-aliya-sawarna',
+        propertyName: 'Villa Aliya Sawarna',
         propertyImage: 'https://i.imgur.com/KNZs2rS.jpeg',
         checkIn: '2024-04-10',
         checkOut: '2024-04-12',
         guests: 10,
-        totalPrice: 3200000,
+        totalPrice: 500000, // 2 malam x Rp 250.000
         status: 'pending',
         bookingDate: '2024-03-18',
         paymentStatus: 'pending'
@@ -331,7 +352,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         id: '1',
         propertyId: 'villa-arizky-sawarna',
         propertyName: 'Villa Arizky Sawarna',
-        propertyImage: 'https://i.imgur.com/KNZs2rS.jpeg',
+        propertyImage: 'https://i.imgur.com/wBoC7ZA.jpeg',
         rating: 5,
         comment: 'Villa yang sangat nyaman dan bersih. Staff ramah dan lokasi strategis dekat pantai.',
         reviewDate: '2024-02-18',
@@ -342,7 +363,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         id: '2',
         propertyId: 'villa-sinar-pelangi',
         propertyName: 'Villa Sinar Pelangi',
-        propertyImage: 'https://i.imgur.com/KNZs2rS.jpeg',
+        propertyImage: 'https://i.imgur.com/lNcydX5.jpeg',
         rating: 4,
         comment: 'Fasilitas lengkap dan view yang indah. Hanya sedikit masalah dengan AC di kamar utama.',
         reviewDate: '2024-01-25',
@@ -409,7 +430,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         participants: [user.id, 'villa-sinar-pelangi'],
         propertyId: 'villa-sinar-pelangi',
         propertyName: 'Villa Sinar Pelangi',
-        propertyImage: 'https://i.imgur.com/KNZs2rS.jpeg',
+        propertyImage: 'https://i.imgur.com/lNcydX5.jpeg',
         lastMessage: {
           id: 'msg-1',
           conversationId: '1',
@@ -431,7 +452,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         participants: [user.id, 'villa-arizky'],
         propertyId: 'villa-arizky-sawarna',
         propertyName: 'Villa Arizky Sawarna',
-        propertyImage: 'https://i.imgur.com/KNZs2rS.jpeg',
+        propertyImage: 'https://i.imgur.com/wBoC7ZA.jpeg',
         lastMessage: {
           id: 'msg-2',
           conversationId: '2',
@@ -532,7 +553,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
             id: 'acc-1',
             propertyId: 'villa-sinar-pelangi',
             propertyName: 'Villa Sinar Pelangi',
-            propertyImage: 'https://i.imgur.com/KNZs2rS.jpeg',
+            propertyImage: 'https://i.imgur.com/lNcydX5.jpeg',
             checkIn: '2024-04-15',
             checkOut: '2024-04-18',
             guests: 6,
@@ -619,7 +640,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
             id: 'acc-2',
             propertyId: 'villa-arizky-sawarna',
             propertyName: 'Villa Arizky Sawarna',
-            propertyImage: 'https://i.imgur.com/KNZs2rS.jpeg',
+            propertyImage: 'https://i.imgur.com/wBoC7ZA.jpeg',
             checkIn: '2024-05-10',
             checkOut: '2024-05-12',
             guests: 2,
