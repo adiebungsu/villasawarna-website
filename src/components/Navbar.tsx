@@ -288,7 +288,7 @@ const Navbar = () => {
                     'text-gray-400 dark:text-gray-500': !isActivePath('/penginapan-sawarna')
                   }
                 )} />
-                <span className="text-[9px] font-medium">{t('nav.stays', 'Penginapan')}</span>
+                <span className="text-[9px] font-medium">{t('nav.stays', 'Paket')}</span>
               </Link>
 
               {/* Transport */}
