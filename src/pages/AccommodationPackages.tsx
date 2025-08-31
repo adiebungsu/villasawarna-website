@@ -5,127 +5,174 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
   Bed, 
-  Users, 
-  Wifi, 
-  Car, 
-  Utensils, 
-  Star, 
   CheckCircle2, 
-  MapPin, 
   Phone, 
   Home,
   ChevronRight,
-  ArrowRight
+  Calendar,
+  Plus,
+  Building2,
+  Hotel,
+  Tent,
+  Package,
+  Star,
+  MapPin,
+  Users,
+  Clock,
+  Info,
+  Shield,
+  CreditCard,
+  Clock3,
+  HelpCircle,
+  Mail,
+  MessageCircle
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 const AccommodationPackages = () => {
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [activeFAQ, setActiveFAQ] = useState<string | null>(null);
 
-  // Data paket menginap
-  const packages = [
-    {
+  // Data paket menginap yang tersedia
+  const packages = {
+    'budget-1': {
       id: 'budget-1',
       name: 'Paket Backpacker',
       category: 'budget',
-      price: 'Rp 350.000',
-      originalPrice: 'Rp 400.000',
-      discount: '12.5%',
-      image: '/images/homestay.png',
+      image: '/images/paket-backpaker.webp',
       location: 'Desa Sawarna',
       rating: 4.5,
-      features: ['Kamar AC', 'WiFi gratis', 'Sarapan', 'Parkir motor', 'Dekat pantai'],
-      description: 'Paket ekonomis untuk backpacker dengan fasilitas lengkap.'
+      reviewCount: 127,
+      description: 'Paket ekonomis untuk backpacker dengan fasilitas sederhana dan lokasi strategis dekat pantai.',
+      features: [
+        'Kamar dengan kipas angin dan kamar mandi dalam',
+        'WiFi',
+        'Parkir motor gratis',
+        'Dekat pantai (5 menit jalan kaki)',
+        'Resepsionis 24 jam'
+      ],
+      capacity: '1-100 orang',
+      bestFor: 'Backpacker, budget traveler, solo traveler',
+      amenities: ['Kipas angin', 'Kamar mandi dalam', 'Lokasi strategis'],
+      duration: ['1 hari', '2 hari', '3 hari'],
+      mealPlans: ['2x makan', '3x makan'],
+      icon: Tent
     },
-    {
+    'budget-2': {
       id: 'budget-2',
       name: 'Paket Keluarga Hemat',
       category: 'budget',
-      price: 'Rp 400.000',
-      originalPrice: 'Rp 600.000',
-      discount: '33%',
-      image: '/images/penginapan-sawarna.webp',
-      location: 'Kawasan Wisata',
+      image: '/images/paket-keluarga-hemat.webp',
+      location: 'Kawasan Wisata Sawarna',
       rating: 4.6,
-      features: ['Kamar keluarga', 'Kamar mandi dalam', 'WiFi', 'Sarapan 2 orang', 'Parkir mobil'],
-      description: 'Paket hemat untuk keluarga dengan fasilitas lengkap.'
+      reviewCount: 89,
+      description: 'Paket hemat untuk keluarga dengan fasilitas lengkap dan area bermain anak.',
+      features: [
+        'Kamar keluarga 2 tempat tidur',
+        'Kamar mandi dalam dengan air panas',
+        'WiFi',
+        'Sarapan untuk 2 orang',
+        'Parkir mobil gratis',
+        'Area bermain anak'
+      ],
+      capacity: '1-100 orang',
+      bestFor: 'Keluarga kecil, pasangan, group kecil',
+      amenities: ['Resepsionis 24 jam', 'Area parkir', 'Area bermain'],
+      duration: ['1 hari', '2 hari', '3 hari'],
+      mealPlans: ['2x makan', '3x makan'],
+      icon: Hotel
     },
-    {
+    'standard-1': {
       id: 'standard-1',
-      name: 'Paket Comfort Stay',
+      name: 'Paket Lengkap',
       category: 'standard',
-      price: 'Rp 800.000',
-      originalPrice: 'Rp 1.200.000',
-      discount: '33%',
-      image: '/images/villa mewah.png',
-      location: 'Villa Premium',
-      rating: 4.7,
-      features: ['Kamar premium', 'View pantai', 'WiFi high-speed', 'Sarapan buffet', 'Kolam renang'],
-      description: 'Paket comfort dengan fasilitas premium dan view pantai.'
-    },
-    {
-      id: 'premium-1',
-      name: 'Paket Luxury Villa',
-      category: 'premium',
-      price: 'Rp 3.500.000',
-      originalPrice: 'Rp 5.250.000',
-      discount: '33%',
-      image: '/images/villas/villa-cempaka-4.webp',
-      location: 'Villa Cempaka',
-      rating: 4.9,
-      features: ['Villa private', 'Kolam renang', '3 kamar tidur', 'Chef private', 'Butler service'],
-      description: 'Paket luxury villa dengan fasilitas premium dan service eksklusif.'
-    },
-    {
-      id: 'special-1',
-      name: 'Paket Adventure Camp',
-      category: 'special',
-      price: 'Rp 300.000',
-      originalPrice: 'Rp 450.000',
-      discount: '33%',
-      image: '/images/hero-sawarna.jpg',
-      location: 'Adventure Camp',
-      rating: 4.4,
-      features: ['Tenda camping', 'Makan 3x', 'Aktivitas adventure', 'Guide lokal', 'Equipment'],
-      description: 'Paket adventure camping dengan aktivitas outdoor yang seru.'
+      image: '/images/paket-lengkap.webp',
+      location: 'Villa Premium Sawarna',
+      rating: 4.8,
+      reviewCount: 156,
+      description: 'Paket lengkap dengan villa premium, AC dan fasilitas lengkap untuk pengalaman menginap terbaik.',
+      features: [
+        'Villa private dengan AC',
+        'Kamar mandi dalam dengan air panas',
+        'WiFi',
+        'Parkir mobil gratis'
+      ],
+      capacity: '1-100 orang',
+      bestFor: 'Keluarga besar, group travel, honeymoon',
+      amenities: ['Room service', 'Private terrace', 'AC'],
+      duration: ['1 hari', '2 hari', '3 hari'],
+      mealPlans: ['2x makan', '3x makan'],
+      icon: Building2
     }
-  ];
-
-  const filteredPackages = selectedCategory === 'all' 
-    ? packages 
-    : packages.filter(pkg => pkg.category === selectedCategory);
+  };
 
   const renderStars = (rating: number) => {
     return (
-      <div className="flex items-center gap-0.5">
+      <div className="flex items-center gap-1">
         {[...Array(5)].map((_, i) => (
           <Star 
             key={i} 
             className={`w-4 h-4 ${i < Math.floor(rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
           />
         ))}
+        <span className="ml-1 text-sm font-medium text-gray-600 dark:text-gray-400">
+          {rating}
+        </span>
       </div>
     );
   };
 
+  const faqData = [
+    {
+      id: 'pricing',
+      question: 'Bagaimana cara kalkulasi harga paket?',
+      answer: 'Harga dihitung berdasarkan: (Harga Villa × Diskon Durasi × Multiplier Season) + (Harga Makan × Jumlah Hari). Diskon durasi mulai dari 5% untuk 2 hari hingga 15% untuk 5 hari. Multiplier season: Regular (1.0x), Weekend (1.15x), Peak Season (1.4x).'
+    },
+    {
+      id: 'booking',
+      question: 'Bagaimana cara memesan paket custom?',
+      answer: 'Setelah memilih komponen paket, klik tombol "Pesan Paket Custom" yang akan mengarahkan ke WhatsApp dengan detail lengkap paket Anda. Atau hubungi langsung via telepon untuk konsultasi lebih lanjut.'
+    },
+    {
+      id: 'cancellation',
+      question: 'Apa kebijakan pembatalan?',
+      answer: 'Pembatalan gratis hingga 24 jam sebelum check-in. Pembatalan dalam 24 jam akan dikenakan biaya 50% dari total paket. Pembayaran di muka 50% saat booking, sisanya saat check-in.'
+    },
+    {
+      id: 'modification',
+      question: 'Bisakah paket dimodifikasi setelah booking?',
+      answer: 'Ya, modifikasi dapat dilakukan hingga 48 jam sebelum check-in dengan syarat ketersediaan. Perubahan durasi atau tipe villa mungkin mempengaruhi harga paket.'
+    },
+    {
+      id: 'season',
+      question: 'Kapan peak season di Sawarna?',
+      answer: 'Peak season berlangsung Juni-Agustus dengan multiplier harga 1.4x. Weekend (Jumat-Minggu) multiplier 1.15x. Regular season (Januari-Mei, September-Desember) multiplier 1.0x.'
+    },
+    {
+      id: 'facilities',
+      question: 'Apa fasilitas yang tersedia di semua tipe akomodasi?',
+      answer: 'Semua tipe akomodasi dilengkapi AC, WiFi, kamar mandi dalam, dan sarapan. Fasilitas tambahan bervariasi sesuai tipe: Standard+ memiliki kolam renang, Premium+ memiliki view pantai, Luxury+ memiliki butler service.'
+    }
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <SEO 
-        title="Paket Menginap Sawarna - Villa, Homestay & Resort Terbaik"
-        description="Pilihan lengkap paket menginap di Sawarna: budget backpacker, comfort stay, luxury villa, dan adventure camp. Harga terbaik dengan fasilitas lengkap."
-        keywords="paket menginap sawarna, villa sawarna, homestay sawarna, resort sawarna"
+        title="Paket Menginap Sawarna - Pilihan Akomodasi Terlengkap"
+        description="Pilih paket menginap yang sesuai dengan kebutuhan Anda di Sawarna. Dari budget backpacker hingga villa premium, semua dilengkapi dengan kalkulator harga yang transparan."
+        keywords="paket menginap sawarna, akomodasi sawarna, villa sawarna, homestay sawarna, booking sawarna, wisata sawarna"
         url="https://villasawarna.com/accommodation-packages"
         type="website"
         hreflangAlternates={buildHreflangAlternates('/accommodation-packages')}
+        image="/images/sawarna-beach-3.jpeg"
       />
 
       {/* Breadcrumb */}
-      <section className="py-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+      <section className="py-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-gray-200/50 dark:border-gray-700/50">
         <div className="container-custom">
           <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300">
-            <Link to="/" className="flex items-center hover:text-ocean dark:hover:text-ocean-light">
-              <Home className="w-4 h-4 mr-1" />
+            <Link to="/" className="flex items-center hover:text-ocean dark:hover:text-ocean-light transition-colors">
+              <Home className="w-4 h-4 mr-2" />
               Beranda
             </Link>
             <ChevronRight className="w-4 h-4" />
@@ -136,215 +183,230 @@ const AccommodationPackages = () => {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/sawarna-beach-3.jpeg')] bg-cover bg-center opacity-80 dark:opacity-60" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/20" />
-        <div className="relative z-10 container-custom py-20 md:py-28 text-white">
-          <div className="max-w-4xl">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-ocean/20 text-ocean-light">
-                <Bed className="w-8 h-8" />
-              </div>
-              <div>
-                <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">Paket Menginap Sawarna</h1>
-                <p className="text-white/90 text-lg md:text-xl mt-2">
-                  Pilihan lengkap akomodasi dari budget backpacker hingga luxury villa
-                </p>
-              </div>
+        <div className="absolute inset-0 bg-[url('/images/sawarna-beach-3.jpeg')] bg-cover bg-center opacity-90 dark:opacity-70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/30" />
+        <div className="relative z-10 container-custom py-16 md:py-24 lg:py-32 text-white px-4">
+          <div className="max-w-5xl mx-auto text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-ocean/30 text-ocean-light mb-6 md:mb-8 backdrop-blur-sm">
+              <Package className="w-8 h-8 md:w-10 md:h-10" />
             </div>
-            <div className="flex flex-wrap gap-3">
-              <a href="#packages">
-                <Button className="bg-ocean hover:bg-ocean/90">Lihat Paket</Button>
+            <h1 className="text-3xl md:text-4xl lg:text-6xl font-extrabold leading-tight mb-4 md:mb-6">
+              Paket Menginap
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-ocean-light to-coral-light">
+                Sawarna
+              </span>
+            </h1>
+            <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-6 md:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
+              Pilih paket menginap yang sesuai dengan kebutuhan Anda. Setiap paket dilengkapi dengan fasilitas lengkap dan kalkulator harga yang transparan.
+            </p>
+            <div className="flex flex-col gap-3 md:gap-4 justify-center max-w-sm md:max-w-none mx-auto">
+              <a href="#packages" className="w-full md:w-auto">
+                <Button size="lg" className="w-full md:w-auto bg-ocean hover:bg-ocean/90 text-base md:text-lg px-6 md:px-8 py-3 md:py-4 shadow-lg hover:shadow-xl transition-all duration-300">
+                  <Package className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+                  Lihat Paket
+                </Button>
               </a>
-              <a href="https://wa.me/6283877080088" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" className="text-white border-white hover:bg-white/10">Konsultasi</Button>
+              <a href="https://wa.me/6283877080088" target="_blank" rel="noopener noreferrer" className="w-full md:w-auto">
+                <Button variant="outline" size="lg" className="w-full md:w-auto text-white border-white/30 hover:bg-white/10 text-base md:text-lg px-6 md:px-8 py-3 md:py-4 backdrop-blur-sm">
+                  Konsultasi
+                </Button>
               </a>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Filter Section */}
-      <section className="py-8 bg-gray-50 dark:bg-gray-800">
-        <div className="container-custom">
-          <div className="flex flex-wrap gap-2 justify-center">
-            <Button
-              variant={selectedCategory === 'all' ? 'default' : 'outline'}
-              onClick={() => setSelectedCategory('all')}
-            >
-              Semua Kategori
-            </Button>
-            <Button
-              variant={selectedCategory === 'budget' ? 'default' : 'outline'}
-              onClick={() => setSelectedCategory('budget')}
-            >
-              Budget
-            </Button>
-            <Button
-              variant={selectedCategory === 'standard' ? 'default' : 'outline'}
-              onClick={() => setSelectedCategory('standard')}
-            >
-              Standard
-            </Button>
-            <Button
-              variant={selectedCategory === 'premium' ? 'default' : 'outline'}
-              onClick={() => setSelectedCategory('premium')}
-            >
-              Premium
-            </Button>
-            <Button
-              variant={selectedCategory === 'special' ? 'default' : 'outline'}
-              onClick={() => setSelectedCategory('special')}
-            >
-              Special
-            </Button>
           </div>
         </div>
       </section>
 
       {/* Packages Section */}
-      <section id="packages" className="py-12">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold dark:text-white mb-4">
-              Pilihan Paket Menginap
+      <section id="packages" className="py-12 md:py-16">
+        <div className="container-custom max-w-7xl px-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4">
+              Pilih Paket Menginap
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Temukan paket menginap yang sesuai dengan budget dan kebutuhan Anda
+            <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-2">
+              Kami menyediakan berbagai paket menginap yang dapat disesuaikan dengan kebutuhan dan budget Anda. 
+              Setiap paket dilengkapi dengan kalkulator harga yang transparan.
             </p>
           </div>
 
+          {/* Packages Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {filteredPackages.map((pkg) => (
-              <Card key={pkg.id} className="group border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 overflow-hidden bg-white dark:bg-gray-900 hover:scale-[1.02]">
-                {/* Image with overlay */}
-                <div className="relative w-full h-48 md:h-56 bg-gray-200 dark:bg-gray-800 overflow-hidden">
-                  <img 
-                    src={pkg.image} 
-                    alt={`${pkg.name} - Paket Menginap Sawarna`} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
-                    loading="lazy"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = '/images/sawarna-beach-3.jpeg';
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  
-                  {/* Discount Badge */}
-                  {pkg.discount && (
-                    <div className="absolute top-3 left-3">
-                      <Badge className="bg-red-500 text-white text-xs font-bold">
-                        -{pkg.discount}
+            {Object.entries(packages).map(([key, pkg]) => {
+              const IconComponent = pkg.icon;
+              return (
+                <Card key={key} className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm overflow-hidden">
+                  {/* Image */}
+                  <div className="relative overflow-hidden">
+                    <img 
+                      src={pkg.image} 
+                      alt={pkg.name}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/images/sawarna-beach-3.jpeg';
+                      }}
+                    />
+                    <div className="absolute top-4 left-4">
+                      <Badge className={`${
+                        pkg.category === 'budget' 
+                          ? 'bg-green-500 text-white' 
+                          : 'bg-ocean text-white'
+                      }`}>
+                        {pkg.category === 'budget' ? 'Budget' : 'Standard'}
                       </Badge>
-                    </div>
-                  )}
-                  
-                  {/* Category Badge */}
-                  <div className="absolute top-3 right-3">
-                    <Badge variant="secondary" className="text-xs">
-                      {pkg.category.charAt(0).toUpperCase() + pkg.category.slice(1)}
-                    </Badge>
-                  </div>
-                  
-                  {/* Package Name Overlay */}
-                  <div className="absolute bottom-3 left-3 right-3">
-                    <h3 className="text-lg md:text-xl font-bold text-white drop-shadow-lg">{pkg.name}</h3>
-                    <div className="flex items-center gap-2 text-white/90 text-sm">
+              </div>
+                    <div className="absolute top-4 right-4">
+                      {renderStars(pkg.rating)}
+                   </div>
+                 </div>
+                 
+                  {/* Content */}
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <IconComponent className="w-5 h-5 text-ocean" />
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                        {pkg.name}
+                             </h3>
+                             </div>
+                    
+                    <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
                       <MapPin className="w-4 h-4" />
                       <span>{pkg.location}</span>
-                    </div>
-                  </div>
-                </div>
+                 </div>
+                 
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                      {pkg.description}
+                    </p>
 
-                <CardContent className="p-5 md:p-6">
-                  {/* Rating Section */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      {renderStars(pkg.rating)}
-                      <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                        {pkg.rating}
-                      </span>
-                    </div>
-                  </div>
+                    {/* Features */}
+                    <div className="space-y-2 mb-4">
+                      <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Kapasitas: {pkg.capacity}
+                             </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        Cocok untuk: {pkg.bestFor}
+                               </div>
+                             </div>
 
-                  {/* Price Section */}
-                  <div className="mb-4">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-2xl font-bold text-ocean dark:text-ocean-light">
-                        {pkg.price}
-                      </span>
-                      {pkg.originalPrice && (
-                        <span className="text-sm text-gray-500 line-through">
-                          {pkg.originalPrice}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                    {pkg.description}
-                  </p>
-
-                  {/* Key Features */}
-                  <div className="space-y-2 mb-4">
-                    {pkg.features.slice(0, 3).map((feature, index) => (
-                      <div key={index} className="flex items-center gap-2 text-xs">
-                        <CheckCircle2 className="w-3 h-3 text-green-500 flex-shrink-0" />
-                        <span className="text-gray-600 dark:text-gray-400">{feature}</span>
+                    {/* Key Features */}
+                    <div className="space-y-2 mb-6">
+                      <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Fasilitas Utama:
                       </div>
-                    ))}
-                  </div>
+                      <div className="grid grid-cols-1 gap-1">
+                        {pkg.features.slice(0, 3).map((feature, index) => (
+                          <div key={index} className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+                            <CheckCircle2 className="w-3 h-3 text-green-500 flex-shrink-0" />
+                            <span>{feature}</span>
+                                 </div>
+                               ))}
+                             </div>
+                           </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex flex-col gap-2">
+                    {/* CTA */}
                     <Link to={`/accommodation-packages/${pkg.id}`}>
-                      <Button variant="outline" className="w-full">
-                        <ArrowRight className="w-4 h-4 mr-2" />
-                        Lihat Detail Lengkap
+                      <Button className="w-full bg-ocean hover:bg-ocean/90 text-white">
+                        Lihat Detail & Kalkulasi Harga
                       </Button>
                     </Link>
-                    <a href={`https://wa.me/6283877080088?text=${encodeURIComponent(`Halo VillaSawarna, saya tertarik dengan ${pkg.name}. Mohon info detail dan ketersediaan.`)}`} target="_blank" rel="noopener noreferrer">
-                      <Button className="w-full bg-green-600 hover:bg-green-700">
-                        <Phone className="w-4 h-4 mr-2" />
-                        Pesan via WhatsApp
+                         </CardContent>
+                       </Card>
+                      );
+                    })}
+                  </div>
+        </div>
+      </section>
+
+      {/* FAQ & Help Section */}
+      <section className="py-12 md:py-16 bg-gradient-to-r from-ocean/5 to-coral/5">
+        <div className="container-custom max-w-7xl px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+            {/* FAQ Section */}
+            <div>
+              <div className="text-center mb-6 md:mb-8">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4">
+                  Pertanyaan Umum
+                </h2>
+                <p className="text-base md:text-lg text-gray-600 dark:text-gray-300">
+                  Temukan jawaban untuk pertanyaan yang sering diajukan
+                </p>
+              </div>
+              
+              <div className="space-y-3 md:space-y-4 max-h-[600px] md:max-h-none overflow-y-auto md:overflow-visible">
+                {faqData.map((faq) => (
+                  <Card key={faq.id} className="border-0 shadow-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+                    <CardHeader 
+                      className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors p-4 md:p-6"
+                      onClick={() => setActiveFAQ(activeFAQ === faq.id ? null : faq.id)}
+                    >
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-base md:text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                          <HelpCircle className="w-4 h-4 md:w-5 md:h-5 text-ocean" />
+                          {faq.question}
+                        </CardTitle>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="p-1 h-auto"
+                        >
+                          <ChevronRight className={`w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 ${
+                            activeFAQ === faq.id ? 'rotate-90' : ''
+                          }`} />
+                        </Button>
+                      </div>
+                    </CardHeader>
+                    {activeFAQ === faq.id && (
+                      <CardContent className="pt-0 px-4 md:px-6 pb-4 md:pb-6">
+                        <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                           {faq.answer}
+                        </p>
+                      </CardContent>
+                    )}
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Help Section */}
+            <div>
+              <div className="text-center mb-6 md:mb-8">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4">
+                  Butuh Bantuan?
+                </h2>
+                <p className="text-base md:text-lg text-gray-600 dark:text-gray-300">
+                  Tim kami siap membantu membuat paket yang sempurna
+                </p>
+              </div>
+              
+              <Card className="border-0 shadow-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm h-full">
+                <CardContent className="p-6 md:p-8 text-center h-full flex flex-col justify-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-ocean to-coral text-white mb-4 md:mb-6">
+                    <Phone className="w-8 h-8 md:w-10 md:h-10" />
+                  </div>
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4">
+                    Konsultasi Gratis
+                  </h3>
+                  <p className="text-sm md:text-lg text-gray-600 dark:text-gray-300 mb-6 md:mb-8">
+                    Tim customer service kami siap membantu Anda membuat paket menginap yang sempurna sesuai kebutuhan dan budget Anda.
+                  </p>
+                  <div className="space-y-3 md:space-y-4">
+                    <a href="https://wa.me/6283877080088" target="_blank" rel="noopener noreferrer">
+                      <Button size="lg" className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white text-base md:text-lg px-6 md:px-8 py-3 md:py-4 shadow-lg hover:shadow-xl transition-all duration-300">
+                        <MessageCircle className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                        Chat WhatsApp
+                      </Button>
+                    </a>
+                    <a href="tel:+6283877080088">
+                      <Button variant="outline" size="lg" className="w-full text-base md:text-lg px-6 md:px-8 py-3 md:py-4 border-2 hover:bg-ocean hover:text-white transition-all duration-300">
+                        <Phone className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                        Telepon Sekarang
                       </Button>
                     </a>
                   </div>
                 </CardContent>
               </Card>
-            ))}
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-12">
-        <div className="container-custom">
-          <Card className="border border-ocean/20 dark:border-ocean/30">
-            <CardContent className="p-8 text-center">
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                Butuh Bantuan Memilih Paket?
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-                Tim customer service kami siap membantu Anda memilih paket menginap yang paling sesuai.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <a href="https://wa.me/6283877080088" target="_blank" rel="noopener noreferrer">
-                  <Button className="bg-green-600 hover:bg-green-700">
-                    <Phone className="w-4 h-4 mr-2" />
-                    Chat WhatsApp
-                  </Button>
-                </a>
-                <a href="tel:+6283877080088">
-                  <Button variant="outline">
-                    <Phone className="w-4 h-4 mr-2" />
-                    Telepon Sekarang
-                  </Button>
-                </a>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </section>
     </div>

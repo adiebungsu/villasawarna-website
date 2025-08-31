@@ -38,14 +38,32 @@ const UpdateChecker: React.FC = () => {
   const handleCheckUpdates = async () => {
     setIsChecking(true);
     try {
+      // Force cache clear and update check
       await checkForUpdates();
-      setUpdateStatus(getUpdateStatus());
-      setLastChecked(new Date());
       
-      // Show success message
-      setTimeout(() => {
-        setIsChecking(false);
-      }, 2000);
+      // Additional manual check with delay
+      setTimeout(async () => {
+        try {
+          // Force reload manifest to trigger cache invalidation
+          await fetch('/manifest.json?t=' + Date.now(), {
+            cache: 'no-cache',
+            headers: {
+              'Cache-Control': 'no-cache, no-store, must-revalidate'
+            }
+          });
+          
+          // Check status again
+          setUpdateStatus(getUpdateStatus());
+          setLastChecked(new Date());
+          
+          console.log('🔄 Manual update check completed');
+        } catch (fetchError) {
+          console.log('⚠️ Manual check fetch failed');
+        } finally {
+          setIsChecking(false);
+        }
+      }, 1000);
+      
     } catch (error) {
       console.error('Failed to check updates:', error);
       setIsChecking(false);
@@ -71,7 +89,7 @@ const UpdateChecker: React.FC = () => {
 
   const getStatusText = () => {
     if (updateStatus.installed) return 'Update Siap';
-    if (updateStatus.available) return 'Update Tersedia';
+    if (updateStatus.available) return 'Auto-Update';
     return 'Up to Date';
   };
 
@@ -89,7 +107,7 @@ const UpdateChecker: React.FC = () => {
           Update Checker
         </CardTitle>
         <CardDescription className="text-blue-700 dark:text-blue-300">
-          Monitor dan update aplikasi ke versi terbaru
+          Update otomatis untuk memastikan harga dan informasi terbaru
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -171,18 +189,22 @@ const UpdateChecker: React.FC = () => {
           </div>
         )}
 
-        {/* Debug Info */}
-        <details className="text-xs">
-          <summary className="cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-            🔍 Debug Info
-          </summary>
-          <div className="mt-2 p-3 bg-gray-100 dark:bg-gray-800 rounded text-xs font-mono space-y-1 overflow-x-auto">
-            <div className="break-all">Status: {JSON.stringify(updateStatus)}</div>
-            <div>Version: {currentVersion}</div>
-            <div className="break-all">Last Check: {lastChecked.toISOString()}</div>
-            <div className="break-all">User Agent: {navigator.userAgent.substring(0, 50)}...</div>
-          </div>
-        </details>
+                 {/* Debug Info */}
+         <details className="text-xs">
+           <summary className="cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+             🔍 Debug Info
+           </summary>
+           <div className="mt-2 p-3 bg-gray-100 dark:bg-gray-800 rounded text-xs font-mono space-y-1 overflow-x-auto">
+             <div className="break-all">Status: {JSON.stringify(updateStatus)}</div>
+             <div>Version: {currentVersion}</div>
+             <div className="break-all">Last Check: {lastChecked.toISOString()}</div>
+             <div className="break-all">User Agent: {navigator.userAgent.substring(0, 50)}...</div>
+             <div>Online: {navigator.onLine ? 'Yes' : 'No'}</div>
+             <div>Service Worker: {navigator.serviceWorker ? 'Supported' : 'Not Supported'}</div>
+             <div>Cache Storage: {'caches' in window ? 'Supported' : 'Not Supported'}</div>
+             <div>Page Visibility: {document.hidden ? 'Hidden' : 'Visible'}</div>
+           </div>
+         </details>
       </CardContent>
     </Card>
   );

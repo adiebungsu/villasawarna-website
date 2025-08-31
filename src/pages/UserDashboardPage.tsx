@@ -340,6 +340,21 @@ const UserDashboardPage: React.FC = () => {
                             💡 Klik untuk tandai sudah dibaca
                           </div>
                         )}
+                        {/* Action Button */}
+                        {notification.action && notification.actionUrl && (
+                          <div className="mt-3">
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="text-xs h-7 px-2"
+                              asChild
+                            >
+                              <Link to={notification.actionUrl}>
+                                {notification.action}
+                              </Link>
+                            </Button>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -542,7 +557,7 @@ const UserDashboardPage: React.FC = () => {
 
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-4 sm:space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {/* Loyalty Status */}
               <Card className="bg-white dark:bg-gray-800 shadow-lg border-0">
                 <CardHeader className="pb-4">
@@ -657,19 +672,19 @@ const UserDashboardPage: React.FC = () => {
 
               {/* Demo Controls */}
               <Card className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200 dark:border-amber-700 shadow-lg border-0">
-                <CardHeader className="pb-3 sm:pb-4">
-                  <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-200 text-lg sm:text-xl">
-                    <HelpCircle className="w-5 h-5 sm:w-6 sm:h-6" />
+                <CardHeader className="pb-2 sm:pb-3">
+                  <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-200 text-base sm:text-lg">
+                    <HelpCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                     Demo Controls
                   </CardTitle>
-                  <CardDescription className="text-amber-700 dark:text-amber-300 text-sm sm:text-base">
+                  <CardDescription className="text-amber-700 dark:text-amber-300 text-xs sm:text-sm">
                     Kontrol untuk testing dan development
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-3 sm:space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                <CardContent className="space-y-2 sm:space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     <Button 
-                      className="w-full justify-center bg-green-600 hover:bg-green-700 text-white border-0 text-sm sm:text-base py-3 sm:py-4 px-4 sm:px-6 font-medium shadow-md hover:shadow-lg transition-all duration-200" 
+                      className="w-full justify-center bg-green-600 hover:bg-green-700 text-white border-0 text-xs sm:text-sm py-2 sm:py-3 px-2 sm:px-4 font-medium shadow-md hover:shadow-lg transition-all duration-200" 
                       variant="default"
                       onClick={() => {
                         localStorage.setItem('initializeDemoData', '1');
@@ -680,12 +695,12 @@ const UserDashboardPage: React.FC = () => {
                         setTimeout(() => window.location.reload(), 1500);
                       }}
                     >
-                      <Plus className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                      <span className="hidden sm:inline">Load Demo Data</span>
+                      <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                      <span className="hidden sm:inline">Load Demo</span>
                       <span className="sm:hidden">Demo</span>
                     </Button>
                     <Button 
-                      className="w-full justify-center bg-orange-600 hover:bg-orange-700 text-white border-0 text-sm sm:text-base py-3 sm:py-4 px-4 sm:px-6 font-medium shadow-md hover:shadow-lg transition-all duration-200" 
+                      className="w-full justify-center bg-orange-600 hover:bg-orange-700 text-white border-0 text-xs sm:text-sm py-2 sm:py-3 px-2 sm:px-4 font-medium shadow-md hover:shadow-lg transition-all duration-200" 
                       variant="default"
                       onClick={() => {
                         if (confirm('Apakah Anda yakin ingin menghapus semua data demo? User akan tetap login.')) {
@@ -693,12 +708,12 @@ const UserDashboardPage: React.FC = () => {
                         }
                       }}
                     >
-                      <LogOut className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                      <span className="hidden sm:inline">Clear Demo Data</span>
+                      <LogOut className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                      <span className="hidden sm:inline">Clear Demo</span>
                       <span className="sm:hidden">Clear</span>
                     </Button>
                     <Button 
-                      className="w-full justify-center bg-blue-600 hover:bg-blue-700 text-white border-0 text-sm sm:text-base py-3 sm:py-4 px-4 sm:px-6 font-medium shadow-md hover:shadow-lg transition-all duration-200" 
+                      className="w-full justify-center bg-blue-600 hover:bg-blue-700 text-white border-0 text-xs sm:text-sm py-2 sm:py-3 px-2 sm:px-4 font-medium shadow-md hover:shadow-lg transition-all duration-200" 
                       variant="default"
                       onClick={() => {
                         toast({
@@ -707,8 +722,8 @@ const UserDashboardPage: React.FC = () => {
                         });
                       }}
                     >
-                      <Info className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                      <span className="hidden sm:inline">Info Demo Data</span>
+                      <Info className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                      <span className="hidden sm:inline">Info Demo</span>
                       <span className="sm:hidden">Info</span>
                     </Button>
                   </div>
@@ -757,7 +772,7 @@ const UserDashboardPage: React.FC = () => {
                         <Button 
                           className="w-full mt-2 sm:mt-3 text-xs sm:text-sm" 
                           size="sm"
-                          onClick={() => navigate(`/property/${booking.propertyId}`)}
+                          onClick={() => navigate(`/villas/${booking.propertyId}`)}
                         >
                           Lihat Detail
                         </Button>

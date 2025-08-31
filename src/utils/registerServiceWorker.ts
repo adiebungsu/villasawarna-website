@@ -107,15 +107,29 @@ class ServiceWorkerManager {
   }
 
   private startPeriodicChecks(): void {
-    // Check for updates every 5 minutes
+    // Check for updates more frequently (every 2 minutes)
     this.updateCheckInterval = setInterval(() => {
       this.checkForUpdates();
-    }, 5 * 60 * 1000);
+    }, 2 * 60 * 1000);
 
-    // Check version every 30 seconds
+    // Check version every 15 seconds (more aggressive)
     this.versionCheckInterval = setInterval(() => {
       this.checkVersion();
-    }, 30 * 1000);
+    }, 15 * 1000);
+    
+    // Additional check on page focus (when user returns to tab)
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        console.log('🔄 Page became visible, checking for updates...');
+        this.checkForUpdates();
+      }
+    });
+    
+    // Check on network status change
+    window.addEventListener('online', () => {
+      console.log('🔄 Network online, checking for updates...');
+      this.checkForUpdates();
+    });
   }
 
   private async checkForUpdates(): Promise<void> {
@@ -123,12 +137,35 @@ class ServiceWorkerManager {
 
     try {
       console.log('🔍 Checking for Service Worker updates...');
+      
+      // Force update check with cache busting
       await this.registration.update();
+      
+      // Additional check: fetch a version file to trigger cache invalidation
+      try {
+        const response = await fetch('/manifest.json?t=' + Date.now(), {
+          cache: 'no-cache',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        });
+        
+        if (response.ok) {
+          console.log('🔄 Cache busting successful');
+        }
+      } catch (fetchError) {
+        console.log('⚠️ Cache busting failed, continuing with normal update check');
+      }
       
       // Check if there's a waiting worker
       if (this.registration.waiting) {
+        console.log('🔄 Update available, waiting worker detected');
         this.updateAvailable = true;
         this.showUpdateNotification('available');
+      } else {
+        console.log('✅ No updates available');
       }
       
     } catch (error) {
@@ -159,6 +196,27 @@ class ServiceWorkerManager {
         [messageChannel.port2]
       );
       
+      // Fallback: Check version via fetch if service worker doesn't respond
+      setTimeout(async () => {
+        try {
+          const response = await fetch('/version.json?t=' + Date.now(), {
+            cache: 'no-cache'
+          });
+          
+          if (response.ok) {
+            const versionData = await response.json();
+            if (versionData.version && versionData.version !== this.currentVersion) {
+              console.log('🔄 New version detected via fetch:', versionData.version);
+              this.currentVersion = versionData.version;
+              this.updateAvailable = true;
+              this.showUpdateNotification('available');
+            }
+          }
+        } catch (fetchError) {
+          console.log('⚠️ Version fetch failed, using service worker version');
+        }
+      }, 2000); // Wait 2 seconds for service worker response
+      
     } catch (error) {
       console.error('❌ Version check failed:', error);
     }
@@ -166,63 +224,92 @@ class ServiceWorkerManager {
 
   private showUpdateNotification(type: 'available' | 'installed' | 'activated'): void {
     const messages = {
-      available: 'Ada update baru tersedia! Klik untuk update.',
+      available: 'Update otomatis dalam 3 detik...',
       installed: 'Update telah diinstall. Reload halaman untuk menggunakan versi baru.',
       activated: 'Update telah diaktifkan! Halaman akan reload otomatis.'
     };
 
     const message = messages[type];
     
-    // Show toast notification
-    this.showToast(message, type);
+    // For available updates, auto-update without showing pop-up
+    if (type === 'available') {
+      console.log('🔄 Auto-updating to new version...');
+      
+      // Show subtle loading indicator
+      this.showSubtleLoadingIndicator();
+      
+      // Auto-reload after 3 seconds without user interaction
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+      return; // Don't show any notifications
+    }
     
-    // Show browser notification if permitted
-    this.showBrowserNotification(message);
-    
-    // Log update status
+    // For other types, show minimal notification (only in console)
     console.log(`🔄 Update Status: ${message}`);
+    
+    // Only show browser notification for installed/activated (not available)
+    if (type !== 'available') {
+      this.showBrowserNotification(message);
+    }
   }
 
   private showToast(message: string, type: string): void {
     // Create custom toast notification
     const toast = document.createElement('div');
-    toast.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 ${
-      type === 'available' ? 'bg-blue-500 text-white' :
-      type === 'installed' ? 'bg-green-500 text-white' :
-      'bg-gray-500 text-white'
-    }`;
+    toast.className = `fixed top-4 right-4 z-50 max-w-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl transition-all duration-300 transform translate-x-full`;
     
     toast.innerHTML = `
-      <div class="flex items-center gap-3">
-        <span class="text-lg">🔄</span>
-        <div>
-          <p class="font-medium">Update Tersedia</p>
-          <p class="text-sm opacity-90">${message}</p>
+      <div class="p-6">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 ${type === 'available' ? 'bg-gradient-to-br from-blue-500 to-blue-600' : type === 'installed' ? 'bg-gradient-to-br from-green-500 to-green-600' : 'bg-gradient-to-br from-gray-500 to-gray-600'} rounded-full flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              ${type === 'available' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>' : type === 'installed' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>' : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'}
+            </svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white">${type === 'available' ? 'Update Tersedia' : type === 'installed' ? 'Update Siap' : 'Status Update'}</h3>
+              <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors" onclick="this.parentElement.parentElement.parentElement.remove()">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">${message}</p>
+            ${type === 'available' ? `
+              <div class="mt-4 flex gap-3">
+                <button class="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg text-sm font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105" onclick="window.location.reload()">
+                  Update Sekarang
+                </button>
+                <button class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors" onclick="this.parentElement.parentElement.parentElement.remove()">
+                  Nanti
+                </button>
+              </div>
+            ` : ''}
+          </div>
         </div>
-        <button class="ml-2 text-white hover:text-gray-200" onclick="this.parentElement.parentElement.remove()">
-          ✕
-        </button>
       </div>
-      ${type === 'available' ? `
-        <div class="mt-3 flex gap-2">
-          <button class="px-3 py-1 bg-white text-blue-500 rounded text-sm font-medium hover:bg-gray-100" onclick="window.location.reload()">
-            Update Sekarang
-          </button>
-          <button class="px-3 py-1 bg-transparent border border-white text-white rounded text-sm font-medium hover:bg-white hover:text-blue-500" onclick="this.parentElement.parentElement.parentElement.remove()">
-            Nanti
-          </button>
-        </div>
-      ` : ''}
     `;
     
     document.body.appendChild(toast);
     
-    // Auto-remove after 10 seconds
+    // Animate in
+    requestAnimationFrame(() => {
+      toast.classList.remove('translate-x-full');
+    });
+    
+    // Auto-remove after 15 seconds
     setTimeout(() => {
       if (toast.parentElement) {
-        toast.remove();
+        toast.classList.add('translate-x-full');
+        setTimeout(() => {
+          if (toast.parentElement) {
+            toast.remove();
+          }
+        }, 300);
       }
-    }, 10000);
+    }, 15000);
   }
 
   private async showBrowserNotification(message: string): Promise<void> {
@@ -243,6 +330,28 @@ class ServiceWorkerManager {
     }
   }
 
+  private showSubtleLoadingIndicator(): void {
+    // Create a subtle loading indicator in the top-right corner
+    const loadingIndicator = document.createElement('div');
+    loadingIndicator.id = 'auto-update-indicator';
+    loadingIndicator.className = 'fixed top-4 right-4 z-40 bg-blue-500 text-white px-3 py-2 rounded-lg text-sm font-medium shadow-lg opacity-90';
+    loadingIndicator.innerHTML = `
+      <div class="flex items-center gap-2">
+        <div class="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
+        <span>Memperbarui...</span>
+      </div>
+    `;
+    
+    document.body.appendChild(loadingIndicator);
+    
+    // Auto-remove after 3 seconds (when page reloads)
+    setTimeout(() => {
+      if (loadingIndicator.parentElement) {
+        loadingIndicator.remove();
+      }
+    }, 3000);
+  }
+
   private handleServiceWorkerActivated(data: any): void {
     console.log('🚀 Service Worker activated:', data.version);
     this.currentVersion = data.version;
@@ -258,7 +367,23 @@ class ServiceWorkerManager {
 
   private forceUpdate(): void {
     console.log('🔄 Force update requested');
-    window.location.reload();
+    
+    // Clear all caches first
+    if ('caches' in window) {
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            console.log('🗑️ Deleting cache:', cacheName);
+            return caches.delete(cacheName);
+          })
+        );
+      }).then(() => {
+        console.log('✅ All caches cleared, reloading page...');
+        window.location.reload();
+      });
+    } else {
+      window.location.reload();
+    }
   }
 
   public async skipWaiting(): Promise<void> {

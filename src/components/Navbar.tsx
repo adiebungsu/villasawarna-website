@@ -147,7 +147,9 @@ const Navbar = () => {
               <Button variant="ghost" className="ml-2" onClick={() => {
                 const next = i18n.language.startsWith('id') ? 'en' : 'id';
                 i18n.changeLanguage(next);
-                try { localStorage.setItem('i18nextLng', next); } catch {}
+                try { localStorage.setItem('i18nextLng', next); } catch (error) {
+                  console.error('Failed to save language preference:', error);
+                }
               }}>
                 {i18n.language.startsWith('id') ? 'EN' : 'ID'}
               </Button>
@@ -340,7 +342,9 @@ const Navbar = () => {
         onClick={() => {
           const next = i18n.language.startsWith('id') ? 'en' : 'id';
           i18n.changeLanguage(next);
-          try { localStorage.setItem('i18nextLng', next); } catch {}
+          try { localStorage.setItem('i18nextLng', next); } catch (error) {
+            console.error('Failed to save language preference:', error);
+          }
         }}
         className="md:hidden fixed top-3 left-3 z-[10000] px-3 py-1.5 rounded-full text-xs font-semibold shadow-md backdrop-blur bg-white/90 dark:bg-gray-800/80 text-gray-800 dark:text-gray-100 border border-gray-200/60 dark:border-gray-700/60"
       >

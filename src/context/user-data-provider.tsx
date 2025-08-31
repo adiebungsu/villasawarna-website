@@ -469,8 +469,8 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         message: `Booking Anda untuk ${villaSinarPelangi?.name || 'Villa Sinar Pelangi'} telah dikonfirmasi`,
         timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 jam yang lalu
         isRead: false,
-        action: 'Lihat Detail',
-        actionUrl: '/dashboard/bookings',
+        action: 'Lihat Villa',
+        actionUrl: `/villas/${villaSinarPelangi?.id || 'villa-sinar-pelangi'}`,
         priority: 'high'
       },
       {
@@ -488,10 +488,34 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({ children }) 
         id: '3',
         type: 'review',
         title: 'Review Anda Membantu',
-        message: 'Review Anda untuk Villa Arizky telah membantu 5 traveler lain',
+        message: `Review Anda untuk ${villaArizkySawarna?.name || 'Villa Arizky Sawarna'} telah membantu 5 traveler lain`,
         timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 hari yang lalu
         isRead: true,
+        action: 'Lihat Villa',
+        actionUrl: `/villas/${villaArizkySawarna?.id || 'villa-arizky-sawarna'}`,
         priority: 'low'
+      },
+      {
+        id: '4',
+        type: 'booking',
+        title: 'Reminder Check-in',
+        message: `Jangan lupa check-in besok di ${villaSinarPelangi?.name || 'Villa Sinar Pelangi'}`,
+        timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(), // 12 jam yang lalu
+        isRead: false,
+        action: 'Lihat Villa',
+        actionUrl: `/villas/${villaSinarPelangi?.id || 'villa-sinar-pelangi'}`,
+        priority: 'high'
+      },
+      {
+        id: '5',
+        type: 'booking',
+        title: 'Booking Pending',
+        message: `Booking Anda untuk ${villaAliyaSawarna?.name || 'Villa Aliya Sawarna'} sedang menunggu konfirmasi`,
+        timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(), // 6 jam yang lalu
+        isRead: false,
+        action: 'Lihat Villa',
+        actionUrl: `/villas/${villaAliyaSawarna?.id || 'villa-aliya-sawarna'}`,
+        priority: 'medium'
       }
     ];
 

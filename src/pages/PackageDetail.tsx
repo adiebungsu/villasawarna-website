@@ -41,9 +41,9 @@ const PackageDetail = () => {
   
   // Kapasitas maksimal per kamar untuk setiap paket
   const roomCapacity = {
-    'budget-1': 4,    // Kamar backpacker maksimal 4 orang
-    'budget-2': 4,    // Kamar keluarga maksimal 4 orang
-    'standard-1': 4   // Villa premium maksimal 4 orang
+    'budget-1': 100,    // Kamar backpacker maksimal 100 orang
+    'budget-2': 100,    // Kamar keluarga maksimal 100 orang
+    'standard-1': 100   // Villa premium maksimal 100 orang
   };
 
   // Auto-detect season based on date
@@ -76,15 +76,14 @@ const PackageDetail = () => {
       basePrice: 350000,
       originalPrice: 400000,
       discount: '12.5%',
-      image: '/images/homestay.png',
+      image: '/images/paket-backpaker.webp',
       location: 'Desa Sawarna',
       rating: 4.5,
       reviewCount: 127,
-      description: 'Paket ekonomis untuk backpacker dengan fasilitas lengkap dan lokasi strategis dekat pantai.',
+      description: 'Paket ekonomis untuk backpacker dengan fasilitas sederhana dan lokasi strategis dekat pantai.',
       features: [
-        'Kamar AC dengan kamar mandi dalam',
-        'WiFi gratis',
-        'Sarapan pagi',
+        'Kamar dengan kipas angin dan kamar mandi dalam',
+        'WiFi',
         'Parkir motor gratis',
         'Dekat pantai (5 menit jalan kaki)',
         'Resepsionis 24 jam'
@@ -96,7 +95,8 @@ const PackageDetail = () => {
       duration: {
         '1': { price: 350000, discount: '0%' },
         '2': { price: 650000, discount: '7%' },
-        '3': { price: 900000, discount: '11%' }
+        '3': { price: 900000, discount: '11%' },
+        '4': { price: 1100000, discount: '15%' }
       },
                            itinerary: {
           '1': [
@@ -113,15 +113,15 @@ const PackageDetail = () => {
           '2': [
             {
               day: 1,
-              title: 'Kedatangan & Aklimatisasi',
+            title: 'Kedatangan & Eksplorasi Pantai',
               activities: [
-                '14:00 - Check-in di homestay • 15:00 - Istirahat dan persiapan • 16:00 - Jalan-jalan santai ke Pantai Sawarna',
+              '14:00 - Check-in di homestay • 15:00 - Istirahat dan persiapan • 16:00 - Jalan-jalan ke Pantai Sawarna',
                 '17:00 - Sunset di Tanjung Layar • 18:30 - Makan malam di warung lokal • 20:00 - Istirahat malam'
               ]
             },
             {
               day: 2,
-              title: 'Eksplorasi Lengkap Sawarna',
+            title: 'Petualangan Goa & Snorkeling',
               activities: [
                 '07:00 - Sarapan pagi • 08:00 - Goa Langir adventure dengan guide lokal • 10:00 - Snorkeling di Karang Taraje',
                 '12:00 - Makan siang di warung pantai • 14:00 - Eksplorasi Pantai Legon Pari • 16:00 - Sunset di Bukit Cinta',
@@ -130,6 +130,34 @@ const PackageDetail = () => {
             }
           ],
           '3': [
+          {
+            day: 1,
+            title: 'Kedatangan & Eksplorasi Pantai',
+            activities: [
+              '14:00 - Check-in di homestay • 15:00 - Istirahat dan persiapan • 16:00 - Jalan-jalan ke Pantai Sawarna',
+              '17:00 - Sunset di Tanjung Layar • 18:30 - Makan malam di warung lokal • 20:00 - Istirahat malam'
+            ]
+          },
+          {
+            day: 2,
+            title: 'Petualangan Goa & Snorkeling',
+            activities: [
+              '07:00 - Sarapan pagi • 08:00 - Goa Langir adventure dengan guide lokal • 10:00 - Snorkeling di Karang Taraje',
+              '12:00 - Makan siang di warung pantai • 14:00 - Eksplorasi Pantai Legon Pari • 16:00 - Sunset di Bukit Cinta',
+              '18:00 - Makan malam • 20:00 - Istirahat malam'
+            ]
+          },
+          {
+            day: 3,
+            title: 'Eksplorasi Pantai & Wisata Lokal',
+            activities: [
+              '07:00 - Sarapan pagi • 08:00 - Eksplorasi Pantai Ciantir • 10:00 - Wisata ke desa lokal',
+              '12:00 - Makan siang di warung lokal • 14:00 - Beli souvenir dan oleh-oleh • 16:00 - Sunset di Bukit Cinta',
+              '18:00 - Makan malam • 20:00 - Istirahat malam'
+            ]
+          }
+        ],
+          '4': [
             {
               day: 1,
               title: 'Kedatangan & Aklimatisasi',
@@ -149,10 +177,19 @@ const PackageDetail = () => {
             },
             {
               day: 3,
-              title: 'Eksplorasi Terakhir & Check-out',
+              title: 'Eksplorasi Pantai & Wisata Lokal',
               activities: [
-                '07:00 - Sarapan pagi • 08:00 - Eksplorasi Pantai Ciantir • 10:00 - Beli souvenir dan oleh-oleh lokal',
-                '11:00 - Check-out dan foto terakhir • 12:00 - Makan siang sebelum pulang'
+                '07:00 - Sarapan pagi • 08:00 - Eksplorasi Pantai Ciantir • 10:00 - Wisata ke desa lokal',
+                '12:00 - Makan siang di warung lokal • 14:00 - Beli souvenir dan oleh-oleh • 16:00 - Sunset di Bukit Cinta',
+                '18:00 - Makan malam • 20:00 - Istirahat malam'
+              ]
+            },
+            {
+              day: 4,
+              title: 'Petualangan Terakhir & Check-out',
+              activities: [
+                '07:00 - Sarapan pagi • 08:00 - Eksplorasi Karang Bokor • 10:00 - Snorkeling di Pasir Putih',
+                '12:00 - Makan siang di warung pantai • 14:00 - Check-out dan beli oleh-oleh • 16:00 - Perjalanan pulang'
               ]
             }
           ]
@@ -170,9 +207,14 @@ const PackageDetail = () => {
       },
       
       addOns: {
-        'extra-bed': { name: 'Tempat Tidur Tambahan', price: 80000, description: 'Untuk tamu tambahan' },
-        'airport-transfer': { name: 'Transfer Bandara', price: 250000, description: 'PP dari Bandara Soekarno-Hatta' },
-        'guided-tour': { name: 'Tour Guide', price: 150000, description: 'Pemandu wisata lokal' }
+        'extra-bed': { name: 'Tempat Tidur Tambahan', price: 50000, description: 'Untuk tamu tambahan' },
+        'airport-transfer': { name: 'Jemput Bandara', price: 250000, description: 'PP dari Bandara Soekarno-Hatta' },
+        'guided-tour': { name: 'Tour Guide', price: 150000, description: 'Pemandu wisata lokal' },
+        'campfire': { name: 'Api Unggun', price: 150000, description: 'Api unggun di pantai' },
+        'live-music': { name: 'Organ + 2 Singer', price: 1200000, description: 'Hiburan musik live dengan organ dan 2 penyanyi' },
+        'barbaque-standard': { name: 'Barbaque Standar', price: 120000, description: 'Paket barbaque standar' },
+        'barbaque-medium': { name: 'Barbaque Medium', price: 300000, description: 'Paket barbaque medium' },
+        'kambing-guling': { name: 'Kambing Guling', price: 1250000, description: 'Kambing guling utuh' }
       }
     },
     'budget-2': {
@@ -181,7 +223,7 @@ const PackageDetail = () => {
       basePrice: 400000,
       originalPrice: 600000,
       discount: '33%',
-      image: '/images/penginapan-sawarna.webp',
+      image: '/images/paket-keluarga-hemat.webp',
       location: 'Kawasan Wisata Sawarna',
       rating: 4.6,
       reviewCount: 89,
@@ -189,54 +231,136 @@ const PackageDetail = () => {
       features: [
         'Kamar keluarga 2 tempat tidur',
         'Kamar mandi dalam dengan air panas',
-        'WiFi gratis',
-        'Sarapan untuk 2 orang',
+        'WiFi',
         'Parkir mobil gratis',
         'Area bermain anak'
       ],
              mealPlans: {
-         '2x': { price: 60000, description: 'Sarapan + Makan Siang untuk 2 orang' },
-         '3x': { price: 80000, description: 'Sarapan + Makan Siang + Makan Malam untuk 2 orang' }
+         '2x': { price: 60000, description: 'Sarapan + Makan Siang' },
+         '3x': { price: 80000, description: 'Sarapan + Makan Siang + Makan Malam' }
        },
       duration: {
+        '1': { price: 400000, discount: '0%' },
         '2': { price: 400000, discount: '0%' },
         '3': { price: 580000, discount: '3%' },
         '4': { price: 750000, discount: '6%' }
       },
-      itinerary: [
+      itinerary: {
+        '1': [
         {
           day: 1,
-          title: 'Kedatangan & Aklimatisasi',
+            title: 'Petualangan Sehari di Sawarna',
           activities: [
             '14:00 - Check-in dan istirahat',
             '16:00 - Jalan-jalan santai di sekitar penginapan',
             '18:00 - Makan malam keluarga'
           ]
+          }
+        ],
+        '2': [
+          {
+            day: 1,
+            title: 'Kedatangan & Eksplorasi Pantai',
+            activities: [
+              '14:00 - Check-in dan istirahat',
+              '16:00 - Jalan-jalan ke Pantai Sawarna (aman untuk anak)',
+              '18:00 - Makan malam keluarga'
+            ]
         },
         {
           day: 2,
-          title: 'Wisata Keluarga',
+            title: 'Petualangan Goa & Snorkeling',
           activities: [
             '08:00 - Sarapan keluarga',
-            '09:00 - Pantai Sawarna (aman untuk anak)',
+              '09:00 - Goa Langir adventure (dengan guide)',
             '12:00 - Makan siang',
-            '14:00 - Goa Langir (dengan guide)',
-            '16:00 - Area bermain anak',
+              '14:00 - Snorkeling di Karang Taraje',
+              '16:00 - Area bermain anak di pantai',
+              '18:00 - Makan malam'
+            ]
+          }
+        ],
+                '3': [
+          {
+            day: 1,
+            title: 'Kedatangan & Eksplorasi Pantai',
+            activities: [
+              '14:00 - Check-in dan istirahat',
+              '16:00 - Jalan-jalan ke Pantai Sawarna (aman untuk anak)',
+              '18:00 - Makan malam keluarga'
+            ]
+          },
+          {
+            day: 2,
+            title: 'Petualangan Goa & Snorkeling',
+            activities: [
+              '08:00 - Sarapan keluarga',
+              '09:00 - Goa Langir adventure (dengan guide)',
+              '12:00 - Makan siang',
+              '14:00 - Snorkeling di Karang Taraje',
+              '16:00 - Area bermain anak di pantai',
             '18:00 - Makan malam'
           ]
         },
         {
           day: 3,
-          title: 'Aktivitas Air',
+            title: 'Eksplorasi Pantai & Aktivitas Air',
           activities: [
-            '08:00 - Sarapan',
-            '09:00 - Snorkeling di Karang Taraje',
+              '08:00 - Sarapan keluarga',
+              '09:00 - Eksplorasi Pantai Legon Pari',
             '12:00 - Makan siang',
-            '14:00 - Pantai Legon Pari',
-            '17:00 - Sunset family time'
-          ]
-        }
-      ],
+              '14:00 - Snorkeling di Karang Bokor',
+              '17:00 - Sunset family time di Tanjung Layar'
+            ]
+          }
+        ],
+        '4': [
+          {
+            day: 1,
+            title: 'Kedatangan & Eksplorasi Pantai',
+            activities: [
+              '14:00 - Check-in dan istirahat',
+              '16:00 - Jalan-jalan ke Pantai Sawarna (aman untuk anak)',
+              '18:00 - Makan malam keluarga'
+            ]
+          },
+          {
+            day: 2,
+            title: 'Petualangan Goa & Snorkeling',
+            activities: [
+              '08:00 - Sarapan keluarga',
+              '09:00 - Goa Langir adventure (dengan guide)',
+              '12:00 - Makan siang',
+              '14:00 - Snorkeling di Karang Taraje',
+              '16:00 - Area bermain anak di pantai',
+              '18:00 - Makan malam'
+            ]
+          },
+          {
+            day: 3,
+            title: 'Eksplorasi Pantai & Aktivitas Air',
+            activities: [
+              '08:00 - Sarapan keluarga',
+              '09:00 - Eksplorasi Pantai Legon Pari',
+              '12:00 - Makan siang',
+              '14:00 - Snorkeling di Karang Bokor',
+              '17:00 - Sunset family time di Tanjung Layar'
+            ]
+          },
+          {
+            day: 4,
+            title: 'Petualangan Terakhir & Check-out',
+            activities: [
+              '08:00 - Sarapan keluarga',
+              '09:00 - Eksplorasi Pasir Putih',
+              '10:00 - Snorkeling di Karang Taraje',
+              '12:00 - Makan siang di warung pantai',
+              '14:00 - Check-out dan beli oleh-oleh',
+              '16:00 - Perjalanan pulang'
+            ]
+          }
+        ]
+      },
       terms: [
         'Check-in: 14:00 WIB',
         'Check-out: 11:00 WIB',
@@ -245,82 +369,170 @@ const PackageDetail = () => {
       ],
       seasonalPricing: {
         regular: { multiplier: 1.0, description: 'Harga Normal' },
-        weekend: { multiplier: 1.2, description: 'Harga Weekend' },
-        peak: { multiplier: 1.5, description: 'Harga Peak Season (Juni-Agustus)' }
+        weekend: { multiplier: 1.1, description: 'Harga Weekend' },
+        peak: { multiplier: 1.3, description: 'Harga Peak Season (Juni-Agustus)' }
       },
       
       addOns: {
-        'extra-bed': { name: 'Tempat Tidur Tambahan', price: 100000, description: 'Untuk tamu tambahan' },
-        'airport-transfer': { name: 'Transfer Bandara', price: 300000, description: 'PP dari Bandara Soekarno-Hatta' },
-        'guided-tour': { name: 'Tour Guide', price: 200000, description: 'Pemandu wisata lokal' },
-        'dinner-special': { name: 'Makan Malam Spesial', price: 150000, description: 'Makan malam dengan menu premium' }
+        'extra-bed': { name: 'Tempat Tidur Tambahan', price: 50000, description: 'Untuk tamu tambahan' },
+        'airport-transfer': { name: 'Jemput Bandara', price: 300000, description: 'PP dari Bandara Soekarno-Hatta' },
+        'guided-tour': { name: 'Tour Guide', price: 150000, description: 'Pemandu wisata lokal' },
+        'campfire': { name: 'Api Unggun', price: 150000, description: 'Api unggun di pantai' },
+        'live-music': { name: 'Organ + 2 Singer', price: 1200000, description: 'Hiburan musik live dengan organ dan 2 penyanyi' },
+        'barbaque-standard': { name: 'Barbaque Standar', price: 120000, description: 'Paket barbaque standar' },
+        'barbaque-medium': { name: 'Barbaque Medium', price: 300000, description: 'Paket barbaque medium' },
+        'kambing-guling': { name: 'Kambing Guling', price: 1250000, description: 'Kambing guling utuh' }
       }
     },
     'standard-1': {
-      name: 'Paket Comfort Stay',
+      name: 'Paket Lengkap',
       category: 'standard',
-      basePrice: 800000,
-      originalPrice: 1200000,
+      basePrice: 400000,
+      originalPrice: 600000,
       discount: '33%',
-      image: '/images/villa mewah.png',
+      image: '/images/paket-lengkap.webp',
       location: 'Villa Sawarna Premium',
       rating: 4.7,
       reviewCount: 156,
-      description: 'Paket comfort dengan fasilitas premium dan view pantai yang menakjubkan.',
+      description: 'Paket lengkap dengan fasilitas premium dan view pantai yang menakjubkan.',
       features: [
-        'Kamar premium dengan view pantai',
+        'Kamar AC',
         'Kamar mandi dalam dengan shower',
-        'WiFi high-speed',
-        'Sarapan buffet',
-        'Kolam renang',
-        'Restaurant on-site',
+        'WiFi',
         'Room service'
       ],
              mealPlans: {
-         '2x': { price: 60000, description: 'Sarapan buffet + Makan siang premium' },
-         '3x': { price: 80000, description: 'Sarapan buffet + Makan siang + Makan malam premium' }
+         '2x': { price: 85000, description: 'Sarapan + Makan siang/malam + Snack' },
+         '3x': { price: 115000, description: 'Sarapan + Makan siang + Makan malam + Snack' }
        },
       duration: {
-        '2': { price: 800000, discount: '0%' },
-        '3': { price: 1150000, discount: '4%' },
-        '4': { price: 1500000, discount: '6%' }
+        '1': { price: 400000, discount: '0%' },
+        '2': { price: 750000, discount: '6%' },
+        '3': { price: 1100000, discount: '8%' },
+        '4': { price: 1400000, discount: '12%' }
       },
-      itinerary: [
+      itinerary: {
+        '1': [
         {
           day: 1,
-          title: 'Luxury Check-in',
+            title: 'Luxury Experience Sehari',
           activities: [
             '15:00 - Welcome drink dan check-in',
-            '16:00 - Relaksasi di kolam renang',
-            '18:00 - Sunset dinner di restaurant',
-            '20:00 - Spa treatment (opsional)'
+              '16:00 - Jalan-jalan ke Pantai Sawarna',
+              '18:00 - Sunset dinner di Tanjung Layar',
+              '20:00 - Istirahat malam'
+            ]
+          }
+        ],
+                '2': [
+          {
+            day: 1,
+            title: 'Luxury Check-in & Eksplorasi Pantai',
+            activities: [
+              '15:00 - Welcome drink dan check-in',
+              '16:00 - Jalan-jalan ke Pantai Sawarna',
+              '18:00 - Sunset dinner di Tanjung Layar',
+              '20:00 - Istirahat malam'
           ]
         },
         {
           day: 2,
-          title: 'Premium Experience',
+            title: 'Petualangan Premium',
           activities: [
             '07:00 - Sarapan buffet',
-            '09:00 - Private tour ke destinasi premium',
-            '12:00 - Makan siang di restaurant',
-            '14:00 - Aktivitas water sports',
-            '17:00 - Sunset cocktail',
+              '09:00 - Private tour ke Goa Langir',
+              '12:00 - Makan siang premium',
+              '14:00 - Snorkeling di Karang Taraje',
+              '17:00 - Sunset cocktail di Bukit Cinta',
+              '19:00 - Makan malam premium di warung lokal'
+            ]
+          }
+        ],
+                '3': [
+          {
+            day: 1,
+            title: 'Luxury Check-in & Eksplorasi Pantai',
+            activities: [
+              '15:00 - Welcome drink dan check-in',
+              '16:00 - Jalan-jalan ke Pantai Sawarna',
+              '18:00 - Sunset dinner di Tanjung Layar',
+              '20:00 - Istirahat malam'
+            ]
+          },
+          {
+            day: 2,
+            title: 'Petualangan Premium',
+            activities: [
+              '07:00 - Sarapan buffet',
+              '09:00 - Private tour ke Goa Langir',
+              '12:00 - Makan siang premium',
+              '14:00 - Snorkeling di Karang Taraje',
+              '17:00 - Sunset cocktail di Bukit Cinta',
             '19:00 - Fine dining experience'
           ]
         },
         {
           day: 3,
-          title: 'Wellness & Relaxation',
+            title: 'Eksplorasi Pantai Premium',
           activities: [
             '08:00 - Sarapan sehat',
-            '09:00 - Yoga session di pantai',
-            '11:00 - Spa treatment',
+              '09:00 - Eksplorasi Pantai Legon Pari',
+              '11:00 - Snorkeling di Karang Bokor',
             '13:00 - Makan siang sehat',
-            '15:00 - Meditation garden',
-            '17:00 - Sunset beach walk'
-          ]
-        }
-      ],
+              '15:00 - Sunset di Bukit Cinta',
+              '17:00 - Makan malam premium'
+            ]
+          }
+        ],
+        '4': [
+          {
+            day: 1,
+            title: 'Luxury Check-in & Eksplorasi Pantai',
+            activities: [
+              '15:00 - Welcome drink dan check-in',
+              '16:00 - Jalan-jalan ke Pantai Sawarna',
+              '18:00 - Sunset dinner di Tanjung Layar',
+              '20:00 - Istirahat malam'
+            ]
+          },
+          {
+            day: 2,
+            title: 'Petualangan Premium',
+            activities: [
+              '07:00 - Sarapan buffet',
+              '09:00 - Private tour ke Goa Langir',
+              '12:00 - Makan siang premium',
+              '14:00 - Snorkeling di Karang Taraje',
+              '17:00 - Sunset cocktail di Bukit Cinta',
+              '19:00 - Fine dining experience'
+            ]
+          },
+          {
+            day: 3,
+            title: 'Eksplorasi Pantai Premium',
+            activities: [
+              '08:00 - Sarapan sehat',
+              '09:00 - Eksplorasi Pantai Legon Pari',
+              '11:00 - Snorkeling di Karang Bokor',
+              '13:00 - Makan siang sehat',
+              '15:00 - Sunset di Bukit Cinta',
+              '17:00 - Makan malam premium'
+            ]
+          },
+          {
+            day: 4,
+            title: 'Petualangan Terakhir Premium',
+            activities: [
+              '08:00 - Sarapan premium',
+              '09:00 - Eksplorasi Pasir Putih',
+              '10:00 - Snorkeling di Karang Taraje',
+              '12:00 - Makan siang premium di warung lokal',
+              '14:00 - Check-out dan transfer',
+              '15:00 - Perjalanan pulang dengan kenangan indah'
+            ]
+          }
+        ]
+      },
       terms: [
         'Check-in: 15:00 WIB',
         'Check-out: 12:00 WIB',
@@ -329,15 +541,19 @@ const PackageDetail = () => {
       ],
       seasonalPricing: {
         regular: { multiplier: 1.0, description: 'Harga Normal' },
-        weekend: { multiplier: 1.3, description: 'Harga Weekend' },
-        peak: { multiplier: 1.8, description: 'Harga Peak Season (Juni-Agustus)' }
+        weekend: { multiplier: 1.1, description: 'Harga Weekend' },
+        peak: { multiplier: 1.3, description: 'Harga Peak Season (Juni-Agustus)' }
       },
       
       addOns: {
-        'spa-treatment': { name: 'Spa Treatment', price: 300000, description: 'Relaksasi spa premium' },
-        'private-chef': { name: 'Private Chef', price: 500000, description: 'Chef pribadi untuk makan malam' },
-        'helicopter-tour': { name: 'Helicopter Tour', price: 1500000, description: 'Tour helikopter ke destinasi premium' },
-        'beach-dinner': { name: 'Beach Dinner', price: 400000, description: 'Makan malam romantis di pantai' }
+        'extra-bed': { name: 'Tempat Tidur Tambahan', price: 50000, description: 'Untuk tamu tambahan' },
+        'airport-transfer': { name: 'Jemput Bandara', price: 400000, description: 'PP dari Bandara Soekarno-Hatta' },
+        'guided-tour': { name: 'Tour Guide', price: 150000, description: 'Pemandu wisata lokal' },
+        'campfire': { name: 'Api Unggun', price: 150000, description: 'Api unggun di pantai' },
+        'live-music': { name: 'Organ + 2 Singer', price: 1200000, description: 'Hiburan musik live dengan organ dan 2 penyanyi' },
+        'barbaque-standard': { name: 'Barbaque Standar', price: 120000, description: 'Paket barbaque standar' },
+        'barbaque-medium': { name: 'Barbaque Medium', price: 300000, description: 'Paket barbaque medium' },
+        'kambing-guling': { name: 'Kambing Guling', price: 1250000, description: 'Kambing guling utuh' }
       }
     }
   };
@@ -374,9 +590,10 @@ const PackageDetail = () => {
      const calculateTotalPrice = () => {
      let total = 0;
      
-     // Paket makan - HARUS dikalikan jumlah tamu (setiap orang butuh makan)
+     // Paket makan - HARUS dikalikan jumlah tamu DAN durasi menginap
      const mealPrice = currentPackage.mealPlans[selectedMealPlan as keyof typeof currentPackage.mealPlans].price;
-     total += mealPrice * guestCount;
+     const duration = parseInt(selectedDuration);
+     total += mealPrice * guestCount * duration;
      
      // Durasi menginap - Harga kamar tetap, tidak dikalikan jumlah tamu
      const durationPrice = getTotalDurationPrice(selectedDuration, guestCount);
@@ -414,14 +631,16 @@ const PackageDetail = () => {
     const basePrice = currentPackage.duration[duration as keyof typeof currentPackage.duration].price;
     const maxGuests = roomCapacity[id as keyof typeof roomCapacity];
     
-    // Harga kamar tetap, dibagi rata per tamu
-    // Semakin banyak tamu, semakin murah per orang
+    // Harga kamar tetap per kamar, tidak dibagi per tamu
+    // 1-4 orang = 1 kamar, 5+ orang = 2 kamar atau lebih
     if (guestCount <= maxGuests) {
+      // Harga per orang = harga kamar / jumlah tamu (semakin banyak tamu, semakin murah per orang)
       return Math.round(basePrice / guestCount);
     } else {
-      // Jika lebih dari 4 orang, perlu kamar tambahan
+      // Jika lebih dari kapasitas kamar, perlu kamar tambahan
       const requiredRooms = Math.ceil(guestCount / maxGuests);
-      return Math.round((basePrice * requiredRooms) / guestCount);
+      const totalPrice = basePrice * requiredRooms;
+      return Math.round(totalPrice / guestCount);
     }
   };
 
@@ -431,13 +650,52 @@ const PackageDetail = () => {
     const maxGuests = roomCapacity[id as keyof typeof roomCapacity];
     
     if (guestCount <= maxGuests) {
-      // 1 kamar untuk semua tamu
+      // 1 kamar untuk semua tamu (1-4 orang)
       return basePrice;
     } else {
-      // Perlu kamar tambahan
+      // Perlu kamar tambahan (5+ orang)
       const requiredRooms = Math.ceil(guestCount / maxGuests);
       return basePrice * requiredRooms;
     }
+  };
+
+  // Fungsi untuk mendapatkan detail perhitungan harga
+  const getPriceBreakdown = () => {
+    const basePrice = currentPackage.duration[selectedDuration as keyof typeof currentPackage.duration].price;
+    const maxGuests = roomCapacity[id as keyof typeof roomCapacity];
+    const mealPrice = currentPackage.mealPlans[selectedMealPlan as keyof typeof currentPackage.mealPlans].price;
+    const requiredRooms = Math.ceil(guestCount / maxGuests);
+    
+    return {
+      accommodation: {
+        basePrice: basePrice,
+        requiredRooms: requiredRooms,
+        totalPrice: basePrice * requiredRooms,
+        pricePerPerson: Math.round((basePrice * requiredRooms) / guestCount),
+        explanation: guestCount <= maxGuests 
+          ? `${guestCount} orang dalam 1 kamar (kapasitas maksimal ${maxGuests} orang)`
+          : `${guestCount} orang memerlukan ${requiredRooms} kamar (${maxGuests} orang per kamar)`
+      },
+      meals: {
+        pricePerPerson: mealPrice,
+        totalPrice: mealPrice * guestCount * parseInt(selectedDuration),
+        explanation: `Paket makan ${selectedMealPlan} untuk ${guestCount} orang × ${selectedDuration} hari = ${mealPrice * guestCount * parseInt(selectedDuration)}`
+      },
+      season: currentPackage.seasonalPricing && selectedSeason !== 'regular' 
+        ? {
+            multiplier: currentPackage.seasonalPricing[selectedSeason as keyof typeof currentPackage.seasonalPricing].multiplier,
+            description: currentPackage.seasonalPricing[selectedSeason as keyof typeof currentPackage.seasonalPricing].description
+          }
+        : null,
+      addOns: selectedAddOns.map(addonKey => {
+        const addon = currentPackage.addOns[addonKey as keyof typeof currentPackage.addOns] as { name: string; price: number; description: string };
+        return {
+          name: addon.name,
+          price: addon.price,
+          description: addon.description
+        };
+      })
+    };
   };
 
   const metaTitle = `${currentPackage.name} - Detail Paket Menginap Sawarna`;
@@ -551,11 +809,29 @@ const PackageDetail = () => {
              <p className="text-gray-600 dark:text-gray-300 mb-2">
                Hitung total biaya dengan detail lengkap sesuai kebutuhan Anda
              </p>
-                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-3 max-w-2xl mx-auto">
-                 <p className="text-sm text-blue-700 dark:text-blue-300">
-                   <strong>Info Penting:</strong> Paket makan dikalikan jumlah tamu, durasi menginap menggunakan sistem "harga kamar tetap". 
-                   Semakin banyak tamu dalam 1 kamar, semakin murah harga per orang. Maksimal 4 orang per kamar.
-                 </p>
+                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4 max-w-3xl mx-auto">
+                 <div className="text-sm text-blue-700 dark:text-blue-300 space-y-2">
+                   <div className="font-bold text-base mb-2">📋 Cara Perhitungan Harga:</div>
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                     <div>
+                       <div className="font-semibold">🏨 Akomodasi (Harga Kamar Tetap):</div>
+                       <div className="text-xs mt-1">
+                         • 1-4 orang = 1 kamar (harga sama)<br/>
+                         • 5-8 orang = 2 kamar (harga 2x lipat)<br/>
+                         • 9-12 orang = 3 kamar (harga 3x lipat)<br/>
+                         • Semakin banyak tamu per kamar, semakin murah per orang
+                       </div>
+                     </div>
+                     <div>
+                       <div className="font-semibold">🍽️ Paket Makan:</div>
+                       <div className="text-xs mt-1">
+                         • Dikalikan jumlah tamu<br/>
+                         • Setiap orang mendapat paket makan lengkap<br/>
+                         • Harga per orang tetap sama
+                       </div>
+                     </div>
+                   </div>
+                 </div>
                </div>
            </div>
 
@@ -631,6 +907,9 @@ const PackageDetail = () => {
                            <div className="text-xs text-blue-600 dark:text-blue-400 mt-1">
                              Harga per orang: Rp {getDurationPriceByGuests(days, guestCount).toLocaleString('id-ID')}
                            </div>
+                           <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                             Total: Rp {getTotalDurationPrice(days, guestCount).toLocaleString('id-ID')} ({getRequiredRooms()} kamar)
+                           </div>
                          </div>
                          <div className="text-right sm:text-left sm:min-w-[120px]">
                            <div className="text-lg lg:text-xl font-bold text-ocean dark:text-ocean-light">
@@ -689,11 +968,21 @@ const PackageDetail = () => {
                         <div className="text-xs text-green-600 dark:text-green-400 mt-1">
                           Harga per orang: Rp {getDurationPriceByGuests(selectedDuration, guestCount).toLocaleString('id-ID')}
                         </div>
+                        {(() => {
+                          const breakdown = getPriceBreakdown();
+                          return (
+                            <div className="text-xs text-gray-600 dark:text-gray-400 mt-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                              <div className="font-medium mb-1">Detail Perhitungan:</div>
+                              <div>• {breakdown.accommodation.explanation}</div>
+                              <div>• Harga kamar: Rp {breakdown.accommodation.basePrice.toLocaleString('id-ID')}</div>
                         {getRequiredRooms() > 1 && (
-                          <div className="text-xs text-orange-600 dark:text-orange-400 mt-1 font-medium">
-                            ⚠️ Memerlukan {getRequiredRooms()} kamar
+                                <div className="text-orange-600 font-medium mt-1">
+                                  ⚠️ Memerlukan {getRequiredRooms()} kamar (harga 2x lipat)
                           </div>
                         )}
+                            </div>
+                          );
+                        })()}
                         {guestCount >= 12 && (
                           <div className="text-xs text-red-600 dark:text-red-400 mt-1 font-medium">
                             🚫 Maksimal 12 tamu (3 kamar)
@@ -827,23 +1116,45 @@ const PackageDetail = () => {
                  <CardContent className="space-y-4">
                                        {/* Breakdown Harga */}
                     <div className="space-y-3 bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
+                      {(() => {
+                        const breakdown = getPriceBreakdown();
+                        return (
+                          <>
+                            {/* Akomodasi */}
+                            <div className="space-y-2">
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-600 dark:text-gray-400">
-                          Paket Makan ({selectedMealPlan}) × {guestCount} orang
+                                <span className="text-gray-600 dark:text-gray-400 font-medium">
+                                  Akomodasi ({selectedDuration} hari)
                         </span>
                         <span className="font-medium">
-                          Rp {(currentPackage.mealPlans[selectedMealPlan as keyof typeof currentPackage.mealPlans].price * guestCount).toLocaleString('id-ID')}
+                                  Rp {breakdown.accommodation.totalPrice.toLocaleString('id-ID')}
                         </span>
+                              </div>
+                              <div className="text-xs text-gray-500 dark:text-gray-400 pl-2">
+                                {breakdown.accommodation.explanation}
+                              </div>
+                              <div className="text-xs text-gray-500 dark:text-gray-400 pl-2">
+                                Rp {breakdown.accommodation.pricePerPerson.toLocaleString('id-ID')} per orang
+                              </div>
                       </div>
                       
+                            {/* Paket Makan */}
+                            <div className="space-y-2">
                                              <div className="flex justify-between text-sm">
-                         <span className="text-gray-600 dark:text-gray-400">
-                           Durasi ({selectedDuration} hari) - {getRequiredRooms()} kamar
+                                <span className="text-gray-600 dark:text-gray-400 font-medium">
+                                  Paket Makan ({selectedMealPlan})
                          </span>
                          <span className="font-medium">
-                           Rp {getTotalDurationPrice(selectedDuration, guestCount).toLocaleString('id-ID')}
+                                  Rp {breakdown.meals.totalPrice.toLocaleString('id-ID')}
                          </span>
                        </div>
+                              <div className="text-xs text-gray-500 dark:text-gray-400 pl-2">
+                                {breakdown.meals.explanation}
+                              </div>
+                            </div>
+                          </>
+                        );
+                      })()}
 
                       
 
@@ -894,12 +1205,25 @@ const PackageDetail = () => {
                    {/* CTA Buttons */}
                    <div className="space-y-3 pt-4">
                      <a href={`https://wa.me/6283877080088?text=${encodeURIComponent(`Halo VillaSawarna, saya tertarik dengan ${currentPackage.name} dengan konfigurasi:
+
+📋 Detail Paket:
 • Paket makan: ${selectedMealPlan}
 • Durasi: ${selectedDuration} hari
 • Jumlah tamu: ${guestCount} orang
 • Musim: ${selectedSeason === 'regular' ? 'Normal' : selectedSeason === 'weekend' ? 'Weekend' : 'Peak Season'}
-• Add-ons: ${selectedAddOns.length > 0 ? selectedAddOns.map(key => (currentPackage.addOns[key as keyof typeof currentPackage.addOns] as { name: string; price: number; description: string }).name).join(', ') : 'Tidak ada'}
-• Total biaya: Rp ${calculateTotalPrice().toLocaleString('id-ID')}
+
+🏨 Detail Akomodasi:
+• ${guestCount} orang memerlukan ${getRequiredRooms()} kamar
+• Harga per orang: Rp ${getDurationPriceByGuests(selectedDuration, guestCount).toLocaleString('id-ID')}
+• Total akomodasi: Rp ${getTotalDurationPrice(selectedDuration, guestCount).toLocaleString('id-ID')}
+
+🍽️ Detail Makan:
+• Paket makan ${selectedMealPlan} untuk ${guestCount} orang × ${selectedDuration} hari
+• Total makan: Rp ${(currentPackage.mealPlans[selectedMealPlan as keyof typeof currentPackage.mealPlans].price * guestCount * parseInt(selectedDuration)).toLocaleString('id-ID')}
+
+${selectedAddOns.length > 0 ? `🔧 Layanan Tambahan: ${selectedAddOns.map(key => (currentPackage.addOns[key as keyof typeof currentPackage.addOns] as { name: string; price: number; description: string }).name).join(', ')}` : ''}
+
+💰 Total Biaya: Rp ${calculateTotalPrice().toLocaleString('id-ID')}
 
 Mohon info ketersediaan dan proses pemesanan.`)}`} target="_blank" rel="noopener noreferrer">
                        <Button className="w-full bg-green-600 hover:bg-green-700 text-lg py-3 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
@@ -943,22 +1267,42 @@ Mohon info ketersediaan dan proses pemesanan.`)}`} target="_blank" rel="noopener
                         </tr>
                       </thead>
                                              <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                         {(() => {
+                           const breakdown = getPriceBreakdown();
+                           return (
+                             <>
+                               {/* Akomodasi */}
                          <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                            <td className="py-3 text-gray-700 dark:text-gray-300">
-                             Paket Makan ({selectedMealPlan}) × {guestCount} orang
+                                   <div>
+                                     <div className="font-medium">Akomodasi ({selectedDuration} hari)</div>
+                                     <div className="text-xs text-gray-500 mt-1">
+                                       {breakdown.accommodation.explanation}
+                                     </div>
+                                   </div>
                            </td>
-                           <td className="text-right">Rp {currentPackage.mealPlans[selectedMealPlan as keyof typeof currentPackage.mealPlans].price.toLocaleString('id-ID')}</td>
-                           <td className="text-right">{guestCount}.0x</td>
-                           <td className="text-right font-medium">Rp {(currentPackage.mealPlans[selectedMealPlan as keyof typeof currentPackage.mealPlans].price * guestCount).toLocaleString('id-ID')}</td>
+                                 <td className="text-right">Rp {breakdown.accommodation.basePrice.toLocaleString('id-ID')}</td>
+                                 <td className="text-right">{breakdown.accommodation.requiredRooms}.0x</td>
+                                 <td className="text-right font-medium">Rp {breakdown.accommodation.totalPrice.toLocaleString('id-ID')}</td>
                          </tr>
+                               
+                               {/* Paket Makan */}
                                                                               <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                              <td className="py-3 text-gray-700 dark:text-gray-300">
-                               Durasi ({selectedDuration} hari) - {getRequiredRooms()} kamar
+                                   <div>
+                                     <div className="font-medium">Paket Makan ({selectedMealPlan})</div>
+                                     <div className="text-xs text-gray-500 mt-1">
+                                       {breakdown.meals.explanation}
+                                     </div>
+                                   </div>
                              </td>
-                             <td className="text-right">Rp {currentPackage.duration[selectedDuration as keyof typeof currentPackage.duration].price.toLocaleString('id-ID')}</td>
-                             <td className="text-right">{getRequiredRooms()}.0x</td>
-                             <td className="text-right font-medium">Rp {getTotalDurationPrice(selectedDuration, guestCount).toLocaleString('id-ID')}</td>
+                                 <td className="text-right">Rp {breakdown.meals.pricePerPerson.toLocaleString('id-ID')}</td>
+                                 <td className="text-right">{guestCount} × {selectedDuration} hari</td>
+                                 <td className="text-right font-medium">Rp {breakdown.meals.totalPrice.toLocaleString('id-ID')}</td>
                            </tr>
+                             </>
+                           );
+                         })()}
                          
                         {currentPackage.seasonalPricing && selectedSeason !== 'regular' && (
                           <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
@@ -1015,18 +1359,17 @@ Mohon info ketersediaan dan proses pemesanan.`)}`} target="_blank" rel="noopener
             </p>
           </div>
 
-                                                                                                 <div className="space-y-6">
              {(() => {
                // Handle different itinerary structures
                let itineraryData: Array<{day: number; title: string; activities: string[]}> = [];
                
                try {
                  if (typeof currentPackage.itinerary === 'object' && currentPackage.itinerary !== null) {
-                   // For budget-1 package (has nested structure)
+                // For packages with nested structure
                    if (currentPackage.itinerary[selectedDuration] && Array.isArray(currentPackage.itinerary[selectedDuration])) {
                      itineraryData = currentPackage.itinerary[selectedDuration];
                    } else if (Array.isArray(currentPackage.itinerary)) {
-                     // For other packages (has direct array structure)
+                  // For packages with direct array structure
                      itineraryData = currentPackage.itinerary;
                    }
                  }
@@ -1040,30 +1383,55 @@ Mohon info ketersediaan dan proses pemesanan.`)}`} target="_blank" rel="noopener
                  itineraryData = [];
                }
                
-               return itineraryData.map((day) => (
-                 <Card key={day.day} className="border border-gray-200 dark:border-gray-700">
+            return (
+              <Tabs defaultValue="day-1" className="w-full">
+                <TabsList className={`grid w-full mb-8 ${itineraryData.length === 1 ? 'grid-cols-1' : itineraryData.length === 2 ? 'grid-cols-2' : itineraryData.length === 3 ? 'grid-cols-3' : 'grid-cols-4'}`}>
+                  {itineraryData.map((day) => (
+                    <TabsTrigger 
+                      key={day.day} 
+                      value={`day-${day.day}`}
+                      className="flex items-center gap-2"
+                    >
+                      <div className="w-6 h-6 rounded-full bg-ocean text-white flex items-center justify-center text-xs font-bold">
+                        {day.day}
+                      </div>
+                      <span className="hidden sm:inline">Hari {day.day}</span>
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+                
+                {itineraryData.map((day) => (
+                  <TabsContent key={day.day} value={`day-${day.day}`}>
+                    <Card className="border border-gray-200 dark:border-gray-700">
                    <CardHeader>
                      <CardTitle className="flex items-center gap-3">
-                       <div className="w-10 h-10 rounded-full bg-ocean text-white flex items-center justify-center font-bold">
+                          <div className="w-12 h-12 rounded-full bg-ocean text-white flex items-center justify-center font-bold text-lg">
                          {day.day}
                        </div>
-                       <span className="text-xl">{day.title}</span>
+                          <div>
+                            <span className="text-2xl font-bold text-gray-900 dark:text-white">{day.title}</span>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                              Hari ke-{day.day} dari {selectedDuration} hari perjalanan
+                            </p>
+                          </div>
                      </CardTitle>
                    </CardHeader>
                     <CardContent>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {day.activities.map((activity, index) => (
-                          <div key={index} className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                            <Clock className="w-4 h-4 text-gray-400 mt-1 flex-shrink-0" />
-                            <span className="text-gray-700 dark:text-gray-300 text-sm">{activity}</span>
+                            <div key={index} className="flex items-start gap-3 p-4 bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-800 dark:to-blue-900/20 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow">
+                              <Clock className="w-5 h-5 text-ocean mt-1 flex-shrink-0" />
+                              <span className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">{activity}</span>
                           </div>
                         ))}
                       </div>
                     </CardContent>
                  </Card>
-               ));
+                  </TabsContent>
+                ))}
+              </Tabs>
+            );
              })()}
-            </div>
         </div>
       </section>
 
