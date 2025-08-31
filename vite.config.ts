@@ -14,8 +14,24 @@ export default defineConfig({
     hmr: {
       host: 'localhost',
       protocol: 'ws',
-      overlay: true
-    }
+      overlay: true,
+      // Optimize HMR for faster updates
+      timeout: 30000
+    },
+    // Optimize for faster development
+    watch: {
+      usePolling: false,
+      interval: 200,
+      // Ignore certain files to reduce watching overhead
+      ignored: ['**/node_modules/**', '**/dist/**', '**/.git/**']
+    },
+    // Reduce memory usage
+    fs: {
+      strict: false,
+      allow: ['..']
+    },
+    // Optimize middleware
+    middlewareMode: false
   },
   plugins: [
     react(),
@@ -58,8 +74,17 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['react', 'react-dom'],
-    exclude: ['@vitejs/plugin-react']
+    include: [
+      'react', 
+      'react-dom',
+      'lucide-react',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-navigation-menu',
+      'react-router-dom'
+    ],
+    exclude: ['@vitejs/plugin-react'],
+    // Force pre-bundling for faster startup
+    force: false
   },
   build: {
     commonjsOptions: {

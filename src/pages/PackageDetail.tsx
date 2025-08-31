@@ -39,12 +39,9 @@ const PackageDetail = () => {
   const [checkInDate, setCheckInDate] = useState('');
   const [showPriceBreakdown, setShowPriceBreakdown] = useState(false);
   
-  // Kapasitas maksimal per kamar untuk setiap paket
-  const roomCapacity = {
-    'budget-1': 100,    // Kamar backpacker maksimal 100 orang
-    'budget-2': 100,    // Kamar keluarga maksimal 100 orang
-    'standard-1': 100   // Villa premium maksimal 100 orang
-  };
+  // Kapasitas maksimal per kamar dan total tamu untuk setiap paket
+  const maxGuestsPerRoom = 4; // Maksimal 4 orang per kamar
+  const maxTotalGuests = 100; // Total maksimal tamu yang bisa ditampung
 
   // Auto-detect season based on date
   useEffect(() => {
@@ -208,7 +205,6 @@ const PackageDetail = () => {
       
       addOns: {
         'extra-bed': { name: 'Tempat Tidur Tambahan', price: 50000, description: 'Untuk tamu tambahan' },
-        'airport-transfer': { name: 'Jemput Bandara', price: 250000, description: 'PP dari Bandara Soekarno-Hatta' },
         'guided-tour': { name: 'Tour Guide', price: 150000, description: 'Pemandu wisata lokal' },
         'campfire': { name: 'Api Unggun', price: 150000, description: 'Api unggun di pantai' },
         'live-music': { name: 'Organ + 2 Singer', price: 1200000, description: 'Hiburan musik live dengan organ dan 2 penyanyi' },
@@ -264,8 +260,8 @@ const PackageDetail = () => {
             activities: [
               '14:00 - Check-in dan istirahat',
               '16:00 - Jalan-jalan ke Pantai Sawarna (aman untuk anak)',
-              '18:00 - Makan malam keluarga'
-            ]
+            '18:00 - Makan malam keluarga'
+          ]
         },
         {
           day: 2,
@@ -375,7 +371,6 @@ const PackageDetail = () => {
       
       addOns: {
         'extra-bed': { name: 'Tempat Tidur Tambahan', price: 50000, description: 'Untuk tamu tambahan' },
-        'airport-transfer': { name: 'Jemput Bandara', price: 300000, description: 'PP dari Bandara Soekarno-Hatta' },
         'guided-tour': { name: 'Tour Guide', price: 150000, description: 'Pemandu wisata lokal' },
         'campfire': { name: 'Api Unggun', price: 150000, description: 'Api unggun di pantai' },
         'live-music': { name: 'Organ + 2 Singer', price: 1200000, description: 'Hiburan musik live dengan organ dan 2 penyanyi' },
@@ -547,7 +542,6 @@ const PackageDetail = () => {
       
       addOns: {
         'extra-bed': { name: 'Tempat Tidur Tambahan', price: 50000, description: 'Untuk tamu tambahan' },
-        'airport-transfer': { name: 'Jemput Bandara', price: 400000, description: 'PP dari Bandara Soekarno-Hatta' },
         'guided-tour': { name: 'Tour Guide', price: 150000, description: 'Pemandu wisata lokal' },
         'campfire': { name: 'Api Unggun', price: 150000, description: 'Api unggun di pantai' },
         'live-music': { name: 'Organ + 2 Singer', price: 1200000, description: 'Hiburan musik live dengan organ dan 2 penyanyi' },
@@ -618,27 +612,26 @@ const PackageDetail = () => {
 
   // Fungsi untuk menghitung jumlah kamar yang diperlukan
   const getRequiredRooms = () => {
-    return Math.ceil(guestCount / roomCapacity[id as keyof typeof roomCapacity]);
+    return Math.ceil(guestCount / maxGuestsPerRoom);
   };
 
   // Fungsi untuk mendapatkan kapasitas kamar saat ini
   const getCurrentRoomCapacity = () => {
-    return roomCapacity[id as keyof typeof roomCapacity];
+    return maxGuestsPerRoom;
   };
 
   // Fungsi untuk menghitung harga durasi berdasarkan jumlah tamu
   const getDurationPriceByGuests = (duration: string, guestCount: number) => {
     const basePrice = currentPackage.duration[duration as keyof typeof currentPackage.duration].price;
-    const maxGuests = roomCapacity[id as keyof typeof roomCapacity];
     
     // Harga kamar tetap per kamar, tidak dibagi per tamu
     // 1-4 orang = 1 kamar, 5+ orang = 2 kamar atau lebih
-    if (guestCount <= maxGuests) {
+    if (guestCount <= maxGuestsPerRoom) {
       // Harga per orang = harga kamar / jumlah tamu (semakin banyak tamu, semakin murah per orang)
       return Math.round(basePrice / guestCount);
     } else {
       // Jika lebih dari kapasitas kamar, perlu kamar tambahan
-      const requiredRooms = Math.ceil(guestCount / maxGuests);
+      const requiredRooms = Math.ceil(guestCount / maxGuestsPerRoom);
       const totalPrice = basePrice * requiredRooms;
       return Math.round(totalPrice / guestCount);
     }
@@ -647,14 +640,13 @@ const PackageDetail = () => {
   // Fungsi untuk menghitung total harga durasi
   const getTotalDurationPrice = (duration: string, guestCount: number) => {
     const basePrice = currentPackage.duration[duration as keyof typeof currentPackage.duration].price;
-    const maxGuests = roomCapacity[id as keyof typeof roomCapacity];
     
-    if (guestCount <= maxGuests) {
+    if (guestCount <= maxGuestsPerRoom) {
       // 1 kamar untuk semua tamu (1-4 orang)
       return basePrice;
     } else {
       // Perlu kamar tambahan (5+ orang)
-      const requiredRooms = Math.ceil(guestCount / maxGuests);
+      const requiredRooms = Math.ceil(guestCount / maxGuestsPerRoom);
       return basePrice * requiredRooms;
     }
   };
@@ -662,9 +654,8 @@ const PackageDetail = () => {
   // Fungsi untuk mendapatkan detail perhitungan harga
   const getPriceBreakdown = () => {
     const basePrice = currentPackage.duration[selectedDuration as keyof typeof currentPackage.duration].price;
-    const maxGuests = roomCapacity[id as keyof typeof roomCapacity];
     const mealPrice = currentPackage.mealPlans[selectedMealPlan as keyof typeof currentPackage.mealPlans].price;
-    const requiredRooms = Math.ceil(guestCount / maxGuests);
+    const requiredRooms = Math.ceil(guestCount / maxGuestsPerRoom);
     
     return {
       accommodation: {
@@ -672,9 +663,9 @@ const PackageDetail = () => {
         requiredRooms: requiredRooms,
         totalPrice: basePrice * requiredRooms,
         pricePerPerson: Math.round((basePrice * requiredRooms) / guestCount),
-        explanation: guestCount <= maxGuests 
-          ? `${guestCount} orang dalam 1 kamar (kapasitas maksimal ${maxGuests} orang)`
-          : `${guestCount} orang memerlukan ${requiredRooms} kamar (${maxGuests} orang per kamar)`
+        explanation: guestCount <= maxGuestsPerRoom 
+          ? `${guestCount} orang dalam 1 kamar (kapasitas maksimal ${maxGuestsPerRoom} orang)`
+          : `${guestCount} orang memerlukan ${requiredRooms} kamar (${maxGuestsPerRoom} orang per kamar)`
       },
       meals: {
         pricePerPerson: mealPrice,
@@ -816,9 +807,9 @@ const PackageDetail = () => {
                      <div>
                        <div className="font-semibold">🏨 Akomodasi (Harga Kamar Tetap):</div>
                        <div className="text-xs mt-1">
-                         • 1-4 orang = 1 kamar (harga sama)<br/>
-                         • 5-8 orang = 2 kamar (harga 2x lipat)<br/>
-                         • 9-12 orang = 3 kamar (harga 3x lipat)<br/>
+                         • 1-{maxGuestsPerRoom} orang = 1 kamar (harga sama)<br/>
+                         • {maxGuestsPerRoom + 1}-{maxGuestsPerRoom * 2} orang = 2 kamar (harga 2x lipat/2hari)<br/>
+                         • {maxGuestsPerRoom * 2 + 1}-{maxGuestsPerRoom * 3} orang = 3 kamar (harga 3x lipat/3hari)<br/>
                          • Semakin banyak tamu per kamar, semakin murah per orang
                        </div>
                      </div>
@@ -910,6 +901,9 @@ const PackageDetail = () => {
                            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                              Total: Rp {getTotalDurationPrice(days, guestCount).toLocaleString('id-ID')} ({getRequiredRooms()} kamar)
                            </div>
+                           <div className="text-xs text-coral dark:text-coral-light mt-1 font-medium">
+                             Total per orang: Rp {Math.round((getTotalDurationPrice(days, guestCount) + (currentPackage.mealPlans[selectedMealPlan as keyof typeof currentPackage.mealPlans].price * guestCount * parseInt(days))) / guestCount).toLocaleString('id-ID')}
+                           </div>
                          </div>
                          <div className="text-right sm:text-left sm:min-w-[120px]">
                            <div className="text-lg lg:text-xl font-bold text-ocean dark:text-ocean-light">
@@ -949,7 +943,7 @@ const PackageDetail = () => {
                           variant="outline"
                           size="sm"
                           onClick={() => setGuestCount(guestCount + 1)}
-                          disabled={guestCount >= 12} // Maksimal 12 tamu (3 kamar × 4 orang)
+                          disabled={guestCount >= maxTotalGuests} // Maksimal 100 tamu
                           className="w-10 h-10 rounded-full p-0 text-lg font-bold hover:bg-ocean hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           +
@@ -968,6 +962,9 @@ const PackageDetail = () => {
                         <div className="text-xs text-green-600 dark:text-green-400 mt-1">
                           Harga per orang: Rp {getDurationPriceByGuests(selectedDuration, guestCount).toLocaleString('id-ID')}
                         </div>
+                        <div className="text-xs text-coral dark:text-coral-light mt-1 font-medium">
+                          Total per orang: Rp {Math.round(calculateTotalPrice() / guestCount).toLocaleString('id-ID')}
+                        </div>
                         {(() => {
                           const breakdown = getPriceBreakdown();
                           return (
@@ -977,15 +974,15 @@ const PackageDetail = () => {
                               <div>• Harga kamar: Rp {breakdown.accommodation.basePrice.toLocaleString('id-ID')}</div>
                         {getRequiredRooms() > 1 && (
                                 <div className="text-orange-600 font-medium mt-1">
-                                  ⚠️ Memerlukan {getRequiredRooms()} kamar (harga 2x lipat)
+                                  ⚠️ Memerlukan {getRequiredRooms()} kamar (harga {getRequiredRooms()}x lipat/{selectedDuration}hari)
                           </div>
                         )}
                             </div>
                           );
                         })()}
-                        {guestCount >= 12 && (
+                        {guestCount >= maxTotalGuests && (
                           <div className="text-xs text-red-600 dark:text-red-400 mt-1 font-medium">
-                            🚫 Maksimal 12 tamu (3 kamar)
+                            🚫 Maksimal {maxTotalGuests} tamu
                           </div>
                         )}
                       </div>
@@ -1195,6 +1192,9 @@ const PackageDetail = () => {
                          <div className="text-2xl lg:text-3xl font-bold text-ocean dark:text-ocean-light">
                            Rp {calculateTotalPrice().toLocaleString('id-ID')}
                          </div>
+                         <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                           Harga per orang: Rp {Math.round(calculateTotalPrice() / guestCount).toLocaleString('id-ID')}
+                         </div>
                          <div className="text-xs text-gray-500 mt-1">
                            *Harga sudah termasuk semua biaya dan layanan
                          </div>
@@ -1224,6 +1224,7 @@ const PackageDetail = () => {
 ${selectedAddOns.length > 0 ? `🔧 Layanan Tambahan: ${selectedAddOns.map(key => (currentPackage.addOns[key as keyof typeof currentPackage.addOns] as { name: string; price: number; description: string }).name).join(', ')}` : ''}
 
 💰 Total Biaya: Rp ${calculateTotalPrice().toLocaleString('id-ID')}
+💵 Harga per orang: Rp ${Math.round(calculateTotalPrice() / guestCount).toLocaleString('id-ID')}
 
 Mohon info ketersediaan dan proses pemesanan.`)}`} target="_blank" rel="noopener noreferrer">
                        <Button className="w-full bg-green-600 hover:bg-green-700 text-lg py-3 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
@@ -1257,59 +1258,59 @@ Mohon info ketersediaan dan proses pemesanan.`)}`} target="_blank" rel="noopener
                 </CardHeader>
                 <CardContent>
                   <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
+                    <table className="w-full text-xs sm:text-sm">
                       <thead>
                         <tr className="border-b border-gray-200 dark:border-gray-600">
-                          <th className="text-left py-3 font-medium text-gray-700 dark:text-gray-300">Komponen</th>
-                          <th className="text-right py-3 font-medium text-gray-700 dark:text-gray-300">Harga Dasar</th>
-                          <th className="text-right py-3 font-medium text-gray-700 dark:text-gray-300">Multiplier</th>
-                          <th className="text-right py-3 font-medium text-gray-700 dark:text-gray-300">Subtotal</th>
+                          <th className="text-left py-2 sm:py-3 px-2 font-medium text-gray-700 dark:text-gray-300">Komponen</th>
+                          <th className="text-right py-2 sm:py-3 px-1 font-medium text-gray-700 dark:text-gray-300">Harga</th>
+                          <th className="text-right py-2 sm:py-3 px-1 font-medium text-gray-700 dark:text-gray-300">Mult</th>
+                          <th className="text-right py-2 sm:py-3 px-2 font-medium text-gray-700 dark:text-gray-300">Total</th>
                         </tr>
                       </thead>
-                                             <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                         {(() => {
-                           const breakdown = getPriceBreakdown();
-                           return (
-                             <>
-                               {/* Akomodasi */}
-                         <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                           <td className="py-3 text-gray-700 dark:text-gray-300">
-                                   <div>
-                                     <div className="font-medium">Akomodasi ({selectedDuration} hari)</div>
-                                     <div className="text-xs text-gray-500 mt-1">
-                                       {breakdown.accommodation.explanation}
-                                     </div>
-                                   </div>
-                           </td>
-                                 <td className="text-right">Rp {breakdown.accommodation.basePrice.toLocaleString('id-ID')}</td>
-                                 <td className="text-right">{breakdown.accommodation.requiredRooms}.0x</td>
-                                 <td className="text-right font-medium">Rp {breakdown.accommodation.totalPrice.toLocaleString('id-ID')}</td>
-                         </tr>
-                               
-                               {/* Paket Makan */}
-                                                                              <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                             <td className="py-3 text-gray-700 dark:text-gray-300">
-                                   <div>
-                                     <div className="font-medium">Paket Makan ({selectedMealPlan})</div>
-                                     <div className="text-xs text-gray-500 mt-1">
-                                       {breakdown.meals.explanation}
-                                     </div>
-                                   </div>
-                             </td>
-                                 <td className="text-right">Rp {breakdown.meals.pricePerPerson.toLocaleString('id-ID')}</td>
-                                 <td className="text-right">{guestCount} × {selectedDuration} hari</td>
-                                 <td className="text-right font-medium">Rp {breakdown.meals.totalPrice.toLocaleString('id-ID')}</td>
-                           </tr>
-                             </>
-                           );
-                         })()}
-                         
+                      <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                        {(() => {
+                          const breakdown = getPriceBreakdown();
+                          return (
+                            <>
+                              {/* Akomodasi */}
+                              <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                <td className="py-2 sm:py-3 px-2 text-gray-700 dark:text-gray-300">
+                                  <div>
+                                    <div className="font-medium text-xs sm:text-sm">Akomodasi ({selectedDuration}h)</div>
+                                    <div className="text-xs text-gray-500 mt-1 leading-tight">
+                                      {breakdown.accommodation.explanation}
+                                    </div>
+                                  </div>
+                                </td>
+                                <td className="text-right px-1 text-xs sm:text-sm">Rp {breakdown.accommodation.basePrice.toLocaleString('id-ID')}</td>
+                                <td className="text-right px-1 text-xs sm:text-sm">{breakdown.accommodation.requiredRooms}.0x</td>
+                                <td className="text-right px-2 font-medium text-xs sm:text-sm">Rp {breakdown.accommodation.totalPrice.toLocaleString('id-ID')}</td>
+                              </tr>
+                              
+                              {/* Paket Makan */}
+                              <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                <td className="py-2 sm:py-3 px-2 text-gray-700 dark:text-gray-300">
+                                  <div>
+                                    <div className="font-medium text-xs sm:text-sm">Makan ({selectedMealPlan})</div>
+                                    <div className="text-xs text-gray-500 mt-1 leading-tight">
+                                      {breakdown.meals.explanation}
+                                    </div>
+                                  </div>
+                                </td>
+                                <td className="text-right px-1 text-xs sm:text-sm">Rp {breakdown.meals.pricePerPerson.toLocaleString('id-ID')}</td>
+                                <td className="text-right px-1 text-xs sm:text-sm">{guestCount}×{selectedDuration}</td>
+                                <td className="text-right px-2 font-medium text-xs sm:text-sm">Rp {breakdown.meals.totalPrice.toLocaleString('id-ID')}</td>
+                              </tr>
+                            </>
+                          );
+                        })()}
+                        
                         {currentPackage.seasonalPricing && selectedSeason !== 'regular' && (
                           <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                            <td className="py-3 text-gray-700 dark:text-gray-300">Multiplier Musim</td>
-                            <td className="text-right">-</td>
-                            <td className="text-right">{currentPackage.seasonalPricing[selectedSeason as keyof typeof currentPackage.seasonalPricing].multiplier.toFixed(1)}x</td>
-                            <td className="text-right font-medium text-orange-600">
+                            <td className="py-2 sm:py-3 px-2 text-gray-700 dark:text-gray-300 text-xs sm:text-sm">Multiplier Musim</td>
+                            <td className="text-right px-1 text-xs sm:text-sm">-</td>
+                            <td className="text-right px-1 text-xs sm:text-sm">{currentPackage.seasonalPricing[selectedSeason as keyof typeof currentPackage.seasonalPricing].multiplier.toFixed(1)}x</td>
+                            <td className="text-right px-2 font-medium text-xs sm:text-sm text-orange-600">
                               +{Math.round((currentPackage.seasonalPricing[selectedSeason as keyof typeof currentPackage.seasonalPricing].multiplier - 1) * 100)}%
                             </td>
                           </tr>
@@ -1320,22 +1321,36 @@ Mohon info ketersediaan dan proses pemesanan.`)}`} target="_blank" rel="noopener
                               const addon = currentPackage.addOns[addonKey as keyof typeof currentPackage.addOns] as { name: string; price: number; description: string };
                               return (
                                 <tr key={addonKey} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                                  <td className="py-3 text-gray-700 dark:text-gray-300">{addon.name}</td>
-                                  <td className="text-right">Rp {addon.price.toLocaleString('id-ID')}</td>
-                                  <td className="text-right">1.0x</td>
-                                  <td className="text-right font-medium text-green-600">+Rp {addon.price.toLocaleString('id-ID')}</td>
+                                  <td className="py-2 sm:py-3 px-2 text-gray-700 dark:text-gray-300 text-xs sm:text-sm">{addon.name}</td>
+                                  <td className="text-right px-1 text-xs sm:text-sm">Rp {addon.price.toLocaleString('id-ID')}</td>
+                                  <td className="text-right px-1 text-xs sm:text-sm">1.0x</td>
+                                  <td className="text-right px-2 font-medium text-xs sm:text-sm text-green-600">+Rp {addon.price.toLocaleString('id-ID')}</td>
                                 </tr>
                               );
                             })}
                           </>
                         )}
                         <tr className="border-t-2 border-ocean dark:border-ocean-light font-bold bg-ocean/5 dark:bg-ocean/10">
-                          <td className="py-4 text-lg text-gray-900 dark:text-white">Total Biaya</td>
-                          <td className="text-right"></td>
-                          <td className="text-right"></td>
-                          <td className="text-right text-lg text-ocean dark:text-ocean-light">
+                          <td className="py-3 sm:py-4 px-2 text-base sm:text-lg text-gray-900 dark:text-white">Total Biaya</td>
+                          <td className="text-right px-1"></td>
+                          <td className="text-right px-1"></td>
+                          <td className="text-right px-2 text-base sm:text-lg text-ocean dark:text-ocean-light">
                             Rp {calculateTotalPrice().toLocaleString('id-ID')}
                           </td>
+                        </tr>
+                        <tr className="bg-gray-50 dark:bg-gray-800/50">
+                          <td className="py-2 sm:py-3 px-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">Harga per Orang</td>
+                          <td className="text-right px-1"></td>
+                          <td className="text-right px-1"></td>
+                          <td className="text-right px-2 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Rp {Math.round(calculateTotalPrice() / guestCount).toLocaleString('id-ID')}
+                          </td>
+                        </tr>
+                        <tr className="border-b-2 border-gray-300 dark:border-gray-600">
+                          <td className="py-3 sm:py-4"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
                       </tbody>
                     </table>

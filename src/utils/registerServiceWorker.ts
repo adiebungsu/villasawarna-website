@@ -107,33 +107,47 @@ class ServiceWorkerManager {
   }
 
   private startPeriodicChecks(): void {
-    // Check for updates more frequently (every 2 minutes)
+    // Completely disable all checks in development mode
+    if (import.meta.env.DEV) {
+      console.log('🛠️ Development mode detected, disabling all update checks');
+      return;
+    }
+
+    // Check for updates every 10 minutes (much less frequent)
     this.updateCheckInterval = setInterval(() => {
       this.checkForUpdates();
-    }, 2 * 60 * 1000);
+    }, 10 * 60 * 1000);
 
-    // Check version every 15 seconds (more aggressive)
+    // Check version every 5 minutes (much less aggressive)
     this.versionCheckInterval = setInterval(() => {
       this.checkVersion();
-    }, 15 * 1000);
+    }, 5 * 60 * 1000);
     
-    // Additional check on page focus (when user returns to tab)
+    // Only check on page focus if not in development
     document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) {
+      if (!document.hidden && !import.meta.env.DEV) {
         console.log('🔄 Page became visible, checking for updates...');
         this.checkForUpdates();
       }
     });
     
-    // Check on network status change
+    // Only check on network status change if not in development
     window.addEventListener('online', () => {
-      console.log('🔄 Network online, checking for updates...');
-      this.checkForUpdates();
+      if (!import.meta.env.DEV) {
+        console.log('🔄 Network online, checking for updates...');
+        this.checkForUpdates();
+      }
     });
   }
 
   private async checkForUpdates(): Promise<void> {
     if (!this.registration) return;
+    
+    // Skip update checks in development mode
+    if (import.meta.env.DEV) {
+      console.log('🛠️ Development mode: skipping update check');
+      return;
+    }
 
     try {
       console.log('🔍 Checking for Service Worker updates...');
@@ -175,6 +189,12 @@ class ServiceWorkerManager {
 
   private async checkVersion(): Promise<void> {
     if (!this.registration || !this.registration.active) return;
+    
+    // Skip version checks in development mode
+    if (import.meta.env.DEV) {
+      console.log('🛠️ Development mode: skipping version check');
+      return;
+    }
 
     try {
       const messageChannel = new MessageChannel();

@@ -5,6 +5,9 @@ const CACHE_VERSION = 'v1.0.1';
 const CACHE_NAME = `villa-sawarna-${CACHE_VERSION}`;
 const IMAGE_CACHE_NAME = `villa-images-${CACHE_VERSION}`;
 
+// Check if we're in development mode
+const isDevelopment = self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1';
+
 // Daftar URL yang harus di-cache saat instalasi
 const urlsToCache = [
   '/',
@@ -82,6 +85,33 @@ self.addEventListener('fetch', (event) => {
   // Skip non-GET requests
   if (event.request.method !== 'GET') return;
   
+  // In development mode, bypass cache for better debugging
+  if (isDevelopment) {
+    // Only cache images in development
+    if (event.request.destination === 'image') {
+      event.respondWith(
+        caches.open(IMAGE_CACHE_NAME).then((cache) => {
+          return cache.match(event.request).then((response) => {
+            if (response) {
+              return response;
+            }
+            return fetch(event.request).then((networkResponse) => {
+              if (networkResponse.ok) {
+                cache.put(event.request, networkResponse.clone());
+              }
+              return networkResponse;
+            });
+          });
+        })
+      );
+    } else {
+      // For non-images, always fetch from network in development
+      event.respondWith(fetch(event.request));
+    }
+    return;
+  }
+  
+  // Production mode - full caching strategy
   // Handle image requests with cache strategy
   if (event.request.destination === 'image') {
     event.respondWith(

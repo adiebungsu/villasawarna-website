@@ -82,6 +82,30 @@ const AccommodationPackages = () => {
       mealPlans: ['2x makan', '3x makan'],
       icon: Hotel
     },
+    'budget-3': {
+      id: 'budget-3',
+      name: 'Paket Backpacker Plus',
+      category: 'budget',
+      image: '/images/paket-backpaker.webp',
+      location: 'Kawasan Wisata Sawarna',
+      rating: 4.4,
+      reviewCount: 95,
+      description: 'Paket backpacker dengan fasilitas tambahan, ideal untuk traveler yang ingin lebih nyaman dengan budget terjangkau.',
+      features: [
+        'Kamar dengan kipas angin dan kamar mandi dalam',
+        'WiFi',
+        'Parkir motor gratis',
+        'Dekat pantai (3 menit jalan kaki)',
+        'Resepsionis 24 jam',
+        'Area duduk outdoor'
+      ],
+      capacity: '1-100 orang',
+      bestFor: 'Backpacker, budget traveler, group kecil',
+      amenities: ['Kipas angin', 'Kamar mandi dalam', 'Area duduk outdoor', 'Lokasi strategis'],
+      duration: ['1 hari', '2 hari', '3 hari'],
+      mealPlans: ['2x makan', '3x makan'],
+      icon: Tent
+    },
     'standard-1': {
       id: 'standard-1',
       name: 'Paket Lengkap',
@@ -108,14 +132,14 @@ const AccommodationPackages = () => {
 
   const renderStars = (rating: number) => {
     return (
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-0.5 md:gap-1">
         {[...Array(5)].map((_, i) => (
           <Star 
             key={i} 
-            className={`w-4 h-4 ${i < Math.floor(rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
+            className={`w-3 h-3 md:w-4 md:h-4 ${i < Math.floor(rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
           />
         ))}
-        <span className="ml-1 text-sm font-medium text-gray-600 dark:text-gray-400">
+        <span className="ml-0.5 md:ml-1 text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400">
           {rating}
         </span>
       </div>
@@ -126,12 +150,12 @@ const AccommodationPackages = () => {
     {
       id: 'pricing',
       question: 'Bagaimana cara kalkulasi harga paket?',
-      answer: 'Harga dihitung berdasarkan: (Harga Villa × Diskon Durasi × Multiplier Season) + (Harga Makan × Jumlah Hari). Diskon durasi mulai dari 5% untuk 2 hari hingga 15% untuk 5 hari. Multiplier season: Regular (1.0x), Weekend (1.15x), Peak Season (1.4x).'
+      answer: 'Harga dihitung berdasarkan: (Harga Villa × Diskon Durasi × Multiplier Season) + (Harga Makan × Jumlah Hari). Diskon durasi mulai dari 5% untuk 2 hari hingga 15% untuk 4 hari. Multiplier season: Regular (1.0x), Weekend (1.1x), Peak Season (1.3x).'
     },
     {
       id: 'booking',
-      question: 'Bagaimana cara memesan paket custom?',
-      answer: 'Setelah memilih komponen paket, klik tombol "Pesan Paket Custom" yang akan mengarahkan ke WhatsApp dengan detail lengkap paket Anda. Atau hubungi langsung via telepon untuk konsultasi lebih lanjut.'
+      question: 'Bagaimana cara memesan paket?',
+      answer: 'Pilih paket yang sesuai dengan kebutuhan Anda, lalu klik tombol "Pesan Sekarang" yang akan mengarahkan ke WhatsApp dengan detail lengkap paket. Atau hubungi langsung via telepon untuk konsultasi lebih lanjut.'
     },
     {
       id: 'cancellation',
@@ -146,12 +170,32 @@ const AccommodationPackages = () => {
     {
       id: 'season',
       question: 'Kapan peak season di Sawarna?',
-      answer: 'Peak season berlangsung Juni-Agustus dengan multiplier harga 1.4x. Weekend (Jumat-Minggu) multiplier 1.15x. Regular season (Januari-Mei, September-Desember) multiplier 1.0x.'
+      answer: 'Peak season berlangsung Juni-Agustus dengan multiplier harga 1.3x. Weekend (Jumat-Minggu) multiplier 1.1x. Regular season (Januari-Mei, September-Desember) multiplier 1.0x.'
     },
     {
       id: 'facilities',
-      question: 'Apa fasilitas yang tersedia di semua tipe akomodasi?',
-      answer: 'Semua tipe akomodasi dilengkapi AC, WiFi, kamar mandi dalam, dan sarapan. Fasilitas tambahan bervariasi sesuai tipe: Standard+ memiliki kolam renang, Premium+ memiliki view pantai, Luxury+ memiliki butler service.'
+      question: 'Apa fasilitas yang tersedia di Villa Sawarna?',
+      answer: 'Semua paket dilengkapi WiFi, kamar mandi dalam, dan akses ke pantai. Paket Backpacker menggunakan kipas angin, Paket Keluarga Hemat dan Paket Lengkap menggunakan AC. Semua paket dekat dengan pantai Sawarna yang indah.'
+    },
+    {
+      id: 'location',
+      question: 'Di mana lokasi Villa Sawarna?',
+      answer: 'Villa Sawarna berlokasi strategis di kawasan wisata Sawarna, dekat dengan pantai-pantai terkenal seperti Pantai Sawarna, Goa Langir, Karang Bokor, Legon Pari, dan destinasi wisata lainnya. Akses mudah dari jalan utama.'
+    },
+    {
+      id: 'checkin',
+      question: 'Jam check-in dan check-out?',
+      answer: 'Check-in: 14:00 WIB, Check-out: 11:00 WIB. Early check-in atau late check-out dapat diatur sesuai ketersediaan kamar. Silakan hubungi kami untuk permintaan khusus.'
+    },
+    {
+      id: 'capacity',
+      question: 'Berapa maksimal kapasitas per kamar?',
+      answer: 'Setiap paket dapat menampung maksimal 100 orang. Untuk group besar, kami dapat mengatur multiple kamar atau villa. Silakan konsultasi untuk kebutuhan khusus.'
+    },
+    {
+      id: 'payment',
+      question: 'Metode pembayaran apa yang tersedia?',
+      answer: 'Pembayaran dapat dilakukan via transfer bank, e-wallet, atau tunai saat check-in. DP 50% saat booking, sisanya saat check-in. Kami menerima berbagai metode pembayaran untuk kenyamanan Anda.'
     }
   ];
 
@@ -168,7 +212,7 @@ const AccommodationPackages = () => {
       />
 
       {/* Breadcrumb */}
-      <section className="py-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-gray-200/50 dark:border-gray-700/50">
+      <section className="py-6 bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm border-b border-gray-200/50 dark:border-gray-600/50">
         <div className="container-custom">
           <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300">
             <Link to="/" className="flex items-center hover:text-ocean dark:hover:text-ocean-light transition-colors">
@@ -230,24 +274,24 @@ const AccommodationPackages = () => {
           </div>
 
           {/* Packages Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
             {Object.entries(packages).map(([key, pkg]) => {
               const IconComponent = pkg.icon;
               return (
-                <Card key={key} className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm overflow-hidden">
+                <Card key={key} className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm overflow-hidden">
                   {/* Image */}
                   <div className="relative overflow-hidden">
                     <img 
                       src={pkg.image} 
                       alt={pkg.name}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-32 md:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = '/images/sawarna-beach-3.jpeg';
                       }}
                     />
-                    <div className="absolute top-4 left-4">
-                      <Badge className={`${
+                    <div className="absolute top-2 left-2 md:top-4 md:left-4">
+                      <Badge className={`text-xs md:text-sm px-2 py-1 md:px-3 md:py-1 ${
                         pkg.category === 'budget' 
                           ? 'bg-green-500 text-white' 
                           : 'bg-ocean text-white'
@@ -255,49 +299,49 @@ const AccommodationPackages = () => {
                         {pkg.category === 'budget' ? 'Budget' : 'Standard'}
                       </Badge>
               </div>
-                    <div className="absolute top-4 right-4">
+                    <div className="absolute top-2 right-2 md:top-4 md:right-4">
                       {renderStars(pkg.rating)}
                    </div>
                  </div>
                  
                   {/* Content */}
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <IconComponent className="w-5 h-5 text-ocean" />
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                  <CardContent className="p-3 md:p-6">
+                    <div className="flex items-center gap-1 md:gap-2 mb-2 md:mb-3">
+                      <IconComponent className="w-4 h-4 md:w-5 md:h-5 text-ocean" />
+                      <h3 className="text-sm md:text-xl font-bold text-gray-900 dark:text-white">
                         {pkg.name}
                              </h3>
                              </div>
                     
-                    <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                      <MapPin className="w-4 h-4" />
+                    <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-2 md:mb-3">
+                      <MapPin className="w-3 h-3 md:w-4 md:h-4" />
                       <span>{pkg.location}</span>
                  </div>
                  
-                    <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                    <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300 mb-3 md:mb-4 line-clamp-2 md:line-clamp-3">
                       {pkg.description}
                     </p>
 
                     {/* Features */}
-                    <div className="space-y-2 mb-4">
-                      <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <div className="space-y-1 md:space-y-2 mb-3 md:mb-4">
+                      <div className="text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300">
                         Kapasitas: {pkg.capacity}
                              </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                      <div className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                         Cocok untuk: {pkg.bestFor}
                                </div>
                              </div>
 
                     {/* Key Features */}
-                    <div className="space-y-2 mb-6">
-                      <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <div className="space-y-1 md:space-y-2 mb-4 md:mb-6">
+                      <div className="text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300">
                         Fasilitas Utama:
                       </div>
                       <div className="grid grid-cols-1 gap-1">
-                        {pkg.features.slice(0, 3).map((feature, index) => (
-                          <div key={index} className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                            <CheckCircle2 className="w-3 h-3 text-green-500 flex-shrink-0" />
-                            <span>{feature}</span>
+                        {pkg.features.slice(0, 2).map((feature, index) => (
+                          <div key={index} className="flex items-center gap-1 md:gap-2 text-xs text-gray-600 dark:text-gray-400">
+                            <CheckCircle2 className="w-2.5 h-2.5 md:w-3 md:h-3 text-green-500 flex-shrink-0" />
+                            <span className="line-clamp-1">{feature}</span>
                                  </div>
                                ))}
                              </div>
@@ -305,8 +349,9 @@ const AccommodationPackages = () => {
 
                     {/* CTA */}
                     <Link to={`/accommodation-packages/${pkg.id}`}>
-                      <Button className="w-full bg-ocean hover:bg-ocean/90 text-white">
-                        Lihat Detail & Kalkulasi Harga
+                      <Button className="w-full bg-ocean hover:bg-ocean/90 text-white text-xs md:text-sm py-2 md:py-3">
+                        <span className="hidden md:inline">Lihat Detail & Kalkulasi Harga</span>
+                        <span className="md:hidden">Lihat Detail</span>
                       </Button>
                     </Link>
                          </CardContent>
@@ -318,7 +363,7 @@ const AccommodationPackages = () => {
       </section>
 
       {/* FAQ & Help Section */}
-      <section className="py-12 md:py-16 bg-gradient-to-r from-ocean/5 to-coral/5">
+      <section className="py-12 md:py-16 bg-gradient-to-r from-ocean/5 to-coral/5 dark:from-ocean/10 dark:to-coral/10">
         <div className="container-custom max-w-7xl px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             {/* FAQ Section */}
@@ -334,9 +379,9 @@ const AccommodationPackages = () => {
               
               <div className="space-y-3 md:space-y-4 max-h-[600px] md:max-h-none overflow-y-auto md:overflow-visible">
                 {faqData.map((faq) => (
-                  <Card key={faq.id} className="border-0 shadow-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+                  <Card key={faq.id} className="border-0 shadow-lg bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm">
                     <CardHeader 
-                      className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors p-4 md:p-6"
+                          className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-600/50 transition-colors p-4 md:p-6"
                       onClick={() => setActiveFAQ(activeFAQ === faq.id ? null : faq.id)}
                     >
                       <div className="flex items-center justify-between">
@@ -378,7 +423,7 @@ const AccommodationPackages = () => {
                 </p>
               </div>
               
-              <Card className="border-0 shadow-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm h-full">
+              <Card className="border-0 shadow-2xl bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm h-full">
                 <CardContent className="p-6 md:p-8 text-center h-full flex flex-col justify-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-ocean to-coral text-white mb-4 md:mb-6">
                     <Phone className="w-8 h-8 md:w-10 md:h-10" />

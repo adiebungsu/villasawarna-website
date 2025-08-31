@@ -1,27 +1,25 @@
-import { buildHreflangAlternates } from '@/utils/seo';
-import { useState, useEffect } from "react";
+import React from "react";
 import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PropertyCard from "@/components/PropertyCard";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Waves } from "lucide-react";
-import { getAllProperties, getFeaturedProperties, getPopularVillas, getCheapestVillas, incrementPropertyVisit, extractMainLocation } from "@/data/properties";
+import { getAllProperties, getPopularVillas, getCheapestVillas, incrementPropertyVisit, extractMainLocation } from "@/data/properties";
 import SEO from "@/components/SEO";
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const Villas = () => {
   const { t } = useTranslation('common');
-  const [selectedLocation, setSelectedLocation] = useState("all");
-  const [popularVillas, setPopularVillas] = useState(getPopularVillas());
-  const [cheapestVillas, setCheapestVillas] = useState(getCheapestVillas());
+  const [selectedLocation, setSelectedLocation] = React.useState("all");
+  const [popularVillas, setPopularVillas] = React.useState(getPopularVillas());
+  const [cheapestVillas, setCheapestVillas] = React.useState(getCheapestVillas());
   const allProperties = getAllProperties();
   const villaProperties = allProperties.filter(property => property.type === 'villa');
   const { search } = useLocation();
 
   // Sync selectedLocation with URL parameter `location`
-  useEffect(() => {
+  React.useEffect(() => {
     const params = new URLSearchParams(search);
     const loc = (params.get('location') || '').toLowerCase();
     const allowed = ['all', 'sawarna', 'goa-langir', 'legon-pari', 'tanjung-layar', 'karang-bokor', 'pulo-manuk'];
@@ -31,7 +29,7 @@ const Villas = () => {
   }, [search]);
 
   // Update popular villas setiap kali halaman dimuat
-  useEffect(() => {
+  React.useEffect(() => {
     setPopularVillas(getPopularVillas());
     setCheapestVillas(getCheapestVillas());
   }, []);
@@ -64,7 +62,6 @@ const Villas = () => {
         keywords={t('villasPage.seo.keywords', 'villa sawarna, rent villa sawarna, beachfront villa sawarna, exclusive villas, goa langir, tanjung layar, legon pari, karang bokor, pulo manuk')}
         url="https://villasawarna.com/villas"
         type="website"
-        hreflangAlternates={buildHreflangAlternates('/villas')}
       />
       
       <Navbar />
@@ -190,42 +187,42 @@ const Villas = () => {
                         </p>
                       </>
                     )}
-              </div>
-              
+                  </div>
+                  
                   {/* Daftar Villa */}
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
                     {properties.length > 0 ? (
                       properties.map((property) => (
                         <div key={property.id} onClick={() => handleVillaClick(property.id)}>
-                        <PropertyCard
-                          id={property.id}
-                          name={property.name}
-                          type={property.type}
-                          image={property.mainImages?.[0] || property.image}
-                          price={property.price}
-                          rating={property.rating}
-                          location={property.location}
-                          capacity={property.capacity}
-                          reviews={property.reviews}
-                          bedrooms={property.bedrooms}
-                          bathrooms={property.bathrooms}
-                          amenities={property.amenities}
-                          description={property.description}
-                          tags={property.tags || []}
-                          mainImages={property.mainImages || []}
-                          roomTypes={property.roomTypes || []}
-                          nearbyAttractions={property.nearbyAttractions || []}
-                          ratingSummary={property.ratingSummary}
-                          propertyReviews={property.propertyReviews || []}
-                        />
+                          <PropertyCard
+                            id={property.id}
+                            name={property.name}
+                            type={property.type}
+                            image={property.mainImages?.[0] || property.image}
+                            price={property.price}
+                            rating={property.rating}
+                            location={property.location}
+                            capacity={property.capacity}
+                            reviews={property.reviews}
+                            bedrooms={property.bedrooms}
+                            bathrooms={property.bathrooms}
+                            amenities={property.amenities}
+                            description={property.description}
+                            tags={property.tags || []}
+                            mainImages={property.mainImages || []}
+                            roomTypes={property.roomTypes || []}
+                            nearbyAttractions={property.nearbyAttractions || []}
+                            ratingSummary={property.ratingSummary}
+                            propertyReviews={property.propertyReviews || []}
+                          />
                         </div>
                       ))
                     ) : (
                       <div className="col-span-2 text-center py-12">
                         <p className="text-gray-500 dark:text-gray-400">
-                          {t('villasPage.empty', 'No villas available in this location.')}
+                          {t('villasPage.noVillas', 'No villas found in this location.')}
                         </p>
-                    </div>
+                      </div>
                     )}
                   </div>
                 </div>

@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import FeaturedProperties from "@/components/FeaturedProperties";
 import FeaturedDestinations from "@/components/FeaturedDestinations";
 import FavoriteLocations from "@/components/FavoriteLocations";
-import { Hotel, MapPin, Umbrella, Wifi, Star, TreePalm, Utensils, Clock, Pizza, MapPinHouse, Truck, Calendar, User, Shield, MessageSquare, Percent, Icon, Building2, Home, Newspaper, Navigation, Users, CreditCard } from "lucide-react";
+import { Hotel, MapPin, Umbrella, Wifi, Star, TreePalm, Utensils, Clock, Pizza, MapPinHouse, Truck, Calendar, User, Shield, MessageSquare, Percent, Icon, Building2, Home, Newspaper, Navigation, Users, CreditCard, Tent } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SEO from '@/components/SEO';
 import OptimizedImage from '@/components/OptimizedImage';
@@ -167,25 +167,22 @@ const Index = () => {
 
   // Effect untuk menampilkan WelcomeModal saat halaman dimuat
   useEffect(() => {
-    console.log('useEffect di Index.tsx berjalan');
     const hasSeenModal = sessionStorage.getItem('hasSeenWelcomeModal');
-    console.log('Nilai sessionStorage "hasSeenModal":', hasSeenModal);
-
-    // Untuk testing - hapus baris ini jika sudah tidak diperlukan
-    sessionStorage.removeItem('hasSeenWelcomeModal');
 
     if (!hasSeenModal) {
-      console.log('hasSeenModal tidak ditemukan di sessionStorage, menampilkan modal');
       setIsWelcomeModalOpen(true);
       sessionStorage.setItem('hasSeenWelcomeModal', 'true');
-    } else {
-      console.log('hasSeenModal ditemukan di sessionStorage, tidak menampilkan modal');
     }
   }, []);
 
   const handleCloseWelcomeModal = () => {
     setIsWelcomeModalOpen(false);
-    setIsCornerOpen(true);
+    // Cek apakah CornerWelcome sudah pernah ditampilkan
+    const hasSeenCorner = sessionStorage.getItem('hasSeenCornerWelcome');
+    if (!hasSeenCorner) {
+      setIsCornerOpen(true);
+      sessionStorage.setItem('hasSeenCornerWelcome', 'true');
+    }
   };
 
   const handleCloseCorner = () => {
@@ -529,6 +526,335 @@ const Index = () => {
         </section>
 
         <PromoSection />
+        
+        {/* Paket Menginap Section */}
+        <section className="py-16 bg-white dark:bg-gray-900">
+          <div className="container-custom max-w-7xl px-4">
+            {/* Header */}
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-ocean text-white mb-4 md:mb-6">
+                <Building2 className="w-6 h-6 md:w-8 md:h-8" />
+              </div>
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4">
+                Paket Menginap
+                <span className="block text-ocean dark:text-ocean-light">
+                  Sawarna
+                </span>
+              </h2>
+              <p className="text-sm md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Pilih paket menginap yang sesuai dengan kebutuhan Anda. Dari backpacker hingga premium, 
+                semua dilengkapi dengan kalkulator harga yang transparan.
+              </p>
+            </div>
+
+            {/* Package Cards */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-8">
+              {/* Paket Backpacker */}
+              <div className="group relative overflow-hidden rounded-xl md:rounded-2xl bg-white dark:bg-gray-800 shadow-lg md:shadow-xl hover:shadow-xl md:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 md:hover:-translate-y-2 border border-gray-200 dark:border-gray-700">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src="/images/paket-backpaker.webp" 
+                    alt="Paket Backpacker"
+                    className="w-full h-20 md:h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = '/images/sawarna-beach-3.jpeg';
+                    }}
+                  />
+                  <div className="absolute top-1 left-1 md:top-4 md:left-4">
+                    <Badge className="bg-ocean text-white font-semibold text-xs md:text-sm px-1.5 py-0.5 md:px-3 md:py-1">
+                      Budget
+                    </Badge>
+                  </div>
+                  <div className="absolute top-1 right-1 md:top-4 md:right-4">
+                    <div className="flex items-center gap-1 bg-black/50 backdrop-blur-sm rounded-full px-1 py-0.5 md:px-2 md:py-1">
+                      <Star className="w-2.5 h-2.5 md:w-4 md:h-4 text-yellow-400 fill-yellow-400" />
+                      <span className="text-white text-xs md:text-sm font-medium">4.5</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-2 md:p-6">
+                  <div className="flex items-center gap-1 md:gap-2 mb-1 md:mb-3">
+                    <Tent className="w-2.5 h-2.5 md:w-5 md:h-5 text-ocean" />
+                    <h3 className="text-xs md:text-xl font-bold text-gray-900 dark:text-white">
+                      Paket Backpacker
+                    </h3>
+                  </div>
+                  
+                  <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-1 md:mb-3">
+                    <MapPin className="w-2 h-2 md:w-4 md:h-4" />
+                    <span>Desa Sawarna</span>
+                  </div>
+                  
+                  <p className="text-gray-600 dark:text-gray-300 mb-1 md:mb-4 line-clamp-1 md:line-clamp-3 text-xs md:text-base">
+                    Paket ekonomis untuk backpacker dengan fasilitas sederhana dan lokasi strategis dekat pantai.
+                  </p>
+
+                  <div className="space-y-1 md:space-y-3 mb-2 md:mb-6">
+                    <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm">
+                      <Users className="w-2 h-2 md:w-4 md:h-4 text-gray-500" />
+                      <span className="text-gray-700 dark:text-gray-300">1-100 orang</span>
+                    </div>
+                    <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm">
+                      <Wifi className="w-2 h-2 md:w-4 md:h-4 text-gray-500" />
+                      <span className="text-gray-700 dark:text-gray-300">WiFi, Kipas Angin</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between mb-2 md:mb-4">
+                    <div className="text-sm md:text-2xl font-bold text-ocean dark:text-ocean-light">
+                      Mulai Rp 300K
+                    </div>
+                    <div className="text-xs md:text-sm text-gray-500">
+                      per malam
+                    </div>
+                  </div>
+
+                  <Link to="/accommodation-packages/budget-1">
+                    <Button className="w-full bg-ocean hover:bg-ocean/90 text-white font-semibold py-1 md:py-3 text-xs md:text-base transition-all duration-300 transform hover:scale-105">
+                      Lihat Detail
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Paket Keluarga Hemat */}
+              <div className="group relative overflow-hidden rounded-xl md:rounded-2xl bg-white dark:bg-gray-800 shadow-lg md:shadow-xl hover:shadow-xl md:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 md:hover:-translate-y-2 border border-gray-200 dark:border-gray-700">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src="/images/paket-keluarga-hemat.webp" 
+                    alt="Paket Keluarga Hemat"
+                    className="w-full h-20 md:h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = '/images/sawarna-beach-3.jpeg';
+                    }}
+                  />
+                  <div className="absolute top-1 left-1 md:top-4 md:left-4">
+                    <Badge className="bg-coral text-white font-semibold text-xs md:text-sm px-1.5 py-0.5 md:px-3 md:py-1">
+                      Family
+                    </Badge>
+                  </div>
+                  <div className="absolute top-1 right-1 md:top-4 md:right-4">
+                    <div className="flex items-center gap-1 bg-black/50 backdrop-blur-sm rounded-full px-1 py-0.5 md:px-2 md:py-1">
+                      <Star className="w-2.5 h-2.5 md:w-4 md:h-4 text-yellow-400 fill-yellow-400" />
+                      <span className="text-white text-xs md:text-sm font-medium">4.6</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-2 md:p-6">
+                  <div className="flex items-center gap-1 md:gap-2 mb-1 md:mb-3">
+                    <Hotel className="w-2.5 h-2.5 md:w-5 md:h-5 text-coral" />
+                    <h3 className="text-xs md:text-xl font-bold text-gray-900 dark:text-white">
+                      Paket Keluarga Hemat
+                    </h3>
+                  </div>
+                  
+                  <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-1 md:mb-3">
+                    <MapPin className="w-2 h-2 md:w-4 md:h-4" />
+                    <span>Kawasan Wisata Sawarna</span>
+                  </div>
+                  
+                  <p className="text-gray-600 dark:text-gray-300 mb-1 md:mb-4 line-clamp-1 md:line-clamp-3 text-xs md:text-base">
+                    Paket hemat untuk keluarga dengan fasilitas lengkap dan area bermain anak.
+                  </p>
+
+                  <div className="space-y-1 md:space-y-3 mb-2 md:mb-6">
+                    <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm">
+                      <Users className="w-2 h-2 md:w-4 md:h-4 text-gray-500" />
+                      <span className="text-gray-700 dark:text-gray-300">1-100 orang</span>
+                    </div>
+                    <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm">
+                      <Wifi className="w-2 h-2 md:w-4 md:h-4 text-gray-500" />
+                      <span className="text-gray-700 dark:text-gray-300">AC, WiFi, Area Bermain</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between mb-2 md:mb-4">
+                    <div className="text-sm md:text-2xl font-bold text-coral dark:text-coral-light">
+                      Mulai Rp 350K
+                    </div>
+                    <div className="text-xs md:text-sm text-gray-500">
+                      per malam
+                    </div>
+                  </div>
+
+                  <Link to="/accommodation-packages/budget-2">
+                    <Button className="w-full bg-coral hover:bg-coral/90 text-white font-semibold py-1 md:py-3 text-xs md:text-base transition-all duration-300 transform hover:scale-105">
+                      Lihat Detail
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Paket Lengkap */}
+              <div className="group relative overflow-hidden rounded-xl md:rounded-2xl bg-white dark:bg-gray-800 shadow-lg md:shadow-xl hover:shadow-xl md:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 md:hover:-translate-y-2 border border-gray-200 dark:border-gray-700">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src="/images/paket-lengkap.webp" 
+                    alt="Paket Lengkap"
+                    className="w-full h-20 md:h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = '/images/sawarna-beach-3.jpeg';
+                    }}
+                  />
+                  <div className="absolute top-1 left-1 md:top-4 md:left-4">
+                    <Badge className="bg-ocean text-white font-semibold text-xs md:text-sm px-1.5 py-0.5 md:px-3 md:py-1">
+                      Premium
+                    </Badge>
+                  </div>
+                  <div className="absolute top-1 right-1 md:top-4 md:right-4">
+                    <div className="flex items-center gap-1 bg-black/50 backdrop-blur-sm rounded-full px-1 py-0.5 md:px-2 md:py-1">
+                      <Star className="w-2.5 h-2.5 md:w-4 md:h-4 text-yellow-400 fill-yellow-400" />
+                      <span className="text-white text-xs md:text-sm font-medium">4.8</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-2 md:p-6">
+                  <div className="flex items-center gap-1 md:gap-2 mb-1 md:mb-3">
+                    <Building2 className="w-2.5 h-2.5 md:w-5 md:h-5 text-ocean" />
+                    <h3 className="text-xs md:text-xl font-bold text-gray-900 dark:text-white">
+                      Paket Lengkap
+                    </h3>
+                  </div>
+                  
+                  <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-1 md:mb-3">
+                    <MapPin className="w-2 h-2 md:w-4 md:h-4" />
+                    <span>Villa Premium Sawarna</span>
+                  </div>
+                  
+                  <p className="text-gray-600 dark:text-gray-300 mb-1 md:mb-4 line-clamp-1 md:line-clamp-3 text-xs md:text-base">
+                    Paket lengkap dengan villa premium, AC dan fasilitas lengkap untuk pengalaman menginap terbaik.
+                  </p>
+
+                  <div className="space-y-1 md:space-y-3 mb-2 md:mb-6">
+                    <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm">
+                      <Users className="w-2 h-2 md:w-4 md:h-4 text-gray-500" />
+                      <span className="text-gray-700 dark:text-gray-300">1-100 orang</span>
+                    </div>
+                    <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm">
+                      <Wifi className="w-2 h-2 md:w-4 md:h-4 text-gray-500" />
+                      <span className="text-gray-700 dark:text-gray-300">AC, WiFi, Villa Private</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between mb-2 md:mb-4">
+                    <div className="text-sm md:text-2xl font-bold text-ocean dark:text-ocean-light">
+                      Mulai Rp 400K
+                    </div>
+                    <div className="text-xs md:text-sm text-gray-500">
+                      per malam
+                    </div>
+                  </div>
+
+                  <Link to="/accommodation-packages/standard-1">
+                    <Button className="w-full bg-ocean hover:bg-ocean/90 text-white font-semibold py-1 md:py-3 text-xs md:text-base transition-all duration-300 transform hover:scale-105">
+                      Lihat Detail
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Paket Backpacker Plus */}
+              <div className="group relative overflow-hidden rounded-xl md:rounded-2xl bg-white dark:bg-gray-800 shadow-lg md:shadow-xl hover:shadow-xl md:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 md:hover:-translate-y-2 border border-gray-200 dark:border-gray-700">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src="/images/paket-backpaker.webp" 
+                    alt="Paket Backpacker Plus"
+                    className="w-full h-20 md:h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = '/images/sawarna-beach-3.jpeg';
+                    }}
+                  />
+                  <div className="absolute top-1 left-1 md:top-4 md:left-4">
+                    <Badge className="bg-coral text-white font-semibold text-xs md:text-sm px-1.5 py-0.5 md:px-3 md:py-1">
+                      Budget Plus
+                    </Badge>
+                  </div>
+                  <div className="absolute top-1 right-1 md:top-4 md:right-4">
+                    <div className="flex items-center gap-1 bg-black/50 backdrop-blur-sm rounded-full px-1 py-0.5 md:px-2 md:py-1">
+                      <Star className="w-2.5 h-2.5 md:w-4 md:h-4 text-yellow-400 fill-yellow-400" />
+                      <span className="text-white text-xs md:text-sm font-medium">4.4</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-2 md:p-6">
+                  <div className="flex items-center gap-1 md:gap-2 mb-1 md:mb-3">
+                    <Tent className="w-2.5 h-2.5 md:w-5 md:h-5 text-coral" />
+                    <h3 className="text-xs md:text-xl font-bold text-gray-900 dark:text-white">
+                      Paket Backpacker Plus
+                    </h3>
+                  </div>
+                  
+                  <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-1 md:mb-3">
+                    <MapPin className="w-2 h-2 md:w-4 md:h-4" />
+                    <span>Kawasan Wisata Sawarna</span>
+                  </div>
+                  
+                  <p className="text-gray-600 dark:text-gray-300 mb-1 md:mb-4 line-clamp-1 md:line-clamp-3 text-xs md:text-base">
+                    Paket backpacker dengan fasilitas tambahan, ideal untuk traveler yang ingin lebih nyaman dengan budget terjangkau.
+                  </p>
+
+                  <div className="space-y-1 md:space-y-3 mb-2 md:mb-6">
+                    <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm">
+                      <Users className="w-2 h-2 md:w-4 md:h-4 text-gray-500" />
+                      <span className="text-gray-700 dark:text-gray-300">1-100 orang</span>
+                    </div>
+                    <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm">
+                      <Wifi className="w-2 h-2 md:w-4 md:h-4 text-gray-500" />
+                      <span className="text-gray-700 dark:text-gray-300">WiFi, Area Outdoor</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between mb-2 md:mb-4">
+                    <div className="text-sm md:text-2xl font-bold text-coral dark:text-coral-light">
+                      Mulai Rp 300K
+                    </div>
+                    <div className="text-xs md:text-sm text-gray-500">
+                      per malam
+                    </div>
+                  </div>
+
+                  <Link to="/accommodation-packages/budget-3">
+                    <Button className="w-full bg-coral hover:bg-coral/90 text-white font-semibold py-1 md:py-3 text-xs md:text-base transition-all duration-300 transform hover:scale-105">
+                      Lihat Detail
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Section */}
+            <div className="text-center mt-8 md:mt-12">
+              <div className="bg-ocean/5 dark:bg-ocean/10 rounded-xl md:rounded-2xl p-6 md:p-8 border border-ocean/20">
+                <h3 className="text-xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4">
+                  Butuh Paket Custom?
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4 md:mb-6 max-w-2xl mx-auto text-sm md:text-base">
+                  Tim kami siap membantu membuat paket menginap yang sempurna sesuai kebutuhan dan budget Anda.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
+                  <Link to="/accommodation-packages">
+                    <Button size="lg" className="bg-ocean hover:bg-ocean/90 text-white font-semibold px-6 md:px-8 py-2 md:py-3 text-sm md:text-base">
+                      Lihat Semua Paket
+                    </Button>
+                  </Link>
+                  <a href="https://wa.me/6283877080088" target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" size="lg" className="border-ocean text-ocean hover:bg-ocean hover:text-white font-semibold px-6 md:px-8 py-2 md:py-3 text-sm md:text-base">
+                      Konsultasi WhatsApp
+                    </Button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         
         {/* Transport Services Card - After Promo Section */}
         <section className="py-8 md:py-12 bg-gradient-to-br from-blue-50 via-white to-green-50 dark:from-blue-900/20 dark:via-gray-900 dark:to-green-900/20">
